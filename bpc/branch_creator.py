@@ -40,18 +40,31 @@ class BranchCreator:
         """
         verteices_value={}
         vetices_num_colored_for_each_partition={}
-        for k,v in self.solution.items():
-            column=k
-            value=v
-            if value>0:
-                for vertex in column.vertex_list:
-                    if vertex.associated_partition not in vetices_num_colored_for_each_partition:
-                        vetices_num_colored_for_each_partition[vertex.associated_partition]=[]
-                    if vertex not in vetices_num_colored_for_each_partition[vertex.associated_partition]:
-                        vetices_num_colored_for_each_partition[vertex.associated_partition].append(vertex)
-                    if vertex not in verteices_value:
-                        verteices_value[vertex]=0
-                    verteices_value[vertex]+=value
+        for column, value in self.solution.items():
+            if value <= 1e-9:
+                continue
+
+            for vertex in column.vertex_list:
+                # 跳过没有单一所属分区的合并顶点
+                if not hasattr(vertex, "associated_partition"):
+                    continue
+
+                partition = vertex.associated_partition
+
+                if partition not in vetices_num_colored_for_each_partition:
+                    vetices_num_colored_for_each_partition[partition] = []
+
+                if vertex not in \
+                        vetices_num_colored_for_each_partition[partition]:
+                    vetices_num_colored_for_each_partition[
+                        partition
+                    ].append(vertex)
+
+                verteices_value[vertex] = (
+                    verteices_value.get(vertex, 0.0) + value
+                )
+        if not vetices_num_colored_for_each_partition:
+            return False       
         max_num_colored_partition=max(vetices_num_colored_for_each_partition.items(),key=lambda x:len(x[1]))
         
         if len(max_num_colored_partition[1])>1:
