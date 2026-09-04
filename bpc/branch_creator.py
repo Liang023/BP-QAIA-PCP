@@ -92,6 +92,15 @@ class BranchCreator:
             return True        
         return False
     
-    def create_branch_rule2(self)->Tuple[BranchingDecision,BranchingDecision]:
+    def create_branch_rule2(self) -> Tuple[BranchingDecision, BranchingDecision]:
         """创建规则2的二叉分支：同色 / 异色。"""
-        return SameColor(self.a_graph,self.checked_vertex_v,self.checked_vertex_u),DifferentColor(self.a_graph,self.checked_vertex_v,self.checked_vertex_u)
+
+        vertex_pair = (
+            self.checked_vertex_v,
+            self.checked_vertex_u
+        )
+
+        return (
+            SameColor(vertex_pair),
+            DifferentColor(vertex_pair)
+        )

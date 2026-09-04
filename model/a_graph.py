@@ -225,9 +225,24 @@ class AuxiliaryGraph:
             self.auxiliary_edges.append(new_edge)
     
     def copy(self):
-        return AuxiliaryGraph(
+        copied_edges = [
+            Edge(edge.source, edge.target)
+            for edge in self.auxiliary_edges
+        ]
+
+        copied_merged_vertices_map = {
+            merged_vertex: list(original_vertices)
+            for merged_vertex, original_vertices
+            in self.merged_vertices_map.items()
+        }
+
+        copied_graph = AuxiliaryGraph(
             graph=self.graph,
             vertices_map=self.vertices_map.copy(),
-            auxiliary_edges=self.auxiliary_edges.copy(),
-            merged_vertices_map=self.merged_vertices_map.copy()
+            auxiliary_edges=copied_edges,
+            merged_vertices_map=copied_merged_vertices_map
         )
+
+        copied_graph.weight_v = self.weight_v.copy()
+
+        return copied_graph
