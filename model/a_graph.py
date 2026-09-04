@@ -169,48 +169,113 @@ class AuxiliaryGraph:
                 if e.source != vertex and e.target != vertex
             ]
             # print(len(self.vertices_map), sorted(self.vertices_map.keys()))
-            
+
+    def get_original_vertices(self, vertex: Vertex):
+        """
+        返回普通顶点或合并顶点代表的全部原始顶点。
+        支持递归展开旧代码可能产生的嵌套合并。
+        """
+        if vertex not in self.merged_vertices_map:
+            return [vertex]
+
+        original_vertices = []
+
+        for child in self.merged_vertices_map[vertex]:
+            original_vertices.extend(
+                self.get_original_vertices(child)
+            )
+
+        # 按顶点ID去重
+        unique_vertices = {}
+
+        for original_vertex in original_vertices:
+            unique_vertices[original_vertex.id] = original_vertex
+
+        return list(unique_vertices.values())  
+             
     def same_color(self, vertex_v: Vertex, vertex_u: Vertex):
         """
-        强制两个顶点使用相同颜色，将两个顶点合并为一个新顶点。
+        通过顶点收缩实现同色分支，不向定价子问题添加约束。
         """
 
-        # 1. 创建合并顶点
-        end_time = max(vertex_v.end_time, vertex_u.end_time)
+        # 展开两个活动顶点代表的全部原始顶点
+        original_vertices_v = self.get_original_vertices(vertex_v)
+        original_vertices_u = self.get_original_vertices(vertex_u)
+
+        merged_original_vertices = {
+            vertex.id: vertex
+            for vertex in original_vertices_v + original_vertices_u
+        }
+
+        merged_original_vertices = list(
+            merged_original_vertices.values()
+        )
+
+        # 创建新的合并顶点
+        end_time = max(
+            vertex.end_time
+            for vertex in merged_original_vertices
+        )
+
         vertex_z = Vertex(end_time)
 
-        # 2. 在删除原顶点前保存权重
-        weight_v = self.weight_v.get(vertex_v.id, 0.0)
-        weight_u = self.weight_v.get(vertex_u.id, 0.0)
+        # 删除旧顶点前保存当前权重
+        merged_weight = (
+            self.weight_v.get(vertex_v.id, 0.0)
+            + self.weight_v.get(vertex_u.id, 0.0)
+        )
 
-        # 3. 添加合并顶点及其权重
-        self.vertices_map[vertex_z.id] = vertex_z
-        self.weight_v[vertex_z.id] = weight_v + weight_u
+        # 把旧边端点替换为新合并顶点
+        new_edges = []
+        existing_edges = set()
 
-        # 4. 把原来连接vertex_v和vertex_u的边转移到vertex_z
         for edge in self.auxiliary_edges:
-            if edge.source == vertex_v or edge.source == vertex_u:
-                edge.source = vertex_z
+            source = (
+                vertex_z
+                if edge.source in (vertex_v, vertex_u)
+                else edge.source
+            )
 
-            if edge.target == vertex_v or edge.target == vertex_u:
-                edge.target = vertex_z
+            target = (
+                vertex_z
+                if edge.target in (vertex_v, vertex_u)
+                else edge.target
+            )
 
-        # 5. 移除合并后产生的自环
-        self.auxiliary_edges = [
-            edge
-            for edge in self.auxiliary_edges
-            if edge.source != edge.target
-        ]
+            # 删除合并产生的自环
+            if source == target:
+                continue
 
-        # 6. 移除原来的两个顶点
-        self.remove_vertex(vertex_v)
-        self.remove_vertex(vertex_u)
+            edge_key = tuple(sorted((source.id, target.id)))
 
-        # 7. 记录合并关系
-        self.merged_vertices_map[vertex_z] = [
-            vertex_v,
-            vertex_u
-        ]
+            # 删除重复边
+            if edge_key in existing_edges:
+                continue
+
+            existing_edges.add(edge_key)
+            new_edges.append(Edge(source, target))
+
+        self.auxiliary_edges = new_edges
+
+        # 从活动顶点中删除旧代表顶点
+        self.vertices_map.pop(vertex_v.id, None)
+        self.vertices_map.pop(vertex_u.id, None)
+
+        self.weight_v.pop(vertex_v.id, None)
+        self.weight_v.pop(vertex_u.id, None)
+
+        # 删除旧的合并映射，防止嵌套
+        self.merged_vertices_map.pop(vertex_v, None)
+        self.merged_vertices_map.pop(vertex_u, None)
+
+        # 添加新的活动合并顶点
+        self.vertices_map[vertex_z.id] = vertex_z
+        self.weight_v[vertex_z.id] = merged_weight
+
+        # 始终扁平保存原始顶点
+        self.merged_vertices_map[vertex_z] = (
+            merged_original_vertices
+        )
         
     def different_color(self, vertex_v: Vertex, vertex_u: Vertex):
         """

@@ -23,6 +23,47 @@ class BranchCreator:
         self.checked_vertex=None
         self.a_graph=a_graph
 
+    def _get_partition_ids(self, vertex):
+        """取得普通顶点或合并顶点代表的全部分区ID。"""
+
+        original_vertices = (
+            self.a_graph.get_original_vertices(vertex)
+        )
+
+        return {
+            original_vertex.associated_partition.id
+            for original_vertex in original_vertices
+        }
+
+
+    def _column_contains_vertex(self, column, vertex):
+        """
+        判断一列是否包含某个活动顶点。
+
+        对合并顶点，要求该列包含其代表的全部原始顶点。
+        """
+        required_vertices = {
+            original_vertex.id
+            for original_vertex
+            in self.a_graph.get_original_vertices(vertex)
+        }
+
+        column_original_vertices = set()
+
+        for column_vertex in column.vertex_list:
+            originals = self.a_graph.get_original_vertices(
+                column_vertex
+            )
+
+            column_original_vertices.update(
+                original_vertex.id
+                for original_vertex in originals
+            )
+
+        return required_vertices.issubset(
+            column_original_vertices
+        )
+
     def create_branch(self)->Tuple[BranchingDecision,BranchingDecision]:
         """根据规则依次尝试生成分支决策。"""
         if self.check_branch_rule1():
@@ -84,26 +125,67 @@ class BranchCreator:
         """创建规则1的二叉分支：强制该顶点 / 禁止该顶点。"""
         return ImposedVertex(checked_vertex),ForbidVertex(checked_vertex)
     
-    def check_branch_rule2(self)->bool:
-        """规则2检测：跨分区两顶点的联合选择值为非整数时分支。"""
-        max_fraction=0
-        for vertex_v in self.a_graph.vertices_map.values():
-            for vertex_u in self.a_graph.vertices_map.values():
-                if vertex_v.associated_partition.id == vertex_u.associated_partition.id:
+    def check_branch_rule2(self) -> bool:
+        """
+        规则2：寻找联合选择值为分数的两个活动顶点。
+
+        普通顶点使用一个分区；
+        合并顶点使用其全部原始顶点对应的分区集合。
+        """
+        best_fractionality = 0.0
+        checked_pair = None
+
+        active_vertices = list(
+            self.a_graph.vertices_map.values()
+        )
+
+        for index, vertex_v in enumerate(active_vertices):
+            partition_ids_v = self._get_partition_ids(vertex_v)
+
+            for vertex_u in active_vertices[index + 1:]:
+                partition_ids_u = self._get_partition_ids(vertex_u)
+
+                # 包含相同原始分区的两个活动顶点不能再做同色分支
+                if partition_ids_v.intersection(partition_ids_u):
                     continue
-                gamma=0
-                for column in self.solution.keys():
-                    if vertex_v in column.vertex_list and vertex_u in column.vertex_list:
-                        gamma+=self.solution[column]
-                if gamma != int(gamma) and gamma>max_fraction:  # Check if gamma is fractional
-                    max_fraction=gamma
-                    checked_vertex_v=vertex_v
-                    checked_vertex_u=vertex_u
-        if max_fraction>0:
-            self.checked_vertex_v=checked_vertex_v
-            self.checked_vertex_u=checked_vertex_u
-            return True        
-        return False
+
+                gamma = 0.0
+
+                for column, column_value in self.solution.items():
+                    contains_v = self._column_contains_vertex(
+                        column,
+                        vertex_v
+                    )
+                    contains_u = self._column_contains_vertex(
+                        column,
+                        vertex_u
+                    )
+
+                    if contains_v and contains_u:
+                        gamma += column_value
+
+                fractionality = abs(
+                    gamma - round(gamma)
+                )
+
+                if fractionality > best_fractionality + 1e-8:
+                    best_fractionality = fractionality
+                    checked_pair = (vertex_v, vertex_u)
+
+        if checked_pair is None:
+            return False
+
+        self.checked_vertex_v = checked_pair[0]
+        self.checked_vertex_u = checked_pair[1]
+
+        print(
+            f"规则2分支: "
+            f"vertices={self.checked_vertex_v.id}-"
+            f"{self.checked_vertex_u.id}, "
+            f"fractionality={best_fractionality:.6f}"
+        )
+
+        return True
     
     def create_branch_rule2(self) -> Tuple[BranchingDecision, BranchingDecision]:
         """创建规则2的二叉分支：同色 / 异色。"""
