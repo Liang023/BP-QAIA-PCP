@@ -105,8 +105,11 @@ class ExactPricingSolver:
         columns = []
 
         # 检查是否有解
-        if self.model.status != grb.GRB.OPTIMAL and self.model.SolCount == 0:
-            return columns
+        if self.model.Status != grb.GRB.OPTIMAL and self.model.SolCount == 0:
+            raise RuntimeError(
+                "Exact Pricing没有获得可行解，也没有取得最优性证明。"
+                f"Gurobi status={self.model.Status}"
+            )
 
         # 获取解池中的解数量
         solution_num = self.model.SolCount
@@ -144,6 +147,13 @@ class ExactPricingSolver:
 
             # 断言校验：将校验逻辑与主流程解耦
             self._assert_reduced_cost_consistency(rc, new_column)
+
+        if len(columns) == 0 and self.model.Status != grb.GRB.OPTIMAL:
+            raise RuntimeError(
+                "Exact Pricing没有生成改进列，但求解状态不是OPTIMAL，"
+                f"Gurobi status={self.model.Status}"
+            )
+        
         return columns
     def _update_dual(self):
         """从定价问题对象中同步对偶值。"""

@@ -164,8 +164,15 @@ class BranchAndPrice:
             print(f"剪枝节点数: {stats['nodes_pruned']}")
             print(f"总求解时间: {stats['total_solve_time']:.2f}秒")
             
+            if self.optimal and self.best_solution is not None:
+                final_status = "optimal"
+            elif self.best_solution is not None:
+                final_status = "feasible_not_proven"
+            else:
+                final_status = "no_solution"
+
             return {
-                "status": "optimal" if self.best_solution else "no_solution",
+                "status": final_status,
                 "objective_value": self.best_objective,
                 "solution": self.best_solution,
                 "statistics": stats

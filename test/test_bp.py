@@ -18,7 +18,7 @@ def test_branch_and_price_from_pcp():
     # 注意：这里的 charger_num 需要由调用者显式给出，
     # 真实 EV 算例应优先通过 ev.ev_to_pcp.load_ev_instance 从 JSON 中读取。
     charger_num = 20  # TODO: 根据具体算例含义调整或从外部配置读取
-    instance = read_pcp_instance("data/Table2_random_instances/n60p5t2s3.pcp", charger_num=charger_num)
+    instance = read_pcp_instance("data/ev_instances/ev_V10_C2_T12_dur1_vpc5.json", charger_num=charger_num)
     graph = instance.graph
     charger_num = instance.charger_num
 
@@ -36,19 +36,24 @@ def test_branch_and_price_from_pcp():
 
 
 def test_branch_and_price_from_ev():
-    """从 EV 算例读取并测试分支定价算法。"""
+    ev_path = "data/ev_instances/ev_V10_C2_T12_dur1_vpc5.json"
 
-    # 选择一个已生成的 EV JSON 文件
-    ev_path = "data/ev_instances/ev_V20_C4_T12_dur1_vpc5.json"
     instance = load_ev_instance(ev_path)
     graph = instance.graph
     charger_num = instance.charger_num
 
-    print(instance)
+    print(f"测试算例: {instance}")
+    print(f"是否启用QAIA: {USE_QAIA}")
+    print(f"车辆数量: {len(graph.partitions)}")
+    print(f"充电桩数量: {charger_num}")
 
-    bp = BranchAndPrice(graph, charger_num, time_limit=3600, use_qaia=USE_QAIA)
-    result = bp.solve()
-    return result
+    bp = BranchAndPrice(
+        graph,
+        charger_num,
+        time_limit=3600,
+        use_qaia=USE_QAIA
+    )
+    return bp.solve()
 
 if __name__ == "__main__":
     # 默认运行 EV 算例测试；如需运行传统 PCP 测试，可调用 test_branch_and_price()
