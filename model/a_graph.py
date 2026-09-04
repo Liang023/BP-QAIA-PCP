@@ -169,37 +169,48 @@ class AuxiliaryGraph:
                 if e.source != vertex and e.target != vertex
             ]
             # print(len(self.vertices_map), sorted(self.vertices_map.keys()))
+            
     def same_color(self, vertex_v: Vertex, vertex_u: Vertex):
         """
-        强制两个顶点使用相同颜色
-        
-        创建一个新的合并顶点来代表这两个顶点，并更新所有相关的边。
-        新的合并顶点会记录其包含的原始顶点，供后续操作（如权重、移除）使用。
-        
-        Args:
-            vertex_v: 第一个顶点
-            vertex_u: 第二个顶点
+        强制两个顶点使用相同颜色，将两个顶点合并为一个新顶点。
         """
-        # 创建新的合并顶点
-        end_time=max(vertex_v.end_time, vertex_u.end_time)
+
+        # 1. 创建合并顶点
+        end_time = max(vertex_v.end_time, vertex_u.end_time)
         vertex_z = Vertex(end_time)
+
+        # 2. 在删除原顶点前保存权重
+        weight_v = self.weight_v.get(vertex_v.id, 0.0)
+        weight_u = self.weight_v.get(vertex_u.id, 0.0)
+
+        # 3. 添加合并顶点及其权重
         self.vertices_map[vertex_z.id] = vertex_z
-        
-        # 更新所有边，将涉及到这两个顶点的边都指向新顶点
+        self.weight_v[vertex_z.id] = weight_v + weight_u
+
+        # 4. 把原来连接vertex_v和vertex_u的边转移到vertex_z
         for edge in self.auxiliary_edges:
             if edge.source == vertex_v or edge.source == vertex_u:
                 edge.source = vertex_z
+
             if edge.target == vertex_v or edge.target == vertex_u:
                 edge.target = vertex_z
-        
-        # 移除原来的两个顶点
+
+        # 5. 移除合并后产生的自环
+        self.auxiliary_edges = [
+            edge
+            for edge in self.auxiliary_edges
+            if edge.source != edge.target
+        ]
+
+        # 6. 移除原来的两个顶点
         self.remove_vertex(vertex_v)
         self.remove_vertex(vertex_u)
-        
-        # 在合并映射中记录这个操作
-        if vertex_z not in self.merged_vertices_map:
-            self.merged_vertices_map[vertex_z] = []
-        self.merged_vertices_map[vertex_z].extend([vertex_v, vertex_u])
+
+        # 7. 记录合并关系
+        self.merged_vertices_map[vertex_z] = [
+            vertex_v,
+            vertex_u
+        ]
         
     def different_color(self, vertex_v: Vertex, vertex_u: Vertex):
         """

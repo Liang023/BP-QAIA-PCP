@@ -33,24 +33,37 @@ class ExactPricingSolver:
         self.debug = bool(int(os.getenv("BPC_DEBUG", "0")))
 
     def build_model(self):
-        """构建子问题模型：二进制变量、冲突约束、最小化形式目标。
+        # 检查辅助图数据是否一致
+        missing_weight_ids = [
+            vertex.id
+            for vertex in self.auxiliary_graph.vertices_map.values()
+            if vertex.id not in self.auxiliary_graph.weight_v
+        ]
 
-        注意：模型初始目标设置为最小化 1 - Σw_v x_v；在生成列时会切换为
-        最大化 Σw_v x_v（以便直接使用解池目标值）。
-        """
-        # 决策变量
+        if missing_weight_ids:
+            raise RuntimeError(
+                "辅助图中的顶点缺少定价权重："
+                f"{missing_weight_ids}"
+            )
+
+        # 创建决策变量
         for v in self.auxiliary_graph.vertices_map.values():
-            self.vars[v.id] = self.model.addVar(vtype=grb.GRB.BINARY, name=f"x_{v.id}")
+            self.vars[v.id] = self.model.addVar(
+                vtype=grb.GRB.BINARY,
+                name=f"x_{v.id}"
+            )
 
-        # 约束条件
+        # 冲突约束
         for edge in self.auxiliary_graph.auxiliary_edges:
             u = edge.source
             v = edge.target
+
             self.cons[(u.id, v.id)] = self.model.addConstr(
-                self.vars[u.id] + self.vars[v.id] <= 1, name=f"cons_({u.id},{v.id})"
+                self.vars[u.id] + self.vars[v.id] <= 1,
+                name=f"cons_({u.id},{v.id})"
             )
 
-        # 目标函数
+        # 初始目标函数
         obj_expr = grb.LinExpr()
 
         obj_expr += sum(
@@ -58,7 +71,10 @@ class ExactPricingSolver:
             for v in self.auxiliary_graph.vertices_map.values()
         )
 
-        self.model.setObjective(1 - obj_expr, grb.GRB.MINIMIZE)
+        self.model.setObjective(
+            1 - obj_expr,
+            grb.GRB.MINIMIZE
+        )
 
     def solve(self,time_end:int):
         """求解子问题：启用解池并设置时间限制。
