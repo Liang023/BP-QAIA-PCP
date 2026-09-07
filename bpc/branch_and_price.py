@@ -56,7 +56,15 @@ class BranchAndPrice:
         self.nodes_pruned: int = 0
         self.total_solve_time: float = 0.0
         
-        
+        # 定价阶段统计
+        self.total_pricing_time: float = 0.0
+        self.total_qaia_time: float = 0.0
+        self.total_hybrid_exact_time: float = 0.0
+
+        self.total_qaia_calls: int = 0
+        self.total_hybrid_exact_calls: int = 0
+        self.qaia_nodes: int = 0
+        self.exact_only_nodes: int = 0
 
     def solve(self) -> Dict[str, Any]:
         """
@@ -163,7 +171,32 @@ class BranchAndPrice:
             print(f"创建节点数: {stats['nodes_created']}")
             print(f"剪枝节点数: {stats['nodes_pruned']}")
             print(f"总求解时间: {stats['total_solve_time']:.2f}秒")
-            
+
+            print("\n定价求解统计：")
+            print(f"  总定价时间: {self.total_pricing_time:.4f}秒")
+            print(f"  使用QAIA的节点数: {self.qaia_nodes}")
+            print(f"  纯Exact节点数: {self.exact_only_nodes}")
+            print(f"  QAIA调用次数: {self.total_qaia_calls}")
+            print(f"  QAIA累计时间: {self.total_qaia_time:.4f}秒")
+            print(
+                f"  混合节点中的Exact调用次数: "
+                f"{self.total_hybrid_exact_calls}"
+            )
+            print(
+                f"  混合节点中的Exact累计时间: "
+                f"{self.total_hybrid_exact_time:.4f}秒"
+            )
+
+            if self.total_qaia_calls > 0:
+                average_qaia_time = (
+                    self.total_qaia_time
+                    / self.total_qaia_calls
+                )
+                print(
+                    f"  QAIA平均单次时间: "
+                    f"{average_qaia_time:.6f}秒"
+                )
+                        
             if self.optimal and self.best_solution is not None:
                 final_status = "optimal"
             elif self.best_solution is not None:
@@ -240,32 +273,70 @@ class BranchAndPrice:
         pricing_problem = PricingProblem(auxiliary_graph=current_node.a_graph, name="main_pricing", dual={})
         master_problem = MasterProblem(graph=self.graph, charger_num=self.charger_num,pricing_problem=pricing_problem, column_pool=current_node.column_pool, a_graph=current_node.a_graph)
         
+        # ============================================================
+        # 自适应定价策略
+        #
+        # 1. 根节点：QAIA生成多样化列，同时Exact保证列质量；
+        # 2. 大规模子问题：允许QAIA先寻找改进列；
+        # 3. 当前小规模非根节点：直接使用Exact，避免QAIA额外开销
+        # ============================================================
 
-        # 根据 use_qaia 选择定价求解器
-        if self.use_qaia:
+        vertex_count = len(current_node.a_graph.vertices_map)
+        is_root_node = current_node.parent is None
+
+        # 当前建议：
+        # 根节点使用QAIA；
+        # 非根节点只有在定价问题达到80个顶点以上时才使用QAIA。
+        use_qaia_at_this_node = (
+            self.use_qaia
+            and (
+                is_root_node
+                or vertex_count >= 80
+            )
+        )
+
+        if use_qaia_at_this_node:
+            # 根节点同时运行QAIA和Exact：
+            # QAIA负责补充多样化列，Exact负责提供高质量定价列。
+            #
+            # 大规模非根节点采用on_qaia_failure：
+            # QAIA成功时跳过Exact，QAIA失败时再由Exact认证。
+            exact_mode = (
+                "always"
+                if is_root_node
+                else "on_qaia_failure"
+            )
+
             pricing_solver = QAIAExactPricingSolver(
                 auxiliary_graph=current_node.a_graph,
                 pricing_problem=pricing_problem,
                 column_pool=current_node.column_pool,
-
-                # QAIA找到改进列时直接返回；
-                # 只有QAIA找不到有效新列时才调用Exact进行精确认证。
-                exact_mode="on_qaia_failure",
-
-                # 第一轮先使用较轻量的QAIA参数
+                exact_mode=exact_mode,
                 qaia_algorithm="BSB",
                 qaia_n_iter=200,
                 qaia_batch_size=10,
                 qaia_max_columns=3,
                 qaia_backend="cpu-float32",
-
-                # 不同分支节点使用不同种子，但整个实验仍可复现
                 random_seed=42 + current_node.nodeid,
             )
+
+            print(
+                f"  定价策略: QAIA+Exact, "
+                f"node={current_node.nodeid}, "
+                f"vertices={vertex_count}, "
+                f"mode={exact_mode}"
+            )
+
         else:
             pricing_solver = ExactPricingSolver(
                 auxiliary_graph=current_node.a_graph,
                 pricing_problem=pricing_problem,
+            )
+
+            print(
+                f"  定价策略: Exact, "
+                f"node={current_node.nodeid}, "
+                f"vertices={vertex_count}"
             )
         column_generation = ColumnGeneration(
             master_problem, 
@@ -277,7 +348,22 @@ class BranchAndPrice:
         )
         
         try:
-            current_node.solution, current_node.objective_value = column_generation.solve(time_end)
+            current_node.solution, current_node.objective_value = (
+                column_generation.solve(time_end)
+            )
+
+            # 汇总该节点的全部定价时间
+            self.total_pricing_time += column_generation.pricingSolveTime
+
+            if isinstance(pricing_solver, QAIAExactPricingSolver):
+                self.qaia_nodes += 1
+                self.total_qaia_time += pricing_solver.qaia_solve_time
+                self.total_hybrid_exact_time += pricing_solver.exact_solve_time
+                self.total_qaia_calls += pricing_solver.qaia_calls
+                self.total_hybrid_exact_calls += pricing_solver.exact_calls
+            else:
+                self.exact_only_nodes += 1
+
             return True
         except gurobipy.GurobiError as e:
             if e.errno == 10001:  # Gurobi timeout error code
