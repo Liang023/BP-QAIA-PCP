@@ -259,7 +259,7 @@ class QAIAPricingSolver:
         return vertex_ids, weights, adjacency, self_forbidden, j_mat, h_vec
 
     def _run_qaia(self, j_mat: csr_matrix, h_vec: np.ndarray):
-        """实例化配置的 QAIA 求解器并运行。"""
+        """实例化配置的QAIA求解器并运行。"""
 
         algorithm_classes = {
             "CAC": CAC,
@@ -280,12 +280,14 @@ class QAIAPricingSolver:
 
         if solver_class is None:
             raise ValueError(
-                f"未知的 QAIA 算法 {self.algorithm!r}；"
+                f"未知的QAIA算法 {self.algorithm!r}；"
                 f"可用算法：{sorted(algorithm_classes)}"
             )
 
         if self.random_seed is not None:
-            np.random.seed(self.random_seed)
+            # 不同调用使用不同种子，同时保持实验可复现
+            call_seed = self.random_seed + self.calls - 1
+            np.random.seed(call_seed)
 
         solver = solver_class(
             J=j_mat,
@@ -298,7 +300,7 @@ class QAIAPricingSolver:
 
         solver.update()
         return solver.x
-
+    
     @staticmethod
     def _decode_state(raw_state, number_of_vertices: int) -> np.ndarray:
         """将 NumPy/Torch QAIA 状态转换为 {0,1} 样本矩阵。"""
@@ -377,15 +379,25 @@ class QAIAPricingSolver:
 
 
 class QAIAExactPricingSolver:
-    """混合求解器，与 ``ExactPricingSolver`` 有相同的公开接口。
+    """QAIA与精确定价相结合的混合定价求解器。
 
-    参数
+    Parameters
     ----------
     exact_mode:
-        ``"always"`` 在每次 QAIA 调用后调用精确定价，
-        也就是严格的 QAIA-然后-Exact 序列。``"on_qaia_failure"`` 
-        需求劬遇失败時選传 QAIA 列並只调用精确定价。
-        后者通常更快潜在且斗留粿确定会要求精确认证。
+        ``"always"``：
+        每次先运行QAIA，然后始终运行Exact Pricing。
+        该模式主要用于比较QAIA提供的MIP Start能否加速Exact，
+        但通常会增加额外计算开销。
+
+        ``"on_qaia_failure"``：
+        如果QAIA找到至少一条未进入列池的有效改进列，
+        则本轮直接返回QAIA列，不调用Exact Pricing；
+        如果QAIA没有找到有效新列，则调用Exact Pricing，
+        搜索遗漏的改进列或提供不存在改进列的最优性证明。
+
+        ``"on_qaia_failure"``不会牺牲整个列生成过程的精确性，
+        因为只有Exact Pricing证明不存在改进列后，
+        当前节点的列生成才会终止。
     """
 
     VALID_EXACT_MODES = {"always", "on_qaia_failure"}

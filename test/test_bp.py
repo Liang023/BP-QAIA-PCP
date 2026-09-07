@@ -8,8 +8,9 @@ from bpc.branch_and_price import BranchAndPrice
 from test.pcp_reader import read_pcp_instance
 from ev.ev_to_pcp import load_ev_instance
 
-# ============ 定义 QAIA 使用开关 ============
-USE_QAIA = True # 设置为 True 使用 QAIA ，设置为 False 不使用
+# True：使用QAIA + Exact混合定价
+# False：使用纯Exact定价
+USE_QAIA = True
 
 def test_branch_and_price_from_pcp():
     """测试分支定价算法"""

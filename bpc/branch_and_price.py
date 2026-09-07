@@ -240,18 +240,27 @@ class BranchAndPrice:
         pricing_problem = PricingProblem(auxiliary_graph=current_node.a_graph, name="main_pricing", dual={})
         master_problem = MasterProblem(graph=self.graph, charger_num=self.charger_num,pricing_problem=pricing_problem, column_pool=current_node.column_pool, a_graph=current_node.a_graph)
         
+
         # 根据 use_qaia 选择定价求解器
         if self.use_qaia:
             pricing_solver = QAIAExactPricingSolver(
                 auxiliary_graph=current_node.a_graph,
                 pricing_problem=pricing_problem,
                 column_pool=current_node.column_pool,
-                exact_mode="always",          # 每轮先QAIA，再Exact
+
+                # QAIA找到改进列时直接返回；
+                # 只有QAIA找不到有效新列时才调用Exact进行精确认证。
+                exact_mode="on_qaia_failure",
+
+                # 第一轮先使用较轻量的QAIA参数
                 qaia_algorithm="BSB",
-                qaia_n_iter=1000,
-                qaia_batch_size=50,
+                qaia_n_iter=200,
+                qaia_batch_size=10,
+                qaia_max_columns=3,
                 qaia_backend="cpu-float32",
-                random_seed=42,
+
+                # 不同分支节点使用不同种子，但整个实验仍可复现
+                random_seed=42 + current_node.nodeid,
             )
         else:
             pricing_solver = ExactPricingSolver(
