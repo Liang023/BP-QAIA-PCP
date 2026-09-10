@@ -1,0 +1,101 @@
+[
+  {
+    "instance": "ev_V10_C2_T12_dur1_vpc5.json",
+    "vertices": 30,
+    "objective": 9.0,
+    "compact_workflow_seconds": 0.01830100000006496,
+    "exact": {
+      "count": 3,
+      "median_seconds": 2.0691275999997742,
+      "min_seconds": 1.9937675000001036,
+      "max_seconds": 2.0963714999998047,
+      "median_workflow_seconds": 4.480971599998156,
+      "nodes": [
+        470,
+        470,
+        470
+      ]
+    },
+    "qaia_root": {
+      "count": 5,
+      "median_seconds": 2.2592149000010977,
+      "min_seconds": 1.4135499999974854,
+      "max_seconds": 3.2552197000004526,
+      "median_workflow_seconds": 4.757360200001131,
+      "nodes": [
+        317,
+        513,
+        389,
+        793,
+        655
+      ]
+    },
+    "bp_speedup": 0.9158613463459226
+  },
+  {
+    "instance": "ev_V10_C2_T12_dur2_vpc5.json",
+    "vertices": 33,
+    "objective": 11.0,
+    "compact_workflow_seconds": 0.011188100001163548,
+    "exact": {
+      "count": 3,
+      "median_seconds": 2.4853503000013006,
+      "min_seconds": 2.4576515999979165,
+      "max_seconds": 2.547867100001895,
+      "median_workflow_seconds": 4.827975000000151,
+      "nodes": [
+        385,
+        385,
+        385
+      ]
+    },
+    "qaia_root": {
+      "count": 5,
+      "median_seconds": 2.483637799999997,
+      "min_seconds": 2.158875799999805,
+      "max_seconds": 2.648852700000134,
+      "median_workflow_seconds": 4.933091499999136,
+      "nodes": [
+        407,
+        361,
+        389,
+        403,
+        319
+      ]
+    },
+    "bp_speedup": 1.000689512778918
+  },
+  {
+    "instance": "ev_V10_C2_T24_dur1_vpc5.json",
+    "vertices": 30,
+    "objective": 10.0,
+    "compact_workflow_seconds": 0.009403699998074444,
+    "exact": {
+      "count": 3,
+      "median_seconds": 1.4356474000014714,
+      "min_seconds": 1.4232326999990619,
+      "max_seconds": 1.4489143999999214,
+      "median_workflow_seconds": 3.7998450999984925,
+      "nodes": [
+        337,
+        337,
+        337
+      ]
+    },
+    "qaia_root": {
+      "count": 5,
+      "median_seconds": 0.5973936999980651,
+      "min_seconds": 0.3908635999978287,
+      "max_seconds": 1.174672900000587,
+      "median_workflow_seconds": 2.915756999998848,
+      "nodes": [
+        263,
+        139,
+        105,
+        185,
+        85
+      ]
+    },
+    "bp_speedup": 2.403184700484992
+  }
+]

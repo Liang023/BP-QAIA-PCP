@@ -73,6 +73,17 @@ def check_input(data):
                 raise ValueError("候选时间越界")
             if c["end"] - c["start"] != v["duration"]:
                 raise ValueError("候选时长不一致")
+    if data.get("schema_version") == "synthetic-v1":
+        for v in vehicles:
+            r, d, duration = v["arrival"], v["departure"], v["duration"]
+            if any(type(z) is not int for z in (r, d, duration)):
+                raise ValueError("v1使用整数时间槽")
+            if not (0 <= r < d <= data["time_horizon"] and 0 < duration <= d-r):
+                raise ValueError("v1时间窗非法")
+            expected = {(s, s+duration) for s in range(r, d-duration+1)}
+            observed = [(c["start"], c["end"]) for c in v["candidates"]]
+            if len(observed) != len(set(observed)) or set(observed) != expected:
+                raise ValueError("v1候选重复或没有枚举完整窗口")
 
 
 def clean(value):
@@ -119,8 +130,27 @@ def main():
                     ["git", "diff", "HEAD"])).hexdigest()
                 # 此指纹不包含未跟踪文件；另记录关键脚本文件字节指纹。
                 record["script_sha256"] = hashlib.sha256(Path(__file__).read_bytes()).hexdigest()
+
+                source_files = sorted(
+                    path for folder in ("bpc", "cg", "config", "ev", "model",
+                                         "qaia", "test", "validation")
+                    for path in (ROOT / folder).rglob("*.py")
+                )
+                digest = hashlib.sha256()
+                for path in source_files:
+                    digest.update(path.relative_to(ROOT).as_posix().encode())
+                    digest.update(b"\0")
+                    digest.update(path.read_bytes())
+                    digest.update(b"\0")
+                record["source_sha256"] = digest.hexdigest()
+                record["qaia_config"] = dict(
+                    scope="root", exact_mode="always", algorithm="BSB",
+                    n_iter=200, batch_size=10, max_columns=3,
+                    backend="cpu-float32") if args.method == "qaia_root" else None
+                
                 import gurobipy as gp
                 record["gurobi"] = gp.gurobi.version()
+                workflow_start = time.perf_counter()
                 if args.method == "compact":
                     t0 = time.perf_counter()
                     record.update(compact(data, args.limit))
@@ -147,8 +177,14 @@ def main():
                                 "total_hybrid_exact_time", "total_qaia_calls",
                                 "total_hybrid_exact_calls", "qaia_nodes", "exact_only_nodes"):
                         record[key] = getattr(bp, key)
-                    if result["status"] == "optimal" and bp.best_schedule is None:
-                        raise ValueError("声称optimal但没有通过排程校验")
+                if record["status"] == "optimal":
+                    from validation.ev_solution import validate_json_schedule
+                    schedule = (record["schedule"] if args.method == "compact"
+                                else (record.get("validated_schedule") or {}).get("schedule"))
+                    record["schedule_makespan"] = validate_json_schedule(
+                        data, schedule, record["objective"])
+                    record["validation_passed"] = True
+                record["workflow_seconds"] = time.perf_counter() - workflow_start
             except Exception as exc:
                 record.update(status="error", error=repr(exc))
                 traceback.print_exc()

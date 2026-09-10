@@ -1,0 +1,1410 @@
+开始分支定价算法...
+时间限制: 120.0秒
+根节点已添加: ID=1
+
+处理节点 1
+  开始列生成求解...
+Set parameter Username
+Academic license - for non-commercial use only - expires 2026-12-02
+Set parameter LogToConsole to value 0
+Set parameter Threads to value 1
+Set parameter Seed to value 0
+  定价策略: QAIA+Exact, node=1, vertices=30, mode=always
+Set parameter PoolSearchMode to value 2
+Set parameter PoolSolutions to value 10
+[CG 1] RMP=1010.000000, pricing=QAIAExactPricingSolver, new_columns=12
+[CG 2] RMP=12.307692, pricing=QAIAExactPricingSolver, new_columns=12
+[CG 3] RMP=10.000000, pricing=QAIAExactPricingSolver, new_columns=12
+[CG 4] RMP=6.153846, pricing=QAIAExactPricingSolver, new_columns=0
+  搜索路径: [1]
+  列生成求解结果: 目标值=6.1538， 下界=-inf， 上界=inf
+    非整数变量: COL_0-13-17-2-23-28-6-9_3 = 0.500000
+  解不是整数，开始分支...
+ImposedVertex(vertex=0)
+ForbidVertex(vertex=0)
+  创建了 2 个分支
+    添加分支节点 1: ID=2
+    添加分支节点 2: ID=3
+
+处理节点 2
+  开始列生成求解...
+Set parameter LogToConsole to value 0
+Set parameter Threads to value 1
+Set parameter Seed to value 0
+  定价策略: Exact, node=2, vertices=29
+Set parameter PoolSearchMode to value 2
+Set parameter PoolSolutions to value 10
+[CG 1] RMP=10.000000, pricing=ExactPricingSolver, new_columns=10
+[CG 2] RMP=10.000000, pricing=ExactPricingSolver, new_columns=10
+[CG 3] RMP=6.486486, pricing=ExactPricingSolver, new_columns=10
+[CG 4] RMP=6.153846, pricing=ExactPricingSolver, new_columns=0
+  搜索路径: [1, 2]
+  列生成求解结果: 目标值=6.1538， 下界=6.1538， 上界=inf
+    非整数变量: COL_0-13-17-2-23-28-6-9_3 = 0.512821
+  解不是整数，开始分支...
+ImposedVertex(vertex=23)
+ForbidVertex(vertex=23)
+  创建了 2 个分支
+    添加分支节点 1: ID=4
+    添加分支节点 2: ID=5
+
+处理节点 3
+  开始列生成求解...
+Set parameter LogToConsole to value 0
+Set parameter Threads to value 1
+Set parameter Seed to value 0
+  定价策略: Exact, node=3, vertices=29
+Set parameter PoolSearchMode to value 2
+Set parameter PoolSolutions to value 10
+[CG 1] RMP=10.000000, pricing=ExactPricingSolver, new_columns=0
+  搜索路径: [1, 2, 3]
+  列生成求解结果: 目标值=10.0000， 下界=6.1538， 上界=inf
+  找到整数解，更新最优解
+
+处理节点 5
+  开始列生成求解...
+Set parameter LogToConsole to value 0
+Set parameter Threads to value 1
+Set parameter Seed to value 0
+  定价策略: Exact, node=5, vertices=28
+Set parameter PoolSearchMode to value 2
+Set parameter PoolSolutions to value 10
+[CG 1] RMP=8.000000, pricing=ExactPricingSolver, new_columns=10
+[CG 2] RMP=7.741935, pricing=ExactPricingSolver, new_columns=10
+[CG 3] RMP=6.964286, pricing=ExactPricingSolver, new_columns=0
+  搜索路径: [1, 2, 3, 5]
+  列生成求解结果: 目标值=6.9643， 下界=6.1538， 上界=10.0000
+    非整数变量: COL_19-26-28_6 = 0.220068
+  解不是整数，开始分支...
+ImposedVertex(vertex=19)
+ForbidVertex(vertex=19)
+  创建了 2 个分支
+    添加分支节点 1: ID=6
+    添加分支节点 2: ID=7
+
+处理节点 4
+  开始列生成求解...
+Set parameter LogToConsole to value 0
+Set parameter Threads to value 1
+Set parameter Seed to value 0
+  定价策略: Exact, node=4, vertices=27
+Set parameter PoolSearchMode to value 2
+Set parameter PoolSolutions to value 10
+[CG 1] RMP=8.000000, pricing=ExactPricingSolver, new_columns=0
+  搜索路径: [1, 2, 3, 5, 4]
+  列生成求解结果: 目标值=8.0000， 下界=6.1538， 上界=10.0000
+    非整数变量: COL_0-13-17-2-23-28-6-9_3 = 0.500000
+  解不是整数，开始分支...
+ImposedVertex(vertex=28)
+ForbidVertex(vertex=28)
+  创建了 2 个分支
+    添加分支节点 1: ID=8
+    添加分支节点 2: ID=9
+
+处理节点 6
+  开始列生成求解...
+Set parameter LogToConsole to value 0
+Set parameter Threads to value 1
+Set parameter Seed to value 0
+  定价策略: Exact, node=6, vertices=25
+Set parameter PoolSearchMode to value 2
+Set parameter PoolSolutions to value 10
+[CG 1] RMP=7.000000, pricing=ExactPricingSolver, new_columns=0
+  搜索路径: [1, 2, 3, 5, 4, 6]
+  列生成求解结果: 目标值=7.0000， 下界=6.9643， 上界=10.0000
+    非整数变量: COL_19-26-29_7 = 0.022051
+  解不是整数，开始分支...
+ImposedVertex(vertex=26)
+ForbidVertex(vertex=26)
+  创建了 2 个分支
+    添加分支节点 1: ID=10
+    添加分支节点 2: ID=11
+
+处理节点 7
+  开始列生成求解...
+Set parameter LogToConsole to value 0
+Set parameter Threads to value 1
+Set parameter Seed to value 0
+  定价策略: Exact, node=7, vertices=27
+Set parameter PoolSearchMode to value 2
+Set parameter PoolSolutions to value 10
+[CG 1] RMP=6.964286, pricing=ExactPricingSolver, new_columns=0
+  搜索路径: [1, 2, 3, 5, 4, 6, 7]
+  列生成求解结果: 目标值=6.9643， 下界=6.9643， 上界=10.0000
+    非整数变量: COL_20_4 = 0.037987
+  解不是整数，开始分支...
+ImposedVertex(vertex=20)
+ForbidVertex(vertex=20)
+  创建了 2 个分支
+    添加分支节点 1: ID=12
+    添加分支节点 2: ID=13
+
+处理节点 12
+  开始列生成求解...
+Set parameter LogToConsole to value 0
+Set parameter Threads to value 1
+Set parameter Seed to value 0
+  定价策略: Exact, node=12, vertices=25
+Set parameter PoolSearchMode to value 2
+Set parameter PoolSolutions to value 10
+[CG 1] RMP=1013.000000, pricing=ExactPricingSolver, new_columns=10
+[CG 2] RMP=9.473684, pricing=ExactPricingSolver, new_columns=10
+[CG 3] RMP=6.964286, pricing=ExactPricingSolver, new_columns=0
+  搜索路径: [1, 2, 3, 5, 4, 6, 7, 12]
+  列生成求解结果: 目标值=6.9643， 下界=6.9643， 上界=10.0000
+    非整数变量: COL_27_5 = 0.226190
+  解不是整数，开始分支...
+ImposedVertex(vertex=9)
+ForbidVertex(vertex=9)
+  创建了 2 个分支
+    添加分支节点 1: ID=14
+    添加分支节点 2: ID=15
+
+处理节点 14
+  开始列生成求解...
+Set parameter LogToConsole to value 0
+Set parameter Threads to value 1
+Set parameter Seed to value 0
+  定价策略: Exact, node=14, vertices=22
+Set parameter PoolSearchMode to value 2
+Set parameter PoolSolutions to value 10
+[CG 1] RMP=10.000000, pricing=ExactPricingSolver, new_columns=10
+[CG 2] RMP=9.000000, pricing=ExactPricingSolver, new_columns=10
+[CG 3] RMP=6.964286, pricing=ExactPricingSolver, new_columns=0
+  搜索路径: [1, 2, 3, 5, 4, 6, 7, 12, 14]
+  列生成求解结果: 目标值=6.9643， 下界=6.9643， 上界=10.0000
+    非整数变量: COL_13-17-2-24-28-6-9_92 = 0.196429
+  解不是整数，开始分支...
+ImposedVertex(vertex=2)
+ForbidVertex(vertex=2)
+  创建了 2 个分支
+    添加分支节点 1: ID=16
+    添加分支节点 2: ID=17
+
+处理节点 15
+  开始列生成求解...
+Set parameter LogToConsole to value 0
+Set parameter Threads to value 1
+Set parameter Seed to value 0
+  定价策略: Exact, node=15, vertices=24
+Set parameter PoolSearchMode to value 2
+Set parameter PoolSolutions to value 10
+[CG 1] RMP=10.000000, pricing=ExactPricingSolver, new_columns=10
+[CG 2] RMP=9.900000, pricing=ExactPricingSolver, new_columns=10
+[CG 3] RMP=7.767049, pricing=ExactPricingSolver, new_columns=10
+[CG 4] RMP=6.964286, pricing=ExactPricingSolver, new_columns=0
+  搜索路径: [1, 2, 3, 5, 4, 6, 7, 12, 14, 15]
+  列生成求解结果: 目标值=6.9643， 下界=6.9643， 上界=10.0000
+    非整数变量: COL_0-14-25-26_78 = 0.146861
+  解不是整数，开始分支...
+ImposedVertex(vertex=14)
+ForbidVertex(vertex=14)
+  创建了 2 个分支
+    添加分支节点 1: ID=18
+    添加分支节点 2: ID=19
+  进度: 已处理 10 个节点, 剩余 9 个, 当前最优 10.0000, 当前列数: 165
+
+处理节点 18
+  开始列生成求解...
+Set parameter LogToConsole to value 0
+Set parameter Threads to value 1
+Set parameter Seed to value 0
+  定价策略: Exact, node=18, vertices=21
+Set parameter PoolSearchMode to value 2
+Set parameter PoolSolutions to value 10
+[CG 1] RMP=22.000000, pricing=ExactPricingSolver, new_columns=0
+  搜索路径: [1, 2, 3, 5, 4, 6, 7, 12, 14, 15, 18]
+  列生成求解结果: 目标值=22.0000， 下界=6.9643， 上界=10.0000
+
+处理节点 19
+  开始列生成求解...
+Set parameter LogToConsole to value 0
+Set parameter Threads to value 1
+Set parameter Seed to value 0
+  定价策略: Exact, node=19, vertices=23
+Set parameter PoolSearchMode to value 2
+Set parameter PoolSolutions to value 10
+[CG 1] RMP=6.964286, pricing=ExactPricingSolver, new_columns=0
+  搜索路径: [1, 2, 3, 5, 4, 6, 7, 12, 14, 15, 18, 19]
+  列生成求解结果: 目标值=6.9643， 下界=6.9643， 上界=10.0000
+    非整数变量: COL_15-25-26_76 = 0.096591
+  解不是整数，开始分支...
+ImposedVertex(vertex=12)
+ForbidVertex(vertex=12)
+  创建了 2 个分支
+    添加分支节点 1: ID=20
+    添加分支节点 2: ID=21
+
+处理节点 20
+  开始列生成求解...
+Set parameter LogToConsole to value 0
+Set parameter Threads to value 1
+Set parameter Seed to value 0
+  定价策略: Exact, node=20, vertices=21
+Set parameter PoolSearchMode to value 2
+Set parameter PoolSolutions to value 10
+[CG 1] RMP=2010.000000, pricing=ExactPricingSolver, new_columns=10
+[CG 2] RMP=9.725191, pricing=ExactPricingSolver, new_columns=10
+[CG 3] RMP=7.000000, pricing=ExactPricingSolver, new_columns=0
+  搜索路径: [1, 2, 3, 5, 4, 6, 7, 12, 14, 15, 18, 19, 20]
+  列生成求解结果: 目标值=7.0000， 下界=6.9643， 上界=10.0000
+    非整数变量: COL_20_4 = 0.194872
+  解不是整数，开始分支...
+ImposedVertex(vertex=7)
+ForbidVertex(vertex=7)
+  创建了 2 个分支
+    添加分支节点 1: ID=22
+    添加分支节点 2: ID=23
+
+处理节点 21
+  开始列生成求解...
+Set parameter LogToConsole to value 0
+Set parameter Threads to value 1
+Set parameter Seed to value 0
+  定价策略: Exact, node=21, vertices=22
+Set parameter PoolSearchMode to value 2
+Set parameter PoolSolutions to value 10
+[CG 1] RMP=10.476190, pricing=ExactPricingSolver, new_columns=0
+  搜索路径: [1, 2, 3, 5, 4, 6, 7, 12, 14, 15, 18, 19, 20, 21]
+  列生成求解结果: 目标值=10.4762， 下界=6.9643， 上界=10.0000
+
+处理节点 13
+  开始列生成求解...
+Set parameter LogToConsole to value 0
+Set parameter Threads to value 1
+Set parameter Seed to value 0
+  定价策略: Exact, node=13, vertices=26
+Set parameter PoolSearchMode to value 2
+Set parameter PoolSolutions to value 10
+[CG 1] RMP=6.964286, pricing=ExactPricingSolver, new_columns=0
+  搜索路径: [1, 2, 3, 5, 4, 6, 7, 12, 14, 15, 18, 19, 20, 21, 13]
+  列生成求解结果: 目标值=6.9643， 下界=6.9643， 上界=10.0000
+    非整数变量: COL_0-2-22-27-28_14 = 0.464286
+  解不是整数，开始分支...
+ImposedVertex(vertex=22)
+ForbidVertex(vertex=22)
+  创建了 2 个分支
+    添加分支节点 1: ID=24
+    添加分支节点 2: ID=25
+
+处理节点 24
+  开始列生成求解...
+Set parameter LogToConsole to value 0
+Set parameter Threads to value 1
+Set parameter Seed to value 0
+  定价策略: Exact, node=24, vertices=25
+Set parameter PoolSearchMode to value 2
+Set parameter PoolSolutions to value 10
+[CG 1] RMP=11.000000, pricing=ExactPricingSolver, new_columns=0
+  搜索路径: [1, 2, 3, 5, 4, 6, 7, 12, 14, 15, 18, 19, 20, 21, 13, 24]
+  列生成求解结果: 目标值=11.0000， 下界=6.9643， 上界=10.0000
+
+处理节点 25
+  开始列生成求解...
+Set parameter LogToConsole to value 0
+Set parameter Threads to value 1
+Set parameter Seed to value 0
+  定价策略: Exact, node=25, vertices=25
+Set parameter PoolSearchMode to value 2
+Set parameter PoolSolutions to value 10
+[CG 1] RMP=17.000000, pricing=ExactPricingSolver, new_columns=0
+  搜索路径: [1, 2, 3, 5, 4, 6, 7, 12, 14, 15, 18, 19, 20, 21, 13, 24, 25]
+  列生成求解结果: 目标值=17.0000， 下界=6.9643， 上界=10.0000
+
+处理节点 16
+  开始列生成求解...
+Set parameter LogToConsole to value 0
+Set parameter Threads to value 1
+Set parameter Seed to value 0
+  定价策略: Exact, node=16, vertices=19
+Set parameter PoolSearchMode to value 2
+Set parameter PoolSolutions to value 10
+[CG 1] RMP=6.964286, pricing=ExactPricingSolver, new_columns=0
+  搜索路径: [1, 2, 3, 5, 4, 6, 7, 12, 14, 15, 18, 19, 20, 21, 13, 24, 25, 16]
+  列生成求解结果: 目标值=6.9643， 下界=6.9643， 上界=10.0000
+    非整数变量: COL_20_4 = 0.071429
+  解不是整数，开始分支...
+ImposedVertex(vertex=6)
+ForbidVertex(vertex=6)
+  创建了 2 个分支
+    添加分支节点 1: ID=26
+    添加分支节点 2: ID=27
+
+处理节点 26
+  开始列生成求解...
+Set parameter LogToConsole to value 0
+Set parameter Threads to value 1
+Set parameter Seed to value 0
+  定价策略: Exact, node=26, vertices=17
+Set parameter PoolSearchMode to value 2
+Set parameter PoolSolutions to value 10
+[CG 1] RMP=10.964467, pricing=ExactPricingSolver, new_columns=10
+[CG 2] RMP=9.000000, pricing=ExactPricingSolver, new_columns=0
+  搜索路径: [1, 2, 3, 5, 4, 6, 7, 12, 14, 15, 18, 19, 20, 21, 13, 24, 25, 16, 26]
+  列生成求解结果: 目标值=9.0000， 下界=6.9643， 上界=10.0000
+    非整数变量: COL_13-17-2-6-9_53 = 0.266667
+  解不是整数，开始分支...
+ImposedVertex(vertex=25)
+ForbidVertex(vertex=25)
+  创建了 2 个分支
+    添加分支节点 1: ID=28
+    添加分支节点 2: ID=29
+
+处理节点 27
+  开始列生成求解...
+Set parameter LogToConsole to value 0
+Set parameter Threads to value 1
+Set parameter Seed to value 0
+  定价策略: Exact, node=27, vertices=18
+Set parameter PoolSearchMode to value 2
+Set parameter PoolSolutions to value 10
+[CG 1] RMP=2010.000000, pricing=ExactPricingSolver, new_columns=10
+[CG 2] RMP=7.446301, pricing=ExactPricingSolver, new_columns=10
+[CG 3] RMP=6.964286, pricing=ExactPricingSolver, new_columns=0
+  搜索路径: [1, 2, 3, 5, 4, 6, 7, 12, 14, 15, 18, 19, 20, 21, 13, 24, 25, 16, 26, 27]
+  列生成求解结果: 目标值=6.9643， 下界=6.9643， 上界=10.0000
+    非整数变量: COL_14-25-26_77 = 0.116067
+  解不是整数，开始分支...
+ImposedVertex(vertex=14)
+ForbidVertex(vertex=14)
+  创建了 2 个分支
+    添加分支节点 1: ID=30
+    添加分支节点 2: ID=31
+  进度: 已处理 20 个节点, 剩余 11 个, 当前最优 10.0000, 当前列数: 215
+
+处理节点 30
+  开始列生成求解...
+Set parameter LogToConsole to value 0
+Set parameter Threads to value 1
+Set parameter Seed to value 0
+  定价策略: Exact, node=30, vertices=15
+Set parameter PoolSearchMode to value 2
+Set parameter PoolSolutions to value 10
+[CG 1] RMP=22.000000, pricing=ExactPricingSolver, new_columns=0
+  搜索路径: [1, 2, 3, 5, 4, 6, 7, 12, 14, 15, 18, 19, 20, 21, 13, 24, 25, 16, 26, 27, 30]
+  列生成求解结果: 目标值=22.0000， 下界=6.9643， 上界=10.0000
+
+处理节点 31
+  开始列生成求解...
+Set parameter LogToConsole to value 0
+Set parameter Threads to value 1
+Set parameter Seed to value 0
+  定价策略: Exact, node=31, vertices=17
+Set parameter PoolSearchMode to value 2
+Set parameter PoolSolutions to value 10
+[CG 1] RMP=6.964286, pricing=ExactPricingSolver, new_columns=0
+  搜索路径: [1, 2, 3, 5, 4, 6, 7, 12, 14, 15, 18, 19, 20, 21, 13, 24, 25, 16, 26, 27, 30, 31]
+  列生成求解结果: 目标值=6.9643， 下界=6.9643， 上界=10.0000
+    非整数变量: COL_13-17-24-26-28_85 = 0.171469
+  解不是整数，开始分支...
+ImposedVertex(vertex=13)
+ForbidVertex(vertex=13)
+  创建了 2 个分支
+    添加分支节点 1: ID=32
+    添加分支节点 2: ID=33
+
+处理节点 32
+  开始列生成求解...
+Set parameter LogToConsole to value 0
+Set parameter Threads to value 1
+Set parameter Seed to value 0
+  定价策略: Exact, node=32, vertices=15
+Set parameter PoolSearchMode to value 2
+Set parameter PoolSolutions to value 10
+[CG 1] RMP=2010.000000, pricing=ExactPricingSolver, new_columns=10
+[CG 2] RMP=6.964286, pricing=ExactPricingSolver, new_columns=0
+  搜索路径: [1, 2, 3, 5, 4, 6, 7, 12, 14, 15, 18, 19, 20, 21, 13, 24, 25, 16, 26, 27, 30, 31, 32]
+  列生成求解结果: 目标值=6.9643， 下界=6.9643， 上界=10.0000
+    非整数变量: COL_0-2-20-26-28-9_97 = 0.619048
+  解不是整数，开始分支...
+ImposedVertex(vertex=26)
+ForbidVertex(vertex=26)
+  创建了 2 个分支
+    添加分支节点 1: ID=34
+    添加分支节点 2: ID=35
+
+处理节点 34
+  开始列生成求解...
+Set parameter LogToConsole to value 0
+Set parameter Threads to value 1
+Set parameter Seed to value 0
+  定价策略: Exact, node=34, vertices=14
+Set parameter PoolSearchMode to value 2
+Set parameter PoolSolutions to value 10
+[CG 1] RMP=9.000000, pricing=ExactPricingSolver, new_columns=0
+  搜索路径: [1, 2, 3, 5, 4, 6, 7, 12, 14, 15, 18, 19, 20, 21, 13, 24, 25, 16, 26, 27, 30, 31, 32, 34]
+  列生成求解结果: 目标值=9.0000， 下界=6.9643， 上界=10.0000
+    非整数变量: COL_13-17-24-26-28_85 = 0.040000
+  解不是整数，开始分支...
+ImposedVertex(vertex=24)
+ForbidVertex(vertex=24)
+  创建了 2 个分支
+    添加分支节点 1: ID=36
+    添加分支节点 2: ID=37
+
+处理节点 35
+  开始列生成求解...
+Set parameter LogToConsole to value 0
+Set parameter Threads to value 1
+Set parameter Seed to value 0
+  定价策略: Exact, node=35, vertices=14
+Set parameter PoolSearchMode to value 2
+Set parameter PoolSolutions to value 10
+[CG 1] RMP=2010.000000, pricing=ExactPricingSolver, new_columns=10
+[CG 2] RMP=16.000000, pricing=ExactPricingSolver, new_columns=10
+[CG 3] RMP=6.964286, pricing=ExactPricingSolver, new_columns=0
+  搜索路径: [1, 2, 3, 5, 4, 6, 7, 12, 14, 15, 18, 19, 20, 21, 13, 24, 25, 16, 26, 27, 30, 31, 32, 34, 35]
+  列生成求解结果: 目标值=6.9643， 下界=6.9643， 上界=10.0000
+    非整数变量: COL_0-20-24-8-9_105 = 0.535714
+  解不是整数，开始分支...
+ImposedVertex(vertex=8)
+ForbidVertex(vertex=8)
+  创建了 2 个分支
+    添加分支节点 1: ID=38
+    添加分支节点 2: ID=39
+
+处理节点 33
+  开始列生成求解...
+Set parameter LogToConsole to value 0
+Set parameter Threads to value 1
+Set parameter Seed to value 0
+  定价策略: Exact, node=33, vertices=16
+Set parameter PoolSearchMode to value 2
+Set parameter PoolSolutions to value 10
+[CG 1] RMP=7.567568, pricing=ExactPricingSolver, new_columns=10
+[CG 2] RMP=7.241379, pricing=ExactPricingSolver, new_columns=10
+[CG 3] RMP=6.964286, pricing=ExactPricingSolver, new_columns=0
+  搜索路径: [1, 2, 3, 5, 4, 6, 7, 12, 14, 15, 18, 19, 20, 21, 13, 24, 25, 16, 26, 27, 30, 31, 32, 34, 35, 33]
+  列生成求解结果: 目标值=6.9643， 下界=6.9643， 上界=10.0000
+    非整数变量: COL_9_45 = 0.113095
+  解不是整数，开始分支...
+ImposedVertex(vertex=17)
+ForbidVertex(vertex=17)
+  创建了 2 个分支
+    添加分支节点 1: ID=40
+    添加分支节点 2: ID=41
+
+处理节点 38
+  开始列生成求解...
+Set parameter LogToConsole to value 0
+Set parameter Threads to value 1
+Set parameter Seed to value 0
+  定价策略: Exact, node=38, vertices=13
+Set parameter PoolSearchMode to value 2
+Set parameter PoolSolutions to value 10
+[CG 1] RMP=1016.000000, pricing=ExactPricingSolver, new_columns=10
+[CG 2] RMP=9.704510, pricing=ExactPricingSolver, new_columns=10
+[CG 3] RMP=6.964286, pricing=ExactPricingSolver, new_columns=0
+  搜索路径: [1, 2, 3, 5, 4, 6, 7, 12, 14, 15, 18, 19, 20, 21, 13, 24, 25, 16, 26, 27, 30, 31, 32, 34, 35, 33, 38]
+  列生成求解结果: 目标值=6.9643， 下界=6.9643， 上界=10.0000
+    非整数变量: COL_0-20-24-8_107 = 0.267857
+  解不是整数，开始分支...
+ImposedVertex(vertex=24)
+ForbidVertex(vertex=24)
+  创建了 2 个分支
+    添加分支节点 1: ID=42
+    添加分支节点 2: ID=43
+
+处理节点 42
+  开始列生成求解...
+Set parameter LogToConsole to value 0
+Set parameter Threads to value 1
+Set parameter Seed to value 0
+  定价策略: Exact, node=42, vertices=12
+Set parameter PoolSearchMode to value 2
+Set parameter PoolSolutions to value 10
+[CG 1] RMP=13.000000, pricing=ExactPricingSolver, new_columns=0
+  搜索路径: [1, 2, 3, 5, 4, 6, 7, 12, 14, 15, 18, 19, 20, 21, 13, 24, 25, 16, 26, 27, 30, 31, 32, 34, 35, 33, 38, 42]
+  列生成求解结果: 目标值=13.0000， 下界=6.9643， 上界=10.0000
+
+处理节点 43
+  开始列生成求解...
+Set parameter LogToConsole to value 0
+Set parameter Threads to value 1
+Set parameter Seed to value 0
+  定价策略: Exact, node=43, vertices=12
+Set parameter PoolSearchMode to value 2
+Set parameter PoolSolutions to value 10
+[CG 1] RMP=15.000000, pricing=ExactPricingSolver, new_columns=0
+  搜索路径: [1, 2, 3, 5, 4, 6, 7, 12, 14, 15, 18, 19, 20, 21, 13, 24, 25, 16, 26, 27, 30, 31, 32, 34, 35, 33, 38, 42, 43]
+  列生成求解结果: 目标值=15.0000， 下界=6.9643， 上界=10.0000
+
+处理节点 39
+  开始列生成求解...
+Set parameter LogToConsole to value 0
+Set parameter Threads to value 1
+Set parameter Seed to value 0
+  定价策略: Exact, node=39, vertices=13
+Set parameter PoolSearchMode to value 2
+Set parameter PoolSolutions to value 10
+[CG 1] RMP=2010.000000, pricing=ExactPricingSolver, new_columns=10
+[CG 2] RMP=13.000000, pricing=ExactPricingSolver, new_columns=10
+[CG 3] RMP=6.964286, pricing=ExactPricingSolver, new_columns=0
+  搜索路径: [1, 2, 3, 5, 4, 6, 7, 12, 14, 15, 18, 19, 20, 21, 13, 24, 25, 16, 26, 27, 30, 31, 32, 34, 35, 33, 38, 42, 43, 39]
+  列生成求解结果: 目标值=6.9643， 下界=6.9643， 上界=10.0000
+    非整数变量: COL_0-20-25-7_106 = 0.058036
+  解不是整数，开始分支...
+ImposedVertex(vertex=25)
+ForbidVertex(vertex=25)
+  创建了 2 个分支
+    添加分支节点 1: ID=44
+    添加分支节点 2: ID=45
+  进度: 已处理 30 个节点, 剩余 15 个, 当前最优 10.0000, 当前列数: 305
+
+处理节点 44
+  开始列生成求解...
+Set parameter LogToConsole to value 0
+Set parameter Threads to value 1
+Set parameter Seed to value 0
+  定价策略: Exact, node=44, vertices=12
+Set parameter PoolSearchMode to value 2
+Set parameter PoolSolutions to value 10
+[CG 1] RMP=15.000000, pricing=ExactPricingSolver, new_columns=0
+  搜索路径: [1, 2, 3, 5, 4, 6, 7, 12, 14, 15, 18, 19, 20, 21, 13, 24, 25, 16, 26, 27, 30, 31, 32, 34, 35, 33, 38, 42, 43, 39, 44]
+  列生成求解结果: 目标值=15.0000， 下界=6.9643， 上界=10.0000
+
+处理节点 45
+  开始列生成求解...
+Set parameter LogToConsole to value 0
+Set parameter Threads to value 1
+Set parameter Seed to value 0
+  定价策略: Exact, node=45, vertices=12
+Set parameter PoolSearchMode to value 2
+Set parameter PoolSolutions to value 10
+[CG 1] RMP=13.000000, pricing=ExactPricingSolver, new_columns=0
+  搜索路径: [1, 2, 3, 5, 4, 6, 7, 12, 14, 15, 18, 19, 20, 21, 13, 24, 25, 16, 26, 27, 30, 31, 32, 34, 35, 33, 38, 42, 43, 39, 44, 45]
+  列生成求解结果: 目标值=13.0000， 下界=6.9643， 上界=10.0000
+
+处理节点 40
+  开始列生成求解...
+Set parameter LogToConsole to value 0
+Set parameter Threads to value 1
+Set parameter Seed to value 0
+  定价策略: Exact, node=40, vertices=15
+Set parameter PoolSearchMode to value 2
+Set parameter PoolSolutions to value 10
+[CG 1] RMP=6.964286, pricing=ExactPricingSolver, new_columns=0
+  搜索路径: [1, 2, 3, 5, 4, 6, 7, 12, 14, 15, 18, 19, 20, 21, 13, 24, 25, 16, 26, 27, 30, 31, 32, 34, 35, 33, 38, 42, 43, 39, 44, 45, 40]
+  列生成求解结果: 目标值=6.9643， 下界=6.9643， 上界=10.0000
+    非整数变量: COL_27_5 = 0.378061
+  解不是整数，开始分支...
+ImposedVertex(vertex=27)
+ForbidVertex(vertex=27)
+  创建了 2 个分支
+    添加分支节点 1: ID=46
+    添加分支节点 2: ID=47
+
+处理节点 41
+  开始列生成求解...
+Set parameter LogToConsole to value 0
+Set parameter Threads to value 1
+Set parameter Seed to value 0
+  定价策略: Exact, node=41, vertices=15
+Set parameter PoolSearchMode to value 2
+Set parameter PoolSolutions to value 10
+[CG 1] RMP=14.000000, pricing=ExactPricingSolver, new_columns=10
+[CG 2] RMP=14.000000, pricing=ExactPricingSolver, new_columns=10
+[CG 3] RMP=13.000000, pricing=ExactPricingSolver, new_columns=0
+  搜索路径: [1, 2, 3, 5, 4, 6, 7, 12, 14, 15, 18, 19, 20, 21, 13, 24, 25, 16, 26, 27, 30, 31, 32, 34, 35, 33, 38, 42, 43, 39, 44, 45, 40, 41]
+  列生成求解结果: 目标值=13.0000， 下界=6.9643， 上界=10.0000
+
+处理节点 46
+  开始列生成求解...
+Set parameter LogToConsole to value 0
+Set parameter Threads to value 1
+Set parameter Seed to value 0
+  定价策略: Exact, node=46, vertices=14
+Set parameter PoolSearchMode to value 2
+Set parameter PoolSolutions to value 10
+[CG 1] RMP=28.000000, pricing=ExactPricingSolver, new_columns=10
+[CG 2] RMP=7.172414, pricing=ExactPricingSolver, new_columns=10
+[CG 3] RMP=6.964286, pricing=ExactPricingSolver, new_columns=0
+  搜索路径: [1, 2, 3, 5, 4, 6, 7, 12, 14, 15, 18, 19, 20, 21, 13, 24, 25, 16, 26, 27, 30, 31, 32, 34, 35, 33, 38, 42, 43, 39, 44, 45, 40, 41, 46]
+  列生成求解结果: 目标值=6.9643， 下界=6.9643， 上界=10.0000
+    非整数变量: COL_20_4 = 0.435268
+  解不是整数，开始分支...
+ImposedVertex(vertex=8)
+ForbidVertex(vertex=8)
+  创建了 2 个分支
+    添加分支节点 1: ID=48
+    添加分支节点 2: ID=49
+
+处理节点 48
+  开始列生成求解...
+Set parameter LogToConsole to value 0
+Set parameter Threads to value 1
+Set parameter Seed to value 0
+  定价策略: Exact, node=48, vertices=13
+Set parameter PoolSearchMode to value 2
+Set parameter PoolSolutions to value 10
+[CG 1] RMP=8.750000, pricing=ExactPricingSolver, new_columns=10
+[CG 2] RMP=6.964286, pricing=ExactPricingSolver, new_columns=0
+  搜索路径: [1, 2, 3, 5, 4, 6, 7, 12, 14, 15, 18, 19, 20, 21, 13, 24, 25, 16, 26, 27, 30, 31, 32, 34, 35, 33, 38, 42, 43, 39, 44, 45, 40, 41, 46, 48]
+  列生成求解结果: 目标值=6.9643， 下界=6.9643， 上界=10.0000
+    非整数变量: COL_0-20-24-8_107 = 0.252870
+  解不是整数，开始分支...
+ImposedVertex(vertex=24)
+ForbidVertex(vertex=24)
+  创建了 2 个分支
+    添加分支节点 1: ID=50
+    添加分支节点 2: ID=51
+
+处理节点 49
+  开始列生成求解...
+Set parameter LogToConsole to value 0
+Set parameter Threads to value 1
+Set parameter Seed to value 0
+  定价策略: Exact, node=49, vertices=13
+Set parameter PoolSearchMode to value 2
+Set parameter PoolSolutions to value 10
+[CG 1] RMP=2010.000000, pricing=ExactPricingSolver, new_columns=10
+[CG 2] RMP=8.000000, pricing=ExactPricingSolver, new_columns=10
+[CG 3] RMP=6.964286, pricing=ExactPricingSolver, new_columns=0
+  搜索路径: [1, 2, 3, 5, 4, 6, 7, 12, 14, 15, 18, 19, 20, 21, 13, 24, 25, 16, 26, 27, 30, 31, 32, 34, 35, 33, 38, 42, 43, 39, 44, 45, 40, 41, 46, 48, 49]
+  列生成求解结果: 目标值=6.9643， 下界=6.9643， 上界=10.0000
+    非整数变量: COL_0-2-20-24-7_111 = 0.050223
+  解不是整数，开始分支...
+ImposedVertex(vertex=24)
+ForbidVertex(vertex=24)
+  创建了 2 个分支
+    添加分支节点 1: ID=52
+    添加分支节点 2: ID=53
+
+处理节点 50
+  开始列生成求解...
+Set parameter LogToConsole to value 0
+Set parameter Threads to value 1
+Set parameter Seed to value 0
+  定价策略: Exact, node=50, vertices=12
+Set parameter PoolSearchMode to value 2
+Set parameter PoolSolutions to value 10
+[CG 1] RMP=14.000000, pricing=ExactPricingSolver, new_columns=10
+[CG 2] RMP=13.000000, pricing=ExactPricingSolver, new_columns=0
+  搜索路径: [1, 2, 3, 5, 4, 6, 7, 12, 14, 15, 18, 19, 20, 21, 13, 24, 25, 16, 26, 27, 30, 31, 32, 34, 35, 33, 38, 42, 43, 39, 44, 45, 40, 41, 46, 48, 49, 50]
+  列生成求解结果: 目标值=13.0000， 下界=6.9643， 上界=10.0000
+
+处理节点 51
+  开始列生成求解...
+Set parameter LogToConsole to value 0
+Set parameter Threads to value 1
+Set parameter Seed to value 0
+  定价策略: Exact, node=51, vertices=12
+Set parameter PoolSearchMode to value 2
+Set parameter PoolSolutions to value 10
+[CG 1] RMP=15.000000, pricing=ExactPricingSolver, new_columns=0
+  搜索路径: [1, 2, 3, 5, 4, 6, 7, 12, 14, 15, 18, 19, 20, 21, 13, 24, 25, 16, 26, 27, 30, 31, 32, 34, 35, 33, 38, 42, 43, 39, 44, 45, 40, 41, 46, 48, 49, 50, 51]
+  列生成求解结果: 目标值=15.0000， 下界=6.9643， 上界=10.0000
+
+处理节点 47
+  开始列生成求解...
+Set parameter LogToConsole to value 0
+Set parameter Threads to value 1
+Set parameter Seed to value 0
+  定价策略: Exact, node=47, vertices=14
+Set parameter PoolSearchMode to value 2
+Set parameter PoolSolutions to value 10
+[CG 1] RMP=9.000000, pricing=ExactPricingSolver, new_columns=0
+  搜索路径: [1, 2, 3, 5, 4, 6, 7, 12, 14, 15, 18, 19, 20, 21, 13, 24, 25, 16, 26, 27, 30, 31, 32, 34, 35, 33, 38, 42, 43, 39, 44, 45, 40, 41, 46, 48, 49, 50, 51, 47]
+  列生成求解结果: 目标值=9.0000， 下界=6.9643， 上界=10.0000
+    非整数变量: COL_15-25-26_76 = 0.189011
+  解不是整数，开始分支...
+ImposedVertex(vertex=15)
+ForbidVertex(vertex=15)
+  创建了 2 个分支
+    添加分支节点 1: ID=54
+    添加分支节点 2: ID=55
+  进度: 已处理 40 个节点, 剩余 15 个, 当前最优 10.0000, 当前列数: 385
+
+处理节点 52
+  开始列生成求解...
+Set parameter LogToConsole to value 0
+Set parameter Threads to value 1
+Set parameter Seed to value 0
+  定价策略: Exact, node=52, vertices=12
+Set parameter PoolSearchMode to value 2
+Set parameter PoolSolutions to value 10
+[CG 1] RMP=14.000000, pricing=ExactPricingSolver, new_columns=10
+[CG 2] RMP=13.000000, pricing=ExactPricingSolver, new_columns=0
+  搜索路径: [1, 2, 3, 5, 4, 6, 7, 12, 14, 15, 18, 19, 20, 21, 13, 24, 25, 16, 26, 27, 30, 31, 32, 34, 35, 33, 38, 42, 43, 39, 44, 45, 40, 41, 46, 48, 49, 50, 51, 47, 52]
+  列生成求解结果: 目标值=13.0000， 下界=6.9643， 上界=10.0000
+
+处理节点 53
+  开始列生成求解...
+Set parameter LogToConsole to value 0
+Set parameter Threads to value 1
+Set parameter Seed to value 0
+  定价策略: Exact, node=53, vertices=12
+Set parameter PoolSearchMode to value 2
+Set parameter PoolSolutions to value 10
+[CG 1] RMP=15.000000, pricing=ExactPricingSolver, new_columns=0
+  搜索路径: [1, 2, 3, 5, 4, 6, 7, 12, 14, 15, 18, 19, 20, 21, 13, 24, 25, 16, 26, 27, 30, 31, 32, 34, 35, 33, 38, 42, 43, 39, 44, 45, 40, 41, 46, 48, 49, 50, 51, 47, 52, 53]
+  列生成求解结果: 目标值=15.0000， 下界=6.9643， 上界=10.0000
+
+处理节点 17
+  开始列生成求解...
+Set parameter LogToConsole to value 0
+Set parameter Threads to value 1
+Set parameter Seed to value 0
+  定价策略: Exact, node=17, vertices=21
+Set parameter PoolSearchMode to value 2
+Set parameter PoolSolutions to value 10
+[CG 1] RMP=13.000000, pricing=ExactPricingSolver, new_columns=10
+[CG 2] RMP=6.964286, pricing=ExactPricingSolver, new_columns=0
+  搜索路径: [1, 2, 3, 5, 4, 6, 7, 12, 14, 15, 18, 19, 20, 21, 13, 24, 25, 16, 26, 27, 30, 31, 32, 34, 35, 33, 38, 42, 43, 39, 44, 45, 40, 41, 46, 48, 49, 50, 51, 47, 52, 53, 17]
+  列生成求解结果: 目标值=6.9643， 下界=6.9643， 上界=10.0000
+    非整数变量: COL_13-17-24-26-28_85 = 0.130952
+  解不是整数，开始分支...
+ImposedVertex(vertex=4)
+ForbidVertex(vertex=4)
+  创建了 2 个分支
+    添加分支节点 1: ID=56
+    添加分支节点 2: ID=57
+
+处理节点 56
+  开始列生成求解...
+Set parameter LogToConsole to value 0
+Set parameter Threads to value 1
+Set parameter Seed to value 0
+  定价策略: Exact, node=56, vertices=19
+Set parameter PoolSearchMode to value 2
+Set parameter PoolSolutions to value 10
+[CG 1] RMP=15.000000, pricing=ExactPricingSolver, new_columns=0
+  搜索路径: [1, 2, 3, 5, 4, 6, 7, 12, 14, 15, 18, 19, 20, 21, 13, 24, 25, 16, 26, 27, 30, 31, 32, 34, 35, 33, 38, 42, 43, 39, 44, 45, 40, 41, 46, 48, 49, 50, 51, 47, 52, 53, 17, 56]
+  列生成求解结果: 目标值=15.0000， 下界=6.9643， 上界=10.0000
+
+处理节点 57
+  开始列生成求解...
+Set parameter LogToConsole to value 0
+Set parameter Threads to value 1
+Set parameter Seed to value 0
+  定价策略: Exact, node=57, vertices=20
+Set parameter PoolSearchMode to value 2
+Set parameter PoolSolutions to value 10
+[CG 1] RMP=8.918919, pricing=ExactPricingSolver, new_columns=10
+[CG 2] RMP=6.964286, pricing=ExactPricingSolver, new_columns=0
+  搜索路径: [1, 2, 3, 5, 4, 6, 7, 12, 14, 15, 18, 19, 20, 21, 13, 24, 25, 16, 26, 27, 30, 31, 32, 34, 35, 33, 38, 42, 43, 39, 44, 45, 40, 41, 46, 48, 49, 50, 51, 47, 52, 53, 17, 56, 57]
+  列生成求解结果: 目标值=6.9643， 下界=6.9643， 上界=10.0000
+    非整数变量: COL_9_45 = 0.002976
+  解不是整数，开始分支...
+ImposedVertex(vertex=13)
+ForbidVertex(vertex=13)
+  创建了 2 个分支
+    添加分支节点 1: ID=58
+    添加分支节点 2: ID=59
+
+处理节点 58
+  开始列生成求解...
+Set parameter LogToConsole to value 0
+Set parameter Threads to value 1
+Set parameter Seed to value 0
+  定价策略: Exact, node=58, vertices=17
+Set parameter PoolSearchMode to value 2
+Set parameter PoolSolutions to value 10
+[CG 1] RMP=15.000000, pricing=ExactPricingSolver, new_columns=10
+[CG 2] RMP=7.500000, pricing=ExactPricingSolver, new_columns=10
+[CG 3] RMP=6.964286, pricing=ExactPricingSolver, new_columns=0
+  搜索路径: [1, 2, 3, 5, 4, 6, 7, 12, 14, 15, 18, 19, 20, 21, 13, 24, 25, 16, 26, 27, 30, 31, 32, 34, 35, 33, 38, 42, 43, 39, 44, 45, 40, 41, 46, 48, 49, 50, 51, 47, 52, 53, 17, 56, 57, 58]
+  列生成求解结果: 目标值=6.9643， 下界=6.9643， 上界=10.0000
+    非整数变量: COL_13-17-24-26-28_85 = 0.184152
+  解不是整数，开始分支...
+ImposedVertex(vertex=17)
+ForbidVertex(vertex=17)
+  创建了 2 个分支
+    添加分支节点 1: ID=60
+    添加分支节点 2: ID=61
+
+处理节点 59
+  开始列生成求解...
+Set parameter LogToConsole to value 0
+Set parameter Threads to value 1
+Set parameter Seed to value 0
+  定价策略: Exact, node=59, vertices=19
+Set parameter PoolSearchMode to value 2
+Set parameter PoolSolutions to value 10
+[CG 1] RMP=7.078652, pricing=ExactPricingSolver, new_columns=10
+[CG 2] RMP=6.964286, pricing=ExactPricingSolver, new_columns=0
+  搜索路径: [1, 2, 3, 5, 4, 6, 7, 12, 14, 15, 18, 19, 20, 21, 13, 24, 25, 16, 26, 27, 30, 31, 32, 34, 35, 33, 38, 42, 43, 39, 44, 45, 40, 41, 46, 48, 49, 50, 51, 47, 52, 53, 17, 56, 57, 58, 59]
+  列生成求解结果: 目标值=6.9643， 下界=6.9643， 上界=10.0000
+    非整数变量: COL_15-25-26_76 = 0.054240
+  解不是整数，开始分支...
+ImposedVertex(vertex=15)
+ForbidVertex(vertex=15)
+  创建了 2 个分支
+    添加分支节点 1: ID=62
+    添加分支节点 2: ID=63
+
+处理节点 60
+  开始列生成求解...
+Set parameter LogToConsole to value 0
+Set parameter Threads to value 1
+Set parameter Seed to value 0
+  定价策略: Exact, node=60, vertices=16
+Set parameter PoolSearchMode to value 2
+Set parameter PoolSolutions to value 10
+[CG 1] RMP=6.964286, pricing=ExactPricingSolver, new_columns=0
+  搜索路径: [1, 2, 3, 5, 4, 6, 7, 12, 14, 15, 18, 19, 20, 21, 13, 24, 25, 16, 26, 27, 30, 31, 32, 34, 35, 33, 38, 42, 43, 39, 44, 45, 40, 41, 46, 48, 49, 50, 51, 47, 52, 53, 17, 56, 57, 58, 59, 60]
+  列生成求解结果: 目标值=6.9643， 下界=6.9643， 上界=10.0000
+    非整数变量: COL_13-17-24-26-28_85 = 0.171875
+  解不是整数，开始分支...
+ImposedVertex(vertex=8)
+ForbidVertex(vertex=8)
+  创建了 2 个分支
+    添加分支节点 1: ID=64
+    添加分支节点 2: ID=65
+
+处理节点 64
+  开始列生成求解...
+Set parameter LogToConsole to value 0
+Set parameter Threads to value 1
+Set parameter Seed to value 0
+  定价策略: Exact, node=64, vertices=14
+Set parameter PoolSearchMode to value 2
+Set parameter PoolSolutions to value 10
+[CG 1] RMP=20.000000, pricing=ExactPricingSolver, new_columns=10
+[CG 2] RMP=15.000000, pricing=ExactPricingSolver, new_columns=0
+  搜索路径: [1, 2, 3, 5, 4, 6, 7, 12, 14, 15, 18, 19, 20, 21, 13, 24, 25, 16, 26, 27, 30, 31, 32, 34, 35, 33, 38, 42, 43, 39, 44, 45, 40, 41, 46, 48, 49, 50, 51, 47, 52, 53, 17, 56, 57, 58, 59, 60, 64]
+  列生成求解结果: 目标值=15.0000， 下界=6.9643， 上界=10.0000
+
+处理节点 65
+  开始列生成求解...
+Set parameter LogToConsole to value 0
+Set parameter Threads to value 1
+Set parameter Seed to value 0
+  定价策略: Exact, node=65, vertices=15
+Set parameter PoolSearchMode to value 2
+Set parameter PoolSolutions to value 10
+[CG 1] RMP=6.964286, pricing=ExactPricingSolver, new_columns=0
+  搜索路径: [1, 2, 3, 5, 4, 6, 7, 12, 14, 15, 18, 19, 20, 21, 13, 24, 25, 16, 26, 27, 30, 31, 32, 34, 35, 33, 38, 42, 43, 39, 44, 45, 40, 41, 46, 48, 49, 50, 51, 47, 52, 53, 17, 56, 57, 58, 59, 60, 64, 65]
+  列生成求解结果: 目标值=6.9643， 下界=6.9643， 上界=10.0000
+    非整数变量: COL_13-17-24-26-28_85 = 0.171875
+  解不是整数，开始分支...
+ImposedVertex(vertex=24)
+ForbidVertex(vertex=24)
+  创建了 2 个分支
+    添加分支节点 1: ID=66
+    添加分支节点 2: ID=67
+  进度: 已处理 50 个节点, 剩余 17 个, 当前最优 10.0000, 当前列数: 455
+
+处理节点 61
+  开始列生成求解...
+Set parameter LogToConsole to value 0
+Set parameter Threads to value 1
+Set parameter Seed to value 0
+  定价策略: Exact, node=61, vertices=16
+Set parameter PoolSearchMode to value 2
+Set parameter PoolSolutions to value 10
+[CG 1] RMP=13.000000, pricing=ExactPricingSolver, new_columns=0
+  搜索路径: [1, 2, 3, 5, 4, 6, 7, 12, 14, 15, 18, 19, 20, 21, 13, 24, 25, 16, 26, 27, 30, 31, 32, 34, 35, 33, 38, 42, 43, 39, 44, 45, 40, 41, 46, 48, 49, 50, 51, 47, 52, 53, 17, 56, 57, 58, 59, 60, 64, 65, 61]
+  列生成求解结果: 目标值=13.0000， 下界=6.9643， 上界=10.0000
+
+处理节点 66
+  开始列生成求解...
+Set parameter LogToConsole to value 0
+Set parameter Threads to value 1
+Set parameter Seed to value 0
+  定价策略: Exact, node=66, vertices=14
+Set parameter PoolSearchMode to value 2
+Set parameter PoolSolutions to value 10
+[CG 1] RMP=15.000000, pricing=ExactPricingSolver, new_columns=10
+[CG 2] RMP=13.000000, pricing=ExactPricingSolver, new_columns=0
+  搜索路径: [1, 2, 3, 5, 4, 6, 7, 12, 14, 15, 18, 19, 20, 21, 13, 24, 25, 16, 26, 27, 30, 31, 32, 34, 35, 33, 38, 42, 43, 39, 44, 45, 40, 41, 46, 48, 49, 50, 51, 47, 52, 53, 17, 56, 57, 58, 59, 60, 64, 65, 61, 66]
+  列生成求解结果: 目标值=13.0000， 下界=6.9643， 上界=10.0000
+
+处理节点 67
+  开始列生成求解...
+Set parameter LogToConsole to value 0
+Set parameter Threads to value 1
+Set parameter Seed to value 0
+  定价策略: Exact, node=67, vertices=14
+Set parameter PoolSearchMode to value 2
+Set parameter PoolSolutions to value 10
+[CG 1] RMP=15.000000, pricing=ExactPricingSolver, new_columns=0
+  搜索路径: [1, 2, 3, 5, 4, 6, 7, 12, 14, 15, 18, 19, 20, 21, 13, 24, 25, 16, 26, 27, 30, 31, 32, 34, 35, 33, 38, 42, 43, 39, 44, 45, 40, 41, 46, 48, 49, 50, 51, 47, 52, 53, 17, 56, 57, 58, 59, 60, 64, 65, 61, 66, 67]
+  列生成求解结果: 目标值=15.0000， 下界=6.9643， 上界=10.0000
+
+处理节点 62
+  开始列生成求解...
+Set parameter LogToConsole to value 0
+Set parameter Threads to value 1
+Set parameter Seed to value 0
+  定价策略: Exact, node=62, vertices=17
+Set parameter PoolSearchMode to value 2
+Set parameter PoolSolutions to value 10
+[CG 1] RMP=14.000000, pricing=ExactPricingSolver, new_columns=0
+  搜索路径: [1, 2, 3, 5, 4, 6, 7, 12, 14, 15, 18, 19, 20, 21, 13, 24, 25, 16, 26, 27, 30, 31, 32, 34, 35, 33, 38, 42, 43, 39, 44, 45, 40, 41, 46, 48, 49, 50, 51, 47, 52, 53, 17, 56, 57, 58, 59, 60, 64, 65, 61, 66, 67, 62]
+  列生成求解结果: 目标值=14.0000， 下界=6.9643， 上界=10.0000
+
+处理节点 63
+  开始列生成求解...
+Set parameter LogToConsole to value 0
+Set parameter Threads to value 1
+Set parameter Seed to value 0
+  定价策略: Exact, node=63, vertices=18
+Set parameter PoolSearchMode to value 2
+Set parameter PoolSolutions to value 10
+[CG 1] RMP=11.000000, pricing=ExactPricingSolver, new_columns=10
+[CG 2] RMP=8.171429, pricing=ExactPricingSolver, new_columns=0
+  搜索路径: [1, 2, 3, 5, 4, 6, 7, 12, 14, 15, 18, 19, 20, 21, 13, 24, 25, 16, 26, 27, 30, 31, 32, 34, 35, 33, 38, 42, 43, 39, 44, 45, 40, 41, 46, 48, 49, 50, 51, 47, 52, 53, 17, 56, 57, 58, 59, 60, 64, 65, 61, 66, 67, 62, 63]
+  列生成求解结果: 目标值=8.1714， 下界=6.9643， 上界=10.0000
+    非整数变量: COL_0-17-24-28_87 = 0.236825
+  解不是整数，开始分支...
+ImposedVertex(vertex=24)
+ForbidVertex(vertex=24)
+  创建了 2 个分支
+    添加分支节点 1: ID=68
+    添加分支节点 2: ID=69
+
+处理节点 10
+  开始列生成求解...
+Set parameter LogToConsole to value 0
+Set parameter Threads to value 1
+Set parameter Seed to value 0
+  定价策略: Exact, node=10, vertices=24
+Set parameter PoolSearchMode to value 2
+Set parameter PoolSolutions to value 10
+[CG 1] RMP=9.000000, pricing=ExactPricingSolver, new_columns=0
+  搜索路径: [1, 2, 3, 5, 4, 6, 7, 12, 14, 15, 18, 19, 20, 21, 13, 24, 25, 16, 26, 27, 30, 31, 32, 34, 35, 33, 38, 42, 43, 39, 44, 45, 40, 41, 46, 48, 49, 50, 51, 47, 52, 53, 17, 56, 57, 58, 59, 60, 64, 65, 61, 66, 67, 62, 63, 10]
+  列生成求解结果: 目标值=9.0000， 下界=7.0000， 上界=10.0000
+    非整数变量: COL_17-19-26_19 = 0.435897
+  解不是整数，开始分支...
+ImposedVertex(vertex=17)
+ForbidVertex(vertex=17)
+  创建了 2 个分支
+    添加分支节点 1: ID=70
+    添加分支节点 2: ID=71
+
+处理节点 11
+  开始列生成求解...
+Set parameter LogToConsole to value 0
+Set parameter Threads to value 1
+Set parameter Seed to value 0
+  定价策略: Exact, node=11, vertices=24
+Set parameter PoolSearchMode to value 2
+Set parameter PoolSolutions to value 10
+[CG 1] RMP=16.000000, pricing=ExactPricingSolver, new_columns=10
+[CG 2] RMP=7.000000, pricing=ExactPricingSolver, new_columns=0
+  搜索路径: [1, 2, 3, 5, 4, 6, 7, 12, 14, 15, 18, 19, 20, 21, 13, 24, 25, 16, 26, 27, 30, 31, 32, 34, 35, 33, 38, 42, 43, 39, 44, 45, 40, 41, 46, 48, 49, 50, 51, 47, 52, 53, 17, 56, 57, 58, 59, 60, 64, 65, 61, 66, 67, 62, 63, 10, 11]
+  列生成求解结果: 目标值=7.0000， 下界=7.0000， 上界=10.0000
+    非整数变量: COL_19-27-28_8 = 0.024038
+  解不是整数，开始分支...
+ImposedVertex(vertex=28)
+ForbidVertex(vertex=28)
+  创建了 2 个分支
+    添加分支节点 1: ID=72
+    添加分支节点 2: ID=73
+
+处理节点 22
+  开始列生成求解...
+Set parameter LogToConsole to value 0
+Set parameter Threads to value 1
+Set parameter Seed to value 0
+  定价策略: Exact, node=22, vertices=19
+Set parameter PoolSearchMode to value 2
+Set parameter PoolSolutions to value 10
+[CG 1] RMP=13.000000, pricing=ExactPricingSolver, new_columns=10
+[CG 2] RMP=9.000000, pricing=ExactPricingSolver, new_columns=10
+[CG 3] RMP=7.000000, pricing=ExactPricingSolver, new_columns=0
+  搜索路径: [1, 2, 3, 5, 4, 6, 7, 12, 14, 15, 18, 19, 20, 21, 13, 24, 25, 16, 26, 27, 30, 31, 32, 34, 35, 33, 38, 42, 43, 39, 44, 45, 40, 41, 46, 48, 49, 50, 51, 47, 52, 53, 17, 56, 57, 58, 59, 60, 64, 65, 61, 66, 67, 62, 63, 10, 11, 22]
+  列生成求解结果: 目标值=7.0000， 下界=7.0000， 上界=10.0000
+    非整数变量: COL_0-17-24-28_87 = 0.333333
+  解不是整数，开始分支...
+ImposedVertex(vertex=24)
+ForbidVertex(vertex=24)
+  创建了 2 个分支
+    添加分支节点 1: ID=74
+    添加分支节点 2: ID=75
+
+处理节点 72
+  开始列生成求解...
+Set parameter LogToConsole to value 0
+Set parameter Threads to value 1
+Set parameter Seed to value 0
+  定价策略: Exact, node=72, vertices=23
+Set parameter PoolSearchMode to value 2
+Set parameter PoolSolutions to value 10
+[CG 1] RMP=10.035088, pricing=ExactPricingSolver, new_columns=10
+[CG 2] RMP=10.000000, pricing=ExactPricingSolver, new_columns=0
+  搜索路径: [1, 2, 3, 5, 4, 6, 7, 12, 14, 15, 18, 19, 20, 21, 13, 24, 25, 16, 26, 27, 30, 31, 32, 34, 35, 33, 38, 42, 43, 39, 44, 45, 40, 41, 46, 48, 49, 50, 51, 47, 52, 53, 17, 56, 57, 58, 59, 60, 64, 65, 61, 66, 67, 62, 63, 10, 11, 22, 72]
+  列生成求解结果: 目标值=10.0000， 下界=7.0000， 上界=10.0000
+
+处理节点 23
+  开始列生成求解...
+Set parameter LogToConsole to value 0
+Set parameter Threads to value 1
+Set parameter Seed to value 0
+  定价策略: Exact, node=23, vertices=20
+Set parameter PoolSearchMode to value 2
+Set parameter PoolSolutions to value 10
+[CG 1] RMP=7.000000, pricing=ExactPricingSolver, new_columns=0
+  搜索路径: [1, 2, 3, 5, 4, 6, 7, 12, 14, 15, 18, 19, 20, 21, 13, 24, 25, 16, 26, 27, 30, 31, 32, 34, 35, 33, 38, 42, 43, 39, 44, 45, 40, 41, 46, 48, 49, 50, 51, 47, 52, 53, 17, 56, 57, 58, 59, 60, 64, 65, 61, 66, 67, 62, 63, 10, 11, 22, 72, 23]
+  列生成求解结果: 目标值=7.0000， 下界=7.0000， 上界=10.0000
+    非整数变量: COL_20_4 = 0.183761
+  解不是整数，开始分支...
+ImposedVertex(vertex=27)
+ForbidVertex(vertex=27)
+  创建了 2 个分支
+    添加分支节点 1: ID=76
+    添加分支节点 2: ID=77
+  进度: 已处理 60 个节点, 剩余 17 个, 当前最优 10.0000, 当前列数: 515
+
+处理节点 73
+  开始列生成求解...
+Set parameter LogToConsole to value 0
+Set parameter Threads to value 1
+Set parameter Seed to value 0
+  定价策略: Exact, node=73, vertices=23
+Set parameter PoolSearchMode to value 2
+Set parameter PoolSolutions to value 10
+[CG 1] RMP=16.000000, pricing=ExactPricingSolver, new_columns=0
+  搜索路径: [1, 2, 3, 5, 4, 6, 7, 12, 14, 15, 18, 19, 20, 21, 13, 24, 25, 16, 26, 27, 30, 31, 32, 34, 35, 33, 38, 42, 43, 39, 44, 45, 40, 41, 46, 48, 49, 50, 51, 47, 52, 53, 17, 56, 57, 58, 59, 60, 64, 65, 61, 66, 67, 62, 63, 10, 11, 22, 72, 23, 73]
+  列生成求解结果: 目标值=16.0000， 下界=7.0000， 上界=10.0000
+
+处理节点 74
+  开始列生成求解...
+Set parameter LogToConsole to value 0
+Set parameter Threads to value 1
+Set parameter Seed to value 0
+  定价策略: Exact, node=74, vertices=18
+Set parameter PoolSearchMode to value 2
+Set parameter PoolSolutions to value 10
+[CG 1] RMP=13.000000, pricing=ExactPricingSolver, new_columns=0
+  搜索路径: [1, 2, 3, 5, 4, 6, 7, 12, 14, 15, 18, 19, 20, 21, 13, 24, 25, 16, 26, 27, 30, 31, 32, 34, 35, 33, 38, 42, 43, 39, 44, 45, 40, 41, 46, 48, 49, 50, 51, 47, 52, 53, 17, 56, 57, 58, 59, 60, 64, 65, 61, 66, 67, 62, 63, 10, 11, 22, 72, 23, 73, 74]
+  列生成求解结果: 目标值=13.0000， 下界=7.0000， 上界=10.0000
+
+处理节点 75
+  开始列生成求解...
+Set parameter LogToConsole to value 0
+Set parameter Threads to value 1
+Set parameter Seed to value 0
+  定价策略: Exact, node=75, vertices=18
+Set parameter PoolSearchMode to value 2
+Set parameter PoolSolutions to value 10
+[CG 1] RMP=15.000000, pricing=ExactPricingSolver, new_columns=0
+  搜索路径: [1, 2, 3, 5, 4, 6, 7, 12, 14, 15, 18, 19, 20, 21, 13, 24, 25, 16, 26, 27, 30, 31, 32, 34, 35, 33, 38, 42, 43, 39, 44, 45, 40, 41, 46, 48, 49, 50, 51, 47, 52, 53, 17, 56, 57, 58, 59, 60, 64, 65, 61, 66, 67, 62, 63, 10, 11, 22, 72, 23, 73, 74, 75]
+  列生成求解结果: 目标值=15.0000， 下界=7.0000， 上界=10.0000
+
+处理节点 76
+  开始列生成求解...
+Set parameter LogToConsole to value 0
+Set parameter Threads to value 1
+Set parameter Seed to value 0
+  定价策略: Exact, node=76, vertices=19
+Set parameter PoolSearchMode to value 2
+Set parameter PoolSolutions to value 10
+[CG 1] RMP=2010.000000, pricing=ExactPricingSolver, new_columns=10
+[CG 2] RMP=16.000000, pricing=ExactPricingSolver, new_columns=10
+[CG 3] RMP=14.000000, pricing=ExactPricingSolver, new_columns=10
+[CG 4] RMP=13.000000, pricing=ExactPricingSolver, new_columns=10
+[CG 5] RMP=7.500000, pricing=ExactPricingSolver, new_columns=10
+[CG 6] RMP=7.000000, pricing=ExactPricingSolver, new_columns=0
+  搜索路径: [1, 2, 3, 5, 4, 6, 7, 12, 14, 15, 18, 19, 20, 21, 13, 24, 25, 16, 26, 27, 30, 31, 32, 34, 35, 33, 38, 42, 43, 39, 44, 45, 40, 41, 46, 48, 49, 50, 51, 47, 52, 53, 17, 56, 57, 58, 59, 60, 64, 65, 61, 66, 67, 62, 63, 10, 11, 22, 72, 23, 73, 74, 75, 76]
+  列生成求解结果: 目标值=7.0000， 下界=7.0000， 上界=10.0000
+    非整数变量: COL_0-20-24-8_107 = 0.366667
+  解不是整数，开始分支...
+ImposedVertex(vertex=24)
+ForbidVertex(vertex=24)
+  创建了 2 个分支
+    添加分支节点 1: ID=78
+    添加分支节点 2: ID=79
+
+处理节点 77
+  开始列生成求解...
+Set parameter LogToConsole to value 0
+Set parameter Threads to value 1
+Set parameter Seed to value 0
+  定价策略: Exact, node=77, vertices=19
+Set parameter PoolSearchMode to value 2
+Set parameter PoolSolutions to value 10
+[CG 1] RMP=9.000000, pricing=ExactPricingSolver, new_columns=0
+  搜索路径: [1, 2, 3, 5, 4, 6, 7, 12, 14, 15, 18, 19, 20, 21, 13, 24, 25, 16, 26, 27, 30, 31, 32, 34, 35, 33, 38, 42, 43, 39, 44, 45, 40, 41, 46, 48, 49, 50, 51, 47, 52, 53, 17, 56, 57, 58, 59, 60, 64, 65, 61, 66, 67, 62, 63, 10, 11, 22, 72, 23, 73, 74, 75, 76, 77]
+  列生成求解结果: 目标值=9.0000， 下界=7.0000， 上界=10.0000
+    非整数变量: COL_24_33 = 0.092308
+  解不是整数，开始分支...
+ImposedVertex(vertex=3)
+ForbidVertex(vertex=3)
+  创建了 2 个分支
+    添加分支节点 1: ID=80
+    添加分支节点 2: ID=81
+
+处理节点 78
+  开始列生成求解...
+Set parameter LogToConsole to value 0
+Set parameter Threads to value 1
+Set parameter Seed to value 0
+  定价策略: Exact, node=78, vertices=18
+Set parameter PoolSearchMode to value 2
+Set parameter PoolSolutions to value 10
+[CG 1] RMP=13.000000, pricing=ExactPricingSolver, new_columns=0
+  搜索路径: [1, 2, 3, 5, 4, 6, 7, 12, 14, 15, 18, 19, 20, 21, 13, 24, 25, 16, 26, 27, 30, 31, 32, 34, 35, 33, 38, 42, 43, 39, 44, 45, 40, 41, 46, 48, 49, 50, 51, 47, 52, 53, 17, 56, 57, 58, 59, 60, 64, 65, 61, 66, 67, 62, 63, 10, 11, 22, 72, 23, 73, 74, 75, 76, 77, 78]
+  列生成求解结果: 目标值=13.0000， 下界=7.0000， 上界=10.0000
+
+处理节点 79
+  开始列生成求解...
+Set parameter LogToConsole to value 0
+Set parameter Threads to value 1
+Set parameter Seed to value 0
+  定价策略: Exact, node=79, vertices=18
+Set parameter PoolSearchMode to value 2
+Set parameter PoolSolutions to value 10
+[CG 1] RMP=15.000000, pricing=ExactPricingSolver, new_columns=0
+  搜索路径: [1, 2, 3, 5, 4, 6, 7, 12, 14, 15, 18, 19, 20, 21, 13, 24, 25, 16, 26, 27, 30, 31, 32, 34, 35, 33, 38, 42, 43, 39, 44, 45, 40, 41, 46, 48, 49, 50, 51, 47, 52, 53, 17, 56, 57, 58, 59, 60, 64, 65, 61, 66, 67, 62, 63, 10, 11, 22, 72, 23, 73, 74, 75, 76, 77, 78, 79]
+  列生成求解结果: 目标值=15.0000， 下界=7.0000， 上界=10.0000
+
+处理节点 9
+  开始列生成求解...
+Set parameter LogToConsole to value 0
+Set parameter Threads to value 1
+Set parameter Seed to value 0
+  定价策略: Exact, node=9, vertices=26
+Set parameter PoolSearchMode to value 2
+Set parameter PoolSolutions to value 10
+[CG 1] RMP=2010.000000, pricing=ExactPricingSolver, new_columns=10
+[CG 2] RMP=16.000000, pricing=ExactPricingSolver, new_columns=0
+  搜索路径: [1, 2, 3, 5, 4, 6, 7, 12, 14, 15, 18, 19, 20, 21, 13, 24, 25, 16, 26, 27, 30, 31, 32, 34, 35, 33, 38, 42, 43, 39, 44, 45, 40, 41, 46, 48, 49, 50, 51, 47, 52, 53, 17, 56, 57, 58, 59, 60, 64, 65, 61, 66, 67, 62, 63, 10, 11, 22, 72, 23, 73, 74, 75, 76, 77, 78, 79, 9]
+  列生成求解结果: 目标值=16.0000， 下界=7.0000， 上界=10.0000
+
+处理节点 8
+  开始列生成求解...
+Set parameter LogToConsole to value 0
+Set parameter Threads to value 1
+Set parameter Seed to value 0
+  定价策略: Exact, node=8, vertices=26
+Set parameter PoolSearchMode to value 2
+Set parameter PoolSolutions to value 10
+[CG 1] RMP=10.000000, pricing=ExactPricingSolver, new_columns=0
+  搜索路径: [1, 2, 3, 5, 4, 6, 7, 12, 14, 15, 18, 19, 20, 21, 13, 24, 25, 16, 26, 27, 30, 31, 32, 34, 35, 33, 38, 42, 43, 39, 44, 45, 40, 41, 46, 48, 49, 50, 51, 47, 52, 53, 17, 56, 57, 58, 59, 60, 64, 65, 61, 66, 67, 62, 63, 10, 11, 22, 72, 23, 73, 74, 75, 76, 77, 78, 79, 9, 8]
+  列生成求解结果: 目标值=10.0000， 下界=7.0000， 上界=10.0000
+
+处理节点 68
+  开始列生成求解...
+Set parameter LogToConsole to value 0
+Set parameter Threads to value 1
+Set parameter Seed to value 0
+  定价策略: Exact, node=68, vertices=17
+Set parameter PoolSearchMode to value 2
+Set parameter PoolSolutions to value 10
+[CG 1] RMP=22.000000, pricing=ExactPricingSolver, new_columns=10
+[CG 2] RMP=13.000000, pricing=ExactPricingSolver, new_columns=0
+  搜索路径: [1, 2, 3, 5, 4, 6, 7, 12, 14, 15, 18, 19, 20, 21, 13, 24, 25, 16, 26, 27, 30, 31, 32, 34, 35, 33, 38, 42, 43, 39, 44, 45, 40, 41, 46, 48, 49, 50, 51, 47, 52, 53, 17, 56, 57, 58, 59, 60, 64, 65, 61, 66, 67, 62, 63, 10, 11, 22, 72, 23, 73, 74, 75, 76, 77, 78, 79, 9, 8, 68]
+  列生成求解结果: 目标值=13.0000， 下界=7.0000， 上界=10.0000
+
+处理节点 69
+  开始列生成求解...
+Set parameter LogToConsole to value 0
+Set parameter Threads to value 1
+Set parameter Seed to value 0
+  定价策略: Exact, node=69, vertices=17
+Set parameter PoolSearchMode to value 2
+Set parameter PoolSolutions to value 10
+[CG 1] RMP=15.000000, pricing=ExactPricingSolver, new_columns=0
+  搜索路径: [1, 2, 3, 5, 4, 6, 7, 12, 14, 15, 18, 19, 20, 21, 13, 24, 25, 16, 26, 27, 30, 31, 32, 34, 35, 33, 38, 42, 43, 39, 44, 45, 40, 41, 46, 48, 49, 50, 51, 47, 52, 53, 17, 56, 57, 58, 59, 60, 64, 65, 61, 66, 67, 62, 63, 10, 11, 22, 72, 23, 73, 74, 75, 76, 77, 78, 79, 9, 8, 68, 69]
+  列生成求解结果: 目标值=15.0000， 下界=7.0000， 上界=10.0000
+
+处理节点 80
+  开始列生成求解...
+Set parameter LogToConsole to value 0
+Set parameter Threads to value 1
+Set parameter Seed to value 0
+  定价策略: Exact, node=80, vertices=16
+Set parameter PoolSearchMode to value 2
+Set parameter PoolSolutions to value 10
+[CG 1] RMP=15.000000, pricing=ExactPricingSolver, new_columns=0
+  搜索路径: [1, 2, 3, 5, 4, 6, 7, 12, 14, 15, 18, 19, 20, 21, 13, 24, 25, 16, 26, 27, 30, 31, 32, 34, 35, 33, 38, 42, 43, 39, 44, 45, 40, 41, 46, 48, 49, 50, 51, 47, 52, 53, 17, 56, 57, 58, 59, 60, 64, 65, 61, 66, 67, 62, 63, 10, 11, 22, 72, 23, 73, 74, 75, 76, 77, 78, 79, 9, 8, 68, 69, 80]
+  列生成求解结果: 目标值=15.0000， 下界=7.0000， 上界=10.0000
+
+处理节点 70
+  开始列生成求解...
+Set parameter LogToConsole to value 0
+Set parameter Threads to value 1
+Set parameter Seed to value 0
+  定价策略: Exact, node=70, vertices=23
+Set parameter PoolSearchMode to value 2
+Set parameter PoolSolutions to value 10
+[CG 1] RMP=9.000000, pricing=ExactPricingSolver, new_columns=0
+  搜索路径: [1, 2, 3, 5, 4, 6, 7, 12, 14, 15, 18, 19, 20, 21, 13, 24, 25, 16, 26, 27, 30, 31, 32, 34, 35, 33, 38, 42, 43, 39, 44, 45, 40, 41, 46, 48, 49, 50, 51, 47, 52, 53, 17, 56, 57, 58, 59, 60, 64, 65, 61, 66, 67, 62, 63, 10, 11, 22, 72, 23, 73, 74, 75, 76, 77, 78, 79, 9, 8, 68, 69, 80, 70]
+  列生成求解结果: 目标值=9.0000， 下界=7.0000， 上界=10.0000
+    非整数变量: COL_19-26-28_6 = 0.007326
+  解不是整数，开始分支...
+ImposedVertex(vertex=28)
+ForbidVertex(vertex=28)
+  创建了 2 个分支
+    添加分支节点 1: ID=82
+    添加分支节点 2: ID=83
+
+处理节点 36
+  开始列生成求解...
+Set parameter LogToConsole to value 0
+Set parameter Threads to value 1
+Set parameter Seed to value 0
+  定价策略: Exact, node=36, vertices=13
+Set parameter PoolSearchMode to value 2
+Set parameter PoolSolutions to value 10
+[CG 1] RMP=13.000000, pricing=ExactPricingSolver, new_columns=0
+  搜索路径: [1, 2, 3, 5, 4, 6, 7, 12, 14, 15, 18, 19, 20, 21, 13, 24, 25, 16, 26, 27, 30, 31, 32, 34, 35, 33, 38, 42, 43, 39, 44, 45, 40, 41, 46, 48, 49, 50, 51, 47, 52, 53, 17, 56, 57, 58, 59, 60, 64, 65, 61, 66, 67, 62, 63, 10, 11, 22, 72, 23, 73, 74, 75, 76, 77, 78, 79, 9, 8, 68, 69, 80, 70, 36]
+  列生成求解结果: 目标值=13.0000， 下界=9.0000， 上界=10.0000
+
+处理节点 54
+  开始列生成求解...
+Set parameter LogToConsole to value 0
+Set parameter Threads to value 1
+Set parameter Seed to value 0
+  定价策略: Exact, node=54, vertices=13
+Set parameter PoolSearchMode to value 2
+Set parameter PoolSolutions to value 10
+[CG 1] RMP=14.000000, pricing=ExactPricingSolver, new_columns=0
+  搜索路径: [1, 2, 3, 5, 4, 6, 7, 12, 14, 15, 18, 19, 20, 21, 13, 24, 25, 16, 26, 27, 30, 31, 32, 34, 35, 33, 38, 42, 43, 39, 44, 45, 40, 41, 46, 48, 49, 50, 51, 47, 52, 53, 17, 56, 57, 58, 59, 60, 64, 65, 61, 66, 67, 62, 63, 10, 11, 22, 72, 23, 73, 74, 75, 76, 77, 78, 79, 9, 8, 68, 69, 80, 70, 36, 54]
+  列生成求解结果: 目标值=14.0000， 下界=9.0000， 上界=10.0000
+
+处理节点 28
+  开始列生成求解...
+Set parameter LogToConsole to value 0
+Set parameter Threads to value 1
+Set parameter Seed to value 0
+  定价策略: Exact, node=28, vertices=16
+Set parameter PoolSearchMode to value 2
+Set parameter PoolSolutions to value 10
+[CG 1] RMP=15.000000, pricing=ExactPricingSolver, new_columns=0
+  搜索路径: [1, 2, 3, 5, 4, 6, 7, 12, 14, 15, 18, 19, 20, 21, 13, 24, 25, 16, 26, 27, 30, 31, 32, 34, 35, 33, 38, 42, 43, 39, 44, 45, 40, 41, 46, 48, 49, 50, 51, 47, 52, 53, 17, 56, 57, 58, 59, 60, 64, 65, 61, 66, 67, 62, 63, 10, 11, 22, 72, 23, 73, 74, 75, 76, 77, 78, 79, 9, 8, 68, 69, 80, 70, 36, 54, 28]
+  列生成求解结果: 目标值=15.0000， 下界=9.0000， 上界=10.0000
+
+处理节点 83
+  开始列生成求解...
+Set parameter LogToConsole to value 0
+Set parameter Threads to value 1
+Set parameter Seed to value 0
+  定价策略: Exact, node=83, vertices=22
+Set parameter PoolSearchMode to value 2
+Set parameter PoolSolutions to value 10
+[CG 1] RMP=16.000000, pricing=ExactPricingSolver, new_columns=0
+  搜索路径: [1, 2, 3, 5, 4, 6, 7, 12, 14, 15, 18, 19, 20, 21, 13, 24, 25, 16, 26, 27, 30, 31, 32, 34, 35, 33, 38, 42, 43, 39, 44, 45, 40, 41, 46, 48, 49, 50, 51, 47, 52, 53, 17, 56, 57, 58, 59, 60, 64, 65, 61, 66, 67, 62, 63, 10, 11, 22, 72, 23, 73, 74, 75, 76, 77, 78, 79, 9, 8, 68, 69, 80, 70, 36, 54, 28, 83]
+  列生成求解结果: 目标值=16.0000， 下界=9.0000， 上界=10.0000
+
+处理节点 82
+  开始列生成求解...
+Set parameter LogToConsole to value 0
+Set parameter Threads to value 1
+Set parameter Seed to value 0
+  定价策略: Exact, node=82, vertices=22
+Set parameter PoolSearchMode to value 2
+Set parameter PoolSolutions to value 10
+[CG 1] RMP=13.000000, pricing=ExactPricingSolver, new_columns=10
+[CG 2] RMP=10.000000, pricing=ExactPricingSolver, new_columns=0
+  搜索路径: [1, 2, 3, 5, 4, 6, 7, 12, 14, 15, 18, 19, 20, 21, 13, 24, 25, 16, 26, 27, 30, 31, 32, 34, 35, 33, 38, 42, 43, 39, 44, 45, 40, 41, 46, 48, 49, 50, 51, 47, 52, 53, 17, 56, 57, 58, 59, 60, 64, 65, 61, 66, 67, 62, 63, 10, 11, 22, 72, 23, 73, 74, 75, 76, 77, 78, 79, 9, 8, 68, 69, 80, 70, 36, 54, 28, 83, 82]
+  列生成求解结果: 目标值=10.0000， 下界=9.0000， 上界=10.0000
+
+处理节点 81
+  开始列生成求解...
+Set parameter LogToConsole to value 0
+Set parameter Threads to value 1
+Set parameter Seed to value 0
+  定价策略: Exact, node=81, vertices=18
+Set parameter PoolSearchMode to value 2
+Set parameter PoolSolutions to value 10
+[CG 1] RMP=9.000000, pricing=ExactPricingSolver, new_columns=0
+  搜索路径: [1, 2, 3, 5, 4, 6, 7, 12, 14, 15, 18, 19, 20, 21, 13, 24, 25, 16, 26, 27, 30, 31, 32, 34, 35, 33, 38, 42, 43, 39, 44, 45, 40, 41, 46, 48, 49, 50, 51, 47, 52, 53, 17, 56, 57, 58, 59, 60, 64, 65, 61, 66, 67, 62, 63, 10, 11, 22, 72, 23, 73, 74, 75, 76, 77, 78, 79, 9, 8, 68, 69, 80, 70, 36, 54, 28, 83, 82, 81]
+  列生成求解结果: 目标值=9.0000， 下界=9.0000， 上界=10.0000
+    非整数变量: COL_25_34 = 0.010989
+  解不是整数，开始分支...
+ImposedVertex(vertex=25)
+ForbidVertex(vertex=25)
+  创建了 2 个分支
+    添加分支节点 1: ID=84
+    添加分支节点 2: ID=85
+
+处理节点 29
+  开始列生成求解...
+Set parameter LogToConsole to value 0
+Set parameter Threads to value 1
+Set parameter Seed to value 0
+  定价策略: Exact, node=29, vertices=16
+Set parameter PoolSearchMode to value 2
+Set parameter PoolSolutions to value 10
+[CG 1] RMP=13.000000, pricing=ExactPricingSolver, new_columns=0
+  搜索路径: [1, 2, 3, 5, 4, 6, 7, 12, 14, 15, 18, 19, 20, 21, 13, 24, 25, 16, 26, 27, 30, 31, 32, 34, 35, 33, 38, 42, 43, 39, 44, 45, 40, 41, 46, 48, 49, 50, 51, 47, 52, 53, 17, 56, 57, 58, 59, 60, 64, 65, 61, 66, 67, 62, 63, 10, 11, 22, 72, 23, 73, 74, 75, 76, 77, 78, 79, 9, 8, 68, 69, 80, 70, 36, 54, 28, 83, 82, 81, 29]
+  列生成求解结果: 目标值=13.0000， 下界=9.0000， 上界=10.0000
+
+处理节点 71
+  开始列生成求解...
+Set parameter LogToConsole to value 0
+Set parameter Threads to value 1
+Set parameter Seed to value 0
+  定价策略: Exact, node=71, vertices=23
+Set parameter PoolSearchMode to value 2
+Set parameter PoolSolutions to value 10
+[CG 1] RMP=16.000000, pricing=ExactPricingSolver, new_columns=10
+[CG 2] RMP=13.000000, pricing=ExactPricingSolver, new_columns=0
+  搜索路径: [1, 2, 3, 5, 4, 6, 7, 12, 14, 15, 18, 19, 20, 21, 13, 24, 25, 16, 26, 27, 30, 31, 32, 34, 35, 33, 38, 42, 43, 39, 44, 45, 40, 41, 46, 48, 49, 50, 51, 47, 52, 53, 17, 56, 57, 58, 59, 60, 64, 65, 61, 66, 67, 62, 63, 10, 11, 22, 72, 23, 73, 74, 75, 76, 77, 78, 79, 9, 8, 68, 69, 80, 70, 36, 54, 28, 83, 82, 81, 29, 71]
+  列生成求解结果: 目标值=13.0000， 下界=9.0000， 上界=10.0000
+
+处理节点 85
+  开始列生成求解...
+Set parameter LogToConsole to value 0
+Set parameter Threads to value 1
+Set parameter Seed to value 0
+  定价策略: Exact, node=85, vertices=17
+Set parameter PoolSearchMode to value 2
+Set parameter PoolSolutions to value 10
+[CG 1] RMP=13.000000, pricing=ExactPricingSolver, new_columns=0
+  搜索路径: [1, 2, 3, 5, 4, 6, 7, 12, 14, 15, 18, 19, 20, 21, 13, 24, 25, 16, 26, 27, 30, 31, 32, 34, 35, 33, 38, 42, 43, 39, 44, 45, 40, 41, 46, 48, 49, 50, 51, 47, 52, 53, 17, 56, 57, 58, 59, 60, 64, 65, 61, 66, 67, 62, 63, 10, 11, 22, 72, 23, 73, 74, 75, 76, 77, 78, 79, 9, 8, 68, 69, 80, 70, 36, 54, 28, 83, 82, 81, 29, 71, 85]
+  列生成求解结果: 目标值=13.0000， 下界=9.0000， 上界=10.0000
+
+处理节点 84
+  开始列生成求解...
+Set parameter LogToConsole to value 0
+Set parameter Threads to value 1
+Set parameter Seed to value 0
+  定价策略: Exact, node=84, vertices=17
+Set parameter PoolSearchMode to value 2
+Set parameter PoolSolutions to value 10
+[CG 1] RMP=15.000000, pricing=ExactPricingSolver, new_columns=0
+  搜索路径: [1, 2, 3, 5, 4, 6, 7, 12, 14, 15, 18, 19, 20, 21, 13, 24, 25, 16, 26, 27, 30, 31, 32, 34, 35, 33, 38, 42, 43, 39, 44, 45, 40, 41, 46, 48, 49, 50, 51, 47, 52, 53, 17, 56, 57, 58, 59, 60, 64, 65, 61, 66, 67, 62, 63, 10, 11, 22, 72, 23, 73, 74, 75, 76, 77, 78, 79, 9, 8, 68, 69, 80, 70, 36, 54, 28, 83, 82, 81, 29, 71, 85, 84]
+  列生成求解结果: 目标值=15.0000， 下界=9.0000， 上界=10.0000
+
+处理节点 37
+  开始列生成求解...
+Set parameter LogToConsole to value 0
+Set parameter Threads to value 1
+Set parameter Seed to value 0
+  定价策略: Exact, node=37, vertices=13
+Set parameter PoolSearchMode to value 2
+Set parameter PoolSolutions to value 10
+[CG 1] RMP=15.000000, pricing=ExactPricingSolver, new_columns=0
+  搜索路径: [1, 2, 3, 5, 4, 6, 7, 12, 14, 15, 18, 19, 20, 21, 13, 24, 25, 16, 26, 27, 30, 31, 32, 34, 35, 33, 38, 42, 43, 39, 44, 45, 40, 41, 46, 48, 49, 50, 51, 47, 52, 53, 17, 56, 57, 58, 59, 60, 64, 65, 61, 66, 67, 62, 63, 10, 11, 22, 72, 23, 73, 74, 75, 76, 77, 78, 79, 9, 8, 68, 69, 80, 70, 36, 54, 28, 83, 82, 81, 29, 71, 85, 84, 37]
+  列生成求解结果: 目标值=15.0000， 下界=9.0000， 上界=10.0000
+
+处理节点 55
+  开始列生成求解...
+Set parameter LogToConsole to value 0
+Set parameter Threads to value 1
+Set parameter Seed to value 0
+  定价策略: Exact, node=55, vertices=13
+Set parameter PoolSearchMode to value 2
+Set parameter PoolSolutions to value 10
+[CG 1] RMP=13.000000, pricing=ExactPricingSolver, new_columns=0
+  搜索路径: [1, 2, 3, 5, 4, 6, 7, 12, 14, 15, 18, 19, 20, 21, 13, 24, 25, 16, 26, 27, 30, 31, 32, 34, 35, 33, 38, 42, 43, 39, 44, 45, 40, 41, 46, 48, 49, 50, 51, 47, 52, 53, 17, 56, 57, 58, 59, 60, 64, 65, 61, 66, 67, 62, 63, 10, 11, 22, 72, 23, 73, 74, 75, 76, 77, 78, 79, 9, 8, 68, 69, 80, 70, 36, 54, 28, 83, 82, 81, 29, 71, 85, 84, 37, 55]
+  列生成求解结果: 目标值=13.0000， 下界=9.0000， 上界=10.0000
+所有节点已处理完毕，达到最优解
+
+==================================================
+分支定价算法完成!
+==================================================
+最优目标值: 10.000000
+最优解列组成如下：
+  列 1: vertex_ids=[19, 26, 28], max_endtime=10
+  列 2: vertex_ids=[1, 2, 6, 9, 13, 17, 23], max_endtime=10
+全局下界: 10.000000
+优化间隙: 0.0000%
+处理节点数: 85
+创建节点数: 85
+剪枝节点数: 42
+总求解时间: 0.39秒
+
+定价求解统计：
+  总定价时间: 0.1710秒
+  使用QAIA的节点数: 1
+  纯Exact节点数: 84
+  QAIA调用次数: 4
+  QAIA累计时间: 0.0180秒
+  混合节点中的Exact调用次数: 4
+  混合节点中的Exact累计时间: 0.0054秒
+  QAIA平均单次时间: 0.004502秒

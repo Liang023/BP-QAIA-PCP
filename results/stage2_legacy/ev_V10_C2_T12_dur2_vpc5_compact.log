@@ -1,0 +1,46 @@
+Set parameter Username
+Academic license - for non-commercial use only - expires 2026-12-02
+Set parameter Threads to value 1
+Set parameter Seed to value 0
+Set parameter MIPGap to value 0
+Set parameter MIPGapAbs to value 0
+Set parameter TimeLimit to value 120
+Gurobi Optimizer version 12.0.3 build v12.0.3rc0 (win64 - Windows 11+.0 (26200.2))
+
+CPU model: 12th Gen Intel(R) Core(TM) i7-12700H, instruction set [SSE2|AVX|AVX2]
+Thread count: 14 physical cores, 20 logical processors, using up to 1 threads
+
+Non-default parameters:
+TimeLimit  120
+MIPGap  0
+MIPGapAbs  0
+Threads  1
+
+Optimize a model with 273 rows, 67 columns and 625 nonzeros
+Model fingerprint: 0x33dfda4a
+Variable types: 1 continuous, 66 integer (66 binary)
+Coefficient statistics:
+  Matrix range     [1e+00, 1e+01]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [1e+00, 1e+00]
+  RHS range        [1e+00, 1e+00]
+Found heuristic solution: objective 12.0000000
+Presolve removed 206 rows and 0 columns
+Presolve time: 0.00s
+Presolved: 67 rows, 67 columns, 301 nonzeros
+Variable types: 0 continuous, 67 integer (66 binary)
+
+Root relaxation: objective 1.100000e+01, 25 iterations, 0.00 seconds (0.00 work units)
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+*    0     0               0      11.0000000   11.00000  0.00%     -    0s
+
+Explored 1 nodes (25 simplex iterations) in 0.00 seconds (0.00 work units)
+Thread count was 1 (of 20 available processors)
+
+Solution count 2: 11 12 
+
+Optimal solution found (tolerance 0.00e+00)
+Best objective 1.100000000000e+01, best bound 1.100000000000e+01, gap 0.0000%

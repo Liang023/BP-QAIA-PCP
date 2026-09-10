@@ -65,3 +65,36 @@ def validate_schedule(solution, a_graph, graph, chargers, objective, tol=1e-6):
         raise ValueError("物理排程makespan大于B&P报告目标")
     return dict(schedule=schedule, makespan=makespan,
                 duplicate_vehicles={str(k): n for k, n in counts.items() if n > 1})
+
+def validate_json_schedule(data, schedule, objective, tol=1e-6):
+    """不依赖图转换和合并映射，直接对原始输入核查最终排程。"""
+    if not schedule or objective is None or not math.isfinite(float(objective)):
+        raise ValueError("缺少有限目标或排程")
+    if len(schedule) > data["num_chargers"]:
+        raise ValueError("输出桩数超限")
+    vehicles = {v["id"]: v for v in data["vehicles"]}
+    allowed = {(v["id"], c["candidate_id"]): (c["start"], c["end"])
+               for v in data["vehicles"] for c in v["candidates"]}
+    used, ends = [], []
+    for row in schedule:
+        previous_end = None
+        for c in sorted(row, key=lambda x: (x["start"], x["end"])):
+            key = (c["vehicle_id"], c["candidate_id"])
+            if key not in allowed or allowed[key] != (c["start"], c["end"]):
+                raise ValueError("排程含不属于原JSON的候选")
+            if previous_end is not None and c["start"] < previous_end:
+                raise ValueError("同一充电桩区间重叠")
+            v = vehicles[c["vehicle_id"]]
+            if c["start"] < v.get("arrival", 0):
+                raise ValueError("早于到站时间")
+            if c["end"] > v.get("departure", data["time_horizon"]):
+                raise ValueError("晚于离站时间")
+            previous_end = c["end"]
+            used.append(c["vehicle_id"])
+            ends.append(c["end"])
+    if Counter(used) != Counter({i: 1 for i in vehicles}):
+        raise ValueError("最终排程不是每车恰好一次")
+    makespan = max(ends)
+    if abs(makespan - objective) > tol:
+        raise ValueError(f"排程makespan={makespan}与报告目标={objective}不一致")
+    return makespan

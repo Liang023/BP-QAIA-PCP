@@ -40,3 +40,6 @@ wheels/
 .Trashes
 ehthumbs.db
 Thumbs.db
+*.log
+results/stage2_legacy/
+results/stage2_legacy/
