@@ -1,0 +1,21 @@
+开始分支定价算法...
+时间限制: 1e-06秒
+根节点已添加: ID=1
+
+处理节点 1
+  开始列生成求解...
+Set parameter Username
+Academic license - for non-commercial use only - expires 2026-12-02
+Set parameter LogToConsole to value 0
+Set parameter Threads to value 1
+Set parameter Seed to value 0
+  定价策略: QAIA+Exact, node=1, vertices=53, mode=always
+Traceback (most recent call last):
+  File "D:\pythonProject\BP_QAIA_PCP\bpc\branch_and_price.py", line 106, in solve
+    if not self.process_node(self.current_node, time_end):
+  File "D:\pythonProject\BP_QAIA_PCP\bpc\branch_and_price.py", line 337, in process_node
+    column_generation.solve(time_end)
+  File "D:\pythonProject\BP_QAIA_PCP\cg\column_generation.py", line 58, in solve
+    raise TimeoutError(
+TimeoutError: 列生成在精确定价完成之前达到时间限制
+求解过程中出现错误: 列生成在精确定价完成之前达到时间限制

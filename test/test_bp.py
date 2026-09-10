@@ -10,7 +10,7 @@ from ev.ev_to_pcp import load_ev_instance
 
 # True：使用QAIA + Exact混合定价
 # False：使用纯Exact定价
-USE_QAIA = True
+USE_QAIA = False
 
 def test_branch_and_price_from_pcp():
     """测试分支定价算法"""

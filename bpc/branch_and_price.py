@@ -18,6 +18,8 @@ import gurobipy
 
 from cg.pricing.qaia_exact_pricing_solver import QAIAExactPricingSolver
 
+from validation.ev_solution import validate_schedule
+
 class BranchAndPrice:
     """
     分支定价算法实现
@@ -26,7 +28,7 @@ class BranchAndPrice:
     这样可以优先处理最有希望的节点，提高算法效率。
     """
     
-    def __init__(self, graph: Graph, charger_num:int, time_limit: int, use_qaia: bool = True):
+    def __init__(self, graph: Graph, charger_num:int, time_limit: int, use_qaia: bool = True, qaia_seed: int = 42):
         """
         初始化分支定价算法
         
@@ -40,6 +42,9 @@ class BranchAndPrice:
         self.charger_num = charger_num
         self.time_limit = time_limit
         self.use_qaia = use_qaia
+        self.qaia_seed = int(qaia_seed)
+        self.best_schedule = None   
+        self.best_schedule_makespan = None
         
         # 使用最小堆作为优先队列，按objective_value排序
         self.node_queue: List[BPCNode] = []
@@ -283,30 +288,10 @@ class BranchAndPrice:
 
         vertex_count = len(current_node.a_graph.vertices_map)
         is_root_node = current_node.parent is None
-
-        # 当前建议：
-        # 根节点使用QAIA；
-        # 非根节点只有在定价问题达到80个顶点以上时才使用QAIA。
-        use_qaia_at_this_node = (
-            self.use_qaia
-            and (
-                is_root_node
-                or vertex_count >= 80
-            )
-        )
+        use_qaia_at_this_node = self.use_qaia and is_root_node
 
         if use_qaia_at_this_node:
-            # 根节点同时运行QAIA和Exact：
-            # QAIA负责补充多样化列，Exact负责提供高质量定价列。
-            #
-            # 大规模非根节点采用on_qaia_failure：
-            # QAIA成功时跳过Exact，QAIA失败时再由Exact认证。
-            exact_mode = (
-                "always"
-                if is_root_node
-                else "on_qaia_failure"
-            )
-
+            exact_mode = "always"
             pricing_solver = QAIAExactPricingSolver(
                 auxiliary_graph=current_node.a_graph,
                 pricing_problem=pricing_problem,
@@ -317,7 +302,7 @@ class BranchAndPrice:
                 qaia_batch_size=10,
                 qaia_max_columns=3,
                 qaia_backend="cpu-float32",
-                random_seed=42 + current_node.nodeid,
+                random_seed=self.qaia_seed,
             )
 
             print(
@@ -374,17 +359,9 @@ class BranchAndPrice:
                 raise e
     
     def is_prunable_node(self, current_node: BPCNode) -> bool:
-        """
-        检查节点是否可以剪枝
-        
-        Args:
-            current_node: 当前节点
-            
-        Returns:
-            是否可以剪枝
-        """
-        if math.ceil(current_node.objective_value) >= self.best_objective:
-            print(f"  剪枝: {math.ceil(current_node.objective_value)} >= {self.best_objective:.4f}")
+        # 前提仍是传入有效继承下界或完成精确定价的节点LP下界。
+        # 保守比较，不使用ceil放大数值误差。
+        if current_node.objective_value >= self.best_objective:
             self.nodes_pruned += 1
             return True
         return False
@@ -689,8 +666,14 @@ class BranchAndPrice:
             是否更新了最优解
         """
         if objective_value < self.best_objective:
+            checked = validate_schedule(
+                solution, self.current_node.a_graph, self.graph,
+                self.charger_num, objective_value,
+            )
             self.best_objective = objective_value
             self.best_solution = solution.copy()
+            self.best_schedule = checked
+            self.best_schedule_makespan = checked["makespan"]
             
             # 更新后进行剪枝
             pruned = self.prune_nodes()

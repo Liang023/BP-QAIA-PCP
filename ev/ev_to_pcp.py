@@ -24,7 +24,9 @@
 - 每个候选充电时段 = PCP 中的一个顶点；
 - 每辆车的所有候选 = 一个分区；
 - 若两个候选在**同一充电桩**且时间重叠 ⇒ 两顶点之间有一条边；
-- 不同桩之间不连边（它们物理上可以同时充电），
+- 每个候选区间对应一个顶点，每辆车对应一个分区。
+- 候选区间不预先绑定充电桩；重叠区间不能进入同一桩列。
+- AuxiliaryGraph另外添加同分区冲突边，保证一列内每车至多一次。
   是否放在同一个 independent set 由后续算法自己决定。
 """
 
@@ -59,6 +61,9 @@ def ev_json_to_instance(ev_data: Dict[str, Any]) -> Instance:
         for cand in veh["candidates"]:
             end_time = cand["end"]
             vertex = Vertex(end_time=end_time)
+            vertex.start_time = cand["start"]
+            vertex.vehicle_id = v_id
+            vertex.candidate_id = cand["candidate_id"]
             vertices.append(vertex)
             cand_vertices.append(vertex)
             vtx_by_pair[(v_id, cand["candidate_id"])] = vertex

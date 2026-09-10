@@ -5,6 +5,7 @@ from cg.column_independent_set import ColumnIndependentSet
 import time
 from model.a_graph import AuxiliaryGraph
 from model.graph import Graph
+import os
 
 class MasterProblem:
     """
@@ -60,6 +61,8 @@ class MasterProblem:
         self.T = self._rmp.addVar(lb=0.0, obj=1.0, vtype=grb.GRB.CONTINUOUS, name="T")
         self._build_constraints()
         # self._add_feasible_initial_columns(self.column_pool)
+        self._rmp.Params.Threads = 1
+        self._rmp.Params.Seed = 0
 
     def _add_feasible_initial_columns(self, column_pool: ColumnPool):
         """（可选）为模型添加一批初始可行列。"""
@@ -177,7 +180,9 @@ class MasterProblem:
         self._rmp.update()
 
         # 在优化前导出模型（调试/排错用）
-        self._rmp.write("model_info/master.lp")
+        if os.getenv("BPC_DUMP_LP", "0") == "1":
+            os.makedirs("model_info", exist_ok=True)
+            self._rmp.write("model_info/master.lp")
 
         try:
             self._rmp.setObjective(self._rmp.getObjective(), grb.GRB.MINIMIZE)
@@ -206,20 +211,23 @@ class MasterProblem:
             )
         elif self._rmp.status == grb.GRB.UNBOUNDED:
             raise grb.GurobiError(grb.GRB.UNBOUNDED, "Master problem is unbounded")
+        # elif self._rmp.status == grb.GRB.TIME_LIMIT:
+        #     # 时间限制达到但未找到最优解
+        #     if self._rmp.SolCount > 0:  # 有可行解
+        #         self.solution = {}
+        #         for pricing_problem, var_dict in self.varMap.items():
+        #             for col_id, var in var_dict.items():
+        #                 if var.X > 1e-6:  # 只保存非零解
+        #                     self.solution[col_id] = var.X
+        #         self._get_dual_variables()
+        #         return self.solution, self.dual, self._rmp.ObjVal
+        #     else:
+        #         raise grb.GurobiError(
+        #             grb.GRB.TIME_LIMIT, "Time limit reached without solution"
+        #         )
         elif self._rmp.status == grb.GRB.TIME_LIMIT:
-            # 时间限制达到但未找到最优解
-            if self._rmp.SolCount > 0:  # 有可行解
-                self.solution = {}
-                for pricing_problem, var_dict in self.varMap.items():
-                    for col_id, var in var_dict.items():
-                        if var.X > 1e-6:  # 只保存非零解
-                            self.solution[col_id] = var.X
-                self._get_dual_variables()
-                return self.solution, self.dual, self._rmp.ObjVal
-            else:
-                raise grb.GurobiError(
-                    grb.GRB.TIME_LIMIT, "Time limit reached without solution"
-                )
+            # 未最优的RMP不能继续取Pi当成有效最优对偶进入定价。
+            raise TimeoutError("RMP达到时间限制，本节点尚未认证")
         else:
             # 其他未处理状态
             status_name = self._rmp.status

@@ -24,6 +24,8 @@ class ExactPricingSolver:
         self.pricing_problem = pricing_problem
         self.auxiliary_graph = auxiliary_graph
         self.model = grb.Model("sub")
+        self.model.Params.Threads = 1
+        self.model.Params.Seed = 0
         self.vars: Dict[int, grb.Var] = {}
         self.cons = {}
         self.pool_sol_num = 10
