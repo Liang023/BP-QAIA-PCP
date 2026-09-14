@@ -115,6 +115,7 @@ def main():
     record = dict(method=args.method, seed=args.seed, limit=args.limit,
                   instance=str(instance_path), python=sys.version,
                   platform=platform.platform(), threads=1, gurobi_seed=0)
+    record["verbose"] = os.getenv("BPC_VERBOSE", "0") == "1"
     with log.open("x", encoding="utf-8") as f:
         with contextlib.redirect_stdout(f), contextlib.redirect_stderr(f):
             try:
@@ -177,13 +178,19 @@ def main():
                                 "total_hybrid_exact_time", "total_qaia_calls",
                                 "total_hybrid_exact_calls", "qaia_nodes", "exact_only_nodes"):
                         record[key] = getattr(bp, key)
-                if record["status"] == "optimal":
+                schedule = (record.get("schedule") if args.method == "compact"
+                            else (record.get("validated_schedule") or {}).get("schedule"))
+                if schedule:
                     from validation.ev_solution import validate_json_schedule
-                    schedule = (record["schedule"] if args.method == "compact"
-                                else (record.get("validated_schedule") or {}).get("schedule"))
-                    record["schedule_makespan"] = validate_json_schedule(
-                        data, schedule, record["objective"])
+                    schedule_value = max(c["end"] for row in schedule for c in row)
+                    validate_json_schedule(data, schedule, schedule_value)
+                    record["schedule_makespan"] = schedule_value
                     record["validation_passed"] = True
+                    if record["status"] == "optimal":
+                        if abs(schedule_value - record["objective"]) > 1e-6:
+                            raise ValueError("optimal目标与物理排程makespan不一致")
+                elif record["status"] == "optimal":
+                    raise ValueError("声称optimal但没有排程")
                 record["workflow_seconds"] = time.perf_counter() - workflow_start
             except Exception as exc:
                 record.update(status="error", error=repr(exc))

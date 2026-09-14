@@ -34,6 +34,7 @@ class MasterProblem:
         self.column_pool = column_pool
         self.a_graph = a_graph
         self._rmp = grb.Model("master")
+        self._rmp.Params.OutputFlag = 0
         # key: 定价问题实例 → value: {列对象 → Gurobi变量}
         self.varMap = {}  # 存储定价问题到变量映射的字典
         # 对偶变量统一结构：

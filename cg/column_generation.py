@@ -9,6 +9,9 @@ import math
 from typing import List, Dict
 from cg.column_independent_set import ColumnIndependentSet
 import gurobipy as grb
+import os
+
+
 
 class ColumnGeneration:
     """
@@ -34,7 +37,6 @@ class ColumnGeneration:
         self.column_pool = column_pool
         self.upper_bound = upper_bound
         self.lower_bound = lower_bound
-        self.lower_bound = 0.0
         self.masterSolveTime = 0
         self.dual: Dict = {}  # {'partition': {...}, 'makespan': {...}}
         self.pricingSolveTime = 0
@@ -67,12 +69,12 @@ class ColumnGeneration:
             # 第二步：必须运行定价，不能在定价之前提前终止
             new_columns = self.invokePricing(time_end, self.dual)
 
-            print(
-                f"[CG {self.iteration}] "
-                f"RMP={self.masterObjective:.6f}, "
-                f"pricing={type(self.pricing_solver).__name__}, "
-                f"new_columns={len(new_columns)}"
-            )
+            if os.getenv("BPC_VERBOSE", "0") == "1":
+                print(
+                    f"[CG {self.iteration}] RMP={self.masterObjective:.6f}, "
+                    f"pricing={type(self.pricing_solver).__name__}, "
+                    f"new_columns={len(new_columns)}"
+                )
 
             # 第三步：没有新列时检查Exact Pricing是否真正达到最优
             if len(new_columns) == 0:

@@ -15,10 +15,16 @@ from model.graph import Graph
 from cg.column_pool import ColumnPool
 import math
 import gurobipy
-
+import os
 from cg.pricing.qaia_exact_pricing_solver import QAIAExactPricingSolver
 
 from validation.ev_solution import validate_schedule
+import builtins
+
+def print(*args, **kwargs):
+    # 仅覆盖本模块中的print，不改全局builtins.print。
+    if os.getenv("BPC_VERBOSE", "0") == "1":
+        builtins.print(*args, **kwargs)
 
 class BranchAndPrice:
     """
@@ -39,6 +45,7 @@ class BranchAndPrice:
             use_qaia: 是否使用 QAIA 加速定价求解器（默认 True）
         """
         self.graph = graph
+        self.problem_lower_bound = self._compute_problem_lower_bound()
         self.charger_num = charger_num
         self.time_limit = time_limit
         self.use_qaia = use_qaia
@@ -88,7 +95,6 @@ class BranchAndPrice:
         # 生成并添加根节点
         root_node = self.generate_root_node()
         self.add_node(root_node)
-        path=[]
         print(f"根节点已添加: ID={root_node.nodeid}")
         try:
             while not self.is_queue_empty():
@@ -106,8 +112,6 @@ class BranchAndPrice:
                 if not self.process_node(self.current_node, time_end):
                     self.add_node(self.current_node)
                     break  # 如果时间超限，则跳出循环
-                path.append(self.current_node.nodeid)
-                print(f"  搜索路径: {path}")
                 print(f"  列生成求解结果: 目标值={self.current_node.objective_value:.4f}， 下界={self.global_lower_bound:.4f}， 上界={self.best_objective:.4f}")
              
                 # 3. 再次检查剪枝条件（求解后目标值可能改变）
@@ -215,6 +219,29 @@ class BranchAndPrice:
                 "solution": self.best_solution,
                 "statistics": stats
             }
+
+        except TimeoutError as e:
+            self.total_solve_time = time.time() - start_time
+            self.optimal = False
+            # 当前节点在进入process_node之前已经弹出。
+            # 用对象身份判断，不能用in：BPCNode.__eq__按objective比较。
+            if (self.current_node is not None and
+                    not any(node is self.current_node for node in self.node_queue)):
+                heapq.heappush(self.node_queue, self.current_node)
+            # 这里先保守使用解析下界，不使用未完成RMP的目标。
+            # 不直接声称已修复所有精确定价超时/求解状态分支。
+            self.global_lower_bound = self.problem_lower_bound
+            stats = self.get_statistics()
+            if not math.isfinite(self.best_objective):
+                stats["gap"] = None
+            return {
+                "status": "time_limit",
+                "objective_value": (self.best_objective
+                                    if math.isfinite(self.best_objective) else None),
+                "solution": self.best_solution,
+                "error": str(e),
+                "statistics": stats,
+            }
         except Exception as e:
             self.total_solve_time = time.time() - start_time
             import traceback
@@ -225,6 +252,20 @@ class BranchAndPrice:
                 "error": str(e),
                 "statistics": self.get_statistics()
             }
+
+    def _compute_problem_lower_bound(self) -> float:
+        """当前EV makespan整数问题的下界，不是RMP的LP目标。"""
+        if not self.graph.partitions:
+            raise ValueError("车辆集合为空")
+        earliest = []
+        for partition in self.graph.partitions:
+            if not partition.vertex_list:
+                raise ValueError("车辆没有候选区间")
+            values = [float(v.end_time) for v in partition.vertex_list]
+            if any(not math.isfinite(v) or v < 0 for v in values):
+                raise ValueError("候选结束时间非法")
+            earliest.append(min(values))
+        return max(earliest)
     
     def branch_node(self, current_node: BPCNode) -> None:
         """
@@ -359,9 +400,10 @@ class BranchAndPrice:
                 raise e
     
     def is_prunable_node(self, current_node: BPCNode) -> bool:
-        # 前提仍是传入有效继承下界或完成精确定价的节点LP下界。
-        # 保守比较，不使用ceil放大数值误差。
-        if current_node.objective_value >= self.best_objective:
+        if not math.isfinite(self.best_objective):
+            return False
+        node_bound = max(self.problem_lower_bound, current_node.objective_value)
+        if node_bound >= self.best_objective:
             self.nodes_pruned += 1
             return True
         return False
@@ -642,7 +684,7 @@ class BranchAndPrice:
         # 重新构建队列，只保留有希望的节点
         while self.node_queue:
             node = heapq.heappop(self.node_queue)
-            if node.objective_value < self.best_objective:
+            if max(self.problem_lower_bound, node.objective_value) < self.best_objective:
                 remaining_nodes.append(node)
             else:
                 pruned_count += 1
@@ -690,10 +732,7 @@ class BranchAndPrice:
         Returns:
             统计信息字典
         """
-        column_num=0
-        for column in self.current_node.solution.keys():
-            column_num=column._next_column_id
-            break
+        column_num = max(0, ColumnIndependentSet._next_column_id - 1)
     
         return {
             "nodes_processed": self.nodes_processed,
@@ -704,7 +743,6 @@ class BranchAndPrice:
             "global_lower_bound": self.global_lower_bound,
             "gap": (self.best_objective - self.global_lower_bound) / max(abs(self.best_objective), 1e-6),
             "total_solve_time": self.total_solve_time,
-            
-            
+            "problem_lower_bound": self.problem_lower_bound,
             "column_num":column_num
         }
