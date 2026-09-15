@@ -21,6 +21,7 @@ def compact(data, limit):
                   for v in data["vehicles"] for c in v["candidates"]]
     C = data["num_chargers"]
     model = gp.Model("independent_candidate_milp")
+    model.Params.OutputFlag = 0
     model.Params.Threads = 1
     model.Params.Seed = 0
     model.Params.MIPGap = 0
@@ -34,11 +35,16 @@ def compact(data, limit):
             for k in range(C)) == 1)
     for j, (_, _, start, end) in enumerate(candidates):
         model.addConstr(T >= end * gp.quicksum(x[j, k] for k in range(C)))
-        for h in range(j):
-            a = candidates[h]
-            if start < a[3] and a[2] < end:
-                for k in range(C):
-                    model.addConstr(x[j, k] + x[h, k] <= 1)
+    # Integer, half-open intervals: sharing a slot is exactly overlapping.
+    active = {}
+    for j, (_, _, start, end) in enumerate(candidates):
+        for slot in range(start, end):
+            active.setdefault(slot, []).append(j)
+    for slot, indices in sorted(active.items()):
+        if len(indices) > 1:
+            for k in range(C):
+                model.addConstr(gp.quicksum(x[j, k] for j in indices) <= 1,
+                                name=f"occupancy_{k}_{slot}")
     model.setObjective(T, gp.GRB.MINIMIZE)
     model.optimize()
     schedule = []
@@ -51,10 +57,11 @@ def compact(data, limit):
     result = dict(status="optimal" if model.Status == gp.GRB.OPTIMAL
                   else f"gurobi_status_{model.Status}",
                   objective=model.ObjVal if model.SolCount else None,
-                  lower_bound=model.ObjBound, schedule=schedule)
+                  lower_bound=model.ObjBound, schedule=schedule,
+                  compact_formulation="integer_slot_occupancy_v1",
+                  compact_variables=model.NumVars, compact_constraints=model.NumConstrs)
     model.dispose()
     return result
-
 
 def check_input(data):
     vehicles = data["vehicles"]
@@ -64,27 +71,36 @@ def check_input(data):
         raise ValueError("车辆数量元数据不一致")
     if type(data["num_chargers"]) is not int or data["num_chargers"] < 1:
         raise ValueError("桩数必须为正整数")
+    horizon = data["time_horizon"]
+    if type(horizon) is not int or horizon <= 0:
+        raise ValueError("本阶段要求正整数time_horizon")
     for v in vehicles:
+        if type(v["id"]) is not int or type(v["duration"]) is not int or v["duration"] <= 0:
+            raise ValueError("车辆编号和充电时长必须为整数，时长须大于0")
         cs = v["candidates"]
         if not cs or len({c["candidate_id"] for c in cs}) != len(cs):
             raise ValueError("空候选或重复candidate_id")
         for c in cs:
-            if not (0 <= c["start"] < c["end"] <= data["time_horizon"]):
+            if any(type(c[k]) is not int for k in ("candidate_id", "start", "end")):
+                raise ValueError("本阶段候选必须使用整数编号和整数时间槽")
+            if not (0 <= c["start"] < c["end"] <= horizon):
                 raise ValueError("候选时间越界")
             if c["end"] - c["start"] != v["duration"]:
                 raise ValueError("候选时长不一致")
-    if data.get("schema_version") == "synthetic-v1":
+    if data.get("schema_version") in ("synthetic-v1", "acn-derived-v1"):
         for v in vehicles:
             r, d, duration = v["arrival"], v["departure"], v["duration"]
             if any(type(z) is not int for z in (r, d, duration)):
                 raise ValueError("v1使用整数时间槽")
-            if not (0 <= r < d <= data["time_horizon"] and 0 < duration <= d-r):
+            if not (0 <= r < d <= horizon and 0 < duration <= d-r):
                 raise ValueError("v1时间窗非法")
             expected = {(s, s+duration) for s in range(r, d-duration+1)}
             observed = [(c["start"], c["end"]) for c in v["candidates"]]
             if len(observed) != len(set(observed)) or set(observed) != expected:
                 raise ValueError("v1候选重复或没有枚举完整窗口")
-
+    if data.get("schema_version") == "acn-derived-v1":
+        from validation.acn_input import validate_acn_input
+        validate_acn_input(data)
 
 def clean(value):
     if isinstance(value, dict):
@@ -125,6 +141,8 @@ def main():
                 check_input(data)
                 record["vehicles"] = len(data["vehicles"])
                 record["vertices"] = sum(len(v["candidates"]) for v in data["vehicles"])
+                record["schema_version"] = data.get("schema_version", "legacy")
+                record["data_metadata"] = data.get("metadata")
                 record["git_sha"] = subprocess.check_output(
                     ["git", "rev-parse", "HEAD"], text=True).strip()
                 record["git_diff_sha256"] = hashlib.sha256(subprocess.check_output(

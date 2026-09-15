@@ -68,6 +68,9 @@ def validate_schedule(solution, a_graph, graph, chargers, objective, tol=1e-6):
 
 def validate_json_schedule(data, schedule, objective, tol=1e-6):
     """不依赖图转换和合并映射，直接对原始输入核查最终排程。"""
+    if data.get("schema_version") == "acn-derived-v1":
+        from validation.acn_input import validate_acn_input
+        validate_acn_input(data)
     if not schedule or objective is None or not math.isfinite(float(objective)):
         raise ValueError("缺少有限目标或排程")
     if len(schedule) > data["num_chargers"]:

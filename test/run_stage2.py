@@ -15,7 +15,8 @@ LEGACY = ["ev_V10_C2_T12_dur1_vpc5.json", "ev_V10_C2_T12_dur2_vpc5.json",
 
 def main():
     p = argparse.ArgumentParser()
-    p.add_argument("--dataset", choices=["legacy", "v1"], required=True)
+    p.add_argument("--dataset", choices=["legacy", "v1", "acn"], required=True)
+    p.add_argument("--instance-manifest", help="ACN实例路径组成的JSON数组")
     p.add_argument("--out-dir", required=True)
     p.add_argument("--limit", type=float, default=120)
     args = p.parse_args()
@@ -24,12 +25,30 @@ def main():
         raise FileExistsError("结果目录已存在，请换目录，避免混入旧记录")
     if not math.isfinite(args.limit) or args.limit <= 0:
         raise ValueError("limit必须为有限正数")
-    files = ([ROOT / "data/ev_instances" / n for n in LEGACY]
-             if args.dataset == "legacy" else
-             [ROOT / "data/ev_instances_v1" / f"v1_N{n}_C2_s{s}.json"
-              for n in (6, 8, 10) for s in (0, 1, 2)])
+    if args.dataset == "legacy":
+        files = [ROOT / "data/ev_instances" / n for n in LEGACY]
+    elif args.dataset == "v1":
+        files = [ROOT / "data/ev_instances_v1" / f"v1_N{n}_C2_s{s}.json"
+                 for n in (6, 8, 10) for s in (0, 1, 2)]
+    else:
+        if not args.instance_manifest:
+            p.error("acn requires --instance-manifest")
+        entries = json.loads(Path(args.instance_manifest).read_text(encoding="utf-8"))
+        if not isinstance(entries, list) or not entries or any(
+                not isinstance(x, str) or not x for x in entries):
+            raise ValueError("清单必须是非空JSON路径数组")
+        # Relative paths in the manifest are relative to repository root.
+        files = [(ROOT / x).resolve() for x in entries]
+        if len({x.stem for x in files}) != len(files):
+            raise ValueError("实例文件名不能重复，否则会覆盖批次结果")
+        for path in files:
+            data = json.loads(path.read_text(encoding="utf-8"))
+            if data.get("schema_version") != "acn-derived-v1":
+                raise ValueError(f"{path}: 不是转换后的ACN实例；不要传原始数据或audit")
+    if args.dataset != "acn" and args.instance_manifest:
+        p.error("--instance-manifest is only for acn")
     if not all(path.is_file() for path in files):
-        raise FileNotFoundError("缺少指定数据，先生成v1或检查旧数据目录")
+        raise FileNotFoundError("缺少指定实例，请检查数据生成/转换和清单")
     out.mkdir(parents=True)
     manifest = dict(dataset=args.dataset, limit=args.limit,
                     instances=[str(x) for x in files], qaia_seeds=[0,1,2,3,4],
