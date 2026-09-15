@@ -1,0 +1,140 @@
+{
+  "method": "qaia_root",
+  "seed": 0,
+  "limit": 120.0,
+  "instance": "D:\\pythonProject\\BP_QAIA_PCP\\data\\ev_instances_v1\\v1_N8_C2_s2.json",
+  "python": "3.10.18 | packaged by Anaconda, Inc. | (main, Jun  5 2025, 13:08:55) [MSC v.1929 64 bit (AMD64)]",
+  "platform": "Windows-10-10.0.26200-SP0",
+  "threads": 1,
+  "gurobi_seed": 0,
+  "verbose": false,
+  "instance_sha256": "f3bf61d4e39ae010c5339e48e891303942149cefce37cb86efc12772777c3450",
+  "vehicles": 8,
+  "vertices": 26,
+  "schema_version": "synthetic-v1",
+  "data_metadata": null,
+  "git_sha": "cfec64ed4df27eca82d4f78fbcc259d8d9120ad0",
+  "git_diff_sha256": "523bd12db5a0c7942b9baf7d880bfa7f19da8cc54664b41a6d9d5113b6e40797",
+  "script_sha256": "ad6a41d4c71f4eb4d093554875512bd71bf18af3a2e5791d68b8051581e92abd",
+  "source_sha256": "09c5ffe9154bc7ac0c714d5ad22dd8a4ba328696e9d09af5aa515c69e2f274a8",
+  "qaia_config": {
+    "scope": "root",
+    "exact_mode": "always",
+    "algorithm": "BSB",
+    "n_iter": 200,
+    "batch_size": 10,
+    "max_columns": 3,
+    "backend": "cpu-float32",
+    "column_policy": "warm_start_only"
+  },
+  "gurobi": [
+    12,
+    0,
+    3
+  ],
+  "graph_seconds": 0.0004329999974288512,
+  "wall_seconds": 0.13831740000023274,
+  "status": "optimal",
+  "objective": 11.0,
+  "statistics": {
+    "nodes_processed": 21,
+    "nodes_created": 37,
+    "nodes_pruned": 17,
+    "nodes_remaining": 0,
+    "best_objective": 11.0,
+    "global_lower_bound": 11.0,
+    "gap": 0.0,
+    "total_solve_time": 0.13825999999971827,
+    "problem_lower_bound": 11.0,
+    "column_num": 201,
+    "master_seconds": 0.030282500007160706,
+    "node_setup_seconds": 0.020767899994098116,
+    "pricing_seconds": 0.0767141000033007,
+    "root_diagnostics": {
+      "cg_certified": true,
+      "cg_iterations": 5,
+      "lp_objective": 5.739130434782609,
+      "integer_solution": false,
+      "columns_in_pool": 44,
+      "master_seconds": 0.003056499997910578,
+      "pricing_seconds": 0.03597079999963171
+    }
+  },
+  "error": null,
+  "validated_schedule": {
+    "schedule": [
+      [
+        {
+          "vehicle_id": 5,
+          "candidate_id": 0,
+          "vertex_id": 17,
+          "start": 1,
+          "end": 4
+        },
+        {
+          "vehicle_id": 0,
+          "candidate_id": 0,
+          "vertex_id": 0,
+          "start": 4,
+          "end": 5
+        },
+        {
+          "vehicle_id": 4,
+          "candidate_id": 0,
+          "vertex_id": 15,
+          "start": 10,
+          "end": 11
+        }
+      ],
+      [
+        {
+          "vehicle_id": 3,
+          "candidate_id": 0,
+          "vertex_id": 12,
+          "start": 0,
+          "end": 2
+        },
+        {
+          "vehicle_id": 2,
+          "candidate_id": 0,
+          "vertex_id": 8,
+          "start": 2,
+          "end": 3
+        },
+        {
+          "vehicle_id": 1,
+          "candidate_id": 0,
+          "vertex_id": 4,
+          "start": 5,
+          "end": 6
+        },
+        {
+          "vehicle_id": 6,
+          "candidate_id": 1,
+          "vertex_id": 20,
+          "start": 6,
+          "end": 9
+        },
+        {
+          "vehicle_id": 7,
+          "candidate_id": 2,
+          "vertex_id": 24,
+          "start": 9,
+          "end": 11
+        }
+      ]
+    ],
+    "makespan": 11,
+    "duplicate_vehicles": {}
+  },
+  "schedule_makespan": 11,
+  "total_pricing_time": 0.0767141000033007,
+  "total_qaia_time": 0.025567900000169175,
+  "total_hybrid_exact_time": 0.009392799998749979,
+  "total_qaia_calls": 5,
+  "total_hybrid_exact_calls": 5,
+  "qaia_nodes": 1,
+  "exact_only_nodes": 20,
+  "validation_passed": true,
+  "workflow_seconds": 2.760242800002743
+}

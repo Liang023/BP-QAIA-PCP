@@ -1,0 +1,23 @@
+[
+  {
+    "instance": "D:\\pythonProject\\BP_QAIA_PCP\\data\\acn_pilot\\2019-03-05_C2.json",
+    "limit": 30.0,
+    "groups": {
+      "exact": {
+        "attempted": 3,
+        "certified": 0,
+        "median_seconds": null
+      },
+      "combined": {
+        "attempted": 5,
+        "certified": 0,
+        "median_seconds": null
+      },
+      "warm_start_only": {
+        "attempted": 5,
+        "certified": 0,
+        "median_seconds": null
+      }
+    }
+  }
+]

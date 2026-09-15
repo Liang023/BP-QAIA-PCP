@@ -6,7 +6,7 @@ from typing import Dict
 from model.a_graph import AuxiliaryGraph
 import time
 import os
-
+from cg.deadline import remaining_seconds
 class ExactPricingSolver:
     """
     精确定价求解器：基于当前辅助图与对偶信息，求解带冲突约束的最大权稳定集，
@@ -79,24 +79,15 @@ class ExactPricingSolver:
             grb.GRB.MINIMIZE
         )
 
-    def solve(self,time_end:int):
-        """求解子问题：启用解池并设置时间限制。
-
-        Args:
-            time_end: 统一的结束时间戳（与主控共享），用于计算剩余时间。
-        """
-        # 设置 model 参数：使用解池存储多个可行解
-        self.model.setParam("PoolSearchMode", 2)  # 系统搜索多个解
-        self.model.setParam("PoolSolutions", self.pool_sol_num)  # 最大存储解数量
-
-        # 设置求解器参数
-        self.model.setParam("OutputFlag", 0)  # 关闭求解器输出
-        time_limit = time_end - time.time()
-        self.model.setParam("TimeLimit", time_limit)  # 30秒时间限制
-
+    def solve(self, time_end: float):
+        self.model.setParam("PoolSearchMode", 2)
+        self.model.setParam("PoolSolutions", self.pool_sol_num)
+        self.model.setParam("OutputFlag", 0)
         self.model.update()
-        # 求解
+        self.model.setParam("TimeLimit", remaining_seconds(time_end, "Exact pricing"))
         self.model.optimize()
+        if self.model.Status == grb.GRB.TIME_LIMIT:
+            raise TimeoutError("Exact pricing reached TimeLimit; node is not certified")
 
     def set_objective(self):
         """将子问题目标切换为最大化 Σw_v x_v（便于从解池读取）。"""

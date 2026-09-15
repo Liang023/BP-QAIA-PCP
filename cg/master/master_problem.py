@@ -6,7 +6,7 @@ import time
 from model.a_graph import AuxiliaryGraph
 from model.graph import Graph
 import os
-
+from cg.deadline import remaining_seconds
 class MasterProblem:
     """
     主问题（Restricted Master Problem, RMP）模型封装。
@@ -174,10 +174,6 @@ class MasterProblem:
         # # 或者
         # self.model.Params.Method = 2  # 内点法（更适合病态问题）
 
-        # 设置时间限制
-        time_limit = time_end - time.time()
-        self._rmp.Params.TimeLimit = time_limit
-
         self._rmp.update()
 
         # 在优化前导出模型（调试/排错用）
@@ -187,9 +183,9 @@ class MasterProblem:
 
         try:
             self._rmp.setObjective(self._rmp.getObjective(), grb.GRB.MINIMIZE)
+            self._rmp.Params.TimeLimit = remaining_seconds(time_end, "RMP")
             self._rmp.optimize()
         except grb.GurobiError as e:
-            # 将求解器异常直接抛出
             raise e
 
         # 根据求解状态处理结果

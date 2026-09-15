@@ -78,7 +78,10 @@ def main():
                 json.dumps(failure, indent=2), encoding="utf-8")
             raise RuntimeError("外部超时，保留日志并停止，不计算伪gap")
         if record.get("status") != "optimal" or record.get("validation_passed") is not True:
-            raise RuntimeError(f"{result_path.name} 未通过认证/校验，停止扩展")
+            raise RuntimeError(
+                f"{result_path.name}: status={record.get('status')}, "
+                f"validation_passed={record.get('validation_passed')}, "
+                f"error={record.get('error')}; 查看该JSON与log")
         objective = record.get("objective")
         if objective is None or not math.isfinite(objective):
             raise RuntimeError("缺少有限目标")

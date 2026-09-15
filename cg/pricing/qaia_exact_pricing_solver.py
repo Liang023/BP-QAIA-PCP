@@ -38,6 +38,9 @@ from qaia import (
 	SFC,
 	SimCIM,
 )
+import os
+from cg.deadline import remaining_seconds
+
 
 class PricingNotCertifiedError(RuntimeError):
     """当精确定价无法证明不存在改进列时引发。"""
@@ -122,17 +125,17 @@ class QAIAPricingSolver:
 
         非人工列改进当且仅当这个值大于 ``epsilon``。
         """
-        if time.time() >= time_end:
+        if time.perf_counter() >= time_end:
             return []
 
-        start = time.time()
+        start = time.perf_counter()
         self.calls += 1
 
         vertex_ids, weights, adjacency, self_forbidden, j_mat, h_vec = (
             self._build_ising_model()
         )
         if not vertex_ids:
-            self.solve_time += time.time() - start
+            self.solve_time += time.perf_counter() - start
             return []
 
         raw_state = self._run_qaia(j_mat, h_vec)
@@ -170,7 +173,7 @@ class QAIAPricingSolver:
         )[: self.max_columns]
 
         columns = [self._make_column(signature) for signature, _ in ranked]
-        self.solve_time += time.time() - start
+        self.solve_time += time.perf_counter() - start
         return columns
 
     def _build_ising_model(
@@ -429,6 +432,11 @@ class QAIAExactPricingSolver:
         self.pricing_problem = pricing_problem
         self.column_pool = column_pool
         self.exact_mode = exact_mode
+        self.column_policy = os.getenv("QAIA_COLUMN_POLICY", "combined")
+        if self.column_policy not in {"combined", "warm_start_only"}:
+            raise ValueError("Unknown QAIA_COLUMN_POLICY")
+        if self.column_policy == "warm_start_only" and exact_mode != "always":
+            raise ValueError("warm_start_only requires exact_mode=always")
         self.epsilon = float(epsilon)
 
         self.qaia_solver = QAIAPricingSolver(
@@ -456,53 +464,35 @@ class QAIAExactPricingSolver:
         self.exact_calls = 0
 
     def generate_columns(self, time_end: float) -> List[ColumnIndependentSet]:
-        """根据 ``exact_mode`` 先运行 QAIA 后运行 Exact。"""
-        qaia_start = time.time()
-        qaia_columns = self.qaia_solver.generate_columns(time_end)
-        self.qaia_solve_time += time.time() - qaia_start
+        remaining_seconds(time_end, "Before QAIA")
+        start = time.perf_counter()
         self.qaia_calls += 1
-
+        try:
+            qaia_columns = self.qaia_solver.generate_columns(time_end)
+        finally:
+            self.qaia_solve_time += time.perf_counter() - start
+        remaining_seconds(time_end, "After QAIA")
         qaia_columns = self._deduplicate(qaia_columns, exclude_existing=True)
-
         if qaia_columns:
             self._set_exact_mip_start(qaia_columns)
-
         if self.exact_mode == "on_qaia_failure" and qaia_columns:
             return qaia_columns
-
-        # 不要要求 Gurobi 用非正剩余时间优化。
-        # 返回 QAIA 列是安全的因为列生成会再次解决
-        # 主问题；返回空列表会不正确的声称
-        # 精确定价收敛。
-        if time.time() >= time_end:
-            if qaia_columns:
-                return qaia_columns
-            raise PricingNotCertifiedError(
-                "时间限制在精确定价能够认证收敛之前到期。"
-            )
-
-        exact_start = time.time()
-        exact_columns = self.exact_solver.generate_columns(time_end)
-        self.exact_solve_time += time.time() - exact_start
+        start = time.perf_counter()
         self.exact_calls += 1
-
-        combined = self._deduplicate(
-            [*qaia_columns, *exact_columns],
-            exclude_existing=True,
-        )
-
+        try:
+            exact_columns = self.exact_solver.generate_columns(time_end)
+        finally:
+            self.exact_solve_time += time.perf_counter() - start
+        selected = (exact_columns if self.column_policy == "warm_start_only"
+                    else [*qaia_columns, *exact_columns])
+        combined = self._deduplicate(selected, exclude_existing=True)
         status = self.exact_solver.model.Status
+        if status == grb.GRB.TIME_LIMIT:
+            raise TimeoutError("Hybrid Exact pricing timed out; node is not certified")
         if not combined and status != grb.GRB.OPTIMAL:
-            # ExactPricingSolver 当前当无候选对象时返回 []，
-            # 即使 Gurobi 因时间限制而停止。将该结果视为
-            # 收敛会使分支定价下界失效。
-            raise PricingNotCertifiedError(
-                "精确定价停止而无最优性证书 "
-                f"(Gurobi 状态={status})。"
-            )
-
+            raise PricingNotCertifiedError(f"Pricing not certified; Gurobi status={status}")
         return combined
-
+    
     def _set_exact_mip_start(
         self, qaia_columns: Sequence[ColumnIndependentSet]
     ) -> None:

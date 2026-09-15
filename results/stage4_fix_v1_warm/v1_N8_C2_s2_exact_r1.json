@@ -1,0 +1,131 @@
+{
+  "method": "exact",
+  "seed": 0,
+  "limit": 120.0,
+  "instance": "D:\\pythonProject\\BP_QAIA_PCP\\data\\ev_instances_v1\\v1_N8_C2_s2.json",
+  "python": "3.10.18 | packaged by Anaconda, Inc. | (main, Jun  5 2025, 13:08:55) [MSC v.1929 64 bit (AMD64)]",
+  "platform": "Windows-10-10.0.26200-SP0",
+  "threads": 1,
+  "gurobi_seed": 0,
+  "verbose": false,
+  "instance_sha256": "f3bf61d4e39ae010c5339e48e891303942149cefce37cb86efc12772777c3450",
+  "vehicles": 8,
+  "vertices": 26,
+  "schema_version": "synthetic-v1",
+  "data_metadata": null,
+  "git_sha": "cfec64ed4df27eca82d4f78fbcc259d8d9120ad0",
+  "git_diff_sha256": "523bd12db5a0c7942b9baf7d880bfa7f19da8cc54664b41a6d9d5113b6e40797",
+  "script_sha256": "ad6a41d4c71f4eb4d093554875512bd71bf18af3a2e5791d68b8051581e92abd",
+  "source_sha256": "09c5ffe9154bc7ac0c714d5ad22dd8a4ba328696e9d09af5aa515c69e2f274a8",
+  "qaia_config": null,
+  "gurobi": [
+    12,
+    0,
+    3
+  ],
+  "graph_seconds": 0.00024789999952190556,
+  "wall_seconds": 0.18865310000182944,
+  "status": "optimal",
+  "objective": 11.0,
+  "statistics": {
+    "nodes_processed": 36,
+    "nodes_created": 71,
+    "nodes_pruned": 35,
+    "nodes_remaining": 0,
+    "best_objective": 11.0,
+    "global_lower_bound": 11.0,
+    "gap": 0.0,
+    "total_solve_time": 0.18859949999750825,
+    "problem_lower_bound": 11.0,
+    "column_num": 274,
+    "master_seconds": 0.05346249998910935,
+    "node_setup_seconds": 0.03548019998925156,
+    "pricing_seconds": 0.08260169997083722,
+    "root_diagnostics": {
+      "cg_certified": true,
+      "cg_iterations": 5,
+      "lp_objective": 5.739130434782608,
+      "integer_solution": false,
+      "columns_in_pool": 44,
+      "master_seconds": 0.0031476000003749505,
+      "pricing_seconds": 0.00890639999488485
+    }
+  },
+  "error": null,
+  "validated_schedule": {
+    "schedule": [
+      [
+        {
+          "vehicle_id": 3,
+          "candidate_id": 0,
+          "vertex_id": 12,
+          "start": 0,
+          "end": 2
+        },
+        {
+          "vehicle_id": 2,
+          "candidate_id": 0,
+          "vertex_id": 8,
+          "start": 2,
+          "end": 3
+        },
+        {
+          "vehicle_id": 1,
+          "candidate_id": 0,
+          "vertex_id": 4,
+          "start": 5,
+          "end": 6
+        },
+        {
+          "vehicle_id": 6,
+          "candidate_id": 1,
+          "vertex_id": 20,
+          "start": 6,
+          "end": 9
+        },
+        {
+          "vehicle_id": 4,
+          "candidate_id": 0,
+          "vertex_id": 15,
+          "start": 10,
+          "end": 11
+        }
+      ],
+      [
+        {
+          "vehicle_id": 5,
+          "candidate_id": 1,
+          "vertex_id": 18,
+          "start": 2,
+          "end": 5
+        },
+        {
+          "vehicle_id": 0,
+          "candidate_id": 2,
+          "vertex_id": 2,
+          "start": 6,
+          "end": 7
+        },
+        {
+          "vehicle_id": 7,
+          "candidate_id": 2,
+          "vertex_id": 24,
+          "start": 9,
+          "end": 11
+        }
+      ]
+    ],
+    "makespan": 11,
+    "duplicate_vehicles": {}
+  },
+  "schedule_makespan": 11,
+  "total_pricing_time": 0.08260169997083722,
+  "total_qaia_time": 0.0,
+  "total_hybrid_exact_time": 0.0,
+  "total_qaia_calls": 0,
+  "total_hybrid_exact_calls": 0,
+  "qaia_nodes": 0,
+  "exact_only_nodes": 36,
+  "validation_passed": true,
+  "workflow_seconds": 2.6988811000010173
+}

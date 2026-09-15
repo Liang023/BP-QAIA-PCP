@@ -56,7 +56,7 @@ class ColumnGeneration:
         self.new_columns = list(self.column_pool.columns)
 
         while True:
-            if time.time() >= time_end:
+            if time.perf_counter() >= time_end:
                 raise TimeoutError(
                     "列生成在精确定价完成之前达到时间限制"
                 )
@@ -85,6 +85,9 @@ class ColumnGeneration:
                 )
 
                 exact_status = exact_solver.model.Status
+
+                if exact_status == grb.GRB.TIME_LIMIT:
+                    raise TimeoutError("Exact pricing time limit; CG is not certified")
 
                 if exact_status != grb.GRB.OPTIMAL:
                     raise RuntimeError(
@@ -119,21 +122,21 @@ class ColumnGeneration:
     #         ):
     #             return True
             
-    def invokeMaster(self,new_columns:List[ColumnIndependentSet], time_end: int):
-        """将新列加入 RMP 并求解主问题，更新对偶与目标值。"""
-        c_time = time.time()
-        for column in new_columns:
-            self.master.add_column_to_rmp(column)
-            
-        solution, duals, obj_val = self.master.solveMaster(time_end)
-        self.masterSolveTime += time.time() - c_time
-        self.masterObjective = obj_val
-        self.dual = duals
-    
-    def invokePricing(self, time_end: int, dual: Dict):
-        """用对偶更新定价问题并求解，返回新生成的列集合。"""
-        c_time = time.time()
-        self.pricing_problem.update_pricing_problem(dual)
-        new_columns = self.pricing_solver.generate_columns(time_end)
-        self.pricingSolveTime += time.time() - c_time
-        return new_columns
+    def invokeMaster(self, new_columns: List[ColumnIndependentSet], time_end: float):
+        start = time.perf_counter()
+        try:
+            for column in new_columns:
+                self.master.add_column_to_rmp(column)
+            solution, duals, obj_val = self.master.solveMaster(time_end)
+            self.masterObjective = obj_val
+            self.dual = duals
+        finally:
+            self.masterSolveTime += time.perf_counter() - start
+
+    def invokePricing(self, time_end: float, dual: Dict):
+        start = time.perf_counter()
+        try:
+            self.pricing_problem.update_pricing_problem(dual)
+            return self.pricing_solver.generate_columns(time_end)
+        finally:
+            self.pricingSolveTime += time.perf_counter() - start

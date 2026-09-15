@@ -17,9 +17,10 @@ import math
 import gurobipy
 import os
 from cg.pricing.qaia_exact_pricing_solver import QAIAExactPricingSolver
-
+from cg.deadline import remaining_seconds
 from validation.ev_solution import validate_schedule
 import builtins
+import time
 
 def print(*args, **kwargs):
     # 仅覆盖本模块中的print，不改全局builtins.print。
@@ -78,6 +79,10 @@ class BranchAndPrice:
         self.qaia_nodes: int = 0
         self.exact_only_nodes: int = 0
 
+        self.total_master_time = 0.0
+        self.total_node_setup_time = 0.0
+        self.root_diagnostics = None
+
     def solve(self) -> Dict[str, Any]:
         """
         执行分支定价算法
@@ -86,7 +91,7 @@ class BranchAndPrice:
             求解结果字典
         """
         import time
-        start_time = time.time()
+        start_time = time.perf_counter()
         time_end = start_time + self.time_limit
         
         print("开始分支定价算法...")
@@ -100,6 +105,7 @@ class BranchAndPrice:
             while not self.is_queue_empty():
                 # 获取下一个要处理的节点
                 self.current_node = self.get_next_node()
+                remaining_seconds(time_end, "Before processing node")
                 self.nodes_processed += 1
                 
                 print(f"\n处理节点 {self.current_node.nodeid}")
@@ -148,7 +154,7 @@ class BranchAndPrice:
                           f"当前最优 {stats['best_objective']:.4f}, "
                           f"当前列数: {stats['column_num']}")
             
-            self.total_solve_time = time.time() - start_time
+            self.total_solve_time = time.perf_counter() - start_time
             
             # 更新全局下界
             self.update_global_lower_bound()
@@ -221,7 +227,9 @@ class BranchAndPrice:
             }
 
         except TimeoutError as e:
-            self.total_solve_time = time.time() - start_time
+            self.optimal = False
+            self.global_lower_bound = self.problem_lower_bound
+            self.total_solve_time = time.perf_counter() - start_time
             self.optimal = False
             # 当前节点在进入process_node之前已经弹出。
             # 用对象身份判断，不能用in：BPCNode.__eq__按objective比较。
@@ -243,7 +251,7 @@ class BranchAndPrice:
                 "statistics": stats,
             }
         except Exception as e:
-            self.total_solve_time = time.time() - start_time
+            self.total_solve_time = time.perf_counter() - start_time
             import traceback
             traceback.print_exc()
             print(f"求解过程中出现错误: {e}")
@@ -303,101 +311,69 @@ class BranchAndPrice:
             print(f"    添加分支节点 {i+1}: ID={new_node.nodeid}")
     
     def process_node(self, current_node: BPCNode, time_end: float) -> bool:
-        """
-        处理当前节点：求解线性松弛问题
-        
-        Args:
-            current_node: 当前节点
-            time_end: 结束时间
-            
-        Returns:
-            是否成功处理（False表示超时）
-        """
-        print("  开始列生成求解...")
-        
-        # 创建求解组件
-        pricing_problem = PricingProblem(auxiliary_graph=current_node.a_graph, name="main_pricing", dual={})
-        master_problem = MasterProblem(graph=self.graph, charger_num=self.charger_num,pricing_problem=pricing_problem, column_pool=current_node.column_pool, a_graph=current_node.a_graph)
-        
-        # ============================================================
-        # 自适应定价策略
-        #
-        # 1. 根节点：QAIA生成多样化列，同时Exact保证列质量；
-        # 2. 大规模子问题：允许QAIA先寻找改进列；
-        # 3. 当前小规模非根节点：直接使用Exact，避免QAIA额外开销
-        # ============================================================
-
-        vertex_count = len(current_node.a_graph.vertices_map)
-        is_root_node = current_node.parent is None
-        use_qaia_at_this_node = self.use_qaia and is_root_node
-
-        if use_qaia_at_this_node:
-            exact_mode = "always"
-            pricing_solver = QAIAExactPricingSolver(
-                auxiliary_graph=current_node.a_graph,
-                pricing_problem=pricing_problem,
-                column_pool=current_node.column_pool,
-                exact_mode=exact_mode,
-                qaia_algorithm="BSB",
-                qaia_n_iter=200,
-                qaia_batch_size=10,
-                qaia_max_columns=3,
-                qaia_backend="cpu-float32",
-                random_seed=self.qaia_seed,
-            )
-
-            print(
-                f"  定价策略: QAIA+Exact, "
-                f"node={current_node.nodeid}, "
-                f"vertices={vertex_count}, "
-                f"mode={exact_mode}"
-            )
-
-        else:
-            pricing_solver = ExactPricingSolver(
-                auxiliary_graph=current_node.a_graph,
-                pricing_problem=pricing_problem,
-            )
-
-            print(
-                f"  定价策略: Exact, "
-                f"node={current_node.nodeid}, "
-                f"vertices={vertex_count}"
-            )
-        column_generation = ColumnGeneration(
-            master_problem, 
-            pricing_problem, 
-            pricing_solver, 
-            current_node.column_pool,
-            self.best_objective, 
-            self.global_lower_bound
-        )
-        
+        remaining_seconds(time_end, "Before node construction")
+        master_problem = pricing_solver = column_generation = None
+        setup_start = time.perf_counter()
+        setup_recorded = False
+        completed = False
         try:
-            current_node.solution, current_node.objective_value = (
-                column_generation.solve(time_end)
-            )
-
-            # 汇总该节点的全部定价时间
-            self.total_pricing_time += column_generation.pricingSolveTime
-
+            pricing_problem = PricingProblem(
+                auxiliary_graph=current_node.a_graph, name="main_pricing", dual={})
+            master_problem = MasterProblem(
+                graph=self.graph, charger_num=self.charger_num,
+                pricing_problem=pricing_problem, column_pool=current_node.column_pool,
+                a_graph=current_node.a_graph)
+            remaining_seconds(time_end, "After master construction")
+            if self.use_qaia and current_node.parent is None:
+                pricing_solver = QAIAExactPricingSolver(
+                    auxiliary_graph=current_node.a_graph,
+                    pricing_problem=pricing_problem,
+                    column_pool=current_node.column_pool, exact_mode="always",
+                    qaia_algorithm="BSB", qaia_n_iter=200, qaia_batch_size=10,
+                    qaia_max_columns=3, qaia_backend="cpu-float32",
+                    random_seed=self.qaia_seed)
+            else:
+                pricing_solver = ExactPricingSolver(
+                    auxiliary_graph=current_node.a_graph, pricing_problem=pricing_problem)
+            column_generation = ColumnGeneration(
+                master_problem, pricing_problem, pricing_solver,
+                current_node.column_pool, self.best_objective, self.global_lower_bound)
+            self.total_node_setup_time += time.perf_counter() - setup_start
+            setup_recorded = True
+            remaining_seconds(time_end, "After pricing construction")
+            # Assignment occurs only after a fully certified CG return.
+            current_node.solution, current_node.objective_value = column_generation.solve(time_end)
+            completed = True
+            return True
+        finally:
+            if not setup_recorded:
+                self.total_node_setup_time += time.perf_counter() - setup_start
+            if column_generation is not None:
+                self.total_master_time += column_generation.masterSolveTime
+                self.total_pricing_time += column_generation.pricingSolveTime
+                if current_node.parent is None:
+                    self.root_diagnostics = dict(
+                        cg_certified=completed,
+                        cg_iterations=column_generation.iteration,
+                        lp_objective=current_node.objective_value if completed else None,
+                        integer_solution=self.is_integer_solution(current_node.solution) if completed else None,
+                        columns_in_pool=len(current_node.column_pool.columns),
+                        master_seconds=column_generation.masterSolveTime,
+                        pricing_seconds=column_generation.pricingSolveTime)
             if isinstance(pricing_solver, QAIAExactPricingSolver):
                 self.qaia_nodes += 1
                 self.total_qaia_time += pricing_solver.qaia_solve_time
                 self.total_hybrid_exact_time += pricing_solver.exact_solve_time
                 self.total_qaia_calls += pricing_solver.qaia_calls
                 self.total_hybrid_exact_calls += pricing_solver.exact_calls
-            else:
+            elif pricing_solver is not None:
                 self.exact_only_nodes += 1
-
-            return True
-        except gurobipy.GurobiError as e:
-            if e.errno == 10001:  # Gurobi timeout error code
-                print("  列生成求解超时")
-                self.nodes_pruned += 1
-                return False
-            else:
-                raise e
+            # Models are local to this node; columns do not store Gurobi Var objects.
+            if pricing_solver is not None:
+                exact = getattr(pricing_solver, "exact_solver", pricing_solver)
+                exact.model.dispose()
+            if master_problem is not None:
+                master_problem._rmp.dispose()
     
     def is_prunable_node(self, current_node: BPCNode) -> bool:
         if not math.isfinite(self.best_objective):
@@ -744,5 +720,9 @@ class BranchAndPrice:
             "gap": (self.best_objective - self.global_lower_bound) / max(abs(self.best_objective), 1e-6),
             "total_solve_time": self.total_solve_time,
             "problem_lower_bound": self.problem_lower_bound,
-            "column_num":column_num
+            "column_num": column_num,
+            "master_seconds": self.total_master_time,
+            "node_setup_seconds": self.total_node_setup_time,
+            "pricing_seconds": self.total_pricing_time,
+            "root_diagnostics": self.root_diagnostics
         }

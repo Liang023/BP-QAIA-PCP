@@ -166,7 +166,9 @@ def main():
                     scope="root", exact_mode="always", algorithm="BSB",
                     n_iter=200, batch_size=10, max_columns=3,
                     backend="cpu-float32") if args.method == "qaia_root" else None
-                
+                if record["qaia_config"] is not None:
+                    record["qaia_config"]["column_policy"] = os.getenv(
+                        "QAIA_COLUMN_POLICY", "combined")
                 import gurobipy as gp
                 record["gurobi"] = gp.gurobi.version()
                 workflow_start = time.perf_counter()

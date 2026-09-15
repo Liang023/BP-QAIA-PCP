@@ -1,0 +1,167 @@
+[
+  {
+    "instance": "ev_V10_C2_T12_dur1_vpc5.json",
+    "vertices": 30,
+    "objective": 9.0,
+    "compact_workflow_seconds": 0.011285000000498258,
+    "exact": {
+      "count": 3,
+      "median_seconds": 2.1928789999983564,
+      "min_seconds": 1.796785099999397,
+      "max_seconds": 2.7340392000005522,
+      "median_workflow_seconds": 4.863176200000453,
+      "nodes": [
+        470,
+        470,
+        470
+      ]
+    },
+    "qaia_root": {
+      "count": 5,
+      "median_seconds": 2.216139199997997,
+      "min_seconds": 2.1897511999995913,
+      "max_seconds": 3.3221152999976766,
+      "median_workflow_seconds": 4.927085299997998,
+      "nodes": [
+        591,
+        556,
+        349,
+        321,
+        806
+      ]
+    },
+    "bp_speedup": 0.9895041791600178
+  },
+  {
+    "instance": "ev_V10_C2_T12_dur2_vpc5.json",
+    "vertices": 33,
+    "objective": 11.0,
+    "compact_workflow_seconds": 0.008578400000260444,
+    "exact": {
+      "count": 3,
+      "median_seconds": 0.8467520000012883,
+      "min_seconds": 0.8355133000004571,
+      "max_seconds": 0.8556136999977753,
+      "median_workflow_seconds": 3.3556437000006554,
+      "nodes": [
+        108,
+        108,
+        108
+      ]
+    },
+    "qaia_root": {
+      "count": 5,
+      "median_seconds": 1.1787742000014987,
+      "min_seconds": 0.8571616999979597,
+      "max_seconds": 1.4168141999980435,
+      "median_workflow_seconds": 3.6762663000008615,
+      "nodes": [
+        185,
+        185,
+        144,
+        95,
+        125
+      ]
+    },
+    "bp_speedup": 0.7183326543796188
+  },
+  {
+    "instance": "ev_V10_C2_T24_dur1_vpc5.json",
+    "vertices": 30,
+    "objective": 10.0,
+    "compact_workflow_seconds": 0.008092899999610381,
+    "exact": {
+      "count": 3,
+      "median_seconds": 0.4714915000004112,
+      "min_seconds": 0.44869939999989583,
+      "max_seconds": 0.4716626000008546,
+      "median_workflow_seconds": 3.0587383000020054,
+      "nodes": [
+        89,
+        89,
+        89
+      ]
+    },
+    "qaia_root": {
+      "count": 5,
+      "median_seconds": 0.8800311999984842,
+      "min_seconds": 0.05679270000109682,
+      "max_seconds": 0.9957627000003413,
+      "median_workflow_seconds": 3.4891688999996404,
+      "nodes": [
+        3,
+        181,
+        181,
+        223,
+        3
+      ]
+    },
+    "bp_speedup": 0.5357668000875688
+  },
+  {
+    "instance": "ev_V20_C5_T12_dur1_vpc4.json",
+    "vertices": 63,
+    "objective": 9.0,
+    "compact_workflow_seconds": 0.013122600001224782,
+    "exact": {
+      "count": 3,
+      "median_seconds": 14.288110599998618,
+      "min_seconds": 13.82899869999892,
+      "max_seconds": 14.288216199998715,
+      "median_workflow_seconds": 16.86148790000152,
+      "nodes": [
+        1534,
+        1534,
+        1534
+      ]
+    },
+    "qaia_root": {
+      "count": 5,
+      "median_seconds": 17.140688800001953,
+      "min_seconds": 7.309850800000277,
+      "max_seconds": 51.31478269999934,
+      "median_workflow_seconds": 19.679585599998973,
+      "nodes": [
+        2728,
+        729,
+        1250,
+        1919,
+        5614
+      ]
+    },
+    "bp_speedup": 0.8335785549059725
+  },
+  {
+    "instance": "ev_V20_C4_T12_dur1_vpc5.json",
+    "vertices": 53,
+    "objective": 7.0,
+    "compact_workflow_seconds": 0.01158439999926486,
+    "exact": {
+      "count": 3,
+      "median_seconds": 9.963907099998323,
+      "min_seconds": 9.642589300001418,
+      "max_seconds": 10.113784200002556,
+      "median_workflow_seconds": 12.500269700001809,
+      "nodes": [
+        1161,
+        1161,
+        1161
+      ]
+    },
+    "qaia_root": {
+      "count": 5,
+      "median_seconds": 37.12449050000214,
+      "min_seconds": 22.23637619999863,
+      "max_seconds": 46.86931360000017,
+      "median_workflow_seconds": 39.67975060000026,
+      "nodes": [
+        5929,
+        2800,
+        4617,
+        5980,
+        3252
+      ]
+    },
+    "bp_speedup": 0.2683917534167304
+  }
+]
