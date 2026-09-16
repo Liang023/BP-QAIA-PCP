@@ -80,7 +80,12 @@ class ExactPricingSolver:
         )
 
     def solve(self, time_end: float):
-        self.model.setParam("PoolSearchMode", 2)
+        pool_mode = int(os.getenv("EXACT_POOL_SEARCH_MODE", "2"))
+        if pool_mode not in {0, 2}:
+            raise ValueError("EXACT_POOL_SEARCH_MODE must be 0 or 2")
+        self.model.setParam("PoolSearchMode", pool_mode)
+        self.model.setParam("MIPGap", 0.0)
+        self.model.setParam("MIPGapAbs", 0.0)
         self.model.setParam("PoolSolutions", self.pool_sol_num)
         self.model.setParam("OutputFlag", 0)
         self.model.update()
@@ -135,7 +140,7 @@ class ExactPricingSolver:
             # 只考虑 reduced cost < 0 的解（等价于目标值充足大）
             rc=obj_val+self.dual.get('charger', 0.0)
             # print(f"rc: {rc}")
-            if rc < 1e-6:  # 考虑数值误差
+            if rc <= 1e-6:  # 考虑数值误差
                 continue
 
             # 提取稳定集（值为1的节点）

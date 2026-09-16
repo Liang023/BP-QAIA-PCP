@@ -17,6 +17,7 @@ import math
 import gurobipy
 import os
 from cg.pricing.qaia_exact_pricing_solver import QAIAExactPricingSolver
+from config.qaia_runtime import pricing_options
 from cg.deadline import remaining_seconds
 from validation.ev_solution import validate_schedule
 import builtins
@@ -82,6 +83,7 @@ class BranchAndPrice:
         self.total_master_time = 0.0
         self.total_node_setup_time = 0.0
         self.root_diagnostics = None
+        self.total_branch_time = 0.0
 
     def solve(self) -> Dict[str, Any]:
         """
@@ -115,9 +117,7 @@ class BranchAndPrice:
                     continue
                 
                 # 2. 求解当前节点的线性松弛问题（列生成）
-                if not self.process_node(self.current_node, time_end):
-                    self.add_node(self.current_node)
-                    break  # 如果时间超限，则跳出循环
+                self.process_node(self.current_node, time_end) # 如果时间超限，则跳出循环
                 print(f"  列生成求解结果: 目标值={self.current_node.objective_value:.4f}， 下界={self.global_lower_bound:.4f}， 上界={self.best_objective:.4f}")
              
                 # 3. 再次检查剪枝条件（求解后目标值可能改变）
@@ -139,7 +139,11 @@ class BranchAndPrice:
                 else:
                     # 如果不是整数解，进行分支
                     print("  解不是整数，开始分支...")
-                    self.branch_node(self.current_node)
+                    branch_start = time.perf_counter()
+                    try:
+                        self.branch_node(self.current_node)
+                    finally:
+                        self.total_branch_time += time.perf_counter() - branch_start
                 
                 # 更新全局下界
                 active_nodes_bounds = [node.objective_value for node in self.node_queue]
@@ -328,10 +332,8 @@ class BranchAndPrice:
                 pricing_solver = QAIAExactPricingSolver(
                     auxiliary_graph=current_node.a_graph,
                     pricing_problem=pricing_problem,
-                    column_pool=current_node.column_pool, exact_mode="always",
-                    qaia_algorithm="BSB", qaia_n_iter=200, qaia_batch_size=10,
-                    qaia_max_columns=3, qaia_backend="cpu-float32",
-                    random_seed=self.qaia_seed)
+                    column_pool=current_node.column_pool,
+                    random_seed=self.qaia_seed, **pricing_options())
             else:
                 pricing_solver = ExactPricingSolver(
                     auxiliary_graph=current_node.a_graph, pricing_problem=pricing_problem)
@@ -359,7 +361,9 @@ class BranchAndPrice:
                         integer_solution=self.is_integer_solution(current_node.solution) if completed else None,
                         columns_in_pool=len(current_node.column_pool.columns),
                         master_seconds=column_generation.masterSolveTime,
-                        pricing_seconds=column_generation.pricingSolveTime)
+                        pricing_seconds=column_generation.pricingSolveTime,
+                        heuristic_metrics=(pricing_solver.get_metrics()
+                            if isinstance(pricing_solver, QAIAExactPricingSolver) else None))
             if isinstance(pricing_solver, QAIAExactPricingSolver):
                 self.qaia_nodes += 1
                 self.total_qaia_time += pricing_solver.qaia_solve_time
@@ -724,5 +728,6 @@ class BranchAndPrice:
             "master_seconds": self.total_master_time,
             "node_setup_seconds": self.total_node_setup_time,
             "pricing_seconds": self.total_pricing_time,
+            "branch_seconds": self.total_branch_time,
             "root_diagnostics": self.root_diagnostics
         }

@@ -17,7 +17,33 @@ def main():
     p.add_argument("--instance", action="append", required=True)
     p.add_argument("--out-dir", required=True)
     p.add_argument("--limit", type=float, default=30)
+    p.add_argument("--variant-file", help="JSON list of {name, env} variants")
+    p.add_argument("--seeds", type=int, nargs="+", default=[0, 1, 2, 3, 4])
     args = p.parse_args()
+    if not args.seeds or min(args.seeds) < 0 or len(set(args.seeds)) != len(args.seeds):
+        p.error("seeds must be distinct nonnegative integers")
+    managed = {"QAIA_EXACT_MODE", "QAIA_PROVIDER", "QAIA_MAX_STREAK", "QAIA_N_ITER",
+               "QAIA_BATCH_SIZE", "QAIA_MAX_COLUMNS", "QAIA_DT", "QAIA_COLUMN_POLICY"}
+    variants = [dict(name=x, env={"QAIA_COLUMN_POLICY": x})
+                for x in ("combined", "warm_start_only")]
+    if args.variant_file:
+        variants = json.loads(Path(args.variant_file).read_text(encoding="utf-8-sig"))
+    if not isinstance(variants, list) or not variants:
+        p.error("variant-file must contain a nonempty list")
+    names = set()
+    for item in variants:
+        if not isinstance(item, dict):
+            p.error("variant must be an object")
+        name, env = item.get("name"), item.get("env")
+        if (not isinstance(name, str) or not name or name in names
+                or not all(c.isascii() and (c.isalnum() or c == "_") for c in name)
+                or name in {"compact", "exact"}):
+            p.error("variant names must be unique ASCII letters/digits/underscores")
+        if not isinstance(env, dict) or set(env) - managed:
+            p.error("unknown variant environment option")
+        if any(not isinstance(value, str) for value in env.values()):
+            p.error("environment values must be strings")
+        names.add(name)
     if not math.isfinite(args.limit) or args.limit <= 0:
         p.error("limit must be positive and finite")
     paths = [(ROOT / x).resolve() for x in args.instance]
@@ -27,23 +53,27 @@ def main():
     out.mkdir(parents=True, exist_ok=False)
     report = []
     fingerprints = set()
-    # 1 compact + 3 exact + 5 combined + 5 warm_start_only per instance.
-    plan = [("compact", "combined", 0, "compact")]
-    for seed in range(5):
-        pair = [("qaia_root", policy, seed, f"{policy}_s{seed}")
-                for policy in ("combined", "warm_start_only")]
-        if seed % 2:
+    plan = [("compact", None, 0, "compact", {})]
+    for repeat, seed in enumerate(args.seeds):
+        pair = [("qaia_root", item["name"], seed, f"{item['name']}_s{seed}", item["env"])
+                for item in variants]
+        if repeat < 3:
+            pair.append(("exact", None, 0, f"exact_r{repeat}", {}))
+        if repeat % 2:
             pair.reverse()
-        if seed < 3:
-            pair.insert(0, ("exact", "combined", 0, f"exact_r{seed}"))
         plan.extend(pair)
+    (out / "manifest.json").write_text(json.dumps(dict(
+        variants=variants, seeds=args.seeds, limit=args.limit,
+        exact_pool_search_mode=os.getenv("EXACT_POOL_SEARCH_MODE", "2"),
+        instances=[str(x) for x in paths]), indent=2), encoding="utf-8")
     for path in paths:
         reference = None
         runs = []
-        for method, policy, seed, label in plan:
+        for method, policy, seed, label, overrides in plan:
             dest = out / f"{path.stem}_{label}.json"
-            env = dict(os.environ, BPC_VERBOSE="0", BPC_DUMP_LP="0",
-                       QAIA_COLUMN_POLICY=policy)
+            env = {k: v for k, v in os.environ.items() if k not in managed}
+            env.update(BPC_VERBOSE="0", BPC_DUMP_LP="0", QAIA_COLUMN_POLICY="combined")
+            env.update(overrides)
             command = [sys.executable, str(ROOT / "test/run_stage1.py"),
                        "--instance", str(path), "--method", method,
                        "--seed", str(seed), "--limit", str(args.limit), "--out", str(dest)]
@@ -93,12 +123,24 @@ def main():
             (out / f"{path.stem}_diagnostic.json").write_text(
                 json.dumps(runs, ensure_ascii=False, indent=2), encoding="utf-8")
         groups = {}
-        for key in ("exact", "combined", "warm_start_only"):
+        for key in ["exact", *[item["name"] for item in variants]]:
             group = [r for r in runs if (r["policy"] or r["method"]) == key]
             good = [r for r in group if r["check"] == "matched_reference"]
-            groups[key] = dict(attempted=len(group), certified=len(good),
-                               median_seconds=statistics.median(r["wall_seconds"] for r in good)
-                               if len(good) == len(group) and good else None)
+            roots = [(r.get("statistics") or {}).get("root_diagnostics") or {} for r in group]
+            root_times = [r["pricing_seconds"] for r in roots if r.get("cg_certified")]
+            feasible = [r["feasible_makespan"] for r in group
+                        if r["validation_passed"] and r.get("feasible_makespan") is not None]
+            groups[key] = dict(
+                attempted=len(group), certified=len(good),
+                statuses={s: sum(r["status"] == s for r in group)
+                          for s in sorted({r["status"] for r in group})},
+                median_seconds=statistics.median(r["wall_seconds"] for r in good)
+                    if len(good) == len(group) and good else None,
+                feasible_count=len(feasible),
+                median_feasible_makespan=statistics.median(feasible) if feasible else None,
+                root_certified=len(root_times),
+                median_root_pricing_seconds=statistics.median(root_times)
+                    if len(root_times) == len(group) and group else None)
         report.append(dict(instance=str(path), limit=args.limit, groups=groups))
         (out / "diagnostic_summary.json").write_text(json.dumps(report, indent=2), encoding="utf-8")
     print("Diagnostic collection finished. This is NOT a PASS certificate.")

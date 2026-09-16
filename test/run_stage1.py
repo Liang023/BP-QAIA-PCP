@@ -162,10 +162,13 @@ def main():
                     digest.update(path.read_bytes())
                     digest.update(b"\0")
                 record["source_sha256"] = digest.hexdigest()
-                record["qaia_config"] = dict(
-                    scope="root", exact_mode="always", algorithm="BSB",
-                    n_iter=200, batch_size=10, max_columns=3,
-                    backend="cpu-float32") if args.method == "qaia_root" else None
+                from config.qaia_runtime import pricing_options
+                record["qaia_config"] = (dict(scope="root", **pricing_options())
+                                         if args.method == "qaia_root" else None)
+                record["exact_pricing_config"] = (dict(
+                    pool_search_mode=int(os.getenv("EXACT_POOL_SEARCH_MODE", "2")),
+                    pool_solutions=10, mip_gap=0.0, mip_gap_abs=0.0)
+                    if args.method != "compact" else None)
                 if record["qaia_config"] is not None:
                     record["qaia_config"]["column_policy"] = os.getenv(
                         "QAIA_COLUMN_POLICY", "combined")

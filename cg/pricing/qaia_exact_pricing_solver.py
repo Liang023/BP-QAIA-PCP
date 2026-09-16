@@ -72,6 +72,7 @@ class QAIAPricingSolver:
         auxiliary_graph: AuxiliaryGraph,
         pricing_problem: PricingProblem,
         *,
+        provider: str = "qaia",
         algorithm: str = "BSB",
         n_iter: int = 1000,
         batch_size: int = 50,
@@ -94,6 +95,13 @@ class QAIAPricingSolver:
 
         self.auxiliary_graph = auxiliary_graph
         self.pricing_problem = pricing_problem
+        if provider not in {"qaia", "greedy"}:
+            raise ValueError("Unknown heuristic provider")
+        self.provider = provider
+        self.profile = dict(build_seconds=0.0, search_seconds=0.0,
+                            repair_seconds=0.0, raw_samples=0,
+                            improving_unique=0, pool_duplicates=0,
+                            returned_columns=0, nonfinite_samples=0)
         self.algorithm = algorithm
         self.n_iter = int(n_iter)
         self.batch_size = int(batch_size)
@@ -116,65 +124,61 @@ class QAIAPricingSolver:
         self.solve_time = 0.0
         self.calls = 0
 
-    def generate_columns(self, time_end: float) -> List[ColumnIndependentSet]:
-        """运行 QAIA 并返回具有负约化成本的可行列。
-
-        在现有实现中，称为 ``rc`` 的数量实际上是定价违反
-
-            sum_(v in S) w_v + dual['charger'].
-
-        非人工列改进当且仅当这个值大于 ``epsilon``。
-        """
-        if time.perf_counter() >= time_end:
-            return []
-
-        start = time.perf_counter()
+    def generate_columns(self, time_end: float, *, exclude_signatures=None):
+        remaining_seconds(time_end, "Before heuristic")
+        started = time.perf_counter()
         self.calls += 1
-
-        vertex_ids, weights, adjacency, self_forbidden, j_mat, h_vec = (
-            self._build_ising_model()
-        )
-        if not vertex_ids:
-            self.solve_time += time.perf_counter() - start
-            return []
-
-        raw_state = self._run_qaia(j_mat, h_vec)
-        binary_samples = self._decode_state(raw_state, len(vertex_ids))
-
-        # 将每个修复的集合映射到其真实定价违反。使用字典
-        # 以便重复的 QAIA 样本只创建一个列。
-        candidates: Dict[Tuple[int, ...], float] = {}
-        for sample in binary_samples.T:
-            initially_selected = {
-                vertex_ids[index]
-                for index, value in enumerate(sample)
-                if int(value) == 1
-            }
-            repaired = self._repair_independent_set(
-                initially_selected,
-                vertex_ids,
-                weights,
-                adjacency,
-                self_forbidden,
-            )
-            if not repaired:
-                continue
-
-            signature = tuple(sorted(repaired))
-            violation = self._pricing_violation(signature)
-            if violation > self.epsilon:
-                candidates[signature] = max(
-                    violation, candidates.get(signature, float("-inf"))
-                )
-
-        ranked = sorted(
-            candidates.items(),
-            key=lambda item: (-item[1], item[0]),
-        )[: self.max_columns]
-
-        columns = [self._make_column(signature) for signature, _ in ranked]
-        self.solve_time += time.perf_counter() - start
-        return columns
+        excluded = set(exclude_signatures or ())
+        try:
+            t0 = time.perf_counter()
+            vertex_ids, weights, adjacency, forbidden, j_mat, h_vec = self._build_ising_model()
+            self.profile["build_seconds"] += time.perf_counter() - t0
+            if not vertex_ids:
+                return []
+            remaining_seconds(time_end, "After Ising construction")
+            t0 = time.perf_counter()
+            if self.provider == "greedy":
+                seed = None if self.random_seed is None else self.random_seed + self.calls - 1
+                rng = np.random.default_rng(seed)
+                samples = rng.integers(0, 2, size=(len(vertex_ids), self.batch_size), dtype=np.int8)
+                samples[:, 0] = 0  # First start is deterministic weight-ordered greedy.
+            else:
+                raw = self._run_qaia(j_mat, h_vec)
+                if hasattr(raw, "detach"):
+                    raw = raw.detach().cpu().numpy()
+                state = np.asarray(raw)
+                if state.ndim == 1:
+                    state = state[:, None]
+                if state.ndim != 2 or state.shape[0] != len(vertex_ids):
+                    raise ValueError(f"Unexpected QAIA shape: {state.shape}")
+                valid = np.isfinite(state).all(axis=0)
+                self.profile["nonfinite_samples"] += int((~valid).sum())
+                samples = self._decode_state(state[:, valid], len(vertex_ids))
+            self.profile["search_seconds"] += time.perf_counter() - t0
+            remaining_seconds(time_end, "After heuristic search")
+            t0 = time.perf_counter()
+            self.profile["raw_samples"] += samples.shape[1]
+            candidates = {}
+            for sample in samples.T:
+                remaining_seconds(time_end, "Heuristic repair")
+                initial = {vertex_ids[i] for i, value in enumerate(sample) if value == 1}
+                repaired = self._repair_independent_set(
+                    initial, vertex_ids, weights, adjacency, forbidden)
+                signature = tuple(sorted(repaired))
+                violation = self._pricing_violation(signature)
+                if signature and violation > self.epsilon:
+                    candidates[signature] = violation
+            self.profile["improving_unique"] += len(candidates)
+            self.profile["pool_duplicates"] += sum(s in excluded for s in candidates)
+            # Remove existing columns BEFORE selecting the best k new columns.
+            ranked = sorted(((s, v) for s, v in candidates.items() if s not in excluded),
+                            key=lambda item: (-item[1], item[0]))[:self.max_columns]
+            columns = [self._make_column(s) for s, _ in ranked]
+            self.profile["returned_columns"] += len(columns)
+            self.profile["repair_seconds"] += time.perf_counter() - t0
+            return columns
+        finally:
+            self.solve_time += time.perf_counter() - started
 
     def _build_ising_model(
         self,
@@ -317,6 +321,8 @@ class QAIAPricingSolver:
                 "意料之外的 QAIA 状态形状："
                 f"预计 ({number_of_vertices}, batch_size)，得到 {state.shape}"
             )
+        if not np.isfinite(state).all():
+            raise ValueError("Non-finite QAIA state")
         spins = np.where(state >= 0.0, 1, -1)
         return ((spins + 1) // 2).astype(np.int8)
 
@@ -377,7 +383,7 @@ class QAIAPricingSolver:
             value=0.0,
             associated_pricing_problem=self.pricing_problem,
             is_artificial=False,
-            creator=f"QAIA-{self.algorithm}",
+            creator=f"QAIA-{self.algorithm}" if self.provider == "qaia" else "Greedy-multistart",
         )
 
 
@@ -412,6 +418,8 @@ class QAIAExactPricingSolver:
         column_pool: Optional[ColumnPool] = None,
         *,
         exact_mode: str = "always",
+        heuristic_provider: str = "qaia",
+        max_heuristic_streak: int = 3,
         qaia_algorithm: str = "BSB",
         qaia_n_iter: int = 1000,
         qaia_batch_size: int = 50,
@@ -432,6 +440,12 @@ class QAIAExactPricingSolver:
         self.pricing_problem = pricing_problem
         self.column_pool = column_pool
         self.exact_mode = exact_mode
+        if max_heuristic_streak <= 0:
+            raise ValueError("max_heuristic_streak must be positive")
+        self.max_heuristic_streak = int(max_heuristic_streak)
+        self.heuristic_streak = 0
+        self.exact_skips = 0
+        self.hit_calls = 0
         self.column_policy = os.getenv("QAIA_COLUMN_POLICY", "combined")
         if self.column_policy not in {"combined", "warm_start_only"}:
             raise ValueError("Unknown QAIA_COLUMN_POLICY")
@@ -442,6 +456,7 @@ class QAIAExactPricingSolver:
         self.qaia_solver = QAIAPricingSolver(
             auxiliary_graph=auxiliary_graph,
             pricing_problem=pricing_problem,
+            provider=heuristic_provider,
             algorithm=qaia_algorithm,
             n_iter=qaia_n_iter,
             batch_size=qaia_batch_size,
@@ -463,20 +478,33 @@ class QAIAExactPricingSolver:
         self.qaia_calls = 0
         self.exact_calls = 0
 
-    def generate_columns(self, time_end: float) -> List[ColumnIndependentSet]:
-        remaining_seconds(time_end, "Before QAIA")
-        start = time.perf_counter()
-        self.qaia_calls += 1
-        try:
-            qaia_columns = self.qaia_solver.generate_columns(time_end)
-        finally:
-            self.qaia_solve_time += time.perf_counter() - start
-        remaining_seconds(time_end, "After QAIA")
-        qaia_columns = self._deduplicate(qaia_columns, exclude_existing=True)
+    def generate_columns(self, time_end: float):
+        remaining_seconds(time_end, "Before hybrid pricing")
+        qaia_columns = []
+        forced_exact = (self.exact_mode == "on_qaia_failure"
+                        and self.heuristic_streak >= self.max_heuristic_streak)
+        if not forced_exact:
+            start = time.perf_counter()
+            self.qaia_calls += 1  # Legacy name: counts the selected heuristic provider.
+            try:
+                qaia_columns = self.qaia_solver.generate_columns(
+                    time_end, exclude_signatures=self._existing_signatures())
+            finally:
+                self.qaia_solve_time += time.perf_counter() - start
+            remaining_seconds(time_end, "After heuristic")
+            qaia_columns = self._deduplicate(qaia_columns, exclude_existing=True)
+            if qaia_columns:
+                self.hit_calls += 1
+                if self.exact_mode == "on_qaia_failure":
+                    self.heuristic_streak += 1
+                    self.exact_skips += 1
+                    return qaia_columns
+        self.heuristic_streak = 0
+        # A start is useful only if Exact will actually run with these weights.
+        for variable in self.exact_solver.vars.values():
+            variable.Start = grb.GRB.UNDEFINED
         if qaia_columns:
             self._set_exact_mip_start(qaia_columns)
-        if self.exact_mode == "on_qaia_failure" and qaia_columns:
-            return qaia_columns
         start = time.perf_counter()
         self.exact_calls += 1
         try:
@@ -486,12 +514,25 @@ class QAIAExactPricingSolver:
         selected = (exact_columns if self.column_policy == "warm_start_only"
                     else [*qaia_columns, *exact_columns])
         combined = self._deduplicate(selected, exclude_existing=True)
-        status = self.exact_solver.model.Status
-        if status == grb.GRB.TIME_LIMIT:
-            raise TimeoutError("Hybrid Exact pricing timed out; node is not certified")
-        if not combined and status != grb.GRB.OPTIMAL:
-            raise PricingNotCertifiedError(f"Pricing not certified; Gurobi status={status}")
+        model = self.exact_solver.model
+        if model.Status == grb.GRB.TIME_LIMIT:
+            raise TimeoutError("Exact pricing timed out; node is not certified")
+        if not combined:
+            if model.Status != grb.GRB.OPTIMAL:
+                raise PricingNotCertifiedError(f"Pricing status={model.Status}")
+            bound_violation = float(model.ObjBound) + float(self.pricing_problem.dual.get("charger", 0.0))
+            if not np.isfinite(bound_violation) or bound_violation > self.epsilon:
+                raise PricingNotCertifiedError(
+                    "No fresh column, but Exact bound still permits an improving column")
         return combined
+
+    def get_metrics(self):
+        return dict(provider=self.qaia_solver.provider,
+                    heuristic_calls=self.qaia_calls, hit_calls=self.hit_calls,
+                    exact_calls=self.exact_calls, exact_skips=self.exact_skips,
+                    heuristic_seconds=self.qaia_solve_time,
+                    exact_seconds=self.exact_solve_time,
+                    **self.qaia_solver.profile)
     
     def _set_exact_mip_start(
         self, qaia_columns: Sequence[ColumnIndependentSet]

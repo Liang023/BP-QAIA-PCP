@@ -1,0 +1,8 @@
+[
+  {"name":"q50b4","env":{"QAIA_EXACT_MODE":"on_qaia_failure","QAIA_N_ITER":"50","QAIA_BATCH_SIZE":"4"}},
+  {"name":"q50b10","env":{"QAIA_EXACT_MODE":"on_qaia_failure","QAIA_N_ITER":"50","QAIA_BATCH_SIZE":"10"}},
+  {"name":"q100b4","env":{"QAIA_EXACT_MODE":"on_qaia_failure","QAIA_N_ITER":"100","QAIA_BATCH_SIZE":"4"}},
+  {"name":"q100b10","env":{"QAIA_EXACT_MODE":"on_qaia_failure","QAIA_N_ITER":"100","QAIA_BATCH_SIZE":"10"}},
+  {"name":"q200b4","env":{"QAIA_EXACT_MODE":"on_qaia_failure","QAIA_N_ITER":"200","QAIA_BATCH_SIZE":"4"}},
+  {"name":"q200b10","env":{"QAIA_EXACT_MODE":"on_qaia_failure","QAIA_N_ITER":"200","QAIA_BATCH_SIZE":"10"}}
+]

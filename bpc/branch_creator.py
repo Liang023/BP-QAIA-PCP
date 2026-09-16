@@ -73,52 +73,28 @@ class BranchCreator:
         else:
             return None
     
-    def check_branch_rule1(self)->bool:
-        """规则1检测：某分区被部分选中多个顶点时进行分支。
-
-        计算每个分区当前被“上色”的顶点集合及其分数贡献，若某分区
-        含多个顶点被选中，则选择贡献最大的顶点作为分支对象。
-        """
-        verteices_value={}
-        vetices_num_colored_for_each_partition={}
+    def check_branch_rule1(self) -> bool:
+        values = {}
+        by_partition = {}
+        self.checked_vertex = None
         for column, value in self.solution.items():
             if value <= 1e-9:
                 continue
-
             for vertex in column.vertex_list:
-                # 跳过没有单一所属分区的合并顶点
+                # Preserve the existing rule: merged vertices are handled by rule 2.
                 if not hasattr(vertex, "associated_partition"):
                     continue
-
                 partition = vertex.associated_partition
-
-                if partition not in vetices_num_colored_for_each_partition:
-                    vetices_num_colored_for_each_partition[partition] = []
-
-                if vertex not in \
-                        vetices_num_colored_for_each_partition[partition]:
-                    vetices_num_colored_for_each_partition[
-                        partition
-                    ].append(vertex)
-
-                verteices_value[vertex] = (
-                    verteices_value.get(vertex, 0.0) + value
-                )
-        if not vetices_num_colored_for_each_partition:
-            return False       
-        max_num_colored_partition=max(vetices_num_colored_for_each_partition.items(),key=lambda x:len(x[1]))
-        
-        if len(max_num_colored_partition[1])>1:
-            max_value=0
-            for vertex,value in verteices_value.items():
-                if vertex not in max_num_colored_partition[0].vertex_list:
-                    continue
-                else:
-                    if value>max_value:
-                        max_value=value
-                        self.checked_vertex=vertex
-                    return True
-        return False
+                by_partition.setdefault(partition, set()).add(vertex)
+                values[vertex] = values.get(vertex, 0.0) + value
+        candidates = [p for p, vertices in by_partition.items() if len(vertices) > 1]
+        if not candidates:
+            return False
+        # Deterministic tie breaks: most split partition, then smallest ID.
+        partition = min(candidates, key=lambda p: (-len(by_partition[p]), p.id))
+        self.checked_vertex = min(
+            by_partition[partition], key=lambda v: (-values[v], v.id))
+        return True
 
     
     def create_branch_rule1(self,checked_vertex:Vertex)->Tuple[BranchingDecision,BranchingDecision]:

@@ -2,10 +2,9 @@ from cg.master.master_problem import MasterProblem
 from cg.pricing.pricing_problem import PricingProblem
 from cg.pricing.exact_pricing_solver import ExactPricingSolver
 from cg.column_pool import ColumnPool
-from config.Config import Config
 
 import time
-import math
+
 from typing import List, Dict
 from cg.column_independent_set import ColumnIndependentSet
 import gurobipy as grb
@@ -20,7 +19,6 @@ class ColumnGeneration:
 
     - invokeMaster: 将新列加入 RMP，求解主问题并获取对偶与目标值；
     - invokePricing: 用对偶更新定价问题，求解并返回新列；
-    - check_termination: 依据上下界与容差判断是否停止迭代。
     """
     def __init__(
         self,
@@ -44,7 +42,6 @@ class ColumnGeneration:
         self.iteration = 0
         self.solution = None
         self.new_columns = []
-        self.config = Config()
 
     def solve(self, time_end: float):
         """
@@ -107,20 +104,6 @@ class ColumnGeneration:
         self.solution = self.master.solution
 
         return self.solution, self.masterObjective
-        
-    # def check_termination(self):
-    #     """终止判定：上界已达到或上下界在容差内收敛。"""
-    #     if (
-    #             math.ceil(self.masterObjective - self.config.epsilon)
-    #             >= self.upper_bound
-    #         ):
-    #             return True
-            
-    #     if (
-    #             abs(self.masterObjective - self.lower_bound)
-    #             < self.config.epsilon
-    #         ):
-    #             return True
             
     def invokeMaster(self, new_columns: List[ColumnIndependentSet], time_end: float):
         start = time.perf_counter()
