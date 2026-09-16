@@ -39,9 +39,16 @@ def build_instance(n, chargers, seed):
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--out-dir", default="data/ev_instances_v1")
+    parser.add_argument("--sizes", type=int, nargs="+", default=[6, 8, 10])
+    parser.add_argument("--seeds", type=int, nargs="+", default=[0, 1, 2])
+    parser.add_argument("--chargers", type=int, default=2)
     args = parser.parse_args()
+    if min(args.sizes) <= 0 or args.chargers <= 0 or min(args.seeds) < 0:
+        parser.error("positive sizes/chargers and nonnegative seeds required")
+    if len(set(args.sizes)) != len(args.sizes) or len(set(args.seeds)) != len(args.seeds):
+        parser.error("sizes and seeds must be distinct")
     out = Path(args.out_dir)
-    plans = [build_instance(n, 2, seed) for n in (6, 8, 10) for seed in (0, 1, 2)]
+    plans = [build_instance(n, args.chargers, seed) for n in args.sizes for seed in args.seeds]
     # 写入前检查全部路径，避免部分覆盖旧数据。
     if any((out / (d["name"] + ".json")).exists() for d in plans):
         raise FileExistsError("目标数据已存在，请使用新的目录，不覆盖旧版本")

@@ -194,13 +194,10 @@ def main():
                 try:
                     record["git_sha"] = subprocess.check_output(
                         ["git", "rev-parse", "HEAD"], text=True, stderr=subprocess.DEVNULL).strip()
-                    record["git_diff_sha256"] = hashlib.sha256(subprocess.check_output(
-                        ["git", "diff", "HEAD"], stderr=subprocess.DEVNULL)).hexdigest()
                 except (OSError, subprocess.CalledProcessError):
-                    record.update(git_sha=None, git_diff_sha256=None)
-                record["script_sha256"] = hashlib.sha256(Path(__file__).read_bytes()).hexdigest()
+                    record["git_sha"] = None
                 source_files = sorted(path for folder in ("bpc", "cg", "config", "ev", "model",
-                    "qaia", "test", "validation") for path in (ROOT/folder).rglob("*.py"))
+                    "qaia", "experiments", "tests", "validation") for path in (ROOT/folder).rglob("*.py"))
                 digest = hashlib.sha256()
                 for path in source_files:
                     digest.update(path.relative_to(ROOT).as_posix().encode()+b"\0")

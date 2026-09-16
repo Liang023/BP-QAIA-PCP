@@ -44,8 +44,7 @@ def main():
         p.error("seeds must be distinct nonnegative integers")
     managed = {"QAIA_EXACT_MODE", "QAIA_PROVIDER", "QAIA_MAX_STREAK", "QAIA_N_ITER",
                "QAIA_BATCH_SIZE", "QAIA_MAX_COLUMNS", "QAIA_DT", "QAIA_COLUMN_POLICY"}
-    variants = [dict(name=x, env={"QAIA_COLUMN_POLICY": x})
-                for x in ("combined", "warm_start_only")]
+    variants = json.loads((ROOT / "config/anytime.json").read_text(encoding="utf-8"))
     if args.variant_file:
         variants = json.loads(Path(args.variant_file).read_text(encoding="utf-8-sig"))
     if not isinstance(variants, list) or not variants:
@@ -100,7 +99,7 @@ def main():
             env = {k: v for k, v in os.environ.items() if k not in managed}
             env.update(BPC_VERBOSE="0", BPC_DUMP_LP="0", QAIA_COLUMN_POLICY="combined")
             env.update(overrides)
-            command = [sys.executable, str(ROOT / "test/run_stage1.py"),
+            command = [sys.executable, str(ROOT / "experiments/run_instance.py"),
                        "--instance", str(path), "--method", method,
                        "--seed", str(seed), "--limit", str(args.limit), "--out", str(dest)]
             start = time.perf_counter()
@@ -164,7 +163,7 @@ def main():
             (out / f"{path.stem}_diagnostic.json").write_text(
                 json.dumps(runs, ensure_ascii=False, indent=2), encoding="utf-8")
         groups = {}
-        for key in ["exact", *[item["name"] for item in variants]]:
+        for key in ["compact", "exact", *[item["name"] for item in variants]]:
             group = [r for r in runs if (r["policy"] or r["method"]) == key]
             good = [r for r in group if r["check"] == "matched_reference"]
             roots = [(r.get("statistics") or {}).get("root_diagnostics") or {} for r in group]
@@ -172,20 +171,27 @@ def main():
             feasible = [r["feasible_makespan"] for r in group
                         if r["validation_passed"] and r.get("feasible_makespan") is not None]
             groups[key] = dict(
-                attempted=len(group), certified=len(good),
+                attempted=len(group),
+                optimal_count=sum(r["status"] == "optimal" and r["validation_passed"] for r in group),
+                matched_reference_count=len(good),
                 statuses={s: sum(r["status"] == s for r in group)
                           for s in sorted({r["status"] for r in group})},
-                median_seconds=statistics.median(r["wall_seconds"] for r in good)
-                    if len(good) == len(group) and good else None,
+                median_seconds=statistics.median(r["wall_seconds"] for r in group)
+                    if group and all(r["status"] == "optimal" and r["validation_passed"]
+                        and r["check"] not in {"objective_mismatch", "input_changed", "invalid_schedule"}
+                        for r in group) else None,
                 feasible_count=len(feasible),
                 feasible_rate=len(feasible)/len(group) if group else None,
                 all_feasible_makespans=[r["feasible_makespan"] if r["validation_passed"] else None for r in group],
                 first_feasible_seconds=[r["time_to_first_feasible"] for r in group],
                 median_feasible_makespan=statistics.median(feasible) if feasible else None,
+                median_all_runs_makespan=statistics.median(feasible)
+                    if feasible and len(feasible) == len(group) else None,
                 root_certified=len(root_times),
                 median_root_pricing_seconds=statistics.median(root_times)
                     if len(root_times) == len(group) and group else None)
-        report.append(dict(instance=str(path), limit=args.limit, groups=groups))
+        report.append(dict(schema_version="anytime-summary-v2", instance=str(path),
+                           limit=args.limit, groups=groups))
         (out / "diagnostic_summary.json").write_text(json.dumps(report, indent=2), encoding="utf-8")
     print("Collection finished. Compare feasible_rate and objectives first; timeouts are retained.")
 

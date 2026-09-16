@@ -1,5 +1,0 @@
-[
-  {"name":"q_always_200_10","env":{"QAIA_EXACT_MODE":"always","QAIA_PROVIDER":"qaia","QAIA_N_ITER":"200","QAIA_BATCH_SIZE":"10"}},
-  {"name":"q_first_200_10","env":{"QAIA_EXACT_MODE":"on_qaia_failure","QAIA_PROVIDER":"qaia","QAIA_N_ITER":"200","QAIA_BATCH_SIZE":"10"}},
-  {"name":"greedy_first_10","env":{"QAIA_EXACT_MODE":"on_qaia_failure","QAIA_PROVIDER":"greedy","QAIA_BATCH_SIZE":"10"}}
-]

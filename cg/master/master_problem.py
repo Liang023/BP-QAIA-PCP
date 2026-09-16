@@ -176,12 +176,9 @@ class MasterProblem:
             os.makedirs("model_info", exist_ok=True)
             self._rmp.write("model_info/master.lp")
 
-        try:
-            self._rmp.setObjective(self._rmp.getObjective(), grb.GRB.MINIMIZE)
-            self._rmp.Params.TimeLimit = remaining_seconds(time_end, "RMP")
-            self._rmp.optimize()
-        except grb.GurobiError as e:
-            raise e
+        self._rmp.setObjective(self._rmp.getObjective(), grb.GRB.MINIMIZE)
+        self._rmp.Params.TimeLimit = remaining_seconds(time_end, "RMP")
+        self._rmp.optimize()
 
         # 根据求解状态处理结果
         if self._rmp.status == grb.GRB.OPTIMAL:

@@ -1,0 +1,54 @@
+[
+  {
+    "name": "qaia_50_4",
+    "env": {
+      "QAIA_PROVIDER": "qaia",
+      "QAIA_COLUMN_POLICY": "combined",
+      "QAIA_EXACT_MODE": "on_qaia_failure",
+      "QAIA_N_ITER": "50",
+      "QAIA_BATCH_SIZE": "4",
+      "QAIA_DT": "1.0",
+      "QAIA_MAX_COLUMNS": "3",
+      "QAIA_MAX_STREAK": "3"
+    }
+  },
+  {
+    "name": "qaia_200_10",
+    "env": {
+      "QAIA_PROVIDER": "qaia",
+      "QAIA_COLUMN_POLICY": "combined",
+      "QAIA_EXACT_MODE": "on_qaia_failure",
+      "QAIA_N_ITER": "200",
+      "QAIA_BATCH_SIZE": "10",
+      "QAIA_DT": "1.0",
+      "QAIA_MAX_COLUMNS": "3",
+      "QAIA_MAX_STREAK": "3"
+    }
+  },
+  {
+    "name": "greedy_4",
+    "env": {
+      "QAIA_PROVIDER": "greedy",
+      "QAIA_COLUMN_POLICY": "combined",
+      "QAIA_EXACT_MODE": "on_qaia_failure",
+      "QAIA_N_ITER": "50",
+      "QAIA_BATCH_SIZE": "4",
+      "QAIA_DT": "1.0",
+      "QAIA_MAX_COLUMNS": "3",
+      "QAIA_MAX_STREAK": "3"
+    }
+  },
+  {
+    "name": "greedy_10",
+    "env": {
+      "QAIA_PROVIDER": "greedy",
+      "QAIA_COLUMN_POLICY": "combined",
+      "QAIA_EXACT_MODE": "on_qaia_failure",
+      "QAIA_N_ITER": "200",
+      "QAIA_BATCH_SIZE": "10",
+      "QAIA_DT": "1.0",
+      "QAIA_MAX_COLUMNS": "3",
+      "QAIA_MAX_STREAK": "3"
+    }
+  }
+]
