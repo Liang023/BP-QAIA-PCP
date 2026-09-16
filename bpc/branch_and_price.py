@@ -2,6 +2,9 @@
 分支定价算法主类
 """
 import heapq
+import copy
+from cg.anytime import IncumbentRecorder
+from cg.master.restricted_integer_master import solve_restricted_mip
 from typing import List, Optional, Dict, Any, Set
 from model.a_graph import AuxiliaryGraph
 from bpc.bpc_node import BPCNode
@@ -84,186 +87,86 @@ class BranchAndPrice:
         self.total_node_setup_time = 0.0
         self.root_diagnostics = None
         self.total_branch_time = 0.0
+        self.recorder = None
+        self.deadline = None
+        self.rmp_mip_seconds = 0.0
+        self.rmp_mip_calls = 0
+        self.rmp_mip_enabled = os.getenv("BPC_RMP_MIP", "1") == "1"
+        self.rmp_mip_every = int(os.getenv("BPC_RMP_MIP_EVERY", "20"))
+        self.rmp_mip_slice = float(os.getenv("BPC_RMP_MIP_SECONDS", "0.5"))
+        self.rmp_mip_fraction = float(os.getenv("BPC_RMP_MIP_FRACTION", "0.1"))
+        if (self.rmp_mip_every <= 0 or not math.isfinite(self.rmp_mip_slice)
+                or self.rmp_mip_slice <= 0 or not 0 <= self.rmp_mip_fraction <= 1):
+            raise ValueError("invalid restricted MIP settings")
 
-    def solve(self) -> Dict[str, Any]:
-        """
-        执行分支定价算法
-        
-        Returns:
-            求解结果字典
-        """
-        import time
-        start_time = time.perf_counter()
-        time_end = start_time + self.time_limit
-        
-        print("开始分支定价算法...")
-        print(f"时间限制: {self.time_limit}秒")
-        
-        # 生成并添加根节点
-        root_node = self.generate_root_node()
-        self.add_node(root_node)
-        print(f"根节点已添加: ID={root_node.nodeid}")
+    def solve(self, *, start_time=None, deadline=None, recorder=None) -> Dict[str, Any]:
+        """Global budget starts before graph conversion when called by run_stage1."""
+        start_time = time.perf_counter() if start_time is None else float(start_time)
+        time_end = start_time + self.time_limit if deadline is None else float(deadline)
+        if not (math.isfinite(start_time) and math.isfinite(time_end) and time_end > start_time):
+            raise ValueError("invalid BP deadline")
+        self.deadline = time_end
+        self.recorder = recorder or IncumbentRecorder(start_time, time_end)
+        if abs(self.recorder.deadline-time_end) > 1e-6:
+            raise ValueError("recorder and BP must share a deadline")
+        status, error = "no_solution", None
         try:
+            remaining_seconds(time_end, "Before root construction")
+            root = self.generate_root_node()
+            self.add_node(root)
+            remaining_seconds(time_end, "After root construction")
+            # Register existing greedy columns if they already form a full schedule.
+            initial = {c: 1.0 for c in root.column_pool.columns if not c.is_artificial_column}
+            if initial and len(initial) <= self.charger_num:
+                upper = max(v.end_time for c in initial for v in c.vertex_list)
+                self.update_best_solution(upper, initial, a_graph=root.a_graph,
+                                          source="initial", node_id=root.nodeid)
             while not self.is_queue_empty():
-                # 获取下一个要处理的节点
                 self.current_node = self.get_next_node()
                 remaining_seconds(time_end, "Before processing node")
                 self.nodes_processed += 1
-                
-                print(f"\n处理节点 {self.current_node.nodeid}")
-                
-                # 1. 检查是否可以剪枝，如果当前节点下界大于等于全局上界，则剪枝
                 if self.is_prunable_node(self.current_node):
                     continue
-                
-                # 2. 求解当前节点的线性松弛问题（列生成）
-                self.process_node(self.current_node, time_end) # 如果时间超限，则跳出循环
-                print(f"  列生成求解结果: 目标值={self.current_node.objective_value:.4f}， 下界={self.global_lower_bound:.4f}， 上界={self.best_objective:.4f}")
-             
-                # 3. 再次检查剪枝条件（求解后目标值可能改变）
+                self.process_node(self.current_node, time_end)
+                remaining_seconds(time_end, "After node certification")
                 if self.is_prunable_node(self.current_node):
                     continue
-                    
-                # 4. 检查是否不可行，如果解中存在人工列，则剪枝
                 if self.is_infeasible_solution(self.current_node):
-                    print("  剪枝: 解中存在人工列")
-                    self.nodes_pruned += 1
-                    continue
-                    
-                # 5. 检查解的整数性
+                    # A finite artificial penalty is NOT a general infeasibility proof.
+                    # Preserve incumbents, stop conservatively instead of false optimal.
+                    raise RuntimeError("Artificial columns remain after CG; Phase-I proof required")
                 if self.is_integer_solution(self.current_node.solution):
-                    # 如果是整数解，更新最优解
-                    print("  找到整数解，更新最优解")
-                    self.update_best_solution(self.current_node.objective_value, self.current_node.solution)
+                    self.update_best_solution(self.current_node.objective_value,
+                        self.current_node.solution, source="bp_integer")
                     continue
-                else:
-                    # 如果不是整数解，进行分支
-                    print("  解不是整数，开始分支...")
-                    branch_start = time.perf_counter()
-                    try:
-                        self.branch_node(self.current_node)
-                    finally:
-                        self.total_branch_time += time.perf_counter() - branch_start
-                
-                # 更新全局下界
-                active_nodes_bounds = [node.objective_value for node in self.node_queue]
-                if active_nodes_bounds:
-                    self.global_lower_bound = min(active_nodes_bounds)
-                                    
-                # 每处理一定数量的节点输出进度
-                if self.nodes_processed % 10 == 0:
-                    stats = self.get_statistics()
-                    print(f"  进度: 已处理 {stats['nodes_processed']} 个节点, "
-                          f"剩余 {stats['nodes_remaining']} 个, "
-                          f"当前最优 {stats['best_objective']:.4f}, "
-                          f"当前列数: {stats['column_num']}")
-            
-            self.total_solve_time = time.perf_counter() - start_time
-            
-            # 更新全局下界
+                started = time.perf_counter()
+                try:
+                    self.branch_node(self.current_node)
+                finally:
+                    self.total_branch_time += time.perf_counter()-started
+            remaining_seconds(time_end, "Before declaring optimal")
             self.update_global_lower_bound()
-            
-            # 输出最终结果
-            stats = self.get_statistics()
-            print(f"\n{'='*50}")
-            print("分支定价算法完成!")
-            print(f"{'='*50}")
-            print(f"最优目标值: {stats['best_objective']:.6f}")
-            # INSERT_YOUR_CODE
-            if self.best_solution:
-                print("最优解列组成如下：")
-                for i, (col, value) in enumerate(self.best_solution.items()):
-                    vertex_ids = [v.id for v in col.vertex_list]
-                    if vertex_ids:
-                        try:
-                            max_endtime = max(getattr(v, "end_time", 0) for v in col.vertex_list)
-                        except Exception:
-                            max_endtime = None
-                    else:
-                        max_endtime = None
-                    print(f"  列 {i+1}: vertex_ids={vertex_ids}, max_endtime={max_endtime}")
-            else:
-                print("没有找到可行解")
-            print(f"全局下界: {stats['global_lower_bound']:.6f}")
-            print(f"优化间隙: {stats['gap']:.4%}")
-            print(f"处理节点数: {stats['nodes_processed']}")
-            print(f"创建节点数: {stats['nodes_created']}")
-            print(f"剪枝节点数: {stats['nodes_pruned']}")
-            print(f"总求解时间: {stats['total_solve_time']:.2f}秒")
-
-            print("\n定价求解统计：")
-            print(f"  总定价时间: {self.total_pricing_time:.4f}秒")
-            print(f"  使用QAIA的节点数: {self.qaia_nodes}")
-            print(f"  纯Exact节点数: {self.exact_only_nodes}")
-            print(f"  QAIA调用次数: {self.total_qaia_calls}")
-            print(f"  QAIA累计时间: {self.total_qaia_time:.4f}秒")
-            print(
-                f"  混合节点中的Exact调用次数: "
-                f"{self.total_hybrid_exact_calls}"
-            )
-            print(
-                f"  混合节点中的Exact累计时间: "
-                f"{self.total_hybrid_exact_time:.4f}秒"
-            )
-
-            if self.total_qaia_calls > 0:
-                average_qaia_time = (
-                    self.total_qaia_time
-                    / self.total_qaia_calls
-                )
-                print(
-                    f"  QAIA平均单次时间: "
-                    f"{average_qaia_time:.6f}秒"
-                )
-                        
-            if self.optimal and self.best_solution is not None:
-                final_status = "optimal"
-            elif self.best_solution is not None:
-                final_status = "feasible_not_proven"
-            else:
-                final_status = "no_solution"
-
-            return {
-                "status": final_status,
-                "objective_value": self.best_objective,
-                "solution": self.best_solution,
-                "statistics": stats
-            }
-
-        except TimeoutError as e:
+            status = "optimal" if self.optimal else "no_solution"
+        except TimeoutError as exc:
             self.optimal = False
+            status, error = "time_limit", str(exc)
+            self._restore_active_node()
             self.global_lower_bound = self.problem_lower_bound
-            self.total_solve_time = time.perf_counter() - start_time
+        except Exception as exc:
             self.optimal = False
-            # 当前节点在进入process_node之前已经弹出。
-            # 用对象身份判断，不能用in：BPCNode.__eq__按objective比较。
-            if (self.current_node is not None and
-                    not any(node is self.current_node for node in self.node_queue)):
-                heapq.heappush(self.node_queue, self.current_node)
-            # 这里先保守使用解析下界，不使用未完成RMP的目标。
-            # 不直接声称已修复所有精确定价超时/求解状态分支。
+            status, error = "error", repr(exc)
+            self._restore_active_node()
             self.global_lower_bound = self.problem_lower_bound
-            stats = self.get_statistics()
-            if not math.isfinite(self.best_objective):
-                stats["gap"] = None
-            return {
-                "status": "time_limit",
-                "objective_value": (self.best_objective
-                                    if math.isfinite(self.best_objective) else None),
-                "solution": self.best_solution,
-                "error": str(e),
-                "statistics": stats,
-            }
-        except Exception as e:
-            self.total_solve_time = time.perf_counter() - start_time
-            import traceback
-            traceback.print_exc()
-            print(f"求解过程中出现错误: {e}")
-            return {
-                "status": "error",
-                "error": str(e),
-                "statistics": self.get_statistics()
-            }
+        self.total_solve_time = time.perf_counter()-start_time
+        return dict(status=status, termination_reason=status, error=error,
+                    objective_value=self.best_objective if self.best_solution is not None else None,
+                    solution=self.best_solution, statistics=self.get_statistics(),
+                    **self.recorder.fields())
+
+    def _restore_active_node(self):
+        if (self.current_node is not None and
+                not any(node is self.current_node for node in self.node_queue)):
+            heapq.heappush(self.node_queue, self.current_node)
 
     def _compute_problem_lower_bound(self) -> float:
         """当前EV makespan整数问题的下界，不是RMP的LP目标。"""
@@ -291,10 +194,16 @@ class BranchAndPrice:
             current_node.column_pool, 
             current_node.a_graph
         )
+        if self.deadline is not None:
+            remaining_seconds(self.deadline, "Before branching")
         branches = branch_creator.create_branch()
+        if not branches:
+            raise RuntimeError("Fractional node has no branch; cannot certify optimality")
         
         print(f"  创建了 {len(branches)} 个分支")
         for i, branch in enumerate(branches):
+            if self.deadline is not None:
+                remaining_seconds(self.deadline, "Branch construction")
             # 复制当前节点的图和列池
             
             a_graph = current_node.a_graph.copy()
@@ -312,6 +221,8 @@ class BranchAndPrice:
                 solution=current_node.solution
             )
             self.add_node(new_node)
+            if self.deadline is not None:
+                remaining_seconds(self.deadline, "After branch construction")
             print(f"    添加分支节点 {i+1}: ID={new_node.nodeid}")
     
     def process_node(self, current_node: BPCNode, time_end: float) -> bool:
@@ -339,13 +250,21 @@ class BranchAndPrice:
                     auxiliary_graph=current_node.a_graph, pricing_problem=pricing_problem)
             column_generation = ColumnGeneration(
                 master_problem, pricing_problem, pricing_solver,
-                current_node.column_pool, self.best_objective, self.global_lower_bound)
+                current_node.column_pool, self.best_objective, self.global_lower_bound,
+                on_candidate=lambda solution, objective, iteration: self._consider_candidate(
+                    current_node, solution, objective, "rmp_integer", iteration),
+                after_master=lambda master, iteration, end: self._maybe_restricted_mip(
+                    current_node, master, iteration, end))
             self.total_node_setup_time += time.perf_counter() - setup_start
             setup_recorded = True
             remaining_seconds(time_end, "After pricing construction")
             # Assignment occurs only after a fully certified CG return.
             current_node.solution, current_node.objective_value = column_generation.solve(time_end)
             completed = True
+            # Also use the final root column pool, even if iteration is not a multiple.
+            if current_node.parent is None:
+                self._maybe_restricted_mip(current_node, master_problem,
+                    column_generation.iteration, time_end, force=True)
             return True
         finally:
             if not setup_recorded:
@@ -379,6 +298,37 @@ class BranchAndPrice:
             if master_problem is not None:
                 master_problem._rmp.dispose()
     
+    def _consider_candidate(self, node, solution, objective, source, iteration=None):
+        if not self.is_integer_solution(solution):
+            return False
+        if any(c.is_artificial_column and x > 1e-6 for c, x in solution.items()):
+            return False
+        return self.update_best_solution(objective, solution, a_graph=node.a_graph,
+                    source=source, node_id=node.nodeid, cg_iteration=iteration)
+
+    def _maybe_restricted_mip(self, node, master, iteration, deadline, force=False):
+        # Same policy for Exact, QAIA and greedy; root-only first implementation.
+        if not self.rmp_mip_enabled or node.parent is not None:
+            return
+        if not force and iteration % self.rmp_mip_every:
+            return
+        if getattr(self, "_last_mip_iteration", None) == iteration:
+            return
+        cap = (self.recorder.deadline-self.recorder.start_time)*self.rmp_mip_fraction
+        seconds = min(self.rmp_mip_slice, cap-self.rmp_mip_seconds,
+                      deadline-time.perf_counter())
+        if seconds <= 1e-3:
+            return
+        self._last_mip_iteration = iteration
+        self.rmp_mip_calls += 1
+        started = time.perf_counter()
+        try:
+            solve_restricted_mip(master, deadline, seconds,
+                lambda solution, objective: self._consider_candidate(
+                    node, solution, objective, "restricted_mip", iteration))
+        finally:
+            self.rmp_mip_seconds += time.perf_counter()-started
+
     def is_prunable_node(self, current_node: BPCNode) -> bool:
         if not math.isfinite(self.best_objective):
             return False
@@ -389,20 +339,14 @@ class BranchAndPrice:
         return False
     
     def update_global_lower_bound(self) -> None:
-        """
-        更新全局下界
-        """
-        if len(self.node_queue) == 0:
+        if not self.node_queue and self.best_solution is not None:
             self.optimal = True
             self.global_lower_bound = self.best_objective
-            print("所有节点已处理完毕，达到最优解")
         else:
             self.optimal = False
-            active_nodes_bounds = [node.objective_value for node in self.node_queue]
-            if active_nodes_bounds:
-                self.global_lower_bound = min(active_nodes_bounds)
-            print(f"算法终止，剩余 {len(self.node_queue)} 个未处理节点")
-    
+            # Conservative analytic bound; never use incomplete RMP objectives.
+            self.global_lower_bound = self.problem_lower_bound
+
     def is_infeasible_solution(self, current_node: BPCNode) -> bool:
         """
         检查解是否不可行（包含人工列）
@@ -584,31 +528,15 @@ class BranchAndPrice:
             root_column_pool.addColumn(column)
 
     
-    def is_integer_solution(self, solution: Dict[ColumnIndependentSet, Any]) -> bool:
-        """
-        检查解是否为整数解
-        
-        Args:
-            solution: 待检查的解
-            
-        Returns:
-            解是否为整数解
-        """
+    def is_integer_solution(self, solution) -> bool:
         if not solution:
             return False
-            
-        tolerance = 1e-6
-        
-        # 检查所有变量值是否接近整数
-        for column_independent_set, value in solution.items():
-            if isinstance(value, (int, float)):
-                # 检查是否接近0或1（二进制变量）
-                if not (abs(value - 0) < tolerance or abs(value - 1) < tolerance):
-                    print(f"    非整数变量: {column_independent_set.readable_name} = {value:.6f}")
-                    return False
-            
-        return True
-    
+        try:
+            values = [float(x) for x in solution.values()]
+        except (TypeError, ValueError):
+            return False
+        return all(math.isfinite(x) and min(abs(x), abs(x-1)) <= 1e-6 for x in values)
+
     def add_node(self, node: BPCNode) -> None:
         """
         向优先队列添加节点
@@ -676,35 +604,38 @@ class BranchAndPrice:
         self.nodes_pruned += pruned_count
         return pruned_count
     
-    def update_best_solution(self, objective_value: float, solution: Dict[str, Any]) -> bool:
-        """
-        更新最优解
-        
-        Args:
-            objective_value: 新的目标值
-            solution: 新的解
-            
-        Returns:
-            是否更新了最优解
-        """
-        if objective_value < self.best_objective:
-            checked = validate_schedule(
-                solution, self.current_node.a_graph, self.graph,
-                self.charger_num, objective_value,
-            )
-            self.best_objective = objective_value
-            self.best_solution = solution.copy()
-            self.best_schedule = checked
-            self.best_schedule_makespan = checked["makespan"]
-            
-            # 更新后进行剪枝
-            pruned = self.prune_nodes()
-            if pruned > 0:
-                print(f"  更新最优解后剪枝了 {pruned} 个节点")
-            
-            return True
-        return False
-    
+    def update_best_solution(self, objective_value, solution, *, a_graph=None,
+                             source="bp_integer", node_id=None, cg_iteration=None):
+        """Only validated physical schedules update UB; LP bounds are untouched."""
+        if self.deadline is not None and time.perf_counter() > self.deadline:
+            return False
+        graph = a_graph if a_graph is not None else self.current_node.a_graph
+        checked = validate_schedule(solution, graph, self.graph, self.charger_num, objective_value)
+        physical_objective = float(checked["makespan"])
+        if physical_objective >= self.best_objective-1e-6:
+            return False
+        # Store canonical original-vertex columns matching the deduplicated schedule.
+        canonical = {}
+        for row in checked["schedule"]:
+            column = ColumnIndependentSet(
+                vertex_list=[self.graph.vertex_map[c["vertex_id"]] for c in row],
+                associated_pricing_problem="validated_incumbent", is_artificial=False,
+                creator=source, value=0.0)
+            canonical[column] = 1.0
+        if self.recorder is None:
+            raise RuntimeError("Call solve before updating incumbent")
+        if node_id is None and self.current_node is not None:
+            node_id = self.current_node.nodeid
+        if not self.recorder.record(checked["schedule"], physical_objective, source,
+                                    node_id=node_id, cg_iteration=cg_iteration):
+            return False
+        self.best_objective = physical_objective
+        self.best_solution = canonical
+        self.best_schedule = copy.deepcopy(checked)
+        self.best_schedule_makespan = physical_objective
+        self.prune_nodes()
+        return True
+
     def get_statistics(self) -> Dict[str, Any]:
         """
         获取算法运行统计信息
@@ -721,7 +652,8 @@ class BranchAndPrice:
             "nodes_remaining": self.queue_size(),
             "best_objective": self.best_objective,
             "global_lower_bound": self.global_lower_bound,
-            "gap": (self.best_objective - self.global_lower_bound) / max(abs(self.best_objective), 1e-6),
+            "gap": ((self.best_objective - self.global_lower_bound) / max(abs(self.best_objective), 1e-6)
+                    if math.isfinite(self.best_objective) and math.isfinite(self.global_lower_bound) else None),
             "total_solve_time": self.total_solve_time,
             "problem_lower_bound": self.problem_lower_bound,
             "column_num": column_num,
@@ -729,5 +661,7 @@ class BranchAndPrice:
             "node_setup_seconds": self.total_node_setup_time,
             "pricing_seconds": self.total_pricing_time,
             "branch_seconds": self.total_branch_time,
+            "restricted_mip_seconds": self.rmp_mip_seconds,
+            "restricted_mip_calls": self.rmp_mip_calls,
             "root_diagnostics": self.root_diagnostics
         }

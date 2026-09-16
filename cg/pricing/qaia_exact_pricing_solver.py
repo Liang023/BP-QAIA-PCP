@@ -24,20 +24,7 @@ from cg.column_pool import ColumnPool
 from cg.pricing.exact_pricing_solver import ExactPricingSolver
 from cg.pricing.pricing_problem import PricingProblem
 from model.a_graph import AuxiliaryGraph
-from qaia import (
-	CAC,
-	CFC,
-	LQA,
-	NMFA,
-	ASB,
-	BSB,
-	DSB,
-	TSB,
-	USB,
-	LSB,
-	SFC,
-	SimCIM,
-)
+
 import os
 from cg.deadline import remaining_seconds
 
@@ -268,20 +255,11 @@ class QAIAPricingSolver:
     def _run_qaia(self, j_mat: csr_matrix, h_vec: np.ndarray):
         """实例化配置的QAIA求解器并运行。"""
 
-        algorithm_classes = {
-            "CAC": CAC,
-            "CFC": CFC,
-            "LQA": LQA,
-            "NMFA": NMFA,
-            "ASB": ASB,
-            "BSB": BSB,
-            "DSB": DSB,
-            "TSB": TSB,
-            "USB": USB,
-            "LSB": LSB,
-            "SFC": SFC,
-            "SimCIM": SimCIM,
-        }
+        # Exact/greedy 不依赖 MindQuantum；只在实际运行 QAIA 时加载。
+        import qaia
+        names = ("CAC", "CFC", "LQA", "NMFA", "ASB", "BSB", "DSB",
+                 "TSB", "USB", "LSB", "SFC", "SimCIM")
+        algorithm_classes = {name: getattr(qaia, name) for name in names}
 
         solver_class = algorithm_classes.get(self.algorithm)
 
@@ -590,4 +568,5 @@ class QAIAExactPricingSolver:
 
     def get_solution(self):
         return self.exact_solver.get_solution()
+
 

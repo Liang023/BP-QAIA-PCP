@@ -1,5 +1,6 @@
 """Collect all planned outcomes, including timeouts; never write PASS.json."""
 import argparse
+import hashlib
 import json
 import math
 import os
@@ -10,6 +11,25 @@ import sys
 import time
 
 ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT))
+from cg.anytime import recover_history
+from validation.ev_solution import validate_json_schedule
+
+
+def recovered_record(dest, data, input_sha, budget, method, seed, status, error=None):
+    history = recover_history(dest.with_suffix(".incumbents.jsonl"), budget,
+        lambda schedule, objective: validate_json_schedule(data, schedule, objective),
+        expected_sha=input_sha)
+    last = history[-1] if history else None
+    return dict(status=status, termination_reason=status, error=error,
+        method=method, seed=seed, instance_sha256=input_sha,
+        objective=last["objective"] if last else None,
+        schedule_makespan=last["objective"] if last else None,
+        validation_passed=bool(last), has_feasible_solution=bool(last),
+        time_to_first_feasible=history[0]["elapsed_seconds"] if last else None,
+        best_found_seconds=last["elapsed_seconds"] if last else None,
+        incumbent_history=history, trajectory_file=str(dest.with_suffix(".incumbents.jsonl")),
+        validated_schedule=dict(schedule=last["schedule"]) if last else None)
 
 
 def main():
@@ -65,10 +85,16 @@ def main():
     (out / "manifest.json").write_text(json.dumps(dict(
         variants=variants, seeds=args.seeds, limit=args.limit,
         exact_pool_search_mode=os.getenv("EXACT_POOL_SEARCH_MODE", "2"),
+        restricted_mip_environment={key: os.getenv(key, default) for key, default in (
+            ("BPC_RMP_MIP", "1"), ("BPC_RMP_MIP_EVERY", "20"),
+            ("BPC_RMP_MIP_SECONDS", "0.5"), ("BPC_RMP_MIP_FRACTION", "0.1"))},
         instances=[str(x) for x in paths]), indent=2), encoding="utf-8")
     for path in paths:
         reference = None
         runs = []
+        raw = path.read_bytes()
+        input_sha = hashlib.sha256(raw).hexdigest()
+        data = json.loads(raw)
         for method, policy, seed, label, overrides in plan:
             dest = out / f"{path.stem}_{label}.json"
             env = {k: v for k, v in os.environ.items() if k not in managed}
@@ -85,11 +111,21 @@ def main():
                                           stderr=subprocess.STDOUT, timeout=args.limit+60)
                     record = json.loads(dest.read_text(encoding="utf-8")) if dest.exists() else {}
                     if proc.returncode != 0 or not record:
-                        record.update(status="error", error="process failed or result missing")
+                        record = recovered_record(dest, data, input_sha, args.limit, method, seed,
+                                                  "error", "process failed or result missing")
                 except subprocess.TimeoutExpired:
-                    record = dict(status="external_timeout", objective=None)
+                    try:
+                        record = recovered_record(dest, data, input_sha, args.limit,
+                                                  method, seed, "external_timeout")
+                    except (ValueError, OSError) as exc:
+                        record = dict(status="error", error=f"trajectory recovery failed: {exc}")
                 except (ValueError, OSError) as exc:
                     record = dict(status="error", error=str(exc))
+            if record.get("instance_sha256") not in (None, input_sha):
+                record.update(status="error", validation_passed=False,
+                              has_feasible_solution=False, error="input changed during batch")
+            if not dest.exists() or record.get("status") in {"external_timeout", "error"}:
+                dest.write_text(json.dumps(record, ensure_ascii=False, indent=2), encoding="utf-8")
             fp = record.get("source_sha256")
             if fp:
                 fingerprints.add(fp)
@@ -115,6 +151,11 @@ def main():
                          feasible_makespan=record.get("schedule_makespan"),
                          validation_passed=record.get("validation_passed", False),
                          statistics=record.get("statistics"), error=record.get("error"),
+                         has_feasible_solution=record.get("has_feasible_solution", False),
+                         time_to_first_feasible=record.get("time_to_first_feasible"),
+                         best_found_seconds=record.get("best_found_seconds"),
+                         budget_snapshots=record.get("budget_snapshots"),
+                         trajectory_file=record.get("trajectory_file"),
                          wall_seconds=record.get("wall_seconds"),
                          process_seconds=time.perf_counter()-start)
             runs.append(entry)
@@ -137,13 +178,16 @@ def main():
                 median_seconds=statistics.median(r["wall_seconds"] for r in good)
                     if len(good) == len(group) and good else None,
                 feasible_count=len(feasible),
+                feasible_rate=len(feasible)/len(group) if group else None,
+                all_feasible_makespans=[r["feasible_makespan"] if r["validation_passed"] else None for r in group],
+                first_feasible_seconds=[r["time_to_first_feasible"] for r in group],
                 median_feasible_makespan=statistics.median(feasible) if feasible else None,
                 root_certified=len(root_times),
                 median_root_pricing_seconds=statistics.median(root_times)
                     if len(root_times) == len(group) and group else None)
         report.append(dict(instance=str(path), limit=args.limit, groups=groups))
         (out / "diagnostic_summary.json").write_text(json.dumps(report, indent=2), encoding="utf-8")
-    print("Diagnostic collection finished. This is NOT a PASS certificate.")
+    print("Collection finished. Compare feasible_rate and objectives first; timeouts are retained.")
 
 
 if __name__ == "__main__":

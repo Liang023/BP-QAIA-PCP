@@ -27,7 +27,9 @@ class ColumnGeneration:
         pricing_solver: ExactPricingSolver,
         column_pool: ColumnPool,
         upper_bound: float,
-        lower_bound: float
+        lower_bound: float,
+        on_candidate=None,
+        after_master=None,
     ):
         self.master = master
         self.pricing_problem = pricing_problem
@@ -42,6 +44,8 @@ class ColumnGeneration:
         self.iteration = 0
         self.solution = None
         self.new_columns = []
+        self.on_candidate = on_candidate
+        self.after_master = after_master
 
     def solve(self, time_end: float):
         """
@@ -62,6 +66,16 @@ class ColumnGeneration:
 
             # 第一步：把新列加入RMP并求解
             self.invokeMaster(self.new_columns, time_end)
+
+            # A feasible primal solution does not require pricing certification.
+            # Do NOT assign this restricted LP objective to the node lower bound.
+            if self.on_candidate is not None:
+                self.on_candidate(self.master.solution, self.masterObjective, self.iteration)
+            if self.after_master is not None:
+                self.after_master(self.master, self.iteration, time_end)
+
+            if time.perf_counter() >= time_end:
+                raise TimeoutError("Budget exhausted after RMP; node is not certified")
 
             # 第二步：必须运行定价，不能在定价之前提前终止
             new_columns = self.invokePricing(time_end, self.dual)

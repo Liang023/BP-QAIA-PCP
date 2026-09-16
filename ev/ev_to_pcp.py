@@ -36,6 +36,7 @@ import json
 import os
 from typing import Dict, Any, List
 
+from cg.deadline import remaining_seconds
 from model.edge import Edge
 from model.graph import Graph
 from model.instance import Instance
@@ -43,7 +44,7 @@ from model.partition import Partition
 from model.vertex import Vertex
 
 
-def ev_json_to_instance(ev_data: Dict[str, Any]) -> Instance:
+def ev_json_to_instance(ev_data: Dict[str, Any], deadline=None) -> Instance:
     """从内存中的 EV JSON dict 构造 PCP Graph 和 Instance。"""
     vehicles = ev_data["vehicles"]
     num_chargers = ev_data["num_chargers"]
@@ -56,6 +57,8 @@ def ev_json_to_instance(ev_data: Dict[str, Any]) -> Instance:
 
     # 1) 为每辆车创建顶点和分区
     for veh in vehicles:
+        if deadline is not None:
+            remaining_seconds(deadline, "EV candidate construction")
         v_id = veh["id"]
         cand_vertices: List[Vertex] = []
         for cand in veh["candidates"]:
@@ -77,6 +80,8 @@ def ev_json_to_instance(ev_data: Dict[str, Any]) -> Instance:
     #    即：任何两个时间段只要在时间轴上有交集，就在它们之间连一条边。
     items: List[dict] = []
     for veh in vehicles:
+        if deadline is not None:
+            remaining_seconds(deadline, "EV candidate construction")
         v_id = veh["id"]
         for cand in veh["candidates"]:
             cid = cand["candidate_id"]
@@ -92,10 +97,14 @@ def ev_json_to_instance(ev_data: Dict[str, Any]) -> Instance:
     edges: List[Edge] = []
     n = len(items)
     for i in range(n):
+        if deadline is not None:
+            remaining_seconds(deadline, "EV conflict graph")
         a = items[i]
         s_a, e_a = a["start"], a["end"]
         vtx_a = vtx_by_pair[(a["vehicle_id"], a["candidate_id"])]
         for j in range(i + 1, n):
+            if deadline is not None and j % 256 == 0:
+                remaining_seconds(deadline, "EV conflict graph")
             b = items[j]
             s_b, e_b = b["start"], b["end"]
             # 时间重叠条件（半开区间 [start, end)）
@@ -174,5 +183,6 @@ if __name__ == "__main__":
             pcp_name = os.path.splitext(fname)[0] + ".pcp"
             pcp_path = os.path.join(ev_dir, pcp_name)
             save_pcp_from_instance(inst, pcp_path)
+
 
 
