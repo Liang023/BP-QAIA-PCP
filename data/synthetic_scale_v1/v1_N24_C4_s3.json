@@ -1,0 +1,643 @@
+{
+  "schema_version": "synthetic-v1",
+  "data_seed": 3,
+  "name": "v1_N24_C4_s3",
+  "num_vehicles": 24,
+  "num_chargers": 4,
+  "time_horizon": 20,
+  "time_unit": "abstract_slot",
+  "vehicles": [
+    {
+      "id": 0,
+      "arrival": 10,
+      "departure": 15,
+      "duration": 1,
+      "candidates": [
+        {
+          "candidate_id": 0,
+          "start": 10,
+          "end": 11
+        },
+        {
+          "candidate_id": 1,
+          "start": 11,
+          "end": 12
+        },
+        {
+          "candidate_id": 2,
+          "start": 12,
+          "end": 13
+        },
+        {
+          "candidate_id": 3,
+          "start": 13,
+          "end": 14
+        },
+        {
+          "candidate_id": 4,
+          "start": 14,
+          "end": 15
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "arrival": 0,
+      "departure": 4,
+      "duration": 3,
+      "candidates": [
+        {
+          "candidate_id": 0,
+          "start": 0,
+          "end": 3
+        },
+        {
+          "candidate_id": 1,
+          "start": 1,
+          "end": 4
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "arrival": 9,
+      "departure": 14,
+      "duration": 3,
+      "candidates": [
+        {
+          "candidate_id": 0,
+          "start": 9,
+          "end": 12
+        },
+        {
+          "candidate_id": 1,
+          "start": 10,
+          "end": 13
+        },
+        {
+          "candidate_id": 2,
+          "start": 11,
+          "end": 14
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "arrival": 3,
+      "departure": 6,
+      "duration": 1,
+      "candidates": [
+        {
+          "candidate_id": 0,
+          "start": 3,
+          "end": 4
+        },
+        {
+          "candidate_id": 1,
+          "start": 4,
+          "end": 5
+        },
+        {
+          "candidate_id": 2,
+          "start": 5,
+          "end": 6
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "arrival": 14,
+      "departure": 18,
+      "duration": 2,
+      "candidates": [
+        {
+          "candidate_id": 0,
+          "start": 14,
+          "end": 16
+        },
+        {
+          "candidate_id": 1,
+          "start": 15,
+          "end": 17
+        },
+        {
+          "candidate_id": 2,
+          "start": 16,
+          "end": 18
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "arrival": 10,
+      "departure": 16,
+      "duration": 3,
+      "candidates": [
+        {
+          "candidate_id": 0,
+          "start": 10,
+          "end": 13
+        },
+        {
+          "candidate_id": 1,
+          "start": 11,
+          "end": 14
+        },
+        {
+          "candidate_id": 2,
+          "start": 12,
+          "end": 15
+        },
+        {
+          "candidate_id": 3,
+          "start": 13,
+          "end": 16
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "arrival": 4,
+      "departure": 7,
+      "duration": 2,
+      "candidates": [
+        {
+          "candidate_id": 0,
+          "start": 4,
+          "end": 6
+        },
+        {
+          "candidate_id": 1,
+          "start": 5,
+          "end": 7
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "arrival": 11,
+      "departure": 19,
+      "duration": 3,
+      "candidates": [
+        {
+          "candidate_id": 0,
+          "start": 11,
+          "end": 14
+        },
+        {
+          "candidate_id": 1,
+          "start": 12,
+          "end": 15
+        },
+        {
+          "candidate_id": 2,
+          "start": 13,
+          "end": 16
+        },
+        {
+          "candidate_id": 3,
+          "start": 14,
+          "end": 17
+        },
+        {
+          "candidate_id": 4,
+          "start": 15,
+          "end": 18
+        },
+        {
+          "candidate_id": 5,
+          "start": 16,
+          "end": 19
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "arrival": 3,
+      "departure": 8,
+      "duration": 3,
+      "candidates": [
+        {
+          "candidate_id": 0,
+          "start": 3,
+          "end": 6
+        },
+        {
+          "candidate_id": 1,
+          "start": 4,
+          "end": 7
+        },
+        {
+          "candidate_id": 2,
+          "start": 5,
+          "end": 8
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "arrival": 7,
+      "departure": 13,
+      "duration": 1,
+      "candidates": [
+        {
+          "candidate_id": 0,
+          "start": 7,
+          "end": 8
+        },
+        {
+          "candidate_id": 1,
+          "start": 8,
+          "end": 9
+        },
+        {
+          "candidate_id": 2,
+          "start": 9,
+          "end": 10
+        },
+        {
+          "candidate_id": 3,
+          "start": 10,
+          "end": 11
+        },
+        {
+          "candidate_id": 4,
+          "start": 11,
+          "end": 12
+        },
+        {
+          "candidate_id": 5,
+          "start": 12,
+          "end": 13
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "arrival": 0,
+      "departure": 6,
+      "duration": 3,
+      "candidates": [
+        {
+          "candidate_id": 0,
+          "start": 0,
+          "end": 3
+        },
+        {
+          "candidate_id": 1,
+          "start": 1,
+          "end": 4
+        },
+        {
+          "candidate_id": 2,
+          "start": 2,
+          "end": 5
+        },
+        {
+          "candidate_id": 3,
+          "start": 3,
+          "end": 6
+        }
+      ]
+    },
+    {
+      "id": 11,
+      "arrival": 5,
+      "departure": 10,
+      "duration": 1,
+      "candidates": [
+        {
+          "candidate_id": 0,
+          "start": 5,
+          "end": 6
+        },
+        {
+          "candidate_id": 1,
+          "start": 6,
+          "end": 7
+        },
+        {
+          "candidate_id": 2,
+          "start": 7,
+          "end": 8
+        },
+        {
+          "candidate_id": 3,
+          "start": 8,
+          "end": 9
+        },
+        {
+          "candidate_id": 4,
+          "start": 9,
+          "end": 10
+        }
+      ]
+    },
+    {
+      "id": 12,
+      "arrival": 11,
+      "departure": 14,
+      "duration": 2,
+      "candidates": [
+        {
+          "candidate_id": 0,
+          "start": 11,
+          "end": 13
+        },
+        {
+          "candidate_id": 1,
+          "start": 12,
+          "end": 14
+        }
+      ]
+    },
+    {
+      "id": 13,
+      "arrival": 0,
+      "departure": 4,
+      "duration": 2,
+      "candidates": [
+        {
+          "candidate_id": 0,
+          "start": 0,
+          "end": 2
+        },
+        {
+          "candidate_id": 1,
+          "start": 1,
+          "end": 3
+        },
+        {
+          "candidate_id": 2,
+          "start": 2,
+          "end": 4
+        }
+      ]
+    },
+    {
+      "id": 14,
+      "arrival": 7,
+      "departure": 11,
+      "duration": 3,
+      "candidates": [
+        {
+          "candidate_id": 0,
+          "start": 7,
+          "end": 10
+        },
+        {
+          "candidate_id": 1,
+          "start": 8,
+          "end": 11
+        }
+      ]
+    },
+    {
+      "id": 15,
+      "arrival": 2,
+      "departure": 8,
+      "duration": 1,
+      "candidates": [
+        {
+          "candidate_id": 0,
+          "start": 2,
+          "end": 3
+        },
+        {
+          "candidate_id": 1,
+          "start": 3,
+          "end": 4
+        },
+        {
+          "candidate_id": 2,
+          "start": 4,
+          "end": 5
+        },
+        {
+          "candidate_id": 3,
+          "start": 5,
+          "end": 6
+        },
+        {
+          "candidate_id": 4,
+          "start": 6,
+          "end": 7
+        },
+        {
+          "candidate_id": 5,
+          "start": 7,
+          "end": 8
+        }
+      ]
+    },
+    {
+      "id": 16,
+      "arrival": 12,
+      "departure": 14,
+      "duration": 1,
+      "candidates": [
+        {
+          "candidate_id": 0,
+          "start": 12,
+          "end": 13
+        },
+        {
+          "candidate_id": 1,
+          "start": 13,
+          "end": 14
+        }
+      ]
+    },
+    {
+      "id": 17,
+      "arrival": 6,
+      "departure": 12,
+      "duration": 3,
+      "candidates": [
+        {
+          "candidate_id": 0,
+          "start": 6,
+          "end": 9
+        },
+        {
+          "candidate_id": 1,
+          "start": 7,
+          "end": 10
+        },
+        {
+          "candidate_id": 2,
+          "start": 8,
+          "end": 11
+        },
+        {
+          "candidate_id": 3,
+          "start": 9,
+          "end": 12
+        }
+      ]
+    },
+    {
+      "id": 18,
+      "arrival": 7,
+      "departure": 13,
+      "duration": 2,
+      "candidates": [
+        {
+          "candidate_id": 0,
+          "start": 7,
+          "end": 9
+        },
+        {
+          "candidate_id": 1,
+          "start": 8,
+          "end": 10
+        },
+        {
+          "candidate_id": 2,
+          "start": 9,
+          "end": 11
+        },
+        {
+          "candidate_id": 3,
+          "start": 10,
+          "end": 12
+        },
+        {
+          "candidate_id": 4,
+          "start": 11,
+          "end": 13
+        }
+      ]
+    },
+    {
+      "id": 19,
+      "arrival": 0,
+      "departure": 6,
+      "duration": 3,
+      "candidates": [
+        {
+          "candidate_id": 0,
+          "start": 0,
+          "end": 3
+        },
+        {
+          "candidate_id": 1,
+          "start": 1,
+          "end": 4
+        },
+        {
+          "candidate_id": 2,
+          "start": 2,
+          "end": 5
+        },
+        {
+          "candidate_id": 3,
+          "start": 3,
+          "end": 6
+        }
+      ]
+    },
+    {
+      "id": 20,
+      "arrival": 14,
+      "departure": 19,
+      "duration": 3,
+      "candidates": [
+        {
+          "candidate_id": 0,
+          "start": 14,
+          "end": 17
+        },
+        {
+          "candidate_id": 1,
+          "start": 15,
+          "end": 18
+        },
+        {
+          "candidate_id": 2,
+          "start": 16,
+          "end": 19
+        }
+      ]
+    },
+    {
+      "id": 21,
+      "arrival": 6,
+      "departure": 11,
+      "duration": 2,
+      "candidates": [
+        {
+          "candidate_id": 0,
+          "start": 6,
+          "end": 8
+        },
+        {
+          "candidate_id": 1,
+          "start": 7,
+          "end": 9
+        },
+        {
+          "candidate_id": 2,
+          "start": 8,
+          "end": 10
+        },
+        {
+          "candidate_id": 3,
+          "start": 9,
+          "end": 11
+        }
+      ]
+    },
+    {
+      "id": 22,
+      "arrival": 6,
+      "departure": 10,
+      "duration": 2,
+      "candidates": [
+        {
+          "candidate_id": 0,
+          "start": 6,
+          "end": 8
+        },
+        {
+          "candidate_id": 1,
+          "start": 7,
+          "end": 9
+        },
+        {
+          "candidate_id": 2,
+          "start": 8,
+          "end": 10
+        }
+      ]
+    },
+    {
+      "id": 23,
+      "arrival": 13,
+      "departure": 19,
+      "duration": 3,
+      "candidates": [
+        {
+          "candidate_id": 0,
+          "start": 13,
+          "end": 16
+        },
+        {
+          "candidate_id": 1,
+          "start": 14,
+          "end": 17
+        },
+        {
+          "candidate_id": 2,
+          "start": 15,
+          "end": 18
+        },
+        {
+          "candidate_id": 3,
+          "start": 16,
+          "end": 19
+        }
+      ]
+    }
+  ]
+}
