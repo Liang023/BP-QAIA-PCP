@@ -34,7 +34,9 @@ def recovered_record(dest, data, input_sha, budget, method, seed, status, error=
 
 def main():
     p = argparse.ArgumentParser()
-    p.add_argument("--instance", action="append", required=True)
+    p.add_argument("--instance", action="append", default=[])
+    p.add_argument("--instance-list", help="JSON manifest produced by prepare_scale")
+    p.add_argument("--exact-repeats", type=int, help="Default: min(3, number of seeds)")
     p.add_argument("--out-dir", required=True)
     p.add_argument("--limit", type=float, default=30)
     p.add_argument("--variant-file", help="JSON list of {name, env} variants")
@@ -42,6 +44,14 @@ def main():
     args = p.parse_args()
     if not args.seeds or min(args.seeds) < 0 or len(set(args.seeds)) != len(args.seeds):
         p.error("seeds must be distinct nonnegative integers")
+    if args.instance_list:
+        args.instance.extend(json.loads(Path(args.instance_list).read_text(
+            encoding="utf-8-sig"))["instances"])
+    if not args.instance:
+        p.error("provide --instance or --instance-list")
+    exact_repeats = min(3, len(args.seeds)) if args.exact_repeats is None else args.exact_repeats
+    if not 1 <= exact_repeats <= len(args.seeds):
+        p.error("exact-repeats must be between 1 and the number of seeds")
     managed = {"QAIA_EXACT_MODE", "QAIA_PROVIDER", "QAIA_MAX_STREAK", "QAIA_N_ITER",
                "QAIA_BATCH_SIZE", "QAIA_MAX_COLUMNS", "QAIA_DT", "QAIA_COLUMN_POLICY"}
     variants = json.loads((ROOT / "config/anytime.json").read_text(encoding="utf-8"))
@@ -76,13 +86,13 @@ def main():
     for repeat, seed in enumerate(args.seeds):
         pair = [("qaia_root", item["name"], seed, f"{item['name']}_s{seed}", item["env"])
                 for item in variants]
-        if repeat < 3:
+        if repeat < exact_repeats:
             pair.append(("exact", None, 0, f"exact_r{repeat}", {}))
         if repeat % 2:
             pair.reverse()
         plan.extend(pair)
     (out / "manifest.json").write_text(json.dumps(dict(
-        variants=variants, seeds=args.seeds, limit=args.limit,
+        variants=variants, seeds=args.seeds, limit=args.limit, exact_repeats=exact_repeats,
         exact_pool_search_mode=os.getenv("EXACT_POOL_SEARCH_MODE", "2"),
         restricted_mip_environment={key: os.getenv(key, default) for key, default in (
             ("BPC_RMP_MIP", "1"), ("BPC_RMP_MIP_EVERY", "20"),

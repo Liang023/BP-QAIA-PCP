@@ -2,6 +2,7 @@
 辅助图类 - 用于分支定价算法中的列生成
 """
 from typing import List, Dict, Optional
+from collections import defaultdict
 from model.edge import Edge
 from model.vertex import Vertex
 from model.graph import Graph
@@ -57,18 +58,21 @@ class AuxiliaryGraph:
         因此需要在它们之间添加边来表示这种约束。
         """
         vertex_list = list(self.vertices_map.values())
-        for i in range(len(vertex_list)):
-            for j in range(i + 1, len(vertex_list)):
-                vertex_i = vertex_list[i]
-                vertex_j = vertex_list[j]
-                
-                if vertex_i.associated_partition.id == vertex_j.associated_partition.id:
-                    aux_edge = Edge(vertex_i, vertex_j)
-                    # 检查是否已存在该边
-                    if not any(e.source == vertex_i and e.target == vertex_j or 
-                              e.source == vertex_j and e.target == vertex_i 
-                              for e in self.auxiliary_edges):
-                        self.auxiliary_edges.append(aux_edge)
+        positions = {v.id: i for i, v in enumerate(vertex_list)}
+        partitions = defaultdict(list)
+        for vertex in vertex_list:
+            partitions[vertex.associated_partition.id].append(vertex)
+        existing = {tuple(sorted((e.source.id, e.target.id)))
+                    for e in self.auxiliary_edges}
+        # Keep the old vertex-pair order, including interleaved partitions.
+        for vertex_i in vertex_list:
+            for vertex_j in partitions[vertex_i.associated_partition.id]:
+                if positions[vertex_j.id] <= positions[vertex_i.id]:
+                    continue
+                key = tuple(sorted((vertex_i.id, vertex_j.id)))
+                if key not in existing:
+                    self.auxiliary_edges.append(Edge(vertex_i, vertex_j))
+                    existing.add(key)
     
     def get_auxiliary_edges(self) -> List[Edge]:
         """

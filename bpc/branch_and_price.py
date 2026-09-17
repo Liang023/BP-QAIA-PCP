@@ -85,6 +85,7 @@ class BranchAndPrice:
 
         self.total_master_time = 0.0
         self.total_node_setup_time = 0.0
+        self.root_initialization_seconds = 0.0
         self.root_diagnostics = None
         self.total_branch_time = 0.0
         self.recorder = None
@@ -100,7 +101,7 @@ class BranchAndPrice:
             raise ValueError("invalid restricted MIP settings")
 
     def solve(self, *, start_time=None, deadline=None, recorder=None) -> Dict[str, Any]:
-        """Global budget starts before graph conversion when called by run_stage1."""
+        """Global budget starts before graph conversion in run_instance."""
         start_time = time.perf_counter() if start_time is None else float(start_time)
         time_end = start_time + self.time_limit if deadline is None else float(deadline)
         if not (math.isfinite(start_time) and math.isfinite(time_end) and time_end > start_time):
@@ -112,7 +113,11 @@ class BranchAndPrice:
         status, error = "no_solution", None
         try:
             remaining_seconds(time_end, "Before root construction")
-            root = self.generate_root_node()
+            started = time.perf_counter()
+            try:
+                root = self.generate_root_node()
+            finally:
+                self.root_initialization_seconds = time.perf_counter() - started
             self.add_node(root)
             remaining_seconds(time_end, "After root construction")
             # Register existing greedy columns if they already form a full schedule.
@@ -659,6 +664,7 @@ class BranchAndPrice:
             "column_num": column_num,
             "master_seconds": self.total_master_time,
             "node_setup_seconds": self.total_node_setup_time,
+            "root_initialization_seconds": self.root_initialization_seconds,
             "pricing_seconds": self.total_pricing_time,
             "branch_seconds": self.total_branch_time,
             "restricted_mip_seconds": self.rmp_mip_seconds,
