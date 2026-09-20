@@ -1,0 +1,412 @@
+{
+  "method": "qaia_root",
+  "seed": 0,
+  "limit": 30.0,
+  "instance": "D:\\pythonProject\\BP_QAIA_PCP\\data\\ev_instances_v1\\v1_N6_C2_s0.json",
+  "python": "3.10.18 | packaged by Anaconda, Inc. | (main, Jun  5 2025, 13:08:55) [MSC v.1929 64 bit (AMD64)]",
+  "platform": "Windows-10-10.0.26200-SP0",
+  "threads": 1,
+  "gurobi_seed": 0,
+  "timing_scope": "after_input_and_imports_before_graph_and_model",
+  "verbose": false,
+  "instance_sha256": "5b1fa46793a958aaa6d69c06af3c063b5814268739deb4c3e23d17e457a342d8",
+  "vehicles": 6,
+  "vertices": 24,
+  "schema_version": "synthetic-v1",
+  "data_metadata": null,
+  "git_sha": "4204d87b0924f153cc10e74c9caadecfce76451a",
+  "source_sha256": "92a386aa00c56d0bb7caadb7a39d9fcda26cef7ade5955c850d32c041f250e4c",
+  "qaia_config": {
+    "scope": "root",
+    "exact_mode": "on_qaia_failure",
+    "heuristic_provider": "greedy",
+    "max_heuristic_streak": 3,
+    "qaia_algorithm": "BSB",
+    "qaia_backend": "cpu-float32",
+    "qaia_n_iter": 200,
+    "qaia_batch_size": 10,
+    "qaia_max_columns": 3,
+    "qaia_penalty_margin": 1.0,
+    "normalize_ising": true,
+    "qaia_algorithm_kwargs": {
+      "dt": 1.0
+    },
+    "column_policy": "combined"
+  },
+  "exact_pricing_config": {
+    "pool_search_mode": 0,
+    "pool_solutions": 10,
+    "mip_gap": 0.0,
+    "mip_gap_abs": 0.0
+  },
+  "restricted_mip_config": {
+    "enabled": true,
+    "scope": "root",
+    "every": 20,
+    "seconds": 0.5,
+    "fraction": 0.1
+  },
+  "gurobi": [
+    12,
+    0,
+    3
+  ],
+  "graph_seconds": 0.00019009999994068494,
+  "status": "optimal",
+  "objective": 6.0,
+  "statistics": {
+    "nodes_processed": 74,
+    "nodes_created": 93,
+    "nodes_pruned": 47,
+    "nodes_remaining": 0,
+    "best_objective": 6.0,
+    "global_lower_bound": 6.0,
+    "gap": 0.0,
+    "total_solve_time": 0.23676750000004176,
+    "problem_lower_bound": 6.0,
+    "column_num": 144,
+    "master_seconds": 0.07570109999983288,
+    "node_setup_seconds": 0.05681060000074467,
+    "root_initialization_seconds": 0.00016530000004877365,
+    "pricing_seconds": 0.07348709999939729,
+    "branch_seconds": 0.01121699999964676,
+    "restricted_mip_seconds": 0.005943999999999505,
+    "restricted_mip_calls": 1,
+    "root_diagnostics": {
+      "cg_certified": true,
+      "cg_iterations": 11,
+      "lp_objective": 1.5488629379225567,
+      "integer_solution": false,
+      "columns_in_pool": 28,
+      "master_seconds": 0.005090000000109285,
+      "pricing_seconds": 0.008739000000218766,
+      "heuristic_metrics": {
+        "provider": "greedy",
+        "heuristic_calls": 9,
+        "hit_calls": 8,
+        "exact_calls": 3,
+        "exact_skips": 8,
+        "heuristic_seconds": 0.006110099999773411,
+        "exact_seconds": 0.002076600000009421,
+        "build_seconds": 0.003950800000097843,
+        "search_seconds": 0.0005727999999862732,
+        "repair_seconds": 0.001318200000014258,
+        "raw_samples": 90,
+        "improving_unique": 41,
+        "pool_duplicates": 0,
+        "returned_columns": 20,
+        "nonfinite_samples": 0
+      }
+    }
+  },
+  "error": null,
+  "validated_schedule": {
+    "schedule": [
+      [
+        {
+          "vehicle_id": 4,
+          "candidate_id": 0,
+          "vertex_id": 17,
+          "start": 0,
+          "end": 3
+        },
+        {
+          "vehicle_id": 1,
+          "candidate_id": 2,
+          "vertex_id": 5,
+          "start": 3,
+          "end": 5
+        },
+        {
+          "vehicle_id": 2,
+          "candidate_id": 1,
+          "vertex_id": 8,
+          "start": 5,
+          "end": 6
+        }
+      ],
+      [
+        {
+          "vehicle_id": 0,
+          "candidate_id": 0,
+          "vertex_id": 0,
+          "start": 0,
+          "end": 2
+        },
+        {
+          "vehicle_id": 5,
+          "candidate_id": 0,
+          "vertex_id": 20,
+          "start": 2,
+          "end": 4
+        },
+        {
+          "vehicle_id": 3,
+          "candidate_id": 0,
+          "vertex_id": 12,
+          "start": 4,
+          "end": 6
+        }
+      ]
+    ],
+    "makespan": 6.0
+  },
+  "schedule_makespan": 6.0,
+  "total_pricing_time": 0.07348709999939729,
+  "total_qaia_time": 0.006110099999773411,
+  "total_hybrid_exact_time": 0.002076600000009421,
+  "total_qaia_calls": 9,
+  "total_hybrid_exact_calls": 3,
+  "qaia_nodes": 1,
+  "exact_only_nodes": 73,
+  "wall_seconds": 0.236949500000037,
+  "budget_overrun_seconds": 0.0,
+  "has_feasible_solution": true,
+  "best_objective": 6.0,
+  "time_to_first_feasible": 0.020293000000037864,
+  "best_found_seconds": 0.235525300000063,
+  "incumbent_history": [
+    {
+      "event": "incumbent",
+      "elapsed_seconds": 0.020293000000037864,
+      "objective": 9.0,
+      "source": "restricted_mip",
+      "node_id": 1,
+      "cg_iteration": 11,
+      "validation_passed": true,
+      "schedule": [
+        [
+          {
+            "vehicle_id": 4,
+            "candidate_id": 0,
+            "vertex_id": 17,
+            "start": 0,
+            "end": 3
+          },
+          {
+            "vehicle_id": 5,
+            "candidate_id": 1,
+            "vertex_id": 21,
+            "start": 3,
+            "end": 5
+          },
+          {
+            "vehicle_id": 3,
+            "candidate_id": 1,
+            "vertex_id": 13,
+            "start": 5,
+            "end": 7
+          },
+          {
+            "vehicle_id": 2,
+            "candidate_id": 4,
+            "vertex_id": 11,
+            "start": 8,
+            "end": 9
+          }
+        ],
+        [
+          {
+            "vehicle_id": 0,
+            "candidate_id": 0,
+            "vertex_id": 0,
+            "start": 0,
+            "end": 2
+          },
+          {
+            "vehicle_id": 1,
+            "candidate_id": 2,
+            "vertex_id": 5,
+            "start": 3,
+            "end": 5
+          }
+        ]
+      ]
+    },
+    {
+      "event": "incumbent",
+      "elapsed_seconds": 0.0229520999999977,
+      "objective": 8.0,
+      "source": "restricted_mip",
+      "node_id": 1,
+      "cg_iteration": 11,
+      "validation_passed": true,
+      "schedule": [
+        [
+          {
+            "vehicle_id": 0,
+            "candidate_id": 1,
+            "vertex_id": 1,
+            "start": 1,
+            "end": 3
+          },
+          {
+            "vehicle_id": 1,
+            "candidate_id": 2,
+            "vertex_id": 5,
+            "start": 3,
+            "end": 5
+          },
+          {
+            "vehicle_id": 3,
+            "candidate_id": 1,
+            "vertex_id": 13,
+            "start": 5,
+            "end": 7
+          },
+          {
+            "vehicle_id": 2,
+            "candidate_id": 3,
+            "vertex_id": 10,
+            "start": 7,
+            "end": 8
+          }
+        ],
+        [
+          {
+            "vehicle_id": 4,
+            "candidate_id": 1,
+            "vertex_id": 18,
+            "start": 1,
+            "end": 4
+          },
+          {
+            "vehicle_id": 5,
+            "candidate_id": 3,
+            "vertex_id": 23,
+            "start": 5,
+            "end": 7
+          }
+        ]
+      ]
+    },
+    {
+      "event": "incumbent",
+      "elapsed_seconds": 0.023505900000031943,
+      "objective": 7.0,
+      "source": "restricted_mip",
+      "node_id": 1,
+      "cg_iteration": 11,
+      "validation_passed": true,
+      "schedule": [
+        [
+          {
+            "vehicle_id": 4,
+            "candidate_id": 0,
+            "vertex_id": 17,
+            "start": 0,
+            "end": 3
+          },
+          {
+            "vehicle_id": 2,
+            "candidate_id": 0,
+            "vertex_id": 7,
+            "start": 4,
+            "end": 5
+          },
+          {
+            "vehicle_id": 3,
+            "candidate_id": 1,
+            "vertex_id": 13,
+            "start": 5,
+            "end": 7
+          }
+        ],
+        [
+          {
+            "vehicle_id": 0,
+            "candidate_id": 0,
+            "vertex_id": 0,
+            "start": 0,
+            "end": 2
+          },
+          {
+            "vehicle_id": 1,
+            "candidate_id": 2,
+            "vertex_id": 5,
+            "start": 3,
+            "end": 5
+          },
+          {
+            "vehicle_id": 5,
+            "candidate_id": 3,
+            "vertex_id": 23,
+            "start": 5,
+            "end": 7
+          }
+        ]
+      ]
+    },
+    {
+      "event": "incumbent",
+      "elapsed_seconds": 0.235525300000063,
+      "objective": 6.0,
+      "source": "rmp_integer",
+      "node_id": 88,
+      "cg_iteration": 2,
+      "validation_passed": true,
+      "schedule": [
+        [
+          {
+            "vehicle_id": 4,
+            "candidate_id": 0,
+            "vertex_id": 17,
+            "start": 0,
+            "end": 3
+          },
+          {
+            "vehicle_id": 1,
+            "candidate_id": 2,
+            "vertex_id": 5,
+            "start": 3,
+            "end": 5
+          },
+          {
+            "vehicle_id": 2,
+            "candidate_id": 1,
+            "vertex_id": 8,
+            "start": 5,
+            "end": 6
+          }
+        ],
+        [
+          {
+            "vehicle_id": 0,
+            "candidate_id": 0,
+            "vertex_id": 0,
+            "start": 0,
+            "end": 2
+          },
+          {
+            "vehicle_id": 5,
+            "candidate_id": 0,
+            "vertex_id": 20,
+            "start": 2,
+            "end": 4
+          },
+          {
+            "vehicle_id": 3,
+            "candidate_id": 0,
+            "vertex_id": 12,
+            "start": 4,
+            "end": 6
+          }
+        ]
+      ]
+    }
+  ],
+  "trajectory_file": "D:\\pythonProject\\BP_QAIA_PCP\\results\\scale_v2_smoke\\v1_N6_C2_s0_greedy_10_s0.incumbents.jsonl",
+  "validation_passed": true,
+  "budget_snapshots": [
+    {
+      "seconds": 10.0,
+      "objective": 6.0
+    },
+    {
+      "seconds": 30.0,
+      "objective": 6.0
+    }
+  ],
+  "termination_reason": "optimal",
+  "workflow_seconds": 0.568916100000024
+}
