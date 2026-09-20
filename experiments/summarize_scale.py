@@ -16,6 +16,7 @@ def write_csv(path, rows):
 
 def collect(folder):
     manifest = json.loads((folder / "manifest.json").read_text(encoding="utf-8"))
+    formulation = manifest.get("completion_rows", "vertex")
     runs, trajectories, summaries, comparisons = [], [], [], []
     for instance in manifest["instances"]:
         # Windows paths in an archived manifest must also work on Linux.
@@ -35,6 +36,7 @@ def collect(folder):
             feasible = bool(record.get("validation_passed") and record.get("has_feasible_solution"))
             objective = record.get("objective") if feasible else None
             row = dict(batch=folder.name, instance=name, budget=manifest["limit"], method=method,
+                completion_rows=formulation,
                 result=entry["result"], seed=entry["seed"], status=record["status"],
                 feasible=int(feasible), objective=objective, reference_optimum=reference,
                 deviation_percent=(100 * (objective-reference)/reference
@@ -45,12 +47,16 @@ def collect(folder):
                 root_initialization_seconds=stats.get("root_initialization_seconds"),
                 node_setup_seconds=stats.get("node_setup_seconds"), branch_seconds=stats.get("branch_seconds"),
                 pricing_seconds=stats.get("pricing_seconds"),
+                nodes_processed=stats.get("nodes_processed"),
+                root_lp=(stats.get("root_diagnostics") or {}).get("lp_objective"),
+                root_cg_iterations=(stats.get("root_diagnostics") or {}).get("cg_iterations"),
                 restricted_mip_seconds=stats.get("restricted_mip_seconds"),
                 source_sha256=record.get("source_sha256"), error=record.get("error"))
             runs.append(row)
             groups.setdefault(method, []).append(row)
             for event in record.get("incumbent_history", []):
                 trajectories.append(dict(batch=folder.name, instance=name, budget=manifest["limit"],
+                    completion_rows=formulation,
                     method=method, result=entry["result"], seed=entry["seed"],
                     seconds=event["elapsed_seconds"], objective=event["objective"], source=event["source"]))
         per_method = {}
@@ -58,6 +64,7 @@ def collect(folder):
             feasible = [r for r in group if r["feasible"]]
             errors = sum(r["status"] in ("error", "external_timeout") for r in group)
             row = dict(batch=folder.name, instance=name, budget=manifest["limit"], method=method,
+                completion_rows=formulation,
                 runs=len(group), feasible=len(feasible), feasible_rate=len(feasible)/len(group), errors=errors,
                 optimal=sum(r["status"] == "optimal" and r["feasible"] for r in group),
                 median_all=median(r["objective"] for r in feasible) if len(feasible) == len(group) else None,
@@ -73,6 +80,7 @@ def collect(folder):
             comparable = (not row["errors"] and not exact["errors"]
                           and row["median_all"] is not None and exact["median_all"] is not None)
             comparisons.append(dict(batch=folder.name, instance=name, budget=manifest["limit"], method=method,
+                completion_rows=formulation,
                 feasible_rate=row["feasible_rate"], exact_feasible_rate=exact["feasible_rate"],
                 errors=row["errors"] + exact["errors"],
                 median_delta_vs_exact=row["median_all"]-exact["median_all"] if comparable else None))

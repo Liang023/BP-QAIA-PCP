@@ -14,6 +14,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 from cg.anytime import recover_history
 from validation.ev_solution import validate_json_schedule
+from config.model_formulation import completion_rows
 
 
 def recovered_record(dest, data, input_sha, budget, method, seed, status, error=None):
@@ -93,6 +94,7 @@ def main():
         plan.extend(pair)
     (out / "manifest.json").write_text(json.dumps(dict(
         variants=variants, seeds=args.seeds, limit=args.limit, exact_repeats=exact_repeats,
+        completion_rows=completion_rows(),
         exact_pool_search_mode=os.getenv("EXACT_POOL_SEARCH_MODE", "2"),
         restricted_mip_environment={key: os.getenv(key, default) for key, default in (
             ("BPC_RMP_MIP", "1"), ("BPC_RMP_MIP_EVERY", "20"),
@@ -201,7 +203,7 @@ def main():
                 median_root_pricing_seconds=statistics.median(root_times)
                     if len(root_times) == len(group) and group else None)
         report.append(dict(schema_version="anytime-summary-v2", instance=str(path),
-                           limit=args.limit, groups=groups))
+                           limit=args.limit, completion_rows=completion_rows(), groups=groups))
         (out / "diagnostic_summary.json").write_text(json.dumps(report, indent=2), encoding="utf-8")
     print("Collection finished. Compare feasible_rate and objectives first; timeouts are retained.")
 

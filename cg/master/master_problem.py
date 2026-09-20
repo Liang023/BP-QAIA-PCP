@@ -7,6 +7,7 @@ from model.a_graph import AuxiliaryGraph
 from model.graph import Graph
 import os
 from cg.deadline import remaining_seconds
+from config.model_formulation import completion_rows
 class MasterProblem:
     """
     主问题（Restricted Master Problem, RMP）模型封装。
@@ -18,6 +19,7 @@ class MasterProblem:
     EV 充电调度扩展：
     - 新增 makespan 变量 T，目标为 min T；
     - 每个顶点 v 对应一个 makespan 约束：sum_{col: v in col} t_v * x_col - T <= 0。
+    - vehicle 模式另加每车的完工时间加权和约束，强化 LP 松弛。
     - 充电桩数量限制约束：sum_{col} x_col <= charger_num
     """
     def __init__(
@@ -33,6 +35,7 @@ class MasterProblem:
         self.pricing_problem = pricing_problem
         self.column_pool = column_pool
         self.a_graph = a_graph
+        self.completion_rows = completion_rows()
         self._rmp = grb.Model("master")
         self._rmp.Params.OutputFlag = 0
         # key: 定价问题实例 → value: {列对象 → Gurobi变量}
@@ -48,6 +51,7 @@ class MasterProblem:
         # makespan 相关
         self.T = None  # makespan 变量
         self.vertex_makespan_constraints = {}  # vertex_id → makespan 约束
+        self.vehicle_makespan_constraints = {}  # partition_id → strengthened row
         # 充电桩数量约束：sum_col x_col <= charger_num
         self.charger_capacity_constraint = None
         self.solution = None
@@ -77,28 +81,14 @@ class MasterProblem:
 
         c = grb.Column()
         for vertex in column_independent_set.vertex_list:
-            if vertex not in self.a_graph.merged_vertices_map:
-                # 加入分区约束
-                partition_id = vertex.associated_partition.id
-                constr = self.each_partition_colored_once_constraint[partition_id]
-                c.addTerms(1.0, constr)
-                # 加入 makespan 约束（如果该顶点有 makespan 约束）
-                if vertex.id in self.vertex_makespan_constraints:
-                    makespan_constr = self.vertex_makespan_constraints[vertex.id]
-                    t_v = vertex.end_time
-                    c.addTerms(-t_v, makespan_constr)
-            else:
-                merged_vertices = self.a_graph.merged_vertices_map[vertex]
-                for merged_vertex in merged_vertices:
-                    # 加入分区约束
-                    partition_id = merged_vertex.associated_partition.id
-                    constr = self.each_partition_colored_once_constraint[partition_id]
-                    c.addTerms(1.0, constr)
-                    # 加入 makespan 约束（如果该顶点有 makespan 约束）
-                    if merged_vertex.id in self.vertex_makespan_constraints:
-                        makespan_constr = self.vertex_makespan_constraints[merged_vertex.id]
-                        t_v = merged_vertex.end_time
-                        c.addTerms(-t_v, makespan_constr)
+            # A merged vertex contributes each ORIGINAL completion time, not its maximum.
+            for original in self.a_graph.get_original_vertices(vertex):
+                partition_id = original.associated_partition.id
+                c.addTerms(1.0, self.each_partition_colored_once_constraint[partition_id])
+                if original.id in self.vertex_makespan_constraints:
+                    c.addTerms(-original.end_time, self.vertex_makespan_constraints[original.id])
+                if partition_id in self.vehicle_makespan_constraints:
+                    c.addTerms(-original.end_time, self.vehicle_makespan_constraints[partition_id])
 
         # 充电桩数量约束：每个列变量在该约束中的系数为 1
         if self.charger_capacity_constraint is not None:
@@ -145,6 +135,13 @@ class MasterProblem:
                 # 初始：1*T >= 0，后续通过 Column 添加 (-t_v)*x_col 项
                 constr = self._rmp.addConstr(1.0 * self.T >= 0, name=name)
                 self.vertex_makespan_constraints[vertex.id] = constr
+
+        # T >= sum(end_v * coverage_v) for all candidates of each vehicle.
+        # Retain the old vertex rows so vertex mode is a direct ablation.
+        if self.completion_rows == "vehicle":
+            for partition in self.graph.partitions:
+                self.vehicle_makespan_constraints[partition.id] = self._rmp.addConstr(
+                    self.T >= 0, name=f"makespan_vehicle_{partition.id}")
 
         # 全局充电桩数量约束：sum_col x_col <= charger_num
         # 初始时左侧为空，后续通过 Column 机制为每个列变量添加系数 1
@@ -226,6 +223,12 @@ class MasterProblem:
         makespan_duals = {}
         for vertex_id, constr in self.vertex_makespan_constraints.items():
             makespan_duals[vertex_id] = constr.Pi
+        # Pricing already uses w_v = pi_i - end_v * mu_v.
+        # Fold the vehicle-row dual into mu_v for BOTH Exact and QAIA.
+        vehicle_duals = {i: row.Pi for i, row in self.vehicle_makespan_constraints.items()}
+        for vertex in self.graph.vertices:
+            makespan_duals[vertex.id] = (makespan_duals.get(vertex.id, 0.0)
+                + vehicle_duals.get(vertex.associated_partition.id, 0.0))
 
         # 充电桩数量约束对偶
         charger_dual = 0.0
@@ -235,5 +238,6 @@ class MasterProblem:
         self.dual = {
             'partition': partition_duals,
             'makespan': makespan_duals,
+            'vehicle_makespan': vehicle_duals,
             'charger': charger_dual,
         }

@@ -174,30 +174,17 @@ class ExactPricingSolver:
         """从定价问题对象中同步对偶值。"""
         self.dual = self.pricing_problem.dual
     def _calculate_reduced_cost(self, column: ColumnIndependentSet) -> float:
-        """
-        手动计算 reduced cost
-        
-        reduced cost = 目标系数 - 分区对偶贡献 + makespan对偶贡献 + 充电桩约束对偶贡献
-        对于 EV 问题：rc = 0 - (Σπ_p + Σμ_v * t_v - λ)
-        """
-        dual_contrib = 0.0
+        """Return the improvement score (-reduced cost) for a real column.
 
-        # 全局充电桩数量约束对偶：每个列的系数为 1
-        charger_dual = self.dual.get('charger', 0.0)
-        dual_contrib += charger_dual
-        for v in column.vertex_list:
-            vertex = self.auxiliary_graph.vertices_map[v.id]
-            # 分区对偶贡献
-            partition_id = vertex.associated_partition.id
-            dual_contrib += self.dual['partition'].get(partition_id, 0.0)
-            # makespan 对偶贡献（如果有）
-            if vertex.id in self.dual.get('makespan', {}) and hasattr(vertex, 'end_time'):
-                dual_contrib -= self.dual['makespan'][vertex.id] * vertex.end_time
-        
-        # 列变量目标系数为 0，reduced cost = 0 - dual_contrib = -dual_contrib
-        rc = dual_contrib
-        
-        return rc
+        The historical caller uses a POSITIVE score for an improving column.
+        Expand merged vertices to match the master coefficients exactly.
+        """
+        score = self.dual.get('charger', 0.0)
+        for representative in column.vertex_list:
+            for vertex in self.auxiliary_graph.get_original_vertices(representative):
+                score += self.dual['partition'].get(vertex.associated_partition.id, 0.0)
+                score -= self.dual.get('makespan', {}).get(vertex.id, 0.0) * vertex.end_time
+        return score
 
     def _assert_reduced_cost_consistency(self, pool_obj_val: float, column: ColumnIndependentSet) -> None:
         """断言子问题报告的 reduced cost 与手动计算一致。

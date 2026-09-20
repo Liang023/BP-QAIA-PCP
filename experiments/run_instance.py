@@ -13,6 +13,7 @@ import traceback
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
+from config.model_formulation import completion_rows
 
 
 def compact(data, limit, *, deadline=None, recorder=None):
@@ -40,6 +41,10 @@ def compact(data, limit, *, deadline=None, recorder=None):
             model.addConstr(gp.quicksum(x[j, k]
                 for j, c in enumerate(candidates) if c[0] == vehicle["id"]
                 for k in range(C)) == 1)
+            if completion_rows() == "vehicle":
+                model.addConstr(T >= gp.quicksum(c[3] * x[j, k]
+                    for j, c in enumerate(candidates) if c[0] == vehicle["id"]
+                    for k in range(C)), name=f"makespan_vehicle_{vehicle['id']}")
         active = {}
         for j, (_, _, start_slot, end) in enumerate(candidates):
             remaining_seconds(deadline, "Compact candidate constraints")
@@ -94,7 +99,8 @@ def compact(data, limit, *, deadline=None, recorder=None):
         return dict(status=status,
                     objective=max(c["end"] for row in schedule for c in row) if schedule else None,
                     lower_bound=model.ObjBound, schedule=schedule,
-                    compact_formulation="integer_slot_occupancy_v1",
+                    compact_formulation=("integer_slot_occupancy_vehicle_v2"
+                        if completion_rows() == "vehicle" else "integer_slot_occupancy_v1"),
                     compact_variables=model.NumVars, compact_constraints=model.NumConstrs)
     finally:
         if model is not None:
@@ -173,6 +179,7 @@ def main():
     from cg.deadline import remaining_seconds
     from validation.ev_solution import validate_json_schedule
     record = dict(method=args.method, seed=args.seed, limit=args.limit,
+                  completion_rows=completion_rows(),
                   instance=str(instance_path), python=sys.version,
                   platform=platform.platform(), threads=1, gurobi_seed=0,
                   timing_scope="after_input_and_imports_before_graph_and_model",
