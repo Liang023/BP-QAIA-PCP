@@ -1,0 +1,17 @@
+﻿batch,instance,budget,method,completion_rows,feasible_rate,exact_feasible_rate,errors,median_delta_vs_exact
+model_v3_vertex,2019-03-05_N8_C2,60.0,qaia_50_4,vertex,1.0,1.0,0,2.0
+model_v3_vertex,2019-03-05_N8_C2,60.0,qaia_200_10,vertex,1.0,1.0,0,-1.0
+model_v3_vertex,2019-03-05_N8_C2,60.0,greedy_4,vertex,1.0,1.0,0,-1.0
+model_v3_vertex,2019-03-05_N8_C2,60.0,greedy_10,vertex,1.0,1.0,0,2.0
+model_v3_vertex,2019-03-05_N12_C3,60.0,qaia_50_4,vertex,1.0,1.0,0,-1.0
+model_v3_vertex,2019-03-05_N12_C3,60.0,qaia_200_10,vertex,1.0,1.0,0,-1.0
+model_v3_vertex,2019-03-05_N12_C3,60.0,greedy_4,vertex,1.0,1.0,0,-1.0
+model_v3_vertex,2019-03-05_N12_C3,60.0,greedy_10,vertex,1.0,1.0,0,-1.0
+model_v3_vehicle,2019-03-05_N8_C2,60.0,qaia_50_4,vehicle,1.0,1.0,0,-1.0
+model_v3_vehicle,2019-03-05_N8_C2,60.0,qaia_200_10,vehicle,1.0,1.0,0,0.0
+model_v3_vehicle,2019-03-05_N8_C2,60.0,greedy_4,vehicle,1.0,1.0,0,-1.0
+model_v3_vehicle,2019-03-05_N8_C2,60.0,greedy_10,vehicle,1.0,1.0,0,0.0
+model_v3_vehicle,2019-03-05_N12_C3,60.0,qaia_50_4,vehicle,1.0,1.0,0,0.0
+model_v3_vehicle,2019-03-05_N12_C3,60.0,qaia_200_10,vehicle,1.0,1.0,0,0.0
+model_v3_vehicle,2019-03-05_N12_C3,60.0,greedy_4,vehicle,1.0,1.0,0,0.0
+model_v3_vehicle,2019-03-05_N12_C3,60.0,greedy_10,vehicle,1.0,1.0,0,0.0

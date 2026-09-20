@@ -1,0 +1,1142 @@
+[
+  {
+    "method": "compact",
+    "policy": null,
+    "seed": 0,
+    "result": "2019-03-05_N12_C3_compact.json",
+    "status": "optimal",
+    "check": "matched_reference",
+    "objective": 67.0,
+    "feasible_makespan": 67.0,
+    "validation_passed": true,
+    "statistics": null,
+    "error": null,
+    "has_feasible_solution": true,
+    "time_to_first_feasible": 0.01383920000080252,
+    "best_found_seconds": 0.04145530000096187,
+    "budget_snapshots": [
+      {
+        "seconds": 10.0,
+        "objective": 67.0
+      },
+      {
+        "seconds": 30.0,
+        "objective": 67.0
+      },
+      {
+        "seconds": 60.0,
+        "objective": 67.0
+      }
+    ],
+    "trajectory_file": "D:\\pythonProject\\BP_QAIA_PCP\\results\\model_v3_vehicle\\2019-03-05_N12_C3_compact.incumbents.jsonl",
+    "wall_seconds": 0.04383810000035737,
+    "process_seconds": 0.2822586999991472
+  },
+  {
+    "method": "qaia_root",
+    "policy": "qaia_50_4",
+    "seed": 0,
+    "result": "2019-03-05_N12_C3_qaia_50_4_s0.json",
+    "status": "optimal",
+    "check": "matched_reference",
+    "objective": 67.0,
+    "feasible_makespan": 67.0,
+    "validation_passed": true,
+    "statistics": {
+      "nodes_processed": 62,
+      "nodes_created": 115,
+      "nodes_pruned": 58,
+      "nodes_remaining": 0,
+      "best_objective": 67.0,
+      "global_lower_bound": 67.0,
+      "gap": 0.0,
+      "total_solve_time": 36.052096900000834,
+      "problem_lower_bound": 67.0,
+      "column_num": 227,
+      "master_seconds": 0.6470644000110042,
+      "node_setup_seconds": 15.966744799998196,
+      "root_initialization_seconds": 0.04040340000028664,
+      "pricing_seconds": 3.976749400020708,
+      "branch_seconds": 14.833157000002757,
+      "restricted_mip_seconds": 0.03727430000071763,
+      "restricted_mip_calls": 1,
+      "root_diagnostics": {
+        "cg_certified": true,
+        "cg_iterations": 7,
+        "lp_objective": 67.0,
+        "integer_solution": false,
+        "columns_in_pool": 17,
+        "master_seconds": 0.02643999999963853,
+        "pricing_seconds": 0.44661289999930887,
+        "heuristic_metrics": {
+          "provider": "qaia",
+          "heuristic_calls": 6,
+          "hit_calls": 5,
+          "exact_calls": 2,
+          "exact_skips": 5,
+          "heuristic_seconds": 0.39871790000142937,
+          "exact_seconds": 0.04307909999988624,
+          "build_seconds": 0.2972985000014887,
+          "search_seconds": 0.09241260000089824,
+          "repair_seconds": 0.006373899999744026,
+          "raw_samples": 24,
+          "improving_unique": 5,
+          "pool_duplicates": 0,
+          "returned_columns": 5,
+          "nonfinite_samples": 0
+        }
+      }
+    },
+    "error": null,
+    "has_feasible_solution": true,
+    "time_to_first_feasible": 1.0508991000006063,
+    "best_found_seconds": 35.9265962999998,
+    "budget_snapshots": [
+      {
+        "seconds": 10.0,
+        "objective": 70.0
+      },
+      {
+        "seconds": 30.0,
+        "objective": 69.0
+      },
+      {
+        "seconds": 60.0,
+        "objective": 67.0
+      }
+    ],
+    "trajectory_file": "D:\\pythonProject\\BP_QAIA_PCP\\results\\model_v3_vehicle\\2019-03-05_N12_C3_qaia_50_4_s0.incumbents.jsonl",
+    "wall_seconds": 36.05320329999995,
+    "process_seconds": 42.979924799999935
+  },
+  {
+    "method": "qaia_root",
+    "policy": "qaia_200_10",
+    "seed": 0,
+    "result": "2019-03-05_N12_C3_qaia_200_10_s0.json",
+    "status": "optimal",
+    "check": "matched_reference",
+    "objective": 67.0,
+    "feasible_makespan": 67.0,
+    "validation_passed": true,
+    "statistics": {
+      "nodes_processed": 1,
+      "nodes_created": 1,
+      "nodes_pruned": 1,
+      "nodes_remaining": 0,
+      "best_objective": 67.0,
+      "global_lower_bound": 67.0,
+      "gap": 0.0,
+      "total_solve_time": 1.3197582999982842,
+      "problem_lower_bound": 67.0,
+      "column_num": 26,
+      "master_seconds": 0.024033599998801947,
+      "node_setup_seconds": 0.3781732000006741,
+      "root_initialization_seconds": 0.026519400000324822,
+      "pricing_seconds": 0.7635874999996304,
+      "branch_seconds": 0.0,
+      "restricted_mip_seconds": 0.02165439999953378,
+      "restricted_mip_calls": 1,
+      "root_diagnostics": {
+        "cg_certified": true,
+        "cg_iterations": 8,
+        "lp_objective": 67.0,
+        "integer_solution": false,
+        "columns_in_pool": 23,
+        "master_seconds": 0.024033599998801947,
+        "pricing_seconds": 0.7635874999996304,
+        "heuristic_metrics": {
+          "provider": "qaia",
+          "heuristic_calls": 6,
+          "hit_calls": 6,
+          "exact_calls": 2,
+          "exact_skips": 6,
+          "heuristic_seconds": 0.7238445999992109,
+          "exact_seconds": 0.035976400000436115,
+          "build_seconds": 0.2855380000000878,
+          "search_seconds": 0.4206188000007387,
+          "repair_seconds": 0.015249500000209082,
+          "raw_samples": 60,
+          "improving_unique": 10,
+          "pool_duplicates": 0,
+          "returned_columns": 10,
+          "nonfinite_samples": 0
+        }
+      }
+    },
+    "error": null,
+    "has_feasible_solution": true,
+    "time_to_first_feasible": 0.8543385999983002,
+    "best_found_seconds": 0.8543385999983002,
+    "budget_snapshots": [
+      {
+        "seconds": 10.0,
+        "objective": 67.0
+      },
+      {
+        "seconds": 30.0,
+        "objective": 67.0
+      },
+      {
+        "seconds": 60.0,
+        "objective": 67.0
+      }
+    ],
+    "trajectory_file": "D:\\pythonProject\\BP_QAIA_PCP\\results\\model_v3_vehicle\\2019-03-05_N12_C3_qaia_200_10_s0.incumbents.jsonl",
+    "wall_seconds": 1.3199096999996982,
+    "process_seconds": 5.9127602000007755
+  },
+  {
+    "method": "qaia_root",
+    "policy": "greedy_4",
+    "seed": 0,
+    "result": "2019-03-05_N12_C3_greedy_4_s0.json",
+    "status": "optimal",
+    "check": "matched_reference",
+    "objective": 67.0,
+    "feasible_makespan": 67.0,
+    "validation_passed": true,
+    "statistics": {
+      "nodes_processed": 1,
+      "nodes_created": 1,
+      "nodes_pruned": 1,
+      "nodes_remaining": 0,
+      "best_objective": 67.0,
+      "global_lower_bound": 67.0,
+      "gap": 0.0,
+      "total_solve_time": 0.31113530000038736,
+      "problem_lower_bound": 67.0,
+      "column_num": 31,
+      "master_seconds": 0.007980899998074165,
+      "node_setup_seconds": 0.09361669999998412,
+      "root_initialization_seconds": 0.011096899999756715,
+      "pricing_seconds": 0.16034610000133398,
+      "branch_seconds": 0.0,
+      "restricted_mip_seconds": 0.015397999999549938,
+      "restricted_mip_calls": 1,
+      "root_diagnostics": {
+        "cg_certified": true,
+        "cg_iterations": 6,
+        "lp_objective": 67.0,
+        "integer_solution": false,
+        "columns_in_pool": 25,
+        "master_seconds": 0.007980899998074165,
+        "pricing_seconds": 0.16034610000133398,
+        "heuristic_metrics": {
+          "provider": "greedy",
+          "heuristic_calls": 5,
+          "hit_calls": 4,
+          "exact_calls": 2,
+          "exact_skips": 4,
+          "heuristic_seconds": 0.12896919999911916,
+          "exact_seconds": 0.029632600000695675,
+          "build_seconds": 0.12423520000265853,
+          "search_seconds": 0.0005837999997311272,
+          "repair_seconds": 0.0021891999986110022,
+          "raw_samples": 20,
+          "improving_unique": 15,
+          "pool_duplicates": 0,
+          "returned_columns": 12,
+          "nonfinite_samples": 0
+        }
+      }
+    },
+    "error": null,
+    "has_feasible_solution": true,
+    "time_to_first_feasible": 0.2951002999998309,
+    "best_found_seconds": 0.302595700000893,
+    "budget_snapshots": [
+      {
+        "seconds": 10.0,
+        "objective": 67.0
+      },
+      {
+        "seconds": 30.0,
+        "objective": 67.0
+      },
+      {
+        "seconds": 60.0,
+        "objective": 67.0
+      }
+    ],
+    "trajectory_file": "D:\\pythonProject\\BP_QAIA_PCP\\results\\model_v3_vehicle\\2019-03-05_N12_C3_greedy_4_s0.incumbents.jsonl",
+    "wall_seconds": 0.3112985999996454,
+    "process_seconds": 0.8468727999988914
+  },
+  {
+    "method": "qaia_root",
+    "policy": "greedy_10",
+    "seed": 0,
+    "result": "2019-03-05_N12_C3_greedy_10_s0.json",
+    "status": "optimal",
+    "check": "matched_reference",
+    "objective": 67.0,
+    "feasible_makespan": 67.0,
+    "validation_passed": true,
+    "statistics": {
+      "nodes_processed": 2,
+      "nodes_created": 3,
+      "nodes_pruned": 2,
+      "nodes_remaining": 0,
+      "best_objective": 67.0,
+      "global_lower_bound": 67.0,
+      "gap": 0.0,
+      "total_solve_time": 0.6677945000010368,
+      "problem_lower_bound": 67.0,
+      "column_num": 35,
+      "master_seconds": 0.013057499996648403,
+      "node_setup_seconds": 0.18916509999871778,
+      "root_initialization_seconds": 0.010530199999266188,
+      "pricing_seconds": 0.19292769999992743,
+      "branch_seconds": 0.20807190000050468,
+      "restricted_mip_seconds": 0.015127399999983027,
+      "restricted_mip_calls": 1,
+      "root_diagnostics": {
+        "cg_certified": true,
+        "cg_iterations": 7,
+        "lp_objective": 67.0,
+        "integer_solution": false,
+        "columns_in_pool": 27,
+        "master_seconds": 0.010283299998263828,
+        "pricing_seconds": 0.17794949999915843,
+        "heuristic_metrics": {
+          "provider": "greedy",
+          "heuristic_calls": 6,
+          "hit_calls": 5,
+          "exact_calls": 2,
+          "exact_skips": 5,
+          "heuristic_seconds": 0.15500900000188267,
+          "exact_seconds": 0.021081499999127118,
+          "build_seconds": 0.14584990000184916,
+          "search_seconds": 0.0007150999972509453,
+          "repair_seconds": 0.006128000000899192,
+          "raw_samples": 60,
+          "improving_unique": 37,
+          "pool_duplicates": 0,
+          "returned_columns": 15,
+          "nonfinite_samples": 0
+        }
+      }
+    },
+    "error": null,
+    "has_feasible_solution": true,
+    "time_to_first_feasible": 0.21557560000110243,
+    "best_found_seconds": 0.659471000000849,
+    "budget_snapshots": [
+      {
+        "seconds": 10.0,
+        "objective": 67.0
+      },
+      {
+        "seconds": 30.0,
+        "objective": 67.0
+      },
+      {
+        "seconds": 60.0,
+        "objective": 67.0
+      }
+    ],
+    "trajectory_file": "D:\\pythonProject\\BP_QAIA_PCP\\results\\model_v3_vehicle\\2019-03-05_N12_C3_greedy_10_s0.incumbents.jsonl",
+    "wall_seconds": 0.6679678000000422,
+    "process_seconds": 1.194365999999718
+  },
+  {
+    "method": "exact",
+    "policy": null,
+    "seed": 0,
+    "result": "2019-03-05_N12_C3_exact_r0.json",
+    "status": "optimal",
+    "check": "matched_reference",
+    "objective": 67.0,
+    "feasible_makespan": 67.0,
+    "validation_passed": true,
+    "statistics": {
+      "nodes_processed": 141,
+      "nodes_created": 273,
+      "nodes_pruned": 137,
+      "nodes_remaining": 0,
+      "best_objective": 67.0,
+      "global_lower_bound": 67.0,
+      "gap": 0.0,
+      "total_solve_time": 46.29609239999991,
+      "problem_lower_bound": 67.0,
+      "column_num": 365,
+      "master_seconds": 0.9120325999938359,
+      "node_setup_seconds": 20.4928239999972,
+      "root_initialization_seconds": 0.0114806999990833,
+      "pricing_seconds": 4.685550500003956,
+      "branch_seconds": 19.540024899994023,
+      "restricted_mip_seconds": 0.0252569999993284,
+      "restricted_mip_calls": 1,
+      "root_diagnostics": {
+        "cg_certified": true,
+        "cg_iterations": 7,
+        "lp_objective": 67.0,
+        "integer_solution": false,
+        "columns_in_pool": 20,
+        "master_seconds": 0.008829200000036508,
+        "pricing_seconds": 0.16672840000137512,
+        "heuristic_metrics": null
+      }
+    },
+    "error": null,
+    "has_feasible_solution": true,
+    "time_to_first_feasible": 0.3050941999990755,
+    "best_found_seconds": 46.22111529999893,
+    "budget_snapshots": [
+      {
+        "seconds": 10.0,
+        "objective": 70.0
+      },
+      {
+        "seconds": 30.0,
+        "objective": 68.0
+      },
+      {
+        "seconds": 60.0,
+        "objective": 67.0
+      }
+    ],
+    "trajectory_file": "D:\\pythonProject\\BP_QAIA_PCP\\results\\model_v3_vehicle\\2019-03-05_N12_C3_exact_r0.incumbents.jsonl",
+    "wall_seconds": 46.29643279999982,
+    "process_seconds": 46.835347499998534
+  },
+  {
+    "method": "exact",
+    "policy": null,
+    "seed": 0,
+    "result": "2019-03-05_N12_C3_exact_r1.json",
+    "status": "optimal",
+    "check": "matched_reference",
+    "objective": 67.0,
+    "feasible_makespan": 67.0,
+    "validation_passed": true,
+    "statistics": {
+      "nodes_processed": 141,
+      "nodes_created": 273,
+      "nodes_pruned": 137,
+      "nodes_remaining": 0,
+      "best_objective": 67.0,
+      "global_lower_bound": 67.0,
+      "gap": 0.0,
+      "total_solve_time": 21.868832199999815,
+      "problem_lower_bound": 67.0,
+      "column_num": 365,
+      "master_seconds": 0.43693280000843515,
+      "node_setup_seconds": 7.471957399986422,
+      "root_initialization_seconds": 0.01093619999846851,
+      "pricing_seconds": 2.4960532000168314,
+      "branch_seconds": 11.093349600016154,
+      "restricted_mip_seconds": 0.023949299999003415,
+      "restricted_mip_calls": 1,
+      "root_diagnostics": {
+        "cg_certified": true,
+        "cg_iterations": 7,
+        "lp_objective": 67.0,
+        "integer_solution": false,
+        "columns_in_pool": 20,
+        "master_seconds": 0.008589999997639097,
+        "pricing_seconds": 0.1557797000004939,
+        "heuristic_metrics": null
+      }
+    },
+    "error": null,
+    "has_feasible_solution": true,
+    "time_to_first_feasible": 0.2977319000001444,
+    "best_found_seconds": 21.793394700000135,
+    "budget_snapshots": [
+      {
+        "seconds": 10.0,
+        "objective": 68.0
+      },
+      {
+        "seconds": 30.0,
+        "objective": 67.0
+      },
+      {
+        "seconds": 60.0,
+        "objective": 67.0
+      }
+    ],
+    "trajectory_file": "D:\\pythonProject\\BP_QAIA_PCP\\results\\model_v3_vehicle\\2019-03-05_N12_C3_exact_r1.incumbents.jsonl",
+    "wall_seconds": 21.86916840000049,
+    "process_seconds": 22.393370799998593
+  },
+  {
+    "method": "qaia_root",
+    "policy": "greedy_10",
+    "seed": 1,
+    "result": "2019-03-05_N12_C3_greedy_10_s1.json",
+    "status": "optimal",
+    "check": "matched_reference",
+    "objective": 67.0,
+    "feasible_makespan": 67.0,
+    "validation_passed": true,
+    "statistics": {
+      "nodes_processed": 1,
+      "nodes_created": 1,
+      "nodes_pruned": 1,
+      "nodes_remaining": 0,
+      "best_objective": 67.0,
+      "global_lower_bound": 67.0,
+      "gap": 0.0,
+      "total_solve_time": 0.307137399999192,
+      "problem_lower_bound": 67.0,
+      "column_num": 30,
+      "master_seconds": 0.008638199997221818,
+      "node_setup_seconds": 0.08876589999999851,
+      "root_initialization_seconds": 0.010954200000924175,
+      "pricing_seconds": 0.16175700000349025,
+      "branch_seconds": 0.0,
+      "restricted_mip_seconds": 0.011175200001162011,
+      "restricted_mip_calls": 1,
+      "root_diagnostics": {
+        "cg_certified": true,
+        "cg_iterations": 7,
+        "lp_objective": 67.0,
+        "integer_solution": false,
+        "columns_in_pool": 27,
+        "master_seconds": 0.008638199997221818,
+        "pricing_seconds": 0.16175700000349025,
+        "heuristic_metrics": {
+          "provider": "greedy",
+          "heuristic_calls": 6,
+          "hit_calls": 5,
+          "exact_calls": 2,
+          "exact_skips": 5,
+          "heuristic_seconds": 0.14273409999987052,
+          "exact_seconds": 0.017527300000438117,
+          "build_seconds": 0.13438429999587242,
+          "search_seconds": 0.0005642000014631776,
+          "repair_seconds": 0.00591109999731998,
+          "raw_samples": 60,
+          "improving_unique": 42,
+          "pool_duplicates": 0,
+          "returned_columns": 15,
+          "nonfinite_samples": 0
+        }
+      }
+    },
+    "error": null,
+    "has_feasible_solution": true,
+    "time_to_first_feasible": 0.17073170000003302,
+    "best_found_seconds": 0.17073170000003302,
+    "budget_snapshots": [
+      {
+        "seconds": 10.0,
+        "objective": 67.0
+      },
+      {
+        "seconds": 30.0,
+        "objective": 67.0
+      },
+      {
+        "seconds": 60.0,
+        "objective": 67.0
+      }
+    ],
+    "trajectory_file": "D:\\pythonProject\\BP_QAIA_PCP\\results\\model_v3_vehicle\\2019-03-05_N12_C3_greedy_10_s1.incumbents.jsonl",
+    "wall_seconds": 0.3072338999991189,
+    "process_seconds": 0.8014191999991453
+  },
+  {
+    "method": "qaia_root",
+    "policy": "greedy_4",
+    "seed": 1,
+    "result": "2019-03-05_N12_C3_greedy_4_s1.json",
+    "status": "optimal",
+    "check": "matched_reference",
+    "objective": 67.0,
+    "feasible_makespan": 67.0,
+    "validation_passed": true,
+    "statistics": {
+      "nodes_processed": 38,
+      "nodes_created": 73,
+      "nodes_pruned": 37,
+      "nodes_remaining": 0,
+      "best_objective": 67.0,
+      "global_lower_bound": 67.0,
+      "gap": 0.0,
+      "total_solve_time": 8.286034599999766,
+      "problem_lower_bound": 67.0,
+      "column_num": 148,
+      "master_seconds": 0.13130309999905876,
+      "node_setup_seconds": 2.5820021999934397,
+      "root_initialization_seconds": 0.010694900000089547,
+      "pricing_seconds": 1.0971630000040022,
+      "branch_seconds": 4.315206500001295,
+      "restricted_mip_seconds": 0.019578099998398102,
+      "restricted_mip_calls": 1,
+      "root_diagnostics": {
+        "cg_certified": true,
+        "cg_iterations": 7,
+        "lp_objective": 67.0,
+        "integer_solution": false,
+        "columns_in_pool": 28,
+        "master_seconds": 0.008803400000033434,
+        "pricing_seconds": 0.16229899999962072,
+        "heuristic_metrics": {
+          "provider": "greedy",
+          "heuristic_calls": 6,
+          "hit_calls": 5,
+          "exact_calls": 2,
+          "exact_skips": 5,
+          "heuristic_seconds": 0.13955160000296019,
+          "exact_seconds": 0.021234399999229936,
+          "build_seconds": 0.13436779999938153,
+          "search_seconds": 0.0005380000002332963,
+          "repair_seconds": 0.0028875999996671453,
+          "raw_samples": 24,
+          "improving_unique": 20,
+          "pool_duplicates": 0,
+          "returned_columns": 15,
+          "nonfinite_samples": 0
+        }
+      }
+    },
+    "error": null,
+    "has_feasible_solution": true,
+    "time_to_first_feasible": 0.30333819999941625,
+    "best_found_seconds": 8.261880099998962,
+    "budget_snapshots": [
+      {
+        "seconds": 10.0,
+        "objective": 67.0
+      },
+      {
+        "seconds": 30.0,
+        "objective": 67.0
+      },
+      {
+        "seconds": 60.0,
+        "objective": 67.0
+      }
+    ],
+    "trajectory_file": "D:\\pythonProject\\BP_QAIA_PCP\\results\\model_v3_vehicle\\2019-03-05_N12_C3_greedy_4_s1.incumbents.jsonl",
+    "wall_seconds": 8.286244999999326,
+    "process_seconds": 8.810830200000055
+  },
+  {
+    "method": "qaia_root",
+    "policy": "qaia_200_10",
+    "seed": 1,
+    "result": "2019-03-05_N12_C3_qaia_200_10_s1.json",
+    "status": "optimal",
+    "check": "matched_reference",
+    "objective": 67.0,
+    "feasible_makespan": 67.0,
+    "validation_passed": true,
+    "statistics": {
+      "nodes_processed": 1,
+      "nodes_created": 1,
+      "nodes_pruned": 1,
+      "nodes_remaining": 0,
+      "best_objective": 67.0,
+      "global_lower_bound": 67.0,
+      "gap": 0.0,
+      "total_solve_time": 0.44216919999962556,
+      "problem_lower_bound": 67.0,
+      "column_num": 22,
+      "master_seconds": 0.008014799997908995,
+      "node_setup_seconds": 0.08831079999981739,
+      "root_initialization_seconds": 0.010797599999932572,
+      "pricing_seconds": 0.2678641000020434,
+      "branch_seconds": 0.0,
+      "restricted_mip_seconds": 0.0064848000001802575,
+      "restricted_mip_calls": 1,
+      "root_diagnostics": {
+        "cg_certified": true,
+        "cg_iterations": 7,
+        "lp_objective": 67.0,
+        "integer_solution": false,
+        "columns_in_pool": 19,
+        "master_seconds": 0.008014799997908995,
+        "pricing_seconds": 0.2678641000020434,
+        "heuristic_metrics": {
+          "provider": "qaia",
+          "heuristic_calls": 6,
+          "hit_calls": 5,
+          "exact_calls": 2,
+          "exact_skips": 5,
+          "heuristic_seconds": 0.2522081999995862,
+          "exact_seconds": 0.014090500000747852,
+          "build_seconds": 0.11899080000148388,
+          "search_seconds": 0.12714749999940977,
+          "repair_seconds": 0.004946000004565576,
+          "raw_samples": 60,
+          "improving_unique": 7,
+          "pool_duplicates": 0,
+          "returned_columns": 7,
+          "nonfinite_samples": 0
+        }
+      }
+    },
+    "error": null,
+    "has_feasible_solution": true,
+    "time_to_first_feasible": 0.2878588999992644,
+    "best_found_seconds": 0.2878588999992644,
+    "budget_snapshots": [
+      {
+        "seconds": 10.0,
+        "objective": 67.0
+      },
+      {
+        "seconds": 30.0,
+        "objective": 67.0
+      },
+      {
+        "seconds": 60.0,
+        "objective": 67.0
+      }
+    ],
+    "trajectory_file": "D:\\pythonProject\\BP_QAIA_PCP\\results\\model_v3_vehicle\\2019-03-05_N12_C3_qaia_200_10_s1.incumbents.jsonl",
+    "wall_seconds": 0.4422658000003139,
+    "process_seconds": 5.4290297999996255
+  },
+  {
+    "method": "qaia_root",
+    "policy": "qaia_50_4",
+    "seed": 1,
+    "result": "2019-03-05_N12_C3_qaia_50_4_s1.json",
+    "status": "optimal",
+    "check": "matched_reference",
+    "objective": 67.0,
+    "feasible_makespan": 67.0,
+    "validation_passed": true,
+    "statistics": {
+      "nodes_processed": 62,
+      "nodes_created": 115,
+      "nodes_pruned": 58,
+      "nodes_remaining": 0,
+      "best_objective": 67.0,
+      "global_lower_bound": 67.0,
+      "gap": 0.0,
+      "total_solve_time": 12.499919699999737,
+      "problem_lower_bound": 67.0,
+      "column_num": 227,
+      "master_seconds": 0.2164054999993823,
+      "node_setup_seconds": 4.043193699992116,
+      "root_initialization_seconds": 0.012242999999216408,
+      "pricing_seconds": 1.5225570000056905,
+      "branch_seconds": 6.473772499994084,
+      "restricted_mip_seconds": 0.018336600000111503,
+      "restricted_mip_calls": 1,
+      "root_diagnostics": {
+        "cg_certified": true,
+        "cg_iterations": 7,
+        "lp_objective": 67.0,
+        "integer_solution": false,
+        "columns_in_pool": 17,
+        "master_seconds": 0.007830299995475798,
+        "pricing_seconds": 0.16376639999907638,
+        "heuristic_metrics": {
+          "provider": "qaia",
+          "heuristic_calls": 6,
+          "hit_calls": 5,
+          "exact_calls": 2,
+          "exact_skips": 5,
+          "heuristic_seconds": 0.146001699999033,
+          "exact_seconds": 0.016332499999407446,
+          "build_seconds": 0.11742570000023989,
+          "search_seconds": 0.02544560000023921,
+          "repair_seconds": 0.002156200000172248,
+          "raw_samples": 24,
+          "improving_unique": 5,
+          "pool_duplicates": 0,
+          "returned_columns": 5,
+          "nonfinite_samples": 0
+        }
+      }
+    },
+    "error": null,
+    "has_feasible_solution": true,
+    "time_to_first_feasible": 0.3425311999999394,
+    "best_found_seconds": 12.460765800000445,
+    "budget_snapshots": [
+      {
+        "seconds": 10.0,
+        "objective": 70.0
+      },
+      {
+        "seconds": 30.0,
+        "objective": 67.0
+      },
+      {
+        "seconds": 60.0,
+        "objective": 67.0
+      }
+    ],
+    "trajectory_file": "D:\\pythonProject\\BP_QAIA_PCP\\results\\model_v3_vehicle\\2019-03-05_N12_C3_qaia_50_4_s1.incumbents.jsonl",
+    "wall_seconds": 12.500186999999642,
+    "process_seconds": 17.49832989999959
+  },
+  {
+    "method": "qaia_root",
+    "policy": "qaia_50_4",
+    "seed": 2,
+    "result": "2019-03-05_N12_C3_qaia_50_4_s2.json",
+    "status": "optimal",
+    "check": "matched_reference",
+    "objective": 67.0,
+    "feasible_makespan": 67.0,
+    "validation_passed": true,
+    "statistics": {
+      "nodes_processed": 62,
+      "nodes_created": 115,
+      "nodes_pruned": 58,
+      "nodes_remaining": 0,
+      "best_objective": 67.0,
+      "global_lower_bound": 67.0,
+      "gap": 0.0,
+      "total_solve_time": 12.313609700000598,
+      "problem_lower_bound": 67.0,
+      "column_num": 227,
+      "master_seconds": 0.21556960000816616,
+      "node_setup_seconds": 3.962242800002059,
+      "root_initialization_seconds": 0.011970899999141693,
+      "pricing_seconds": 1.5024393000021519,
+      "branch_seconds": 6.405919999993785,
+      "restricted_mip_seconds": 0.011135299999295967,
+      "restricted_mip_calls": 1,
+      "root_diagnostics": {
+        "cg_certified": true,
+        "cg_iterations": 7,
+        "lp_objective": 67.0,
+        "integer_solution": false,
+        "columns_in_pool": 17,
+        "master_seconds": 0.007475499998690793,
+        "pricing_seconds": 0.1627615000033984,
+        "heuristic_metrics": {
+          "provider": "qaia",
+          "heuristic_calls": 6,
+          "hit_calls": 5,
+          "exact_calls": 2,
+          "exact_skips": 5,
+          "heuristic_seconds": 0.1448462999996991,
+          "exact_seconds": 0.01649870000073861,
+          "build_seconds": 0.11639950000062527,
+          "search_seconds": 0.025402699999176548,
+          "repair_seconds": 0.002119299999321811,
+          "raw_samples": 24,
+          "improving_unique": 5,
+          "pool_duplicates": 0,
+          "returned_columns": 5,
+          "nonfinite_samples": 0
+        }
+      }
+    },
+    "error": null,
+    "has_feasible_solution": true,
+    "time_to_first_feasible": 0.33560920000127226,
+    "best_found_seconds": 12.275368500000695,
+    "budget_snapshots": [
+      {
+        "seconds": 10.0,
+        "objective": 70.0
+      },
+      {
+        "seconds": 30.0,
+        "objective": 67.0
+      },
+      {
+        "seconds": 60.0,
+        "objective": 67.0
+      }
+    ],
+    "trajectory_file": "D:\\pythonProject\\BP_QAIA_PCP\\results\\model_v3_vehicle\\2019-03-05_N12_C3_qaia_50_4_s2.incumbents.jsonl",
+    "wall_seconds": 12.31387850000101,
+    "process_seconds": 17.254935799999657
+  },
+  {
+    "method": "qaia_root",
+    "policy": "qaia_200_10",
+    "seed": 2,
+    "result": "2019-03-05_N12_C3_qaia_200_10_s2.json",
+    "status": "optimal",
+    "check": "matched_reference",
+    "objective": 67.0,
+    "feasible_makespan": 67.0,
+    "validation_passed": true,
+    "statistics": {
+      "nodes_processed": 1,
+      "nodes_created": 1,
+      "nodes_pruned": 1,
+      "nodes_remaining": 0,
+      "best_objective": 67.0,
+      "global_lower_bound": 67.0,
+      "gap": 0.0,
+      "total_solve_time": 0.45226200000070094,
+      "problem_lower_bound": 67.0,
+      "column_num": 21,
+      "master_seconds": 0.00809789999948407,
+      "node_setup_seconds": 0.08931529999972554,
+      "root_initialization_seconds": 0.01189189999968221,
+      "pricing_seconds": 0.26395229999980074,
+      "branch_seconds": 0.0,
+      "restricted_mip_seconds": 0.00837130000036268,
+      "restricted_mip_calls": 1,
+      "root_diagnostics": {
+        "cg_certified": true,
+        "cg_iterations": 7,
+        "lp_objective": 67.0,
+        "integer_solution": false,
+        "columns_in_pool": 18,
+        "master_seconds": 0.00809789999948407,
+        "pricing_seconds": 0.26395229999980074,
+        "heuristic_metrics": {
+          "provider": "qaia",
+          "heuristic_calls": 6,
+          "hit_calls": 5,
+          "exact_calls": 2,
+          "exact_skips": 5,
+          "heuristic_seconds": 0.24862629999734054,
+          "exact_seconds": 0.013822700000673649,
+          "build_seconds": 0.11712020000049961,
+          "search_seconds": 0.1256309999989753,
+          "repair_seconds": 0.004869900003541261,
+          "raw_samples": 60,
+          "improving_unique": 6,
+          "pool_duplicates": 0,
+          "returned_columns": 6,
+          "nonfinite_samples": 0
+        }
+      }
+    },
+    "error": null,
+    "has_feasible_solution": true,
+    "time_to_first_feasible": 0.2892717000013363,
+    "best_found_seconds": 0.2892717000013363,
+    "budget_snapshots": [
+      {
+        "seconds": 10.0,
+        "objective": 67.0
+      },
+      {
+        "seconds": 30.0,
+        "objective": 67.0
+      },
+      {
+        "seconds": 60.0,
+        "objective": 67.0
+      }
+    ],
+    "trajectory_file": "D:\\pythonProject\\BP_QAIA_PCP\\results\\model_v3_vehicle\\2019-03-05_N12_C3_qaia_200_10_s2.incumbents.jsonl",
+    "wall_seconds": 0.4523564000010083,
+    "process_seconds": 4.383150100000421
+  },
+  {
+    "method": "qaia_root",
+    "policy": "greedy_4",
+    "seed": 2,
+    "result": "2019-03-05_N12_C3_greedy_4_s2.json",
+    "status": "optimal",
+    "check": "matched_reference",
+    "objective": 67.0,
+    "feasible_makespan": 67.0,
+    "validation_passed": true,
+    "statistics": {
+      "nodes_processed": 30,
+      "nodes_created": 59,
+      "nodes_pruned": 30,
+      "nodes_remaining": 0,
+      "best_objective": 67.0,
+      "global_lower_bound": 67.0,
+      "gap": 0.0,
+      "total_solve_time": 6.335632199999964,
+      "problem_lower_bound": 67.0,
+      "column_num": 107,
+      "master_seconds": 0.10619490000681253,
+      "node_setup_seconds": 1.8904479999928299,
+      "root_initialization_seconds": 0.01071369999954186,
+      "pricing_seconds": 0.8786276999999245,
+      "branch_seconds": 3.345408800001678,
+      "restricted_mip_seconds": 0.010022200000094017,
+      "restricted_mip_calls": 1,
+      "root_diagnostics": {
+        "cg_certified": true,
+        "cg_iterations": 9,
+        "lp_objective": 67.0,
+        "integer_solution": false,
+        "columns_in_pool": 32,
+        "master_seconds": 0.010725000000093132,
+        "pricing_seconds": 0.2158378999993147,
+        "heuristic_metrics": {
+          "provider": "greedy",
+          "heuristic_calls": 8,
+          "hit_calls": 6,
+          "exact_calls": 3,
+          "exact_skips": 6,
+          "heuristic_seconds": 0.18319239999982528,
+          "exact_seconds": 0.030411400000957656,
+          "build_seconds": 0.17648160000317148,
+          "search_seconds": 0.0007626999977219384,
+          "repair_seconds": 0.003270400000474183,
+          "raw_samples": 32,
+          "improving_unique": 23,
+          "pool_duplicates": 0,
+          "returned_columns": 18,
+          "nonfinite_samples": 0
+        }
+      }
+    },
+    "error": null,
+    "has_feasible_solution": true,
+    "time_to_first_feasible": 0.3534515999999712,
+    "best_found_seconds": 6.311284800000067,
+    "budget_snapshots": [
+      {
+        "seconds": 10.0,
+        "objective": 67.0
+      },
+      {
+        "seconds": 30.0,
+        "objective": 67.0
+      },
+      {
+        "seconds": 60.0,
+        "objective": 67.0
+      }
+    ],
+    "trajectory_file": "D:\\pythonProject\\BP_QAIA_PCP\\results\\model_v3_vehicle\\2019-03-05_N12_C3_greedy_4_s2.incumbents.jsonl",
+    "wall_seconds": 6.335796299999856,
+    "process_seconds": 6.840407400000913
+  },
+  {
+    "method": "qaia_root",
+    "policy": "greedy_10",
+    "seed": 2,
+    "result": "2019-03-05_N12_C3_greedy_10_s2.json",
+    "status": "optimal",
+    "check": "matched_reference",
+    "objective": 67.0,
+    "feasible_makespan": 67.0,
+    "validation_passed": true,
+    "statistics": {
+      "nodes_processed": 140,
+      "nodes_created": 271,
+      "nodes_pruned": 136,
+      "nodes_remaining": 0,
+      "best_objective": 67.0,
+      "global_lower_bound": 67.0,
+      "gap": 0.0,
+      "total_solve_time": 23.979381000001013,
+      "problem_lower_bound": 67.0,
+      "column_num": 405,
+      "master_seconds": 0.4627856000151951,
+      "node_setup_seconds": 7.863653500013243,
+      "root_initialization_seconds": 0.01054170000134036,
+      "pricing_seconds": 2.744764599994596,
+      "branch_seconds": 12.554346299995814,
+      "restricted_mip_seconds": 0.021389699999417644,
+      "restricted_mip_calls": 1,
+      "root_diagnostics": {
+        "cg_certified": true,
+        "cg_iterations": 9,
+        "lp_objective": 67.0,
+        "integer_solution": false,
+        "columns_in_pool": 32,
+        "master_seconds": 0.01127979999728268,
+        "pricing_seconds": 0.21491650000098161,
+        "heuristic_metrics": {
+          "provider": "greedy",
+          "heuristic_calls": 7,
+          "hit_calls": 6,
+          "exact_calls": 3,
+          "exact_skips": 6,
+          "heuristic_seconds": 0.16491269999824,
+          "exact_seconds": 0.04788709999957064,
+          "build_seconds": 0.1547881000005873,
+          "search_seconds": 0.0007006999985605944,
+          "repair_seconds": 0.006803000000218162,
+          "raw_samples": 70,
+          "improving_unique": 44,
+          "pool_duplicates": 0,
+          "returned_columns": 18,
+          "nonfinite_samples": 0
+        }
+      }
+    },
+    "error": null,
+    "has_feasible_solution": true,
+    "time_to_first_feasible": 0.20517839999956777,
+    "best_found_seconds": 23.91262199999983,
+    "budget_snapshots": [
+      {
+        "seconds": 10.0,
+        "objective": 68.0
+      },
+      {
+        "seconds": 30.0,
+        "objective": 67.0
+      },
+      {
+        "seconds": 60.0,
+        "objective": 67.0
+      }
+    ],
+    "trajectory_file": "D:\\pythonProject\\BP_QAIA_PCP\\results\\model_v3_vehicle\\2019-03-05_N12_C3_greedy_10_s2.incumbents.jsonl",
+    "wall_seconds": 23.979722199999742,
+    "process_seconds": 24.501562000001286
+  },
+  {
+    "method": "exact",
+    "policy": null,
+    "seed": 0,
+    "result": "2019-03-05_N12_C3_exact_r2.json",
+    "status": "optimal",
+    "check": "matched_reference",
+    "objective": 67.0,
+    "feasible_makespan": 67.0,
+    "validation_passed": true,
+    "statistics": {
+      "nodes_processed": 141,
+      "nodes_created": 273,
+      "nodes_pruned": 137,
+      "nodes_remaining": 0,
+      "best_objective": 67.0,
+      "global_lower_bound": 67.0,
+      "gap": 0.0,
+      "total_solve_time": 22.038693099999364,
+      "problem_lower_bound": 67.0,
+      "column_num": 365,
+      "master_seconds": 0.4440578000030655,
+      "node_setup_seconds": 7.499198000012257,
+      "root_initialization_seconds": 0.010989000000336091,
+      "pricing_seconds": 2.5158046999986254,
+      "branch_seconds": 11.221302999969339,
+      "restricted_mip_seconds": 0.01639239999894926,
+      "restricted_mip_calls": 1,
+      "root_diagnostics": {
+        "cg_certified": true,
+        "cg_iterations": 7,
+        "lp_objective": 67.0,
+        "integer_solution": false,
+        "columns_in_pool": 20,
+        "master_seconds": 0.008112999999866588,
+        "pricing_seconds": 0.15645489999951678,
+        "heuristic_metrics": null
+      }
+    },
+    "error": null,
+    "has_feasible_solution": true,
+    "time_to_first_feasible": 0.28641960000095423,
+    "best_found_seconds": 21.959463799999867,
+    "budget_snapshots": [
+      {
+        "seconds": 10.0,
+        "objective": 68.0
+      },
+      {
+        "seconds": 30.0,
+        "objective": 67.0
+      },
+      {
+        "seconds": 60.0,
+        "objective": 67.0
+      }
+    ],
+    "trajectory_file": "D:\\pythonProject\\BP_QAIA_PCP\\results\\model_v3_vehicle\\2019-03-05_N12_C3_exact_r2.incumbents.jsonl",
+    "wall_seconds": 22.039042899999913,
+    "process_seconds": 22.56654570000137
+  }
+]

@@ -1,0 +1,380 @@
+[
+  {
+    "method": "compact",
+    "policy": null,
+    "seed": 0,
+    "result": "v1_N6_C2_s0_compact.json",
+    "status": "optimal",
+    "check": "matched_reference",
+    "objective": 6.0,
+    "feasible_makespan": 6.0,
+    "validation_passed": true,
+    "statistics": null,
+    "error": null,
+    "has_feasible_solution": true,
+    "time_to_first_feasible": 0.005050900000242109,
+    "best_found_seconds": 0.008341700000528363,
+    "budget_snapshots": [
+      {
+        "seconds": 10.0,
+        "objective": 6.0
+      },
+      {
+        "seconds": 30.0,
+        "objective": 6.0
+      }
+    ],
+    "trajectory_file": "D:\\pythonProject\\BP_QAIA_PCP\\results\\model_v3_smoke\\v1_N6_C2_s0_compact.incumbents.jsonl",
+    "wall_seconds": 0.008931299999858311,
+    "process_seconds": 0.22756750000007742
+  },
+  {
+    "method": "qaia_root",
+    "policy": "qaia_50_4",
+    "seed": 0,
+    "result": "v1_N6_C2_s0_qaia_50_4_s0.json",
+    "status": "optimal",
+    "check": "matched_reference",
+    "objective": 6.0,
+    "feasible_makespan": 6.0,
+    "validation_passed": true,
+    "statistics": {
+      "nodes_processed": 3,
+      "nodes_created": 5,
+      "nodes_pruned": 3,
+      "nodes_remaining": 0,
+      "best_objective": 6.0,
+      "global_lower_bound": 6.0,
+      "gap": 0.0,
+      "total_solve_time": 0.04929620000075374,
+      "problem_lower_bound": 6.0,
+      "column_num": 35,
+      "master_seconds": 0.009367299999212264,
+      "node_setup_seconds": 0.00614300000052026,
+      "root_initialization_seconds": 0.0001571000002513756,
+      "pricing_seconds": 0.02450100000260136,
+      "branch_seconds": 0.0006963000005271169,
+      "restricted_mip_seconds": 0.005508700000063982,
+      "restricted_mip_calls": 1,
+      "root_diagnostics": {
+        "cg_certified": true,
+        "cg_iterations": 13,
+        "lp_objective": 6.0,
+        "integer_solution": false,
+        "columns_in_pool": 19,
+        "master_seconds": 0.005145999999513151,
+        "pricing_seconds": 0.019533700000465615,
+        "heuristic_metrics": {
+          "provider": "qaia",
+          "heuristic_calls": 10,
+          "hit_calls": 9,
+          "exact_calls": 4,
+          "exact_skips": 9,
+          "heuristic_seconds": 0.01694220000081259,
+          "exact_seconds": 0.0020578999992721947,
+          "build_seconds": 0.004235000001244771,
+          "search_seconds": 0.011755499996979779,
+          "repair_seconds": 0.0007228000004033674,
+          "raw_samples": 40,
+          "improving_unique": 10,
+          "pool_duplicates": 0,
+          "returned_columns": 10,
+          "nonfinite_samples": 0
+        }
+      }
+    },
+    "error": null,
+    "has_feasible_solution": true,
+    "time_to_first_feasible": 0.031391700000312994,
+    "best_found_seconds": 0.047642999999879976,
+    "budget_snapshots": [
+      {
+        "seconds": 10.0,
+        "objective": 6.0
+      },
+      {
+        "seconds": 30.0,
+        "objective": 6.0
+      }
+    ],
+    "trajectory_file": "D:\\pythonProject\\BP_QAIA_PCP\\results\\model_v3_smoke\\v1_N6_C2_s0_qaia_50_4_s0.incumbents.jsonl",
+    "wall_seconds": 0.04943379999986064,
+    "process_seconds": 5.127011500000663
+  },
+  {
+    "method": "qaia_root",
+    "policy": "qaia_200_10",
+    "seed": 0,
+    "result": "v1_N6_C2_s0_qaia_200_10_s0.json",
+    "status": "optimal",
+    "check": "matched_reference",
+    "objective": 6.0,
+    "feasible_makespan": 6.0,
+    "validation_passed": true,
+    "statistics": {
+      "nodes_processed": 3,
+      "nodes_created": 5,
+      "nodes_pruned": 3,
+      "nodes_remaining": 0,
+      "best_objective": 6.0,
+      "global_lower_bound": 6.0,
+      "gap": 0.0,
+      "total_solve_time": 0.05923929999971733,
+      "problem_lower_bound": 6.0,
+      "column_num": 41,
+      "master_seconds": 0.010002300001360709,
+      "node_setup_seconds": 0.006252799998947012,
+      "root_initialization_seconds": 0.0001609999999345746,
+      "pricing_seconds": 0.036584899999979825,
+      "branch_seconds": 0.0007287999997060979,
+      "restricted_mip_seconds": 0.0025517000003674184,
+      "restricted_mip_calls": 1,
+      "root_diagnostics": {
+        "cg_certified": true,
+        "cg_iterations": 8,
+        "lp_objective": 6.0,
+        "integer_solution": false,
+        "columns_in_pool": 20,
+        "master_seconds": 0.0035547000006772578,
+        "pricing_seconds": 0.028838000000178,
+        "heuristic_metrics": {
+          "provider": "qaia",
+          "heuristic_calls": 6,
+          "hit_calls": 6,
+          "exact_calls": 2,
+          "exact_skips": 6,
+          "heuristic_seconds": 0.02711659999931726,
+          "exact_seconds": 0.001373799999782932,
+          "build_seconds": 0.0026452000020071864,
+          "search_seconds": 0.023434700001416786,
+          "repair_seconds": 0.0008959000006143469,
+          "raw_samples": 60,
+          "improving_unique": 17,
+          "pool_duplicates": 0,
+          "returned_columns": 14,
+          "nonfinite_samples": 0
+        }
+      }
+    },
+    "error": null,
+    "has_feasible_solution": true,
+    "time_to_first_feasible": 0.039144600000327046,
+    "best_found_seconds": 0.05845359999966604,
+    "budget_snapshots": [
+      {
+        "seconds": 10.0,
+        "objective": 6.0
+      },
+      {
+        "seconds": 30.0,
+        "objective": 6.0
+      }
+    ],
+    "trajectory_file": "D:\\pythonProject\\BP_QAIA_PCP\\results\\model_v3_smoke\\v1_N6_C2_s0_qaia_200_10_s0.incumbents.jsonl",
+    "wall_seconds": 0.05934909999996307,
+    "process_seconds": 3.982766199999787
+  },
+  {
+    "method": "qaia_root",
+    "policy": "greedy_4",
+    "seed": 0,
+    "result": "v1_N6_C2_s0_greedy_4_s0.json",
+    "status": "optimal",
+    "check": "matched_reference",
+    "objective": 6.0,
+    "feasible_makespan": 6.0,
+    "validation_passed": true,
+    "statistics": {
+      "nodes_processed": 2,
+      "nodes_created": 3,
+      "nodes_pruned": 2,
+      "nodes_remaining": 0,
+      "best_objective": 6.0,
+      "global_lower_bound": 6.0,
+      "gap": 0.0,
+      "total_solve_time": 0.02811109999947803,
+      "problem_lower_bound": 6.0,
+      "column_num": 31,
+      "master_seconds": 0.0058509000000412925,
+      "node_setup_seconds": 0.004860000000007858,
+      "root_initialization_seconds": 0.00016429999959655106,
+      "pricing_seconds": 0.008778300001722528,
+      "branch_seconds": 0.00043000000005122274,
+      "restricted_mip_seconds": 0.004797700000381155,
+      "restricted_mip_calls": 1,
+      "root_diagnostics": {
+        "cg_certified": true,
+        "cg_iterations": 11,
+        "lp_objective": 6.0,
+        "integer_solution": false,
+        "columns_in_pool": 26,
+        "master_seconds": 0.004770900000039546,
+        "pricing_seconds": 0.007903500000793429,
+        "heuristic_metrics": {
+          "provider": "greedy",
+          "heuristic_calls": 9,
+          "hit_calls": 8,
+          "exact_calls": 3,
+          "exact_skips": 8,
+          "heuristic_seconds": 0.005319199999576085,
+          "exact_seconds": 0.0020721999999295804,
+          "build_seconds": 0.0038118000002214103,
+          "search_seconds": 0.0005412999989857781,
+          "repair_seconds": 0.0007129999985409086,
+          "raw_samples": 36,
+          "improving_unique": 19,
+          "pool_duplicates": 0,
+          "returned_columns": 18,
+          "nonfinite_samples": 0
+        }
+      }
+    },
+    "error": null,
+    "has_feasible_solution": true,
+    "time_to_first_feasible": 0.011756799999602663,
+    "best_found_seconds": 0.0273654999991777,
+    "budget_snapshots": [
+      {
+        "seconds": 10.0,
+        "objective": 6.0
+      },
+      {
+        "seconds": 30.0,
+        "objective": 6.0
+      }
+    ],
+    "trajectory_file": "D:\\pythonProject\\BP_QAIA_PCP\\results\\model_v3_smoke\\v1_N6_C2_s0_greedy_4_s0.incumbents.jsonl",
+    "wall_seconds": 0.028205599999637343,
+    "process_seconds": 0.5201803999998447
+  },
+  {
+    "method": "qaia_root",
+    "policy": "greedy_10",
+    "seed": 0,
+    "result": "v1_N6_C2_s0_greedy_10_s0.json",
+    "status": "optimal",
+    "check": "matched_reference",
+    "objective": 6.0,
+    "feasible_makespan": 6.0,
+    "validation_passed": true,
+    "statistics": {
+      "nodes_processed": 2,
+      "nodes_created": 3,
+      "nodes_pruned": 2,
+      "nodes_remaining": 0,
+      "best_objective": 6.0,
+      "global_lower_bound": 6.0,
+      "gap": 0.0,
+      "total_solve_time": 0.02949960000023566,
+      "problem_lower_bound": 6.0,
+      "column_num": 34,
+      "master_seconds": 0.006312600001365354,
+      "node_setup_seconds": 0.004887799999778508,
+      "root_initialization_seconds": 0.00016320000031555537,
+      "pricing_seconds": 0.010111600000527687,
+      "branch_seconds": 0.0003983000005973736,
+      "restricted_mip_seconds": 0.0043242000001555425,
+      "restricted_mip_calls": 1,
+      "root_diagnostics": {
+        "cg_certified": true,
+        "cg_iterations": 9,
+        "lp_objective": 6.0,
+        "integer_solution": false,
+        "columns_in_pool": 25,
+        "master_seconds": 0.004220500001792971,
+        "pricing_seconds": 0.00735759999952279,
+        "heuristic_metrics": {
+          "provider": "greedy",
+          "heuristic_calls": 7,
+          "hit_calls": 6,
+          "exact_calls": 3,
+          "exact_skips": 6,
+          "heuristic_seconds": 0.004954899999574991,
+          "exact_seconds": 0.001953700000740355,
+          "build_seconds": 0.003172699999595352,
+          "search_seconds": 0.00047759999961272115,
+          "repair_seconds": 0.0011049999993701931,
+          "raw_samples": 70,
+          "improving_unique": 36,
+          "pool_duplicates": 0,
+          "returned_columns": 18,
+          "nonfinite_samples": 0
+        }
+      }
+    },
+    "error": null,
+    "has_feasible_solution": true,
+    "time_to_first_feasible": 0.009471800000028452,
+    "best_found_seconds": 0.028721100000439037,
+    "budget_snapshots": [
+      {
+        "seconds": 10.0,
+        "objective": 6.0
+      },
+      {
+        "seconds": 30.0,
+        "objective": 6.0
+      }
+    ],
+    "trajectory_file": "D:\\pythonProject\\BP_QAIA_PCP\\results\\model_v3_smoke\\v1_N6_C2_s0_greedy_10_s0.incumbents.jsonl",
+    "wall_seconds": 0.02959610000016255,
+    "process_seconds": 0.5107355000000098
+  },
+  {
+    "method": "exact",
+    "policy": null,
+    "seed": 0,
+    "result": "v1_N6_C2_s0_exact_r0.json",
+    "status": "optimal",
+    "check": "matched_reference",
+    "objective": 6.0,
+    "feasible_makespan": 6.0,
+    "validation_passed": true,
+    "statistics": {
+      "nodes_processed": 3,
+      "nodes_created": 5,
+      "nodes_pruned": 3,
+      "nodes_remaining": 0,
+      "best_objective": 6.0,
+      "global_lower_bound": 6.0,
+      "gap": 0.0,
+      "total_solve_time": 0.03990520000024844,
+      "problem_lower_bound": 6.0,
+      "column_num": 35,
+      "master_seconds": 0.008329199999934644,
+      "node_setup_seconds": 0.005681900000126916,
+      "root_initialization_seconds": 0.00020819999917875975,
+      "pricing_seconds": 0.012731699999676493,
+      "branch_seconds": 0.0007064999990689103,
+      "restricted_mip_seconds": 0.010559700000158045,
+      "restricted_mip_calls": 1,
+      "root_diagnostics": {
+        "cg_certified": true,
+        "cg_iterations": 10,
+        "lp_objective": 6.0,
+        "integer_solution": false,
+        "columns_in_pool": 18,
+        "master_seconds": 0.0040220000000772416,
+        "pricing_seconds": 0.006916599999385653,
+        "heuristic_metrics": null
+      }
+    },
+    "error": null,
+    "has_feasible_solution": true,
+    "time_to_first_feasible": 0.01613950000046316,
+    "best_found_seconds": 0.03906730000016978,
+    "budget_snapshots": [
+      {
+        "seconds": 10.0,
+        "objective": 6.0
+      },
+      {
+        "seconds": 30.0,
+        "objective": 6.0
+      }
+    ],
+    "trajectory_file": "D:\\pythonProject\\BP_QAIA_PCP\\results\\model_v3_smoke\\v1_N6_C2_s0_exact_r0.incumbents.jsonl",
+    "wall_seconds": 0.040037600000687235,
+    "process_seconds": 0.5142897000005178
+  }
+]
