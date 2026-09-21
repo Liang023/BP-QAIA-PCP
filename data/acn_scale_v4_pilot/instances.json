@@ -1,0 +1,41 @@
+{
+  "design": {
+    "family": "acn",
+    "sizes": [
+      16,
+      20
+    ],
+    "ratios": [
+      4
+    ],
+    "dates": [
+      "2019-03-05"
+    ],
+    "data_seeds": [
+      10
+    ],
+    "raw": "data/raw/acn/caltech_sessions.json",
+    "max_vertices": 3000,
+    "out_dir": "data/acn_scale_v4_pilot"
+  },
+  "instances": [
+    "D:\\pythonProject\\BP_QAIA_PCP\\data\\acn_scale_v4_pilot\\2019-03-05_N16_C4.json",
+    "D:\\pythonProject\\BP_QAIA_PCP\\data\\acn_scale_v4_pilot\\2019-03-05_N20_C5.json"
+  ],
+  "dimensions": [
+    {
+      "name": "2019-03-05_N16_C4",
+      "vehicles": 16,
+      "chargers": 4,
+      "vertices": 414,
+      "instance_sha256": "8359ae5f3df322672f371b45dab81d3f443cf1fa0a813c44c8db2ffb31d10ee4"
+    },
+    {
+      "name": "2019-03-05_N20_C5",
+      "vehicles": 20,
+      "chargers": 5,
+      "vertices": 519,
+      "instance_sha256": "54cf34ff77bf3e92a162a0df7e6622e0404d70014deb46264026d21d17347597"
+    }
+  ]
+}

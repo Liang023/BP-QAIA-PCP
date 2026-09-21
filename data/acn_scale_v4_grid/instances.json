@@ -1,0 +1,125 @@
+{
+  "design": {
+    "family": "acn",
+    "sizes": [
+      16,
+      20,
+      24
+    ],
+    "ratios": [
+      4
+    ],
+    "dates": [
+      "2019-03-04",
+      "2019-03-06",
+      "2019-03-07",
+      "2019-03-08"
+    ],
+    "data_seeds": [
+      10
+    ],
+    "raw": "data/raw/acn/caltech_sessions.json",
+    "max_vertices": 3000,
+    "out_dir": "data/acn_scale_v4_grid"
+  },
+  "instances": [
+    "D:\\pythonProject\\BP_QAIA_PCP\\data\\acn_scale_v4_grid\\2019-03-04_N16_C4.json",
+    "D:\\pythonProject\\BP_QAIA_PCP\\data\\acn_scale_v4_grid\\2019-03-04_N20_C5.json",
+    "D:\\pythonProject\\BP_QAIA_PCP\\data\\acn_scale_v4_grid\\2019-03-04_N24_C6.json",
+    "D:\\pythonProject\\BP_QAIA_PCP\\data\\acn_scale_v4_grid\\2019-03-06_N16_C4.json",
+    "D:\\pythonProject\\BP_QAIA_PCP\\data\\acn_scale_v4_grid\\2019-03-06_N20_C5.json",
+    "D:\\pythonProject\\BP_QAIA_PCP\\data\\acn_scale_v4_grid\\2019-03-06_N24_C6.json",
+    "D:\\pythonProject\\BP_QAIA_PCP\\data\\acn_scale_v4_grid\\2019-03-07_N16_C4.json",
+    "D:\\pythonProject\\BP_QAIA_PCP\\data\\acn_scale_v4_grid\\2019-03-07_N20_C5.json",
+    "D:\\pythonProject\\BP_QAIA_PCP\\data\\acn_scale_v4_grid\\2019-03-07_N24_C6.json",
+    "D:\\pythonProject\\BP_QAIA_PCP\\data\\acn_scale_v4_grid\\2019-03-08_N16_C4.json",
+    "D:\\pythonProject\\BP_QAIA_PCP\\data\\acn_scale_v4_grid\\2019-03-08_N20_C5.json",
+    "D:\\pythonProject\\BP_QAIA_PCP\\data\\acn_scale_v4_grid\\2019-03-08_N24_C6.json"
+  ],
+  "dimensions": [
+    {
+      "name": "2019-03-04_N16_C4",
+      "vehicles": 16,
+      "chargers": 4,
+      "vertices": 333,
+      "instance_sha256": "361e3494c2cd54ad0425dcef2be8b5cfb4f59b633d11308fb6df1e7bf4fa8a12"
+    },
+    {
+      "name": "2019-03-04_N20_C5",
+      "vehicles": 20,
+      "chargers": 5,
+      "vertices": 421,
+      "instance_sha256": "6fc8c826817fa8885bc965f410c11383293ff4047a0736af9bb1afa175f4e1df"
+    },
+    {
+      "name": "2019-03-04_N24_C6",
+      "vehicles": 24,
+      "chargers": 6,
+      "vertices": 502,
+      "instance_sha256": "d9e9db3a574c9ecb4e4e198af88e81a064ef83cda6dd0987ab9339d366d7b390"
+    },
+    {
+      "name": "2019-03-06_N16_C4",
+      "vehicles": 16,
+      "chargers": 4,
+      "vertices": 324,
+      "instance_sha256": "40067b7516ff4e896e914467bb3bd554feaea4cc2bbd5480b84563c92b0139e0"
+    },
+    {
+      "name": "2019-03-06_N20_C5",
+      "vehicles": 20,
+      "chargers": 5,
+      "vertices": 399,
+      "instance_sha256": "975ae23a1dd5f1f573f02464a1e2d78bc4ea070843d6745f41ad0f8bb9205900"
+    },
+    {
+      "name": "2019-03-06_N24_C6",
+      "vehicles": 24,
+      "chargers": 6,
+      "vertices": 459,
+      "instance_sha256": "fef7d8bd4fdd055c32aec2709349156c87654b7957605fb70afcccb438bdc5c8"
+    },
+    {
+      "name": "2019-03-07_N16_C4",
+      "vehicles": 16,
+      "chargers": 4,
+      "vertices": 451,
+      "instance_sha256": "9200bb686948716cd325f150da0af96ab30abe55045dc043daaef1e097868624"
+    },
+    {
+      "name": "2019-03-07_N20_C5",
+      "vehicles": 20,
+      "chargers": 5,
+      "vertices": 557,
+      "instance_sha256": "5b114a431ad7d2bce3edabc9ad667a08c98edf3397ca3cdf3e86626f773d4280"
+    },
+    {
+      "name": "2019-03-07_N24_C6",
+      "vehicles": 24,
+      "chargers": 6,
+      "vertices": 633,
+      "instance_sha256": "83d5ea798f25040cd2475960a28ab508b0ff97b8612b5ea3944ac994aadd2965"
+    },
+    {
+      "name": "2019-03-08_N16_C4",
+      "vehicles": 16,
+      "chargers": 4,
+      "vertices": 454,
+      "instance_sha256": "793e6accdf25e6b745f05f4352ccbba3150e13b79d222d119f569043710695a3"
+    },
+    {
+      "name": "2019-03-08_N20_C5",
+      "vehicles": 20,
+      "chargers": 5,
+      "vertices": 556,
+      "instance_sha256": "6c0e5bd4a5cd8b69de80e41b0bf0e18aab1a2db42414e154fd6db3032e1455cf"
+    },
+    {
+      "name": "2019-03-08_N24_C6",
+      "vehicles": 24,
+      "chargers": 6,
+      "vertices": 623,
+      "instance_sha256": "03044b5ddb3b1b6e5eb8f4e1e436fe0cf90cf5eb6db0ff0f2f1b87e9e2253893"
+    }
+  ]
+}

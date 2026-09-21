@@ -1,0 +1,2305 @@
+{
+  "schema_version": "acn-derived-v1",
+  "name": "2019-03-05_N16_C4",
+  "time_unit": "slot",
+  "time_horizon": 76,
+  "num_vehicles": 16,
+  "num_chargers": 4,
+  "metadata": {
+    "raw_sha256": "1a03969a5e987ba4c2e2fd02d7c9b4b5d93aaac5addf655c50ebbb4e4839eaee",
+    "converter_sha256": "976307baa841566b790fd536b6edeee10222265268b2f6dec1760f7c6dfff04e",
+    "raw_filename": "caltech_sessions.json",
+    "site_id": "0002",
+    "timezone": "America/Los_Angeles",
+    "local_arrival_date": "2019-03-05",
+    "origin_utc": "2019-03-05T08:00:00+00:00",
+    "slot_minutes": 15,
+    "power_kw": "7",
+    "energy_basis": "observed_kWhDelivered",
+    "charger_basis": "assumed_homogeneous_pool",
+    "selection": "first_n_by_connection_time_then_session_id",
+    "max_sessions": 16,
+    "max_vertices": 3000,
+    "max_stay_hours": 48
+  },
+  "vehicles": [
+    {
+      "session_id": "2_39_78_365_2019-03-05 15:17:31.779485",
+      "station_id": "2-39-78-365",
+      "connection_utc": "2019-03-05T15:17:32+00:00",
+      "disconnect_utc": "2019-03-06T01:42:26+00:00",
+      "energy_kwh": "5.861",
+      "arrival": 30,
+      "departure": 70,
+      "duration": 4,
+      "id": 0,
+      "candidates": [
+        {
+          "candidate_id": 0,
+          "start": 30,
+          "end": 34
+        },
+        {
+          "candidate_id": 1,
+          "start": 31,
+          "end": 35
+        },
+        {
+          "candidate_id": 2,
+          "start": 32,
+          "end": 36
+        },
+        {
+          "candidate_id": 3,
+          "start": 33,
+          "end": 37
+        },
+        {
+          "candidate_id": 4,
+          "start": 34,
+          "end": 38
+        },
+        {
+          "candidate_id": 5,
+          "start": 35,
+          "end": 39
+        },
+        {
+          "candidate_id": 6,
+          "start": 36,
+          "end": 40
+        },
+        {
+          "candidate_id": 7,
+          "start": 37,
+          "end": 41
+        },
+        {
+          "candidate_id": 8,
+          "start": 38,
+          "end": 42
+        },
+        {
+          "candidate_id": 9,
+          "start": 39,
+          "end": 43
+        },
+        {
+          "candidate_id": 10,
+          "start": 40,
+          "end": 44
+        },
+        {
+          "candidate_id": 11,
+          "start": 41,
+          "end": 45
+        },
+        {
+          "candidate_id": 12,
+          "start": 42,
+          "end": 46
+        },
+        {
+          "candidate_id": 13,
+          "start": 43,
+          "end": 47
+        },
+        {
+          "candidate_id": 14,
+          "start": 44,
+          "end": 48
+        },
+        {
+          "candidate_id": 15,
+          "start": 45,
+          "end": 49
+        },
+        {
+          "candidate_id": 16,
+          "start": 46,
+          "end": 50
+        },
+        {
+          "candidate_id": 17,
+          "start": 47,
+          "end": 51
+        },
+        {
+          "candidate_id": 18,
+          "start": 48,
+          "end": 52
+        },
+        {
+          "candidate_id": 19,
+          "start": 49,
+          "end": 53
+        },
+        {
+          "candidate_id": 20,
+          "start": 50,
+          "end": 54
+        },
+        {
+          "candidate_id": 21,
+          "start": 51,
+          "end": 55
+        },
+        {
+          "candidate_id": 22,
+          "start": 52,
+          "end": 56
+        },
+        {
+          "candidate_id": 23,
+          "start": 53,
+          "end": 57
+        },
+        {
+          "candidate_id": 24,
+          "start": 54,
+          "end": 58
+        },
+        {
+          "candidate_id": 25,
+          "start": 55,
+          "end": 59
+        },
+        {
+          "candidate_id": 26,
+          "start": 56,
+          "end": 60
+        },
+        {
+          "candidate_id": 27,
+          "start": 57,
+          "end": 61
+        },
+        {
+          "candidate_id": 28,
+          "start": 58,
+          "end": 62
+        },
+        {
+          "candidate_id": 29,
+          "start": 59,
+          "end": 63
+        },
+        {
+          "candidate_id": 30,
+          "start": 60,
+          "end": 64
+        },
+        {
+          "candidate_id": 31,
+          "start": 61,
+          "end": 65
+        },
+        {
+          "candidate_id": 32,
+          "start": 62,
+          "end": 66
+        },
+        {
+          "candidate_id": 33,
+          "start": 63,
+          "end": 67
+        },
+        {
+          "candidate_id": 34,
+          "start": 64,
+          "end": 68
+        },
+        {
+          "candidate_id": 35,
+          "start": 65,
+          "end": 69
+        },
+        {
+          "candidate_id": 36,
+          "start": 66,
+          "end": 70
+        }
+      ]
+    },
+    {
+      "session_id": "2_39_78_361_2019-03-05 15:47:09.536649",
+      "station_id": "2-39-78-361",
+      "connection_utc": "2019-03-05T15:47:10+00:00",
+      "disconnect_utc": "2019-03-06T03:03:40+00:00",
+      "energy_kwh": "3.643",
+      "arrival": 32,
+      "departure": 76,
+      "duration": 3,
+      "id": 1,
+      "candidates": [
+        {
+          "candidate_id": 0,
+          "start": 32,
+          "end": 35
+        },
+        {
+          "candidate_id": 1,
+          "start": 33,
+          "end": 36
+        },
+        {
+          "candidate_id": 2,
+          "start": 34,
+          "end": 37
+        },
+        {
+          "candidate_id": 3,
+          "start": 35,
+          "end": 38
+        },
+        {
+          "candidate_id": 4,
+          "start": 36,
+          "end": 39
+        },
+        {
+          "candidate_id": 5,
+          "start": 37,
+          "end": 40
+        },
+        {
+          "candidate_id": 6,
+          "start": 38,
+          "end": 41
+        },
+        {
+          "candidate_id": 7,
+          "start": 39,
+          "end": 42
+        },
+        {
+          "candidate_id": 8,
+          "start": 40,
+          "end": 43
+        },
+        {
+          "candidate_id": 9,
+          "start": 41,
+          "end": 44
+        },
+        {
+          "candidate_id": 10,
+          "start": 42,
+          "end": 45
+        },
+        {
+          "candidate_id": 11,
+          "start": 43,
+          "end": 46
+        },
+        {
+          "candidate_id": 12,
+          "start": 44,
+          "end": 47
+        },
+        {
+          "candidate_id": 13,
+          "start": 45,
+          "end": 48
+        },
+        {
+          "candidate_id": 14,
+          "start": 46,
+          "end": 49
+        },
+        {
+          "candidate_id": 15,
+          "start": 47,
+          "end": 50
+        },
+        {
+          "candidate_id": 16,
+          "start": 48,
+          "end": 51
+        },
+        {
+          "candidate_id": 17,
+          "start": 49,
+          "end": 52
+        },
+        {
+          "candidate_id": 18,
+          "start": 50,
+          "end": 53
+        },
+        {
+          "candidate_id": 19,
+          "start": 51,
+          "end": 54
+        },
+        {
+          "candidate_id": 20,
+          "start": 52,
+          "end": 55
+        },
+        {
+          "candidate_id": 21,
+          "start": 53,
+          "end": 56
+        },
+        {
+          "candidate_id": 22,
+          "start": 54,
+          "end": 57
+        },
+        {
+          "candidate_id": 23,
+          "start": 55,
+          "end": 58
+        },
+        {
+          "candidate_id": 24,
+          "start": 56,
+          "end": 59
+        },
+        {
+          "candidate_id": 25,
+          "start": 57,
+          "end": 60
+        },
+        {
+          "candidate_id": 26,
+          "start": 58,
+          "end": 61
+        },
+        {
+          "candidate_id": 27,
+          "start": 59,
+          "end": 62
+        },
+        {
+          "candidate_id": 28,
+          "start": 60,
+          "end": 63
+        },
+        {
+          "candidate_id": 29,
+          "start": 61,
+          "end": 64
+        },
+        {
+          "candidate_id": 30,
+          "start": 62,
+          "end": 65
+        },
+        {
+          "candidate_id": 31,
+          "start": 63,
+          "end": 66
+        },
+        {
+          "candidate_id": 32,
+          "start": 64,
+          "end": 67
+        },
+        {
+          "candidate_id": 33,
+          "start": 65,
+          "end": 68
+        },
+        {
+          "candidate_id": 34,
+          "start": 66,
+          "end": 69
+        },
+        {
+          "candidate_id": 35,
+          "start": 67,
+          "end": 70
+        },
+        {
+          "candidate_id": 36,
+          "start": 68,
+          "end": 71
+        },
+        {
+          "candidate_id": 37,
+          "start": 69,
+          "end": 72
+        },
+        {
+          "candidate_id": 38,
+          "start": 70,
+          "end": 73
+        },
+        {
+          "candidate_id": 39,
+          "start": 71,
+          "end": 74
+        },
+        {
+          "candidate_id": 40,
+          "start": 72,
+          "end": 75
+        },
+        {
+          "candidate_id": 41,
+          "start": 73,
+          "end": 76
+        }
+      ]
+    },
+    {
+      "session_id": "2_39_79_379_2019-03-05 15:58:09.059346",
+      "station_id": "2-39-79-379",
+      "connection_utc": "2019-03-05T15:58:09+00:00",
+      "disconnect_utc": "2019-03-06T02:54:25+00:00",
+      "energy_kwh": "3.648",
+      "arrival": 32,
+      "departure": 75,
+      "duration": 3,
+      "id": 2,
+      "candidates": [
+        {
+          "candidate_id": 0,
+          "start": 32,
+          "end": 35
+        },
+        {
+          "candidate_id": 1,
+          "start": 33,
+          "end": 36
+        },
+        {
+          "candidate_id": 2,
+          "start": 34,
+          "end": 37
+        },
+        {
+          "candidate_id": 3,
+          "start": 35,
+          "end": 38
+        },
+        {
+          "candidate_id": 4,
+          "start": 36,
+          "end": 39
+        },
+        {
+          "candidate_id": 5,
+          "start": 37,
+          "end": 40
+        },
+        {
+          "candidate_id": 6,
+          "start": 38,
+          "end": 41
+        },
+        {
+          "candidate_id": 7,
+          "start": 39,
+          "end": 42
+        },
+        {
+          "candidate_id": 8,
+          "start": 40,
+          "end": 43
+        },
+        {
+          "candidate_id": 9,
+          "start": 41,
+          "end": 44
+        },
+        {
+          "candidate_id": 10,
+          "start": 42,
+          "end": 45
+        },
+        {
+          "candidate_id": 11,
+          "start": 43,
+          "end": 46
+        },
+        {
+          "candidate_id": 12,
+          "start": 44,
+          "end": 47
+        },
+        {
+          "candidate_id": 13,
+          "start": 45,
+          "end": 48
+        },
+        {
+          "candidate_id": 14,
+          "start": 46,
+          "end": 49
+        },
+        {
+          "candidate_id": 15,
+          "start": 47,
+          "end": 50
+        },
+        {
+          "candidate_id": 16,
+          "start": 48,
+          "end": 51
+        },
+        {
+          "candidate_id": 17,
+          "start": 49,
+          "end": 52
+        },
+        {
+          "candidate_id": 18,
+          "start": 50,
+          "end": 53
+        },
+        {
+          "candidate_id": 19,
+          "start": 51,
+          "end": 54
+        },
+        {
+          "candidate_id": 20,
+          "start": 52,
+          "end": 55
+        },
+        {
+          "candidate_id": 21,
+          "start": 53,
+          "end": 56
+        },
+        {
+          "candidate_id": 22,
+          "start": 54,
+          "end": 57
+        },
+        {
+          "candidate_id": 23,
+          "start": 55,
+          "end": 58
+        },
+        {
+          "candidate_id": 24,
+          "start": 56,
+          "end": 59
+        },
+        {
+          "candidate_id": 25,
+          "start": 57,
+          "end": 60
+        },
+        {
+          "candidate_id": 26,
+          "start": 58,
+          "end": 61
+        },
+        {
+          "candidate_id": 27,
+          "start": 59,
+          "end": 62
+        },
+        {
+          "candidate_id": 28,
+          "start": 60,
+          "end": 63
+        },
+        {
+          "candidate_id": 29,
+          "start": 61,
+          "end": 64
+        },
+        {
+          "candidate_id": 30,
+          "start": 62,
+          "end": 65
+        },
+        {
+          "candidate_id": 31,
+          "start": 63,
+          "end": 66
+        },
+        {
+          "candidate_id": 32,
+          "start": 64,
+          "end": 67
+        },
+        {
+          "candidate_id": 33,
+          "start": 65,
+          "end": 68
+        },
+        {
+          "candidate_id": 34,
+          "start": 66,
+          "end": 69
+        },
+        {
+          "candidate_id": 35,
+          "start": 67,
+          "end": 70
+        },
+        {
+          "candidate_id": 36,
+          "start": 68,
+          "end": 71
+        },
+        {
+          "candidate_id": 37,
+          "start": 69,
+          "end": 72
+        },
+        {
+          "candidate_id": 38,
+          "start": 70,
+          "end": 73
+        },
+        {
+          "candidate_id": 39,
+          "start": 71,
+          "end": 74
+        },
+        {
+          "candidate_id": 40,
+          "start": 72,
+          "end": 75
+        }
+      ]
+    },
+    {
+      "session_id": "2_39_123_23_2019-03-05 15:59:19.961478",
+      "station_id": "2-39-123-23",
+      "connection_utc": "2019-03-05T15:59:20+00:00",
+      "disconnect_utc": "2019-03-05T22:37:25+00:00",
+      "energy_kwh": "4.58",
+      "arrival": 32,
+      "departure": 58,
+      "duration": 3,
+      "id": 3,
+      "candidates": [
+        {
+          "candidate_id": 0,
+          "start": 32,
+          "end": 35
+        },
+        {
+          "candidate_id": 1,
+          "start": 33,
+          "end": 36
+        },
+        {
+          "candidate_id": 2,
+          "start": 34,
+          "end": 37
+        },
+        {
+          "candidate_id": 3,
+          "start": 35,
+          "end": 38
+        },
+        {
+          "candidate_id": 4,
+          "start": 36,
+          "end": 39
+        },
+        {
+          "candidate_id": 5,
+          "start": 37,
+          "end": 40
+        },
+        {
+          "candidate_id": 6,
+          "start": 38,
+          "end": 41
+        },
+        {
+          "candidate_id": 7,
+          "start": 39,
+          "end": 42
+        },
+        {
+          "candidate_id": 8,
+          "start": 40,
+          "end": 43
+        },
+        {
+          "candidate_id": 9,
+          "start": 41,
+          "end": 44
+        },
+        {
+          "candidate_id": 10,
+          "start": 42,
+          "end": 45
+        },
+        {
+          "candidate_id": 11,
+          "start": 43,
+          "end": 46
+        },
+        {
+          "candidate_id": 12,
+          "start": 44,
+          "end": 47
+        },
+        {
+          "candidate_id": 13,
+          "start": 45,
+          "end": 48
+        },
+        {
+          "candidate_id": 14,
+          "start": 46,
+          "end": 49
+        },
+        {
+          "candidate_id": 15,
+          "start": 47,
+          "end": 50
+        },
+        {
+          "candidate_id": 16,
+          "start": 48,
+          "end": 51
+        },
+        {
+          "candidate_id": 17,
+          "start": 49,
+          "end": 52
+        },
+        {
+          "candidate_id": 18,
+          "start": 50,
+          "end": 53
+        },
+        {
+          "candidate_id": 19,
+          "start": 51,
+          "end": 54
+        },
+        {
+          "candidate_id": 20,
+          "start": 52,
+          "end": 55
+        },
+        {
+          "candidate_id": 21,
+          "start": 53,
+          "end": 56
+        },
+        {
+          "candidate_id": 22,
+          "start": 54,
+          "end": 57
+        },
+        {
+          "candidate_id": 23,
+          "start": 55,
+          "end": 58
+        }
+      ]
+    },
+    {
+      "session_id": "2_39_79_380_2019-03-05 16:13:35.538141",
+      "station_id": "2-39-79-380",
+      "connection_utc": "2019-03-05T16:13:36+00:00",
+      "disconnect_utc": "2019-03-06T01:17:56+00:00",
+      "energy_kwh": "1.168",
+      "arrival": 33,
+      "departure": 69,
+      "duration": 1,
+      "id": 4,
+      "candidates": [
+        {
+          "candidate_id": 0,
+          "start": 33,
+          "end": 34
+        },
+        {
+          "candidate_id": 1,
+          "start": 34,
+          "end": 35
+        },
+        {
+          "candidate_id": 2,
+          "start": 35,
+          "end": 36
+        },
+        {
+          "candidate_id": 3,
+          "start": 36,
+          "end": 37
+        },
+        {
+          "candidate_id": 4,
+          "start": 37,
+          "end": 38
+        },
+        {
+          "candidate_id": 5,
+          "start": 38,
+          "end": 39
+        },
+        {
+          "candidate_id": 6,
+          "start": 39,
+          "end": 40
+        },
+        {
+          "candidate_id": 7,
+          "start": 40,
+          "end": 41
+        },
+        {
+          "candidate_id": 8,
+          "start": 41,
+          "end": 42
+        },
+        {
+          "candidate_id": 9,
+          "start": 42,
+          "end": 43
+        },
+        {
+          "candidate_id": 10,
+          "start": 43,
+          "end": 44
+        },
+        {
+          "candidate_id": 11,
+          "start": 44,
+          "end": 45
+        },
+        {
+          "candidate_id": 12,
+          "start": 45,
+          "end": 46
+        },
+        {
+          "candidate_id": 13,
+          "start": 46,
+          "end": 47
+        },
+        {
+          "candidate_id": 14,
+          "start": 47,
+          "end": 48
+        },
+        {
+          "candidate_id": 15,
+          "start": 48,
+          "end": 49
+        },
+        {
+          "candidate_id": 16,
+          "start": 49,
+          "end": 50
+        },
+        {
+          "candidate_id": 17,
+          "start": 50,
+          "end": 51
+        },
+        {
+          "candidate_id": 18,
+          "start": 51,
+          "end": 52
+        },
+        {
+          "candidate_id": 19,
+          "start": 52,
+          "end": 53
+        },
+        {
+          "candidate_id": 20,
+          "start": 53,
+          "end": 54
+        },
+        {
+          "candidate_id": 21,
+          "start": 54,
+          "end": 55
+        },
+        {
+          "candidate_id": 22,
+          "start": 55,
+          "end": 56
+        },
+        {
+          "candidate_id": 23,
+          "start": 56,
+          "end": 57
+        },
+        {
+          "candidate_id": 24,
+          "start": 57,
+          "end": 58
+        },
+        {
+          "candidate_id": 25,
+          "start": 58,
+          "end": 59
+        },
+        {
+          "candidate_id": 26,
+          "start": 59,
+          "end": 60
+        },
+        {
+          "candidate_id": 27,
+          "start": 60,
+          "end": 61
+        },
+        {
+          "candidate_id": 28,
+          "start": 61,
+          "end": 62
+        },
+        {
+          "candidate_id": 29,
+          "start": 62,
+          "end": 63
+        },
+        {
+          "candidate_id": 30,
+          "start": 63,
+          "end": 64
+        },
+        {
+          "candidate_id": 31,
+          "start": 64,
+          "end": 65
+        },
+        {
+          "candidate_id": 32,
+          "start": 65,
+          "end": 66
+        },
+        {
+          "candidate_id": 33,
+          "start": 66,
+          "end": 67
+        },
+        {
+          "candidate_id": 34,
+          "start": 67,
+          "end": 68
+        },
+        {
+          "candidate_id": 35,
+          "start": 68,
+          "end": 69
+        }
+      ]
+    },
+    {
+      "session_id": "2_39_131_30_2019-03-05 16:32:33.849613",
+      "station_id": "2-39-131-30",
+      "connection_utc": "2019-03-05T16:32:34+00:00",
+      "disconnect_utc": "2019-03-06T01:17:36+00:00",
+      "energy_kwh": "5.106",
+      "arrival": 35,
+      "departure": 69,
+      "duration": 3,
+      "id": 5,
+      "candidates": [
+        {
+          "candidate_id": 0,
+          "start": 35,
+          "end": 38
+        },
+        {
+          "candidate_id": 1,
+          "start": 36,
+          "end": 39
+        },
+        {
+          "candidate_id": 2,
+          "start": 37,
+          "end": 40
+        },
+        {
+          "candidate_id": 3,
+          "start": 38,
+          "end": 41
+        },
+        {
+          "candidate_id": 4,
+          "start": 39,
+          "end": 42
+        },
+        {
+          "candidate_id": 5,
+          "start": 40,
+          "end": 43
+        },
+        {
+          "candidate_id": 6,
+          "start": 41,
+          "end": 44
+        },
+        {
+          "candidate_id": 7,
+          "start": 42,
+          "end": 45
+        },
+        {
+          "candidate_id": 8,
+          "start": 43,
+          "end": 46
+        },
+        {
+          "candidate_id": 9,
+          "start": 44,
+          "end": 47
+        },
+        {
+          "candidate_id": 10,
+          "start": 45,
+          "end": 48
+        },
+        {
+          "candidate_id": 11,
+          "start": 46,
+          "end": 49
+        },
+        {
+          "candidate_id": 12,
+          "start": 47,
+          "end": 50
+        },
+        {
+          "candidate_id": 13,
+          "start": 48,
+          "end": 51
+        },
+        {
+          "candidate_id": 14,
+          "start": 49,
+          "end": 52
+        },
+        {
+          "candidate_id": 15,
+          "start": 50,
+          "end": 53
+        },
+        {
+          "candidate_id": 16,
+          "start": 51,
+          "end": 54
+        },
+        {
+          "candidate_id": 17,
+          "start": 52,
+          "end": 55
+        },
+        {
+          "candidate_id": 18,
+          "start": 53,
+          "end": 56
+        },
+        {
+          "candidate_id": 19,
+          "start": 54,
+          "end": 57
+        },
+        {
+          "candidate_id": 20,
+          "start": 55,
+          "end": 58
+        },
+        {
+          "candidate_id": 21,
+          "start": 56,
+          "end": 59
+        },
+        {
+          "candidate_id": 22,
+          "start": 57,
+          "end": 60
+        },
+        {
+          "candidate_id": 23,
+          "start": 58,
+          "end": 61
+        },
+        {
+          "candidate_id": 24,
+          "start": 59,
+          "end": 62
+        },
+        {
+          "candidate_id": 25,
+          "start": 60,
+          "end": 63
+        },
+        {
+          "candidate_id": 26,
+          "start": 61,
+          "end": 64
+        },
+        {
+          "candidate_id": 27,
+          "start": 62,
+          "end": 65
+        },
+        {
+          "candidate_id": 28,
+          "start": 63,
+          "end": 66
+        },
+        {
+          "candidate_id": 29,
+          "start": 64,
+          "end": 67
+        },
+        {
+          "candidate_id": 30,
+          "start": 65,
+          "end": 68
+        },
+        {
+          "candidate_id": 31,
+          "start": 66,
+          "end": 69
+        }
+      ]
+    },
+    {
+      "session_id": "2_39_139_28_2019-03-05 16:38:31.828019",
+      "station_id": "2-39-139-28",
+      "connection_utc": "2019-03-05T16:38:32+00:00",
+      "disconnect_utc": "2019-03-05T20:25:11+00:00",
+      "energy_kwh": "4.642",
+      "arrival": 35,
+      "departure": 49,
+      "duration": 3,
+      "id": 6,
+      "candidates": [
+        {
+          "candidate_id": 0,
+          "start": 35,
+          "end": 38
+        },
+        {
+          "candidate_id": 1,
+          "start": 36,
+          "end": 39
+        },
+        {
+          "candidate_id": 2,
+          "start": 37,
+          "end": 40
+        },
+        {
+          "candidate_id": 3,
+          "start": 38,
+          "end": 41
+        },
+        {
+          "candidate_id": 4,
+          "start": 39,
+          "end": 42
+        },
+        {
+          "candidate_id": 5,
+          "start": 40,
+          "end": 43
+        },
+        {
+          "candidate_id": 6,
+          "start": 41,
+          "end": 44
+        },
+        {
+          "candidate_id": 7,
+          "start": 42,
+          "end": 45
+        },
+        {
+          "candidate_id": 8,
+          "start": 43,
+          "end": 46
+        },
+        {
+          "candidate_id": 9,
+          "start": 44,
+          "end": 47
+        },
+        {
+          "candidate_id": 10,
+          "start": 45,
+          "end": 48
+        },
+        {
+          "candidate_id": 11,
+          "start": 46,
+          "end": 49
+        }
+      ]
+    },
+    {
+      "session_id": "2_39_78_363_2019-03-05 16:38:33.526547",
+      "station_id": "2-39-78-363",
+      "connection_utc": "2019-03-05T16:38:34+00:00",
+      "disconnect_utc": "2019-03-06T01:05:37+00:00",
+      "energy_kwh": "8.892",
+      "arrival": 35,
+      "departure": 68,
+      "duration": 6,
+      "id": 7,
+      "candidates": [
+        {
+          "candidate_id": 0,
+          "start": 35,
+          "end": 41
+        },
+        {
+          "candidate_id": 1,
+          "start": 36,
+          "end": 42
+        },
+        {
+          "candidate_id": 2,
+          "start": 37,
+          "end": 43
+        },
+        {
+          "candidate_id": 3,
+          "start": 38,
+          "end": 44
+        },
+        {
+          "candidate_id": 4,
+          "start": 39,
+          "end": 45
+        },
+        {
+          "candidate_id": 5,
+          "start": 40,
+          "end": 46
+        },
+        {
+          "candidate_id": 6,
+          "start": 41,
+          "end": 47
+        },
+        {
+          "candidate_id": 7,
+          "start": 42,
+          "end": 48
+        },
+        {
+          "candidate_id": 8,
+          "start": 43,
+          "end": 49
+        },
+        {
+          "candidate_id": 9,
+          "start": 44,
+          "end": 50
+        },
+        {
+          "candidate_id": 10,
+          "start": 45,
+          "end": 51
+        },
+        {
+          "candidate_id": 11,
+          "start": 46,
+          "end": 52
+        },
+        {
+          "candidate_id": 12,
+          "start": 47,
+          "end": 53
+        },
+        {
+          "candidate_id": 13,
+          "start": 48,
+          "end": 54
+        },
+        {
+          "candidate_id": 14,
+          "start": 49,
+          "end": 55
+        },
+        {
+          "candidate_id": 15,
+          "start": 50,
+          "end": 56
+        },
+        {
+          "candidate_id": 16,
+          "start": 51,
+          "end": 57
+        },
+        {
+          "candidate_id": 17,
+          "start": 52,
+          "end": 58
+        },
+        {
+          "candidate_id": 18,
+          "start": 53,
+          "end": 59
+        },
+        {
+          "candidate_id": 19,
+          "start": 54,
+          "end": 60
+        },
+        {
+          "candidate_id": 20,
+          "start": 55,
+          "end": 61
+        },
+        {
+          "candidate_id": 21,
+          "start": 56,
+          "end": 62
+        },
+        {
+          "candidate_id": 22,
+          "start": 57,
+          "end": 63
+        },
+        {
+          "candidate_id": 23,
+          "start": 58,
+          "end": 64
+        },
+        {
+          "candidate_id": 24,
+          "start": 59,
+          "end": 65
+        },
+        {
+          "candidate_id": 25,
+          "start": 60,
+          "end": 66
+        },
+        {
+          "candidate_id": 26,
+          "start": 61,
+          "end": 67
+        },
+        {
+          "candidate_id": 27,
+          "start": 62,
+          "end": 68
+        }
+      ]
+    },
+    {
+      "session_id": "2_39_138_29_2019-03-05 16:42:09.961089",
+      "station_id": "2-39-138-29",
+      "connection_utc": "2019-03-05T16:42:10+00:00",
+      "disconnect_utc": "2019-03-06T01:27:08+00:00",
+      "energy_kwh": "7.272",
+      "arrival": 35,
+      "departure": 69,
+      "duration": 5,
+      "id": 8,
+      "candidates": [
+        {
+          "candidate_id": 0,
+          "start": 35,
+          "end": 40
+        },
+        {
+          "candidate_id": 1,
+          "start": 36,
+          "end": 41
+        },
+        {
+          "candidate_id": 2,
+          "start": 37,
+          "end": 42
+        },
+        {
+          "candidate_id": 3,
+          "start": 38,
+          "end": 43
+        },
+        {
+          "candidate_id": 4,
+          "start": 39,
+          "end": 44
+        },
+        {
+          "candidate_id": 5,
+          "start": 40,
+          "end": 45
+        },
+        {
+          "candidate_id": 6,
+          "start": 41,
+          "end": 46
+        },
+        {
+          "candidate_id": 7,
+          "start": 42,
+          "end": 47
+        },
+        {
+          "candidate_id": 8,
+          "start": 43,
+          "end": 48
+        },
+        {
+          "candidate_id": 9,
+          "start": 44,
+          "end": 49
+        },
+        {
+          "candidate_id": 10,
+          "start": 45,
+          "end": 50
+        },
+        {
+          "candidate_id": 11,
+          "start": 46,
+          "end": 51
+        },
+        {
+          "candidate_id": 12,
+          "start": 47,
+          "end": 52
+        },
+        {
+          "candidate_id": 13,
+          "start": 48,
+          "end": 53
+        },
+        {
+          "candidate_id": 14,
+          "start": 49,
+          "end": 54
+        },
+        {
+          "candidate_id": 15,
+          "start": 50,
+          "end": 55
+        },
+        {
+          "candidate_id": 16,
+          "start": 51,
+          "end": 56
+        },
+        {
+          "candidate_id": 17,
+          "start": 52,
+          "end": 57
+        },
+        {
+          "candidate_id": 18,
+          "start": 53,
+          "end": 58
+        },
+        {
+          "candidate_id": 19,
+          "start": 54,
+          "end": 59
+        },
+        {
+          "candidate_id": 20,
+          "start": 55,
+          "end": 60
+        },
+        {
+          "candidate_id": 21,
+          "start": 56,
+          "end": 61
+        },
+        {
+          "candidate_id": 22,
+          "start": 57,
+          "end": 62
+        },
+        {
+          "candidate_id": 23,
+          "start": 58,
+          "end": 63
+        },
+        {
+          "candidate_id": 24,
+          "start": 59,
+          "end": 64
+        },
+        {
+          "candidate_id": 25,
+          "start": 60,
+          "end": 65
+        },
+        {
+          "candidate_id": 26,
+          "start": 61,
+          "end": 66
+        },
+        {
+          "candidate_id": 27,
+          "start": 62,
+          "end": 67
+        },
+        {
+          "candidate_id": 28,
+          "start": 63,
+          "end": 68
+        },
+        {
+          "candidate_id": 29,
+          "start": 64,
+          "end": 69
+        }
+      ]
+    },
+    {
+      "session_id": "2_39_92_442_2019-03-05 16:42:48.358356",
+      "station_id": "2-39-92-442",
+      "connection_utc": "2019-03-05T16:42:48+00:00",
+      "disconnect_utc": "2019-03-06T01:43:31+00:00",
+      "energy_kwh": "54.504",
+      "arrival": 35,
+      "departure": 70,
+      "duration": 32,
+      "id": 9,
+      "candidates": [
+        {
+          "candidate_id": 0,
+          "start": 35,
+          "end": 67
+        },
+        {
+          "candidate_id": 1,
+          "start": 36,
+          "end": 68
+        },
+        {
+          "candidate_id": 2,
+          "start": 37,
+          "end": 69
+        },
+        {
+          "candidate_id": 3,
+          "start": 38,
+          "end": 70
+        }
+      ]
+    },
+    {
+      "session_id": "2_39_79_381_2019-03-05 16:55:40.519593",
+      "station_id": "2-39-79-381",
+      "connection_utc": "2019-03-05T16:55:41+00:00",
+      "disconnect_utc": "2019-03-05T22:11:38+00:00",
+      "energy_kwh": "8.763",
+      "arrival": 36,
+      "departure": 56,
+      "duration": 6,
+      "id": 10,
+      "candidates": [
+        {
+          "candidate_id": 0,
+          "start": 36,
+          "end": 42
+        },
+        {
+          "candidate_id": 1,
+          "start": 37,
+          "end": 43
+        },
+        {
+          "candidate_id": 2,
+          "start": 38,
+          "end": 44
+        },
+        {
+          "candidate_id": 3,
+          "start": 39,
+          "end": 45
+        },
+        {
+          "candidate_id": 4,
+          "start": 40,
+          "end": 46
+        },
+        {
+          "candidate_id": 5,
+          "start": 41,
+          "end": 47
+        },
+        {
+          "candidate_id": 6,
+          "start": 42,
+          "end": 48
+        },
+        {
+          "candidate_id": 7,
+          "start": 43,
+          "end": 49
+        },
+        {
+          "candidate_id": 8,
+          "start": 44,
+          "end": 50
+        },
+        {
+          "candidate_id": 9,
+          "start": 45,
+          "end": 51
+        },
+        {
+          "candidate_id": 10,
+          "start": 46,
+          "end": 52
+        },
+        {
+          "candidate_id": 11,
+          "start": 47,
+          "end": 53
+        },
+        {
+          "candidate_id": 12,
+          "start": 48,
+          "end": 54
+        },
+        {
+          "candidate_id": 13,
+          "start": 49,
+          "end": 55
+        },
+        {
+          "candidate_id": 14,
+          "start": 50,
+          "end": 56
+        }
+      ]
+    },
+    {
+      "session_id": "2_39_89_25_2019-03-05 16:56:06.980084",
+      "station_id": "2-39-89-25",
+      "connection_utc": "2019-03-05T16:56:07+00:00",
+      "disconnect_utc": "2019-03-05T17:50:03+00:00",
+      "energy_kwh": "3.203",
+      "arrival": 36,
+      "departure": 39,
+      "duration": 2,
+      "id": 11,
+      "candidates": [
+        {
+          "candidate_id": 0,
+          "start": 36,
+          "end": 38
+        },
+        {
+          "candidate_id": 1,
+          "start": 37,
+          "end": 39
+        }
+      ]
+    },
+    {
+      "session_id": "2_39_127_19_2019-03-05 17:05:32.120930",
+      "station_id": "2-39-127-19",
+      "connection_utc": "2019-03-05T17:05:32+00:00",
+      "disconnect_utc": "2019-03-06T01:56:06+00:00",
+      "energy_kwh": "6.057",
+      "arrival": 37,
+      "departure": 71,
+      "duration": 4,
+      "id": 12,
+      "candidates": [
+        {
+          "candidate_id": 0,
+          "start": 37,
+          "end": 41
+        },
+        {
+          "candidate_id": 1,
+          "start": 38,
+          "end": 42
+        },
+        {
+          "candidate_id": 2,
+          "start": 39,
+          "end": 43
+        },
+        {
+          "candidate_id": 3,
+          "start": 40,
+          "end": 44
+        },
+        {
+          "candidate_id": 4,
+          "start": 41,
+          "end": 45
+        },
+        {
+          "candidate_id": 5,
+          "start": 42,
+          "end": 46
+        },
+        {
+          "candidate_id": 6,
+          "start": 43,
+          "end": 47
+        },
+        {
+          "candidate_id": 7,
+          "start": 44,
+          "end": 48
+        },
+        {
+          "candidate_id": 8,
+          "start": 45,
+          "end": 49
+        },
+        {
+          "candidate_id": 9,
+          "start": 46,
+          "end": 50
+        },
+        {
+          "candidate_id": 10,
+          "start": 47,
+          "end": 51
+        },
+        {
+          "candidate_id": 11,
+          "start": 48,
+          "end": 52
+        },
+        {
+          "candidate_id": 12,
+          "start": 49,
+          "end": 53
+        },
+        {
+          "candidate_id": 13,
+          "start": 50,
+          "end": 54
+        },
+        {
+          "candidate_id": 14,
+          "start": 51,
+          "end": 55
+        },
+        {
+          "candidate_id": 15,
+          "start": 52,
+          "end": 56
+        },
+        {
+          "candidate_id": 16,
+          "start": 53,
+          "end": 57
+        },
+        {
+          "candidate_id": 17,
+          "start": 54,
+          "end": 58
+        },
+        {
+          "candidate_id": 18,
+          "start": 55,
+          "end": 59
+        },
+        {
+          "candidate_id": 19,
+          "start": 56,
+          "end": 60
+        },
+        {
+          "candidate_id": 20,
+          "start": 57,
+          "end": 61
+        },
+        {
+          "candidate_id": 21,
+          "start": 58,
+          "end": 62
+        },
+        {
+          "candidate_id": 22,
+          "start": 59,
+          "end": 63
+        },
+        {
+          "candidate_id": 23,
+          "start": 60,
+          "end": 64
+        },
+        {
+          "candidate_id": 24,
+          "start": 61,
+          "end": 65
+        },
+        {
+          "candidate_id": 25,
+          "start": 62,
+          "end": 66
+        },
+        {
+          "candidate_id": 26,
+          "start": 63,
+          "end": 67
+        },
+        {
+          "candidate_id": 27,
+          "start": 64,
+          "end": 68
+        },
+        {
+          "candidate_id": 28,
+          "start": 65,
+          "end": 69
+        },
+        {
+          "candidate_id": 29,
+          "start": 66,
+          "end": 70
+        },
+        {
+          "candidate_id": 30,
+          "start": 67,
+          "end": 71
+        }
+      ]
+    },
+    {
+      "session_id": "2_39_88_438_2019-03-05 17:05:33.696829",
+      "station_id": "2-39-88-438",
+      "connection_utc": "2019-03-05T17:05:34+00:00",
+      "disconnect_utc": "2019-03-06T03:11:50+00:00",
+      "energy_kwh": "8.875",
+      "arrival": 37,
+      "departure": 76,
+      "duration": 6,
+      "id": 13,
+      "candidates": [
+        {
+          "candidate_id": 0,
+          "start": 37,
+          "end": 43
+        },
+        {
+          "candidate_id": 1,
+          "start": 38,
+          "end": 44
+        },
+        {
+          "candidate_id": 2,
+          "start": 39,
+          "end": 45
+        },
+        {
+          "candidate_id": 3,
+          "start": 40,
+          "end": 46
+        },
+        {
+          "candidate_id": 4,
+          "start": 41,
+          "end": 47
+        },
+        {
+          "candidate_id": 5,
+          "start": 42,
+          "end": 48
+        },
+        {
+          "candidate_id": 6,
+          "start": 43,
+          "end": 49
+        },
+        {
+          "candidate_id": 7,
+          "start": 44,
+          "end": 50
+        },
+        {
+          "candidate_id": 8,
+          "start": 45,
+          "end": 51
+        },
+        {
+          "candidate_id": 9,
+          "start": 46,
+          "end": 52
+        },
+        {
+          "candidate_id": 10,
+          "start": 47,
+          "end": 53
+        },
+        {
+          "candidate_id": 11,
+          "start": 48,
+          "end": 54
+        },
+        {
+          "candidate_id": 12,
+          "start": 49,
+          "end": 55
+        },
+        {
+          "candidate_id": 13,
+          "start": 50,
+          "end": 56
+        },
+        {
+          "candidate_id": 14,
+          "start": 51,
+          "end": 57
+        },
+        {
+          "candidate_id": 15,
+          "start": 52,
+          "end": 58
+        },
+        {
+          "candidate_id": 16,
+          "start": 53,
+          "end": 59
+        },
+        {
+          "candidate_id": 17,
+          "start": 54,
+          "end": 60
+        },
+        {
+          "candidate_id": 18,
+          "start": 55,
+          "end": 61
+        },
+        {
+          "candidate_id": 19,
+          "start": 56,
+          "end": 62
+        },
+        {
+          "candidate_id": 20,
+          "start": 57,
+          "end": 63
+        },
+        {
+          "candidate_id": 21,
+          "start": 58,
+          "end": 64
+        },
+        {
+          "candidate_id": 22,
+          "start": 59,
+          "end": 65
+        },
+        {
+          "candidate_id": 23,
+          "start": 60,
+          "end": 66
+        },
+        {
+          "candidate_id": 24,
+          "start": 61,
+          "end": 67
+        },
+        {
+          "candidate_id": 25,
+          "start": 62,
+          "end": 68
+        },
+        {
+          "candidate_id": 26,
+          "start": 63,
+          "end": 69
+        },
+        {
+          "candidate_id": 27,
+          "start": 64,
+          "end": 70
+        },
+        {
+          "candidate_id": 28,
+          "start": 65,
+          "end": 71
+        },
+        {
+          "candidate_id": 29,
+          "start": 66,
+          "end": 72
+        },
+        {
+          "candidate_id": 30,
+          "start": 67,
+          "end": 73
+        },
+        {
+          "candidate_id": 31,
+          "start": 68,
+          "end": 74
+        },
+        {
+          "candidate_id": 32,
+          "start": 69,
+          "end": 75
+        },
+        {
+          "candidate_id": 33,
+          "start": 70,
+          "end": 76
+        }
+      ]
+    },
+    {
+      "session_id": "2_39_89_439_2019-03-05 17:11:02.407617",
+      "station_id": "2-39-89-439",
+      "connection_utc": "2019-03-05T17:11:02+00:00",
+      "disconnect_utc": "2019-03-05T23:36:58+00:00",
+      "energy_kwh": "4.855",
+      "arrival": 37,
+      "departure": 62,
+      "duration": 3,
+      "id": 14,
+      "candidates": [
+        {
+          "candidate_id": 0,
+          "start": 37,
+          "end": 40
+        },
+        {
+          "candidate_id": 1,
+          "start": 38,
+          "end": 41
+        },
+        {
+          "candidate_id": 2,
+          "start": 39,
+          "end": 42
+        },
+        {
+          "candidate_id": 3,
+          "start": 40,
+          "end": 43
+        },
+        {
+          "candidate_id": 4,
+          "start": 41,
+          "end": 44
+        },
+        {
+          "candidate_id": 5,
+          "start": 42,
+          "end": 45
+        },
+        {
+          "candidate_id": 6,
+          "start": 43,
+          "end": 46
+        },
+        {
+          "candidate_id": 7,
+          "start": 44,
+          "end": 47
+        },
+        {
+          "candidate_id": 8,
+          "start": 45,
+          "end": 48
+        },
+        {
+          "candidate_id": 9,
+          "start": 46,
+          "end": 49
+        },
+        {
+          "candidate_id": 10,
+          "start": 47,
+          "end": 50
+        },
+        {
+          "candidate_id": 11,
+          "start": 48,
+          "end": 51
+        },
+        {
+          "candidate_id": 12,
+          "start": 49,
+          "end": 52
+        },
+        {
+          "candidate_id": 13,
+          "start": 50,
+          "end": 53
+        },
+        {
+          "candidate_id": 14,
+          "start": 51,
+          "end": 54
+        },
+        {
+          "candidate_id": 15,
+          "start": 52,
+          "end": 55
+        },
+        {
+          "candidate_id": 16,
+          "start": 53,
+          "end": 56
+        },
+        {
+          "candidate_id": 17,
+          "start": 54,
+          "end": 57
+        },
+        {
+          "candidate_id": 18,
+          "start": 55,
+          "end": 58
+        },
+        {
+          "candidate_id": 19,
+          "start": 56,
+          "end": 59
+        },
+        {
+          "candidate_id": 20,
+          "start": 57,
+          "end": 60
+        },
+        {
+          "candidate_id": 21,
+          "start": 58,
+          "end": 61
+        },
+        {
+          "candidate_id": 22,
+          "start": 59,
+          "end": 62
+        }
+      ]
+    },
+    {
+      "session_id": "2_39_79_377_2019-03-05 17:13:03.138988",
+      "station_id": "2-39-79-377",
+      "connection_utc": "2019-03-05T17:13:03+00:00",
+      "disconnect_utc": "2019-03-06T02:03:16+00:00",
+      "energy_kwh": "21.7",
+      "arrival": 37,
+      "departure": 72,
+      "duration": 13,
+      "id": 15,
+      "candidates": [
+        {
+          "candidate_id": 0,
+          "start": 37,
+          "end": 50
+        },
+        {
+          "candidate_id": 1,
+          "start": 38,
+          "end": 51
+        },
+        {
+          "candidate_id": 2,
+          "start": 39,
+          "end": 52
+        },
+        {
+          "candidate_id": 3,
+          "start": 40,
+          "end": 53
+        },
+        {
+          "candidate_id": 4,
+          "start": 41,
+          "end": 54
+        },
+        {
+          "candidate_id": 5,
+          "start": 42,
+          "end": 55
+        },
+        {
+          "candidate_id": 6,
+          "start": 43,
+          "end": 56
+        },
+        {
+          "candidate_id": 7,
+          "start": 44,
+          "end": 57
+        },
+        {
+          "candidate_id": 8,
+          "start": 45,
+          "end": 58
+        },
+        {
+          "candidate_id": 9,
+          "start": 46,
+          "end": 59
+        },
+        {
+          "candidate_id": 10,
+          "start": 47,
+          "end": 60
+        },
+        {
+          "candidate_id": 11,
+          "start": 48,
+          "end": 61
+        },
+        {
+          "candidate_id": 12,
+          "start": 49,
+          "end": 62
+        },
+        {
+          "candidate_id": 13,
+          "start": 50,
+          "end": 63
+        },
+        {
+          "candidate_id": 14,
+          "start": 51,
+          "end": 64
+        },
+        {
+          "candidate_id": 15,
+          "start": 52,
+          "end": 65
+        },
+        {
+          "candidate_id": 16,
+          "start": 53,
+          "end": 66
+        },
+        {
+          "candidate_id": 17,
+          "start": 54,
+          "end": 67
+        },
+        {
+          "candidate_id": 18,
+          "start": 55,
+          "end": 68
+        },
+        {
+          "candidate_id": 19,
+          "start": 56,
+          "end": 69
+        },
+        {
+          "candidate_id": 20,
+          "start": 57,
+          "end": 70
+        },
+        {
+          "candidate_id": 21,
+          "start": 58,
+          "end": 71
+        },
+        {
+          "candidate_id": 22,
+          "start": 59,
+          "end": 72
+        }
+      ]
+    }
+  ]
+}
