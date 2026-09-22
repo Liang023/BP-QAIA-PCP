@@ -88,13 +88,17 @@ def main():
         pair = [("qaia_root", item["name"], seed, f"{item['name']}_s{seed}", item["env"])
                 for item in variants]
         if repeat < exact_repeats:
-            pair.append(("exact", None, 0, f"exact_r{repeat}", {}))
+            primal_seed = seed if os.getenv("BPC_PRIMAL_COMPLETION", "0") == "1" else 0
+            pair.append(("exact", None, primal_seed, f"exact_r{repeat}", {}))
         if repeat % 2:
             pair.reverse()
         plan.extend(pair)
     (out / "manifest.json").write_text(json.dumps(dict(
         variants=variants, seeds=args.seeds, limit=args.limit, exact_repeats=exact_repeats,
         completion_rows=completion_rows(),
+        primal_completion_environment={key: os.getenv(key, default) for key, default in (
+            ("BPC_PRIMAL_COMPLETION", "0"), ("BPC_PRIMAL_ATTEMPTS", "20"),
+            ("BPC_PRIMAL_SECONDS", "2"))},
         exact_pool_search_mode=os.getenv("EXACT_POOL_SEARCH_MODE", "2"),
         restricted_mip_environment={key: os.getenv(key, default) for key, default in (
             ("BPC_RMP_MIP", "1"), ("BPC_RMP_MIP_EVERY", "20"),

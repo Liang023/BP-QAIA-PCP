@@ -185,6 +185,10 @@ def main():
                   timing_scope="after_input_and_imports_before_graph_and_model",
                   verbose=os.getenv("BPC_VERBOSE", "0") == "1")
     recorder = bp = None
+    record["primal_completion_config"] = dict(
+        enabled=os.getenv("BPC_PRIMAL_COMPLETION", "0") == "1",
+        attempts=int(os.getenv("BPC_PRIMAL_ATTEMPTS", "20")),
+        seconds=float(os.getenv("BPC_PRIMAL_SECONDS", "2")))
     workflow_start = time.perf_counter()
     budget_start = None
     with log.open("x", encoding="utf-8") as f:

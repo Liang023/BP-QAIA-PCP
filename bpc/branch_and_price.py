@@ -16,6 +16,7 @@ from bpc.branch_creator import BranchCreator
 from cg.column_independent_set import ColumnIndependentSet
 from model.graph import Graph
 from cg.column_pool import ColumnPool
+from cg.primal_completion import complete_root_pool
 import math
 import gurobipy
 import os
@@ -92,6 +93,12 @@ class BranchAndPrice:
         self.deadline = None
         self.rmp_mip_seconds = 0.0
         self.rmp_mip_calls = 0
+        self.primal_enabled = os.getenv("BPC_PRIMAL_COMPLETION", "0") == "1"
+        self.primal_attempts = int(os.getenv("BPC_PRIMAL_ATTEMPTS", "20"))
+        self.primal_slice = float(os.getenv("BPC_PRIMAL_SECONDS", "2"))
+        self.primal_metrics = dict(calls=0, attempts=0, columns_added=0,
+                                  complete_schedules=0, improvements=0, seconds=0.0)
+        self.incumbent_input_creators = []
         self.rmp_mip_enabled = os.getenv("BPC_RMP_MIP", "1") == "1"
         self.rmp_mip_every = int(os.getenv("BPC_RMP_MIP_EVERY", "20"))
         self.rmp_mip_slice = float(os.getenv("BPC_RMP_MIP_SECONDS", "0.5"))
@@ -268,6 +275,7 @@ class BranchAndPrice:
             completed = True
             # Also use the final root column pool, even if iteration is not a multiple.
             if current_node.parent is None:
+                self._complete_root(current_node, master_problem, time_end)
                 self._maybe_restricted_mip(current_node, master_problem,
                     column_generation.iteration, time_end, force=True)
             return True
@@ -310,6 +318,34 @@ class BranchAndPrice:
             return False
         return self.update_best_solution(objective, solution, a_graph=node.a_graph,
                     source=source, node_id=node.nodeid, cg_iteration=iteration)
+
+    def _complete_root(self, node, master, deadline):
+        if not self.primal_enabled:
+            return
+        started = time.perf_counter()
+        self.primal_metrics["calls"] += 1
+        try:
+            added, schedules, attempts = complete_root_pool(
+                self.graph, self.charger_num, node.solution, node.column_pool,
+                master.pricing_problem, min(deadline, started+self.primal_slice),
+                self.primal_attempts, self.qaia_seed)
+            for column in added:
+                node.column_pool.addColumn(column)
+                master.add_column_to_rmp(column)
+            self.primal_metrics["attempts"] += attempts
+            self.primal_metrics["columns_added"] += len(added)
+            self.primal_metrics["complete_schedules"] += len(schedules)
+            for solution in schedules:
+                remaining_seconds(deadline, "Primal completion validation")
+                objective = max(v.end_time for c in solution for v in c.vertex_list)
+                before = self.best_objective
+                self._consider_candidate(node, solution, objective, "primal_completion")
+                self.primal_metrics["improvements"] += int(self.best_objective < before)
+            # New columns warrant another MIP even at the same CG iteration.
+            if added:
+                self._last_mip_iteration = None
+        finally:
+            self.primal_metrics["seconds"] += time.perf_counter()-started
 
     def _maybe_restricted_mip(self, node, master, iteration, deadline, force=False):
         # Same policy for Exact, QAIA and greedy; root-only first implementation.
@@ -635,6 +671,7 @@ class BranchAndPrice:
                                     node_id=node_id, cg_iteration=cg_iteration):
             return False
         self.best_objective = physical_objective
+        self.incumbent_input_creators = [c.creator for c, x in solution.items() if x > 1e-6]
         self.best_solution = canonical
         self.best_schedule = copy.deepcopy(checked)
         self.best_schedule_makespan = physical_objective
@@ -669,5 +706,7 @@ class BranchAndPrice:
             "branch_seconds": self.total_branch_time,
             "restricted_mip_seconds": self.rmp_mip_seconds,
             "restricted_mip_calls": self.rmp_mip_calls,
+            "primal_completion": dict(self.primal_metrics),
+            "incumbent_input_column_creators": self.incumbent_input_creators,
             "root_diagnostics": self.root_diagnostics
         }
