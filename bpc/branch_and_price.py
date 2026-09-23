@@ -23,6 +23,7 @@ import os
 from cg.pricing.qaia_exact_pricing_solver import QAIAExactPricingSolver
 from config.qaia_runtime import pricing_options
 from cg.deadline import remaining_seconds
+from cg.makespan_bounds import capacity_bound
 from validation.ev_solution import validate_schedule
 import builtins
 import time
@@ -31,6 +32,14 @@ def print(*args, **kwargs):
     # 仅覆盖本模块中的print，不改全局builtins.print。
     if os.getenv("BPC_VERBOSE", "0") == "1":
         builtins.print(*args, **kwargs)
+
+class BoundClosed(Exception):
+    """A validated incumbent meets a globally valid lower bound."""
+
+
+class CapacityInfeasible(Exception):
+    """Required work exceeds all available candidate completion horizons."""
+
 
 class BranchAndPrice:
     """
@@ -52,6 +61,8 @@ class BranchAndPrice:
         """
         self.graph = graph
         self.problem_lower_bound = self._compute_problem_lower_bound()
+        self.capacity_bound_info = None
+        self.proof_source = None
         self.charger_num = charger_num
         self.time_limit = time_limit
         self.use_qaia = use_qaia
@@ -119,6 +130,16 @@ class BranchAndPrice:
             raise ValueError("recorder and BP must share a deadline")
         status, error = "no_solution", None
         try:
+            if os.getenv("BPC_CAPACITY_BOUND", "1") == "1":
+                lp_seconds = float(os.getenv("BPC_BOUND_LP_SECONDS", "2"))
+                if not math.isfinite(lp_seconds) or lp_seconds < 0:
+                    raise ValueError("BPC_BOUND_LP_SECONDS must be finite and nonnegative")
+                self.capacity_bound_info = capacity_bound(
+                    self.graph, self.charger_num, time_end, lp_seconds)
+                self.problem_lower_bound = max(self.problem_lower_bound,
+                                               self.capacity_bound_info["lower_bound"])
+                if self.capacity_bound_info["lp_status"] == "capacity_infeasible":
+                    raise CapacityInfeasible()
             remaining_seconds(time_end, "Before root construction")
             started = time.perf_counter()
             try:
@@ -159,6 +180,20 @@ class BranchAndPrice:
             remaining_seconds(time_end, "Before declaring optimal")
             self.update_global_lower_bound()
             status = "optimal" if self.optimal else "no_solution"
+            if self.optimal:
+                self.proof_source = "branch_tree_exhausted"
+        except BoundClosed:
+            self.optimal = True
+            self.proof_source = "validated_incumbent_matches_global_bound"
+            self.global_lower_bound = self.best_objective
+            self.nodes_pruned += len(self.node_queue)
+            self.node_queue.clear()
+            self.current_node = None
+            status, error = "optimal", None
+        except CapacityInfeasible:
+            self.global_lower_bound = self.problem_lower_bound
+            self.proof_source = "capacity_infeasible"
+            status, error = "infeasible_proven", None
         except TimeoutError as exc:
             self.optimal = False
             status, error = "time_limit", str(exc)
@@ -250,6 +285,9 @@ class BranchAndPrice:
                 graph=self.graph, charger_num=self.charger_num,
                 pricing_problem=pricing_problem, column_pool=current_node.column_pool,
                 a_graph=current_node.a_graph)
+            # Valid for every integer schedule; common to Exact, QAIA and CIM.
+            if self.capacity_bound_info is not None:
+                master_problem.T.LB = self.problem_lower_bound
             remaining_seconds(time_end, "After master construction")
             if self.use_qaia and current_node.parent is None:
                 pricing_solver = QAIAExactPricingSolver(
@@ -388,10 +426,12 @@ class BranchAndPrice:
             # Queue entries hold certified LP bounds, or their parent's certified
             # bound if processing/branching was interrupted. The objective of an
             # incomplete restricted master is never used as a lower bound.
-            self.global_lower_bound = min(
+            frontier_bound = min(
                 (max(self.problem_lower_bound, node.objective_value)
                  for node in self.node_queue),
                 default=self.problem_lower_bound)
+            # A previously found incumbent can lie in an already closed subtree.
+            self.global_lower_bound = min(self.best_objective, frontier_bound)
 
     def is_infeasible_solution(self, current_node: BPCNode) -> bool:
         """
@@ -680,6 +720,8 @@ class BranchAndPrice:
         self.best_solution = canonical
         self.best_schedule = copy.deepcopy(checked)
         self.best_schedule_makespan = physical_objective
+        if physical_objective <= self.problem_lower_bound+1e-7:
+            raise BoundClosed()
         self.prune_nodes()
         return True
 
@@ -703,6 +745,8 @@ class BranchAndPrice:
                     if math.isfinite(self.best_objective) and math.isfinite(self.global_lower_bound) else None),
             "total_solve_time": self.total_solve_time,
             "problem_lower_bound": self.problem_lower_bound,
+            "capacity_bound": self.capacity_bound_info,
+            "proof_source": self.proof_source,
             "column_num": column_num,
             "master_seconds": self.total_master_time,
             "node_setup_seconds": self.total_node_setup_time,

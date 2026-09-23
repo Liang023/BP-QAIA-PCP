@@ -1,0 +1,77 @@
+{
+  "design": {
+    "family": "acn",
+    "sizes": [
+      12
+    ],
+    "ratios": [
+      4,
+      3,
+      2
+    ],
+    "dates": [
+      "2019-03-11",
+      "2019-03-12"
+    ],
+    "data_seeds": [
+      10
+    ],
+    "raw": "data/raw/acn/caltech_march_holdout.json",
+    "max_vertices": 3000,
+    "slot_minutes": 15,
+    "power_kw": "7",
+    "out_dir": "data/acn_capacity_grid_v1"
+  },
+  "instances": [
+    "D:\\pythonProject\\BP_QAIA_PCP\\data\\acn_capacity_grid_v1\\2019-03-11_N12_C3.json",
+    "D:\\pythonProject\\BP_QAIA_PCP\\data\\acn_capacity_grid_v1\\2019-03-11_N12_C4.json",
+    "D:\\pythonProject\\BP_QAIA_PCP\\data\\acn_capacity_grid_v1\\2019-03-11_N12_C6.json",
+    "D:\\pythonProject\\BP_QAIA_PCP\\data\\acn_capacity_grid_v1\\2019-03-12_N12_C3.json",
+    "D:\\pythonProject\\BP_QAIA_PCP\\data\\acn_capacity_grid_v1\\2019-03-12_N12_C4.json",
+    "D:\\pythonProject\\BP_QAIA_PCP\\data\\acn_capacity_grid_v1\\2019-03-12_N12_C6.json"
+  ],
+  "dimensions": [
+    {
+      "name": "2019-03-11_N12_C3",
+      "vehicles": 12,
+      "chargers": 3,
+      "vertices": 281,
+      "instance_sha256": "15b815984a9755447eefa304278f4413ca9c12ed10474e2e3139f41eabbfc6a7"
+    },
+    {
+      "name": "2019-03-11_N12_C4",
+      "vehicles": 12,
+      "chargers": 4,
+      "vertices": 281,
+      "instance_sha256": "13f1ed0b9ce674a14056443cf88779f49795429c6d47f291557b2ef93250c73a"
+    },
+    {
+      "name": "2019-03-11_N12_C6",
+      "vehicles": 12,
+      "chargers": 6,
+      "vertices": 281,
+      "instance_sha256": "f104bf335d7d94c380b805258698c5c98386b28d901f5f1b1663342620589992"
+    },
+    {
+      "name": "2019-03-12_N12_C3",
+      "vehicles": 12,
+      "chargers": 3,
+      "vertices": 305,
+      "instance_sha256": "8f0319088900e185c68cb65648de9357e4a12cdc16e6b2b06a00863649ddcbaa"
+    },
+    {
+      "name": "2019-03-12_N12_C4",
+      "vehicles": 12,
+      "chargers": 4,
+      "vertices": 305,
+      "instance_sha256": "e148ffe7bbedaa590eb5f9b44b76885e759ac10c55cc2790997e17711a9a8a42"
+    },
+    {
+      "name": "2019-03-12_N12_C6",
+      "vehicles": 12,
+      "chargers": 6,
+      "vertices": 305,
+      "instance_sha256": "a1d6ad4cc1caa01cde7b12cd7eee8b6e4d7da56f43561cd447bca0dbca830812"
+    }
+  ]
+}

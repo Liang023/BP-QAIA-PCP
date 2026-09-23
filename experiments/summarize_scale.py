@@ -35,6 +35,7 @@ def collect(folder):
             stats = record.get("statistics") or {}
             metrics = (stats.get("root_diagnostics") or {}).get("heuristic_metrics") or {}
             cim = metrics.get("cim") or {}
+            bound = stats.get("capacity_bound") or {}
             feasible = bool(record.get("validation_passed") and record.get("has_feasible_solution"))
             objective = record.get("objective") if feasible else None
             lower_bound = stats.get("global_lower_bound")
@@ -49,6 +50,14 @@ def collect(folder):
                 deviation_percent=(100 * (objective-reference)/reference
                     if objective is not None and reference is not None and reference > 0 else None),
                 bp_lower_bound=lower_bound, bp_gap_percent=bp_gap_percent,
+                earliest_completion_lower_bound=bound.get("earliest_completion"),
+                workload_lower_bound=bound.get("workload_lower_bound"),
+                capacity_lower_bound=bound.get("lower_bound"),
+                capacity_bound_seconds=bound.get("seconds"),
+                capacity_bound_lp_calls=bound.get("lp_calls"),
+                capacity_bound_lp_status=bound.get("lp_status"),
+                proof_source=stats.get("proof_source"),
+                heuristic_returned_columns=metrics.get("returned_columns"),
                 reference_gap_percent=reference_gap_percent,
                 first_feasible_seconds=record.get("time_to_first_feasible"),
                 best_found_seconds=record.get("best_found_seconds"), wall_seconds=record.get("wall_seconds"),

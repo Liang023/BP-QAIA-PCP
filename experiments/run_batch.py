@@ -110,6 +110,8 @@ def main():
             "CIM_DEVICE_ID", "CIM_MAX_BITS", "CIM_PRECISION", "CIM_MAX_CALLS",
             "CIM_CALL_SECONDS", "CIM_CACHE_DIR")},
         completion_rows=completion_rows(),
+        capacity_bound_environment={key: os.getenv(key, default) for key, default in (
+            ("BPC_CAPACITY_BOUND", "1"), ("BPC_BOUND_LP_SECONDS", "2"))},
         primal_completion_environment={key: os.getenv(key, default) for key, default in (
             ("BPC_PRIMAL_COMPLETION", "0"), ("BPC_PRIMAL_ATTEMPTS", "20"),
             ("BPC_PRIMAL_SECONDS", "2"))},

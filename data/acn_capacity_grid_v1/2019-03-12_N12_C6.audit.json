@@ -1,0 +1,3473 @@
+{
+  "status": "converted",
+  "reason": null,
+  "metadata": {
+    "raw_sha256": "9c34297e9f6d04dd8c86f1dcb2d8176bc2204b1f7e872e2289136bf5530cb25c",
+    "converter_sha256": "4fdd2f29edf2625ac20395f35633c11b51efa0b7f01beeee2bd8e5007a48384a",
+    "raw_filename": "caltech_march_holdout.json",
+    "site_id": "0002",
+    "timezone": "America/Los_Angeles",
+    "local_arrival_date": "2019-03-12",
+    "origin_utc": "2019-03-12T07:00:00+00:00",
+    "slot_minutes": 15,
+    "power_kw": "7",
+    "energy_basis": "observed_kWhDelivered",
+    "charger_basis": "assumed_homogeneous_pool",
+    "selection": "first_n_by_connection_time_then_session_id",
+    "max_sessions": 12,
+    "max_vertices": 3000,
+    "max_stay_hours": 48
+  },
+  "raw_records": 688,
+  "eligible_sessions": 41,
+  "selected_sessions": 12,
+  "vertices": 305,
+  "counts": {
+    "outside_arrival_date": 644,
+    "model_excluded_insufficient_discrete_window": 3,
+    "pilot_not_selected_first_n": 29,
+    "selected": 12
+  },
+  "records": [
+    {
+      "raw_index": 0,
+      "session_id": "2_39_89_25_2019-03-10 16:23:05.891072",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 1,
+      "session_id": "2_39_131_30_2019-03-10 19:12:05.574446",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 2,
+      "session_id": "2_39_79_377_2019-03-10 19:27:57.467135",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 3,
+      "session_id": "2_39_131_30_2019-03-10 20:31:53.566989",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 4,
+      "session_id": "2_39_128_18_2019-03-10 21:31:09.477634",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 5,
+      "session_id": "2_39_79_378_2019-03-10 23:51:15.219475",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 6,
+      "session_id": "2_39_91_437_2019-03-11 01:18:20.006896",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 7,
+      "session_id": "2_39_139_28_2019-03-11 02:31:52.545435",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 8,
+      "session_id": "2_39_125_21_2019-03-11 02:36:21.240285",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 9,
+      "session_id": "2_39_131_30_2019-03-11 03:24:56.619809",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 10,
+      "session_id": "2_39_89_25_2019-03-11 13:24:30.798601",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 11,
+      "session_id": "2_39_123_23_2019-03-11 15:03:34.855674",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 12,
+      "session_id": "2_39_78_366_2019-03-11 15:08:27.736360",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 13,
+      "session_id": "2_39_125_21_2019-03-11 15:30:10.062770",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 14,
+      "session_id": "2_39_131_30_2019-03-11 15:32:27.788628",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 15,
+      "session_id": "2_39_124_558_2019-03-11 15:34:47.858205",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 16,
+      "session_id": "2_39_79_383_2019-03-11 15:40:10.271438",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 17,
+      "session_id": "2_39_79_380_2019-03-11 15:56:30.997177",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 18,
+      "session_id": "2_39_129_17_2019-03-11 16:06:55.569682",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 19,
+      "session_id": "2_39_139_28_2019-03-11 16:07:19.923097",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 20,
+      "session_id": "2_39_79_381_2019-03-11 16:07:26.767476",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 21,
+      "session_id": "2_39_95_27_2019-03-11 16:13:56.909578",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 22,
+      "session_id": "2_39_79_377_2019-03-11 16:16:01.653325",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 23,
+      "session_id": "2_39_89_25_2019-03-11 16:33:08.127363",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 24,
+      "session_id": "2_39_90_26_2019-03-11 16:36:40.118728",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 25,
+      "session_id": "2_39_91_437_2019-03-11 17:17:33.019137",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 26,
+      "session_id": "2_39_78_367_2019-03-11 17:21:30.533859",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 27,
+      "session_id": "2_39_95_444_2019-03-11 17:21:54.181305",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 28,
+      "session_id": "2_39_79_382_2019-03-11 17:40:15.294722",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 29,
+      "session_id": "2_39_89_439_2019-03-11 17:41:05.058480",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 30,
+      "session_id": "2_39_127_19_2019-03-11 18:10:41.488475",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 31,
+      "session_id": "2_39_79_376_2019-03-11 18:18:31.705382",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 32,
+      "session_id": "2_39_78_365_2019-03-11 19:22:12.617534",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 33,
+      "session_id": "2_39_91_441_2019-03-11 19:29:53.370484",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 34,
+      "session_id": "2_39_78_363_2019-03-11 19:39:07.147882",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 35,
+      "session_id": "2_39_92_436_2019-03-11 19:50:06.219958",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 36,
+      "session_id": "2_39_95_27_2019-03-11 19:59:55.544745",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 37,
+      "session_id": "2_39_126_20_2019-03-11 20:52:31.791134",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 38,
+      "session_id": "2_39_128_18_2019-03-11 21:43:42.401079",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 39,
+      "session_id": "2_39_79_376_2019-03-11 22:01:14.527108",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 40,
+      "session_id": "2_39_128_18_2019-03-11 23:34:57.668213",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 41,
+      "session_id": "2_39_123_23_2019-03-11 23:57:28.552776",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 42,
+      "session_id": "2_39_131_30_2019-03-12 01:14:06.831904",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 43,
+      "session_id": "2_39_124_22_2019-03-12 01:14:51.846588",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 44,
+      "session_id": "2_39_139_28_2019-03-12 01:35:38.645672",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 45,
+      "session_id": "2_39_128_18_2019-03-12 01:46:23.095089",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 46,
+      "session_id": "2_39_91_437_2019-03-12 02:04:56.812568",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 47,
+      "session_id": "2_39_131_30_2019-03-12 03:26:15.445863",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 48,
+      "session_id": "2_39_127_19_2019-03-12 05:07:44.494336",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 49,
+      "session_id": "2_39_89_25_2019-03-12 13:27:17.070765",
+      "reason": "selected"
+    },
+    {
+      "raw_index": 50,
+      "session_id": "2_39_79_379_2019-03-12 13:42:13.351262",
+      "reason": "selected"
+    },
+    {
+      "raw_index": 51,
+      "session_id": "2_39_78_366_2019-03-12 14:21:13.015501",
+      "reason": "selected"
+    },
+    {
+      "raw_index": 52,
+      "session_id": "2_39_123_23_2019-03-12 15:02:47.542967",
+      "reason": "selected"
+    },
+    {
+      "raw_index": 53,
+      "session_id": "2_39_92_442_2019-03-12 15:22:54.140318",
+      "reason": "selected"
+    },
+    {
+      "raw_index": 54,
+      "session_id": "2_39_79_380_2019-03-12 15:28:43.408554",
+      "reason": "selected"
+    },
+    {
+      "raw_index": 55,
+      "session_id": "2_39_125_21_2019-03-12 15:42:11.516939",
+      "reason": "selected"
+    },
+    {
+      "raw_index": 56,
+      "session_id": "2_39_79_382_2019-03-12 15:42:25.069255",
+      "reason": "selected"
+    },
+    {
+      "raw_index": 57,
+      "session_id": "2_39_79_377_2019-03-12 15:52:37.064834",
+      "reason": "selected"
+    },
+    {
+      "raw_index": 58,
+      "session_id": "2_39_78_360_2019-03-12 15:54:34.897645",
+      "reason": "selected"
+    },
+    {
+      "raw_index": 59,
+      "session_id": "2_39_139_28_2019-03-12 16:00:17.588460",
+      "reason": "selected"
+    },
+    {
+      "raw_index": 60,
+      "session_id": "2_39_131_30_2019-03-12 16:02:20.944894",
+      "reason": "selected"
+    },
+    {
+      "raw_index": 61,
+      "session_id": "2_39_129_17_2019-03-12 16:03:30.623426",
+      "reason": "pilot_not_selected_first_n"
+    },
+    {
+      "raw_index": 62,
+      "session_id": "2_39_78_363_2019-03-12 16:11:04.691216",
+      "reason": "pilot_not_selected_first_n"
+    },
+    {
+      "raw_index": 63,
+      "session_id": "2_39_78_362_2019-03-12 16:11:44.969709",
+      "reason": "pilot_not_selected_first_n"
+    },
+    {
+      "raw_index": 64,
+      "session_id": "2_39_89_25_2019-03-12 16:13:17.386691",
+      "reason": "pilot_not_selected_first_n"
+    },
+    {
+      "raw_index": 65,
+      "session_id": "2_39_88_438_2019-03-12 16:16:23.455854",
+      "reason": "pilot_not_selected_first_n"
+    },
+    {
+      "raw_index": 66,
+      "session_id": "2_39_90_440_2019-03-12 16:30:42.209819",
+      "reason": "pilot_not_selected_first_n"
+    },
+    {
+      "raw_index": 67,
+      "session_id": "2_39_138_29_2019-03-12 16:32:15.680179",
+      "reason": "model_excluded_insufficient_discrete_window"
+    },
+    {
+      "raw_index": 68,
+      "session_id": "2_39_90_26_2019-03-12 16:41:55.866543",
+      "reason": "pilot_not_selected_first_n"
+    },
+    {
+      "raw_index": 69,
+      "session_id": "2_39_79_376_2019-03-12 16:44:55.135082",
+      "reason": "pilot_not_selected_first_n"
+    },
+    {
+      "raw_index": 70,
+      "session_id": "2_39_138_566_2019-03-12 16:47:30.945414",
+      "reason": "pilot_not_selected_first_n"
+    },
+    {
+      "raw_index": 71,
+      "session_id": "2_39_95_444_2019-03-12 17:10:37.707875",
+      "reason": "pilot_not_selected_first_n"
+    },
+    {
+      "raw_index": 72,
+      "session_id": "2_39_79_381_2019-03-12 17:12:11.019410",
+      "reason": "pilot_not_selected_first_n"
+    },
+    {
+      "raw_index": 73,
+      "session_id": "2_39_91_437_2019-03-12 17:19:35.190056",
+      "reason": "pilot_not_selected_first_n"
+    },
+    {
+      "raw_index": 74,
+      "session_id": "2_39_78_365_2019-03-12 17:46:49.619374",
+      "reason": "pilot_not_selected_first_n"
+    },
+    {
+      "raw_index": 75,
+      "session_id": "2_39_79_383_2019-03-12 18:09:35.147161",
+      "reason": "pilot_not_selected_first_n"
+    },
+    {
+      "raw_index": 76,
+      "session_id": "2_39_124_22_2019-03-12 18:42:05.721489",
+      "reason": "pilot_not_selected_first_n"
+    },
+    {
+      "raw_index": 77,
+      "session_id": "2_39_89_439_2019-03-12 18:52:53.258592",
+      "reason": "model_excluded_insufficient_discrete_window"
+    },
+    {
+      "raw_index": 78,
+      "session_id": "2_39_95_27_2019-03-12 18:53:46.894867",
+      "reason": "pilot_not_selected_first_n"
+    },
+    {
+      "raw_index": 79,
+      "session_id": "2_39_88_24_2019-03-12 18:58:17.297884",
+      "reason": "model_excluded_insufficient_discrete_window"
+    },
+    {
+      "raw_index": 80,
+      "session_id": "2_39_88_24_2019-03-12 19:21:17.023628",
+      "reason": "pilot_not_selected_first_n"
+    },
+    {
+      "raw_index": 81,
+      "session_id": "2_39_78_364_2019-03-12 19:32:26.743153",
+      "reason": "pilot_not_selected_first_n"
+    },
+    {
+      "raw_index": 82,
+      "session_id": "2_39_123_557_2019-03-12 19:46:35.060944",
+      "reason": "pilot_not_selected_first_n"
+    },
+    {
+      "raw_index": 83,
+      "session_id": "2_39_78_361_2019-03-12 19:48:43.081284",
+      "reason": "pilot_not_selected_first_n"
+    },
+    {
+      "raw_index": 84,
+      "session_id": "2_39_78_363_2019-03-12 20:51:54.080657",
+      "reason": "pilot_not_selected_first_n"
+    },
+    {
+      "raw_index": 85,
+      "session_id": "2_39_79_382_2019-03-12 20:59:10.753870",
+      "reason": "pilot_not_selected_first_n"
+    },
+    {
+      "raw_index": 86,
+      "session_id": "2_39_78_364_2019-03-12 21:53:50.961976",
+      "reason": "pilot_not_selected_first_n"
+    },
+    {
+      "raw_index": 87,
+      "session_id": "2_39_79_376_2019-03-12 23:05:19.562371",
+      "reason": "pilot_not_selected_first_n"
+    },
+    {
+      "raw_index": 88,
+      "session_id": "2_39_78_361_2019-03-12 23:17:27.344263",
+      "reason": "pilot_not_selected_first_n"
+    },
+    {
+      "raw_index": 89,
+      "session_id": "2_39_129_17_2019-03-12 23:47:59.523047",
+      "reason": "pilot_not_selected_first_n"
+    },
+    {
+      "raw_index": 90,
+      "session_id": "2_39_123_23_2019-03-13 00:04:42.138653",
+      "reason": "pilot_not_selected_first_n"
+    },
+    {
+      "raw_index": 91,
+      "session_id": "2_39_89_25_2019-03-13 02:10:18.291269",
+      "reason": "pilot_not_selected_first_n"
+    },
+    {
+      "raw_index": 92,
+      "session_id": "2_39_79_378_2019-03-13 05:12:54.675744",
+      "reason": "pilot_not_selected_first_n"
+    },
+    {
+      "raw_index": 93,
+      "session_id": "2_39_78_366_2019-03-13 14:11:23.488751",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 94,
+      "session_id": "2_39_79_379_2019-03-13 14:55:33.983560",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 95,
+      "session_id": "2_39_139_28_2019-03-13 15:30:24.079606",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 96,
+      "session_id": "2_39_131_30_2019-03-13 15:33:23.106073",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 97,
+      "session_id": "2_39_125_21_2019-03-13 15:38:46.621716",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 98,
+      "session_id": "2_39_79_378_2019-03-13 15:40:28.048485",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 99,
+      "session_id": "2_39_88_438_2019-03-13 15:43:04.996934",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 100,
+      "session_id": "2_39_129_17_2019-03-13 15:47:01.540567",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 101,
+      "session_id": "2_39_123_23_2019-03-13 15:50:51.955589",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 102,
+      "session_id": "2_39_78_361_2019-03-13 16:00:58.925411",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 103,
+      "session_id": "2_39_130_31_2019-03-13 16:01:11.807890",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 104,
+      "session_id": "2_39_89_25_2019-03-13 16:02:34.397850",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 105,
+      "session_id": "2_39_91_437_2019-03-13 16:03:55.571443",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 106,
+      "session_id": "2_39_79_381_2019-03-13 16:06:52.730902",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 107,
+      "session_id": "2_39_128_18_2019-03-13 16:09:47.904534",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 108,
+      "session_id": "2_39_91_441_2019-03-13 16:11:09.408372",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 109,
+      "session_id": "2_39_128_562_2019-03-13 16:13:45.670160",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 110,
+      "session_id": "2_39_79_380_2019-03-13 16:51:27.762645",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 111,
+      "session_id": "2_39_79_376_2019-03-13 16:51:56.088533",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 112,
+      "session_id": "2_39_124_22_2019-03-13 16:58:03.654963",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 113,
+      "session_id": "2_39_90_26_2019-03-13 17:12:16.415030",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 114,
+      "session_id": "2_39_88_24_2019-03-13 17:17:28.374249",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 115,
+      "session_id": "2_39_78_363_2019-03-13 17:46:42.343122",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 116,
+      "session_id": "2_39_95_27_2019-03-13 18:30:36.188275",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 117,
+      "session_id": "2_39_78_361_2019-03-13 18:31:27.891263",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 118,
+      "session_id": "2_39_79_379_2019-03-13 19:34:06.341133",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 119,
+      "session_id": "2_39_126_20_2019-03-13 19:48:28.634942",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 120,
+      "session_id": "2_39_129_17_2019-03-13 19:52:16.252200",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 121,
+      "session_id": "2_39_79_377_2019-03-13 19:55:47.579807",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 122,
+      "session_id": "2_39_78_364_2019-03-13 20:19:44.220666",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 123,
+      "session_id": "2_39_92_436_2019-03-13 20:20:07.148203",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 124,
+      "session_id": "2_39_78_360_2019-03-13 20:24:20.033354",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 125,
+      "session_id": "2_39_95_444_2019-03-13 21:38:10.880490",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 126,
+      "session_id": "2_39_92_442_2019-03-13 22:21:49.654985",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 127,
+      "session_id": "2_39_139_28_2019-03-13 23:43:46.258720",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 128,
+      "session_id": "2_39_139_28_2019-03-14 00:58:54.452849",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 129,
+      "session_id": "2_39_131_30_2019-03-14 00:59:28.085974",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 130,
+      "session_id": "2_39_130_31_2019-03-14 01:28:12.331170",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 131,
+      "session_id": "2_39_138_29_2019-03-14 01:30:30.304628",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 132,
+      "session_id": "2_39_129_17_2019-03-14 01:40:45.739735",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 133,
+      "session_id": "2_39_131_30_2019-03-14 03:35:23.219700",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 134,
+      "session_id": "2_39_129_17_2019-03-14 04:27:59.021360",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 135,
+      "session_id": "2_39_79_381_2019-03-14 05:20:43.349057",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 136,
+      "session_id": "2_39_89_25_2019-03-14 13:39:34.911664",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 137,
+      "session_id": "2_39_79_379_2019-03-14 13:54:32.399436",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 138,
+      "session_id": "2_39_78_366_2019-03-14 14:09:28.000005",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 139,
+      "session_id": "2_39_79_377_2019-03-14 14:57:07.984442",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 140,
+      "session_id": "2_39_123_23_2019-03-14 15:00:13.980242",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 141,
+      "session_id": "2_39_78_362_2019-03-14 15:04:03.367269",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 142,
+      "session_id": "2_39_79_380_2019-03-14 15:22:59.040050",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 143,
+      "session_id": "2_39_139_28_2019-03-14 15:27:29.815497",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 144,
+      "session_id": "2_39_79_376_2019-03-14 15:31:08.390526",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 145,
+      "session_id": "2_39_79_381_2019-03-14 15:31:15.533647",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 146,
+      "session_id": "2_39_95_444_2019-03-14 15:31:37.947462",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 147,
+      "session_id": "2_39_125_21_2019-03-14 15:38:15.030533",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 148,
+      "session_id": "2_39_131_30_2019-03-14 15:41:51.437275",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 149,
+      "session_id": "2_39_129_17_2019-03-14 15:52:32.840435",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 150,
+      "session_id": "2_39_127_19_2019-03-14 16:04:21.796448",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 151,
+      "session_id": "2_39_88_438_2019-03-14 16:05:56.395773",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 152,
+      "session_id": "2_39_78_363_2019-03-14 16:11:36.901021",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 153,
+      "session_id": "2_39_92_436_2019-03-14 16:26:33.159947",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 154,
+      "session_id": "2_39_79_383_2019-03-14 16:26:55.053094",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 155,
+      "session_id": "2_39_79_382_2019-03-14 16:29:40.810956",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 156,
+      "session_id": "2_39_128_18_2019-03-14 16:30:25.598546",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 157,
+      "session_id": "2_39_78_361_2019-03-14 16:33:00.195761",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 158,
+      "session_id": "2_39_89_25_2019-03-14 16:40:04.065703",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 159,
+      "session_id": "2_39_90_440_2019-03-14 16:45:17.111077",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 160,
+      "session_id": "2_39_90_26_2019-03-14 17:21:39.451796",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 161,
+      "session_id": "2_39_78_365_2019-03-14 17:24:36.895066",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 162,
+      "session_id": "2_39_91_437_2019-03-14 18:15:32.302739",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 163,
+      "session_id": "2_39_78_367_2019-03-14 18:20:25.063981",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 164,
+      "session_id": "2_39_89_439_2019-03-14 18:44:10.895926",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 165,
+      "session_id": "2_39_91_441_2019-03-14 19:34:49.655930",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 166,
+      "session_id": "2_39_78_366_2019-03-14 19:37:03.256513",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 167,
+      "session_id": "2_39_78_360_2019-03-14 19:50:01.286957",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 168,
+      "session_id": "2_39_78_367_2019-03-14 20:13:38.258352",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 169,
+      "session_id": "2_39_88_24_2019-03-14 20:35:36.930244",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 170,
+      "session_id": "2_39_124_22_2019-03-14 20:48:19.681914",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 171,
+      "session_id": "2_39_78_367_2019-03-14 21:13:49.378213",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 172,
+      "session_id": "2_39_78_367_2019-03-14 22:07:11.138442",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 173,
+      "session_id": "2_39_79_376_2019-03-14 23:02:24.638283",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 174,
+      "session_id": "2_39_127_19_2019-03-14 23:32:17.705931",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 175,
+      "session_id": "2_39_130_31_2019-03-15 00:00:46.779692",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 176,
+      "session_id": "2_39_127_19_2019-03-15 00:48:24.846758",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 177,
+      "session_id": "2_39_139_28_2019-03-15 01:25:33.556675",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 178,
+      "session_id": "2_39_79_377_2019-03-15 02:25:25.813267",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 179,
+      "session_id": "2_39_125_21_2019-03-15 02:34:14.882134",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 180,
+      "session_id": "2_39_128_18_2019-03-15 02:34:56.208275",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 181,
+      "session_id": "2_39_139_28_2019-03-15 03:25:21.318298",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 182,
+      "session_id": "2_39_78_366_2019-03-15 14:35:13.691961",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 183,
+      "session_id": "2_39_123_23_2019-03-15 14:59:11.041497",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 184,
+      "session_id": "2_39_139_28_2019-03-15 15:08:14.417871",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 185,
+      "session_id": "2_39_92_442_2019-03-15 15:23:30.680825",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 186,
+      "session_id": "2_39_131_30_2019-03-15 15:30:57.228279",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 187,
+      "session_id": "2_39_138_29_2019-03-15 15:38:56.613184",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 188,
+      "session_id": "2_39_79_379_2019-03-15 15:53:35.788235",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 189,
+      "session_id": "2_39_90_26_2019-03-15 16:10:35.294463",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 190,
+      "session_id": "2_39_78_360_2019-03-15 16:11:51.863209",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 191,
+      "session_id": "2_39_129_17_2019-03-15 16:13:37.867562",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 192,
+      "session_id": "2_39_95_27_2019-03-15 16:26:24.172385",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 193,
+      "session_id": "2_39_89_25_2019-03-15 16:26:59.182131",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 194,
+      "session_id": "2_39_79_383_2019-03-15 16:30:11.786713",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 195,
+      "session_id": "2_39_127_19_2019-03-15 16:42:20.551511",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 196,
+      "session_id": "2_39_90_440_2019-03-15 17:02:57.210374",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 197,
+      "session_id": "2_39_79_380_2019-03-15 17:20:36.401306",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 198,
+      "session_id": "2_39_88_438_2019-03-15 17:25:27.846877",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 199,
+      "session_id": "2_39_83_386_2019-03-15 17:27:26.021680",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 200,
+      "session_id": "2_39_79_378_2019-03-15 17:36:09.692118",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 201,
+      "session_id": "2_39_79_381_2019-03-15 18:06:30.066466",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 202,
+      "session_id": "2_39_91_437_2019-03-15 18:20:35.663025",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 203,
+      "session_id": "2_39_79_376_2019-03-15 18:30:37.312203",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 204,
+      "session_id": "2_39_78_361_2019-03-15 19:04:37.179387",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 205,
+      "session_id": "2_39_78_360_2019-03-15 19:24:35.992154",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 206,
+      "session_id": "2_39_78_365_2019-03-15 19:25:21.752940",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 207,
+      "session_id": "2_39_78_367_2019-03-15 19:30:19.847779",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 208,
+      "session_id": "2_39_78_362_2019-03-15 19:51:38.047040",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 209,
+      "session_id": "2_39_131_30_2019-03-15 20:14:44.826248",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 210,
+      "session_id": "2_39_131_30_2019-03-15 22:09:56.886093",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 211,
+      "session_id": "2_39_79_377_2019-03-15 22:56:45.031479",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 212,
+      "session_id": "2_39_130_31_2019-03-16 00:32:21.209051",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 213,
+      "session_id": "2_39_89_25_2019-03-16 01:24:57.301888",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 214,
+      "session_id": "2_39_131_30_2019-03-16 02:02:15.404359",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 215,
+      "session_id": "2_39_139_28_2019-03-16 02:18:21.355376",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 216,
+      "session_id": "2_39_83_386_2019-03-16 02:22:10.744941",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 217,
+      "session_id": "2_39_79_381_2019-03-16 02:48:49.691250",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 218,
+      "session_id": "2_39_95_27_2019-03-16 03:26:59.559285",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 219,
+      "session_id": "2_39_129_17_2019-03-16 03:39:18.918234",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 220,
+      "session_id": "2_39_128_18_2019-03-16 14:33:04.014545",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 221,
+      "session_id": "2_39_124_22_2019-03-16 14:39:40.648349",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 222,
+      "session_id": "2_39_138_29_2019-03-16 14:49:17.555703",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 223,
+      "session_id": "2_39_130_31_2019-03-16 15:12:09.802746",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 224,
+      "session_id": "2_39_126_20_2019-03-16 15:44:56.527353",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 225,
+      "session_id": "2_39_83_386_2019-03-16 15:56:39.370381",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 226,
+      "session_id": "2_39_131_30_2019-03-16 16:30:15.679043",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 227,
+      "session_id": "2_39_91_437_2019-03-16 16:42:05.031582",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 228,
+      "session_id": "2_39_139_28_2019-03-16 16:59:21.582724",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 229,
+      "session_id": "2_39_79_378_2019-03-16 17:50:12.016119",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 230,
+      "session_id": "2_39_79_383_2019-03-16 17:57:05.055280",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 231,
+      "session_id": "2_39_127_19_2019-03-16 18:07:40.236305",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 232,
+      "session_id": "2_39_95_27_2019-03-16 18:29:52.686654",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 233,
+      "session_id": "2_39_124_22_2019-03-16 18:44:39.232892",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 234,
+      "session_id": "2_39_139_28_2019-03-16 19:34:49.166944",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 235,
+      "session_id": "2_39_129_17_2019-03-16 22:03:22.054270",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 236,
+      "session_id": "2_39_79_377_2019-03-16 22:09:57.579684",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 237,
+      "session_id": "2_39_78_366_2019-03-16 22:55:56.802849",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 238,
+      "session_id": "2_39_139_28_2019-03-17 00:58:52.382627",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 239,
+      "session_id": "2_39_79_380_2019-03-17 02:34:46.682285",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 240,
+      "session_id": "2_39_79_378_2019-03-17 03:09:58.535007",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 241,
+      "session_id": "2_39_79_382_2019-03-17 03:20:58.884782",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 242,
+      "session_id": "2_39_79_378_2019-03-17 07:01:33.233265",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 243,
+      "session_id": "2_39_95_27_2019-03-17 15:02:35.908510",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 244,
+      "session_id": "2_39_131_30_2019-03-17 16:14:14.008255",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 245,
+      "session_id": "2_39_139_28_2019-03-17 16:37:20.692879",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 246,
+      "session_id": "2_39_129_17_2019-03-17 17:35:16.113133",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 247,
+      "session_id": "2_39_131_30_2019-03-17 18:16:43.430975",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 248,
+      "session_id": "2_39_78_365_2019-03-17 18:48:44.756092",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 249,
+      "session_id": "2_39_79_379_2019-03-17 19:43:18.429591",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 250,
+      "session_id": "2_39_79_378_2019-03-17 20:21:34.726664",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 251,
+      "session_id": "2_39_127_19_2019-03-17 20:35:54.683746",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 252,
+      "session_id": "2_39_139_28_2019-03-17 22:30:37.809421",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 253,
+      "session_id": "2_39_130_31_2019-03-18 01:41:38.230682",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 254,
+      "session_id": "2_39_91_437_2019-03-18 02:06:07.590246",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 255,
+      "session_id": "2_39_123_23_2019-03-18 02:52:55.234729",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 256,
+      "session_id": "2_39_139_28_2019-03-18 05:39:10.764564",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 257,
+      "session_id": "2_39_78_367_2019-03-18 12:14:01.192251",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 258,
+      "session_id": "2_39_89_25_2019-03-18 13:12:09.628712",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 259,
+      "session_id": "2_39_79_379_2019-03-18 14:08:00.138383",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 260,
+      "session_id": "2_39_79_376_2019-03-18 14:31:54.739103",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 261,
+      "session_id": "2_39_131_30_2019-03-18 14:50:02.090826",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 262,
+      "session_id": "2_39_138_29_2019-03-18 14:51:28.223930",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 263,
+      "session_id": "2_39_79_377_2019-03-18 15:05:53.967113",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 264,
+      "session_id": "2_39_78_364_2019-03-18 15:19:49.282793",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 265,
+      "session_id": "2_39_139_28_2019-03-18 15:38:57.045284",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 266,
+      "session_id": "2_39_129_17_2019-03-18 15:38:57.541764",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 267,
+      "session_id": "2_39_130_31_2019-03-18 15:39:47.408851",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 268,
+      "session_id": "2_39_92_442_2019-03-18 15:43:23.101673",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 269,
+      "session_id": "2_39_127_19_2019-03-18 15:49:14.211368",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 270,
+      "session_id": "2_39_78_366_2019-03-18 16:07:43.988147",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 271,
+      "session_id": "2_39_123_23_2019-03-18 16:08:05.392375",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 272,
+      "session_id": "2_39_89_25_2019-03-18 16:16:38.799328",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 273,
+      "session_id": "2_39_126_20_2019-03-18 16:27:17.432979",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 274,
+      "session_id": "2_39_90_26_2019-03-18 16:59:49.548924",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 275,
+      "session_id": "2_39_79_380_2019-03-18 17:08:52.662451",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 276,
+      "session_id": "2_39_88_438_2019-03-18 17:20:04.117221",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 277,
+      "session_id": "2_39_92_436_2019-03-18 17:29:39.674873",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 278,
+      "session_id": "2_39_79_383_2019-03-18 17:44:55.868046",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 279,
+      "session_id": "2_39_95_27_2019-03-18 17:53:33.892417",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 280,
+      "session_id": "2_39_78_365_2019-03-18 18:29:01.974148",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 281,
+      "session_id": "2_39_91_437_2019-03-18 18:38:12.020641",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 282,
+      "session_id": "2_39_78_361_2019-03-18 19:17:02.071670",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 283,
+      "session_id": "2_39_95_27_2019-03-18 19:23:52.646109",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 284,
+      "session_id": "2_39_79_381_2019-03-18 19:44:56.700956",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 285,
+      "session_id": "2_39_79_382_2019-03-18 19:52:07.327653",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 286,
+      "session_id": "2_39_78_362_2019-03-18 20:01:33.408761",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 287,
+      "session_id": "2_39_78_367_2019-03-18 21:07:12.531876",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 288,
+      "session_id": "2_39_95_444_2019-03-18 21:15:40.018415",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 289,
+      "session_id": "2_39_138_29_2019-03-18 21:18:32.566279",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 290,
+      "session_id": "2_39_125_21_2019-03-18 22:05:37.664688",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 291,
+      "session_id": "2_39_125_21_2019-03-18 23:33:18.536160",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 292,
+      "session_id": "2_39_139_28_2019-03-18 23:33:25.880124",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 293,
+      "session_id": "2_39_139_28_2019-03-19 01:06:56.054303",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 294,
+      "session_id": "2_39_131_30_2019-03-19 02:01:40.168149",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 295,
+      "session_id": "2_39_83_386_2019-03-19 02:20:43.987528",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 296,
+      "session_id": "2_39_123_23_2019-03-19 02:27:35.504913",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 297,
+      "session_id": "2_39_139_28_2019-03-19 03:50:32.325090",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 298,
+      "session_id": "2_39_79_377_2019-03-19 04:57:46.128468",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 299,
+      "session_id": "2_39_79_381_2019-03-19 05:19:25.541370",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 300,
+      "session_id": "2_39_79_383_2019-03-19 07:12:41.984974",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 301,
+      "session_id": "2_39_79_379_2019-03-19 13:37:11.310133",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 302,
+      "session_id": "2_39_78_366_2019-03-19 14:47:32.937984",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 303,
+      "session_id": "2_39_79_376_2019-03-19 14:51:48.190076",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 304,
+      "session_id": "2_39_123_23_2019-03-19 15:00:14.446500",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 305,
+      "session_id": "2_39_79_380_2019-03-19 15:23:07.381571",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 306,
+      "session_id": "2_39_95_444_2019-03-19 15:34:00.398165",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 307,
+      "session_id": "2_39_79_378_2019-03-19 15:39:43.735099",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 308,
+      "session_id": "2_39_139_28_2019-03-19 15:46:57.511771",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 309,
+      "session_id": "2_39_131_30_2019-03-19 15:48:41.833498",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 310,
+      "session_id": "2_39_78_364_2019-03-19 15:50:10.382332",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 311,
+      "session_id": "2_39_129_17_2019-03-19 15:58:08.065462",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 312,
+      "session_id": "2_39_78_367_2019-03-19 15:58:22.222931",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 313,
+      "session_id": "2_39_90_26_2019-03-19 15:58:49.362353",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 314,
+      "session_id": "2_39_127_19_2019-03-19 15:58:50.118573",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 315,
+      "session_id": "2_39_89_25_2019-03-19 16:06:00.148465",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 316,
+      "session_id": "2_39_88_438_2019-03-19 16:12:29.090616",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 317,
+      "session_id": "2_39_125_21_2019-03-19 16:30:01.472260",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 318,
+      "session_id": "2_39_91_437_2019-03-19 16:46:01.226334",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 319,
+      "session_id": "2_39_90_440_2019-03-19 16:58:33.774367",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 320,
+      "session_id": "2_39_95_27_2019-03-19 17:04:26.053410",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 321,
+      "session_id": "2_39_123_557_2019-03-19 17:06:21.190353",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 322,
+      "session_id": "2_39_79_382_2019-03-19 17:21:30.147257",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 323,
+      "session_id": "2_39_78_361_2019-03-19 17:25:36.176041",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 324,
+      "session_id": "2_39_78_363_2019-03-19 17:31:52.062761",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 325,
+      "session_id": "2_39_79_378_2019-03-19 18:01:20.807319",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 326,
+      "session_id": "2_39_78_365_2019-03-19 18:15:44.647956",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 327,
+      "session_id": "2_39_79_383_2019-03-19 18:27:28.680241",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 328,
+      "session_id": "2_39_88_24_2019-03-19 18:57:32.143535",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 329,
+      "session_id": "2_39_79_377_2019-03-19 19:25:21.811026",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 330,
+      "session_id": "2_39_89_439_2019-03-19 19:38:22.926639",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 331,
+      "session_id": "2_39_139_28_2019-03-19 20:14:59.215826",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 332,
+      "session_id": "2_39_78_364_2019-03-19 20:32:42.818170",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 333,
+      "session_id": "2_39_127_19_2019-03-19 23:49:02.056044",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 334,
+      "session_id": "2_39_123_23_2019-03-20 00:26:07.811194",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 335,
+      "session_id": "2_39_79_377_2019-03-20 01:52:23.996296",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 336,
+      "session_id": "2_39_131_30_2019-03-20 02:07:11.073420",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 337,
+      "session_id": "2_39_129_17_2019-03-20 03:26:54.358109",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 338,
+      "session_id": "2_39_79_378_2019-03-20 03:57:37.074762",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 339,
+      "session_id": "2_39_79_383_2019-03-20 05:04:25.915018",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 340,
+      "session_id": "2_39_89_25_2019-03-20 13:07:56.308397",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 341,
+      "session_id": "2_39_79_379_2019-03-20 13:51:33.411371",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 342,
+      "session_id": "2_39_139_28_2019-03-20 13:55:48.801223",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 343,
+      "session_id": "2_39_124_558_2019-03-20 15:01:48.135082",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 344,
+      "session_id": "2_39_79_380_2019-03-20 15:03:16.863859",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 345,
+      "session_id": "2_39_79_377_2019-03-20 15:05:11.415285",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 346,
+      "session_id": "2_39_78_365_2019-03-20 15:21:22.369109",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 347,
+      "session_id": "2_39_79_383_2019-03-20 15:41:06.662155",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 348,
+      "session_id": "2_39_131_30_2019-03-20 15:41:39.740445",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 349,
+      "session_id": "2_39_129_17_2019-03-20 15:46:14.922345",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 350,
+      "session_id": "2_39_95_27_2019-03-20 15:47:39.867638",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 351,
+      "session_id": "2_39_79_378_2019-03-20 15:49:06.342852",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 352,
+      "session_id": "2_39_127_19_2019-03-20 15:49:31.405741",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 353,
+      "session_id": "2_39_138_29_2019-03-20 15:50:43.037886",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 354,
+      "session_id": "2_39_79_376_2019-03-20 15:52:13.047151",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 355,
+      "session_id": "2_39_123_23_2019-03-20 16:00:32.604370",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 356,
+      "session_id": "2_39_89_25_2019-03-20 16:01:43.379791",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 357,
+      "session_id": "2_39_95_27_2019-03-20 16:10:46.546153",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 358,
+      "session_id": "2_39_92_442_2019-03-20 16:26:15.355728",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 359,
+      "session_id": "2_39_91_437_2019-03-20 16:31:14.366506",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 360,
+      "session_id": "2_39_92_436_2019-03-20 16:42:29.096217",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 361,
+      "session_id": "2_39_78_363_2019-03-20 16:58:24.502598",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 362,
+      "session_id": "2_39_78_366_2019-03-20 17:47:38.426352",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 363,
+      "session_id": "2_39_79_377_2019-03-20 18:02:58.585152",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 364,
+      "session_id": "2_39_124_22_2019-03-20 18:42:48.835417",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 365,
+      "session_id": "2_39_78_364_2019-03-20 18:48:37.226651",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 366,
+      "session_id": "2_39_95_444_2019-03-20 19:20:40.079098",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 367,
+      "session_id": "2_39_88_24_2019-03-20 19:29:03.643675",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 368,
+      "session_id": "2_39_78_360_2019-03-20 19:29:30.355648",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 369,
+      "session_id": "2_39_78_361_2019-03-20 19:33:09.521559",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 370,
+      "session_id": "2_39_95_27_2019-03-20 19:43:42.487528",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 371,
+      "session_id": "2_39_127_19_2019-03-20 20:13:14.151598",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 372,
+      "session_id": "2_39_90_440_2019-03-20 20:16:46.751982",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 373,
+      "session_id": "2_39_125_21_2019-03-20 20:26:40.320839",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 374,
+      "session_id": "2_39_78_367_2019-03-20 20:31:15.914436",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 375,
+      "session_id": "2_39_123_557_2019-03-20 20:31:32.128737",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 376,
+      "session_id": "2_39_78_366_2019-03-20 20:48:39.737398",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 377,
+      "session_id": "2_39_127_19_2019-03-20 22:49:12.066033",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 378,
+      "session_id": "2_39_79_376_2019-03-20 22:51:47.841308",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 379,
+      "session_id": "2_39_123_23_2019-03-20 23:33:51.309015",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 380,
+      "session_id": "2_39_91_437_2019-03-21 00:06:31.667165",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 381,
+      "session_id": "2_39_78_361_2019-03-21 00:15:46.202622",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 382,
+      "session_id": "2_39_131_30_2019-03-21 01:07:33.103411",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 383,
+      "session_id": "2_39_139_28_2019-03-21 01:21:33.913043",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 384,
+      "session_id": "2_39_129_17_2019-03-21 02:00:12.680649",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 385,
+      "session_id": "2_39_127_19_2019-03-21 02:17:21.020495",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 386,
+      "session_id": "2_39_79_383_2019-03-21 02:20:21.441197",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 387,
+      "session_id": "2_39_125_21_2019-03-21 02:28:40.507342",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 388,
+      "session_id": "2_39_89_25_2019-03-21 02:32:21.677044",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 389,
+      "session_id": "2_39_138_29_2019-03-21 03:02:44.658341",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 390,
+      "session_id": "2_39_78_366_2019-03-21 03:36:25.456897",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 391,
+      "session_id": "2_39_131_30_2019-03-21 04:14:48.383940",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 392,
+      "session_id": "2_39_127_19_2019-03-21 04:50:42.708039",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 393,
+      "session_id": "2_39_89_25_2019-03-21 13:21:35.468351",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 394,
+      "session_id": "2_39_123_23_2019-03-21 14:59:31.403109",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 395,
+      "session_id": "2_39_78_364_2019-03-21 15:21:37.850798",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 396,
+      "session_id": "2_39_126_560_2019-03-21 15:24:14.885379",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 397,
+      "session_id": "2_39_139_28_2019-03-21 15:24:20.013613",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 398,
+      "session_id": "2_39_127_19_2019-03-21 15:33:50.422811",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 399,
+      "session_id": "2_39_79_379_2019-03-21 15:36:21.678951",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 400,
+      "session_id": "2_39_79_376_2019-03-21 15:41:02.146802",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 401,
+      "session_id": "2_39_92_442_2019-03-21 15:42:34.532396",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 402,
+      "session_id": "2_39_79_381_2019-03-21 15:46:12.489297",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 403,
+      "session_id": "2_39_131_30_2019-03-21 15:52:57.605201",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 404,
+      "session_id": "2_39_129_17_2019-03-21 15:56:53.291813",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 405,
+      "session_id": "2_39_79_383_2019-03-21 16:24:27.313121",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 406,
+      "session_id": "2_39_78_366_2019-03-21 16:26:47.456093",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 407,
+      "session_id": "2_39_79_380_2019-03-21 16:31:51.973055",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 408,
+      "session_id": "2_39_89_25_2019-03-21 16:35:12.646338",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 409,
+      "session_id": "2_39_90_26_2019-03-21 17:03:23.554269",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 410,
+      "session_id": "2_39_78_365_2019-03-21 17:05:56.407753",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 411,
+      "session_id": "2_39_78_360_2019-03-21 17:12:42.087343",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 412,
+      "session_id": "2_39_95_444_2019-03-21 17:47:36.859374",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 413,
+      "session_id": "2_39_92_436_2019-03-21 18:10:25.435774",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 414,
+      "session_id": "2_39_78_361_2019-03-21 18:32:59.535324",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 415,
+      "session_id": "2_39_90_440_2019-03-21 18:58:49.265586",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 416,
+      "session_id": "2_39_138_29_2019-03-21 19:37:19.018859",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 417,
+      "session_id": "2_39_95_27_2019-03-21 20:19:30.154562",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 418,
+      "session_id": "2_39_125_559_2019-03-21 20:43:28.931385",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 419,
+      "session_id": "2_39_88_24_2019-03-21 20:51:05.547017",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 420,
+      "session_id": "2_39_78_366_2019-03-21 21:42:33.333273",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 421,
+      "session_id": "2_39_91_437_2019-03-21 22:21:18.241454",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 422,
+      "session_id": "2_39_78_366_2019-03-22 00:25:29.702157",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 423,
+      "session_id": "2_39_123_23_2019-03-22 00:48:43.951273",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 424,
+      "session_id": "2_39_89_25_2019-03-22 02:16:03.886520",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 425,
+      "session_id": "2_39_78_365_2019-03-22 03:00:01.698221",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 426,
+      "session_id": "2_39_129_17_2019-03-22 03:12:35.484976",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 427,
+      "session_id": "2_39_79_379_2019-03-22 13:47:15.365716",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 428,
+      "session_id": "2_39_139_28_2019-03-22 15:20:39.005511",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 429,
+      "session_id": "2_39_78_366_2019-03-22 15:23:31.539994",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 430,
+      "session_id": "2_39_78_367_2019-03-22 15:23:58.280012",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 431,
+      "session_id": "2_39_127_19_2019-03-22 15:28:43.718403",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 432,
+      "session_id": "2_39_130_31_2019-03-22 15:29:05.482096",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 433,
+      "session_id": "2_39_89_25_2019-03-22 15:43:42.672551",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 434,
+      "session_id": "2_39_92_436_2019-03-22 15:56:26.137084",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 435,
+      "session_id": "2_39_79_377_2019-03-22 15:57:13.196006",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 436,
+      "session_id": "2_39_78_360_2019-03-22 15:59:10.794019",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 437,
+      "session_id": "2_39_92_442_2019-03-22 16:13:55.353390",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 438,
+      "session_id": "2_39_79_376_2019-03-22 16:19:18.780674",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 439,
+      "session_id": "2_39_131_30_2019-03-22 16:27:11.891068",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 440,
+      "session_id": "2_39_78_365_2019-03-22 16:31:29.205427",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 441,
+      "session_id": "2_39_129_17_2019-03-22 16:53:42.254206",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 442,
+      "session_id": "2_39_125_21_2019-03-22 16:57:28.113743",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 443,
+      "session_id": "2_39_79_381_2019-03-22 17:11:42.191758",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 444,
+      "session_id": "2_39_95_27_2019-03-22 17:23:34.964402",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 445,
+      "session_id": "2_39_79_383_2019-03-22 17:32:13.684845",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 446,
+      "session_id": "2_39_91_437_2019-03-22 18:01:56.390451",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 447,
+      "session_id": "2_39_78_361_2019-03-22 18:53:25.795520",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 448,
+      "session_id": "2_39_123_23_2019-03-22 18:57:16.986484",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 449,
+      "session_id": "2_39_78_363_2019-03-22 19:27:08.066899",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 450,
+      "session_id": "2_39_129_17_2019-03-22 19:50:46.640872",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 451,
+      "session_id": "2_39_127_19_2019-03-22 20:25:00.493905",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 452,
+      "session_id": "2_39_88_24_2019-03-22 20:37:18.990997",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 453,
+      "session_id": "2_39_130_31_2019-03-22 21:28:02.120940",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 454,
+      "session_id": "2_39_92_436_2019-03-22 21:34:05.616632",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 455,
+      "session_id": "2_39_90_26_2019-03-22 21:41:24.372362",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 456,
+      "session_id": "2_39_139_28_2019-03-23 02:36:04.782642",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 457,
+      "session_id": "2_39_138_29_2019-03-23 14:48:43.710663",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 458,
+      "session_id": "2_39_131_30_2019-03-23 15:10:32.033948",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 459,
+      "session_id": "2_39_79_377_2019-03-23 15:33:21.197570",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 460,
+      "session_id": "2_39_129_17_2019-03-23 15:58:59.652894",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 461,
+      "session_id": "2_39_127_19_2019-03-23 17:00:14.653881",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 462,
+      "session_id": "2_39_125_21_2019-03-23 17:08:02.652222",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 463,
+      "session_id": "2_39_79_378_2019-03-23 18:22:13.579132",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 464,
+      "session_id": "2_39_131_30_2019-03-23 19:19:03.365679",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 465,
+      "session_id": "2_39_79_383_2019-03-23 19:42:55.352430",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 466,
+      "session_id": "2_39_89_25_2019-03-23 20:08:46.590710",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 467,
+      "session_id": "2_39_129_17_2019-03-23 20:20:31.755771",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 468,
+      "session_id": "2_39_127_19_2019-03-23 22:34:51.994207",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 469,
+      "session_id": "2_39_131_30_2019-03-23 23:03:24.940105",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 470,
+      "session_id": "2_39_130_31_2019-03-23 23:22:35.010196",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 471,
+      "session_id": "2_39_79_376_2019-03-24 01:16:21.451985",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 472,
+      "session_id": "2_39_123_23_2019-03-24 04:31:46.405983",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 473,
+      "session_id": "2_39_79_377_2019-03-24 05:19:10.886133",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 474,
+      "session_id": "2_39_139_28_2019-03-24 15:48:47.989481",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 475,
+      "session_id": "2_39_79_380_2019-03-24 18:17:30.509627",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 476,
+      "session_id": "2_39_131_30_2019-03-24 18:36:49.845851",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 477,
+      "session_id": "2_39_129_17_2019-03-24 19:24:30.173061",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 478,
+      "session_id": "2_39_79_379_2019-03-24 19:46:13.043226",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 479,
+      "session_id": "2_39_92_436_2019-03-24 19:56:40.808370",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 480,
+      "session_id": "2_39_79_381_2019-03-24 20:14:53.487244",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 481,
+      "session_id": "2_39_125_21_2019-03-24 22:30:47.390490",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 482,
+      "session_id": "2_39_139_28_2019-03-24 23:01:25.413361",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 483,
+      "session_id": "2_39_130_31_2019-03-25 02:48:06.028434",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 484,
+      "session_id": "2_39_88_24_2019-03-25 13:36:40.336254",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 485,
+      "session_id": "2_39_79_379_2019-03-25 13:41:41.514395",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 486,
+      "session_id": "2_39_91_441_2019-03-25 14:44:11.912031",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 487,
+      "session_id": "2_39_125_21_2019-03-25 14:54:03.738388",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 488,
+      "session_id": "2_39_79_381_2019-03-25 15:25:17.778618",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 489,
+      "session_id": "2_39_139_28_2019-03-25 15:25:36.325260",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 490,
+      "session_id": "2_39_127_19_2019-03-25 15:35:51.602907",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 491,
+      "session_id": "2_39_131_30_2019-03-25 15:40:40.682726",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 492,
+      "session_id": "2_39_79_383_2019-03-25 15:42:20.096968",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 493,
+      "session_id": "2_39_78_363_2019-03-25 15:55:01.235341",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 494,
+      "session_id": "2_39_78_366_2019-03-25 15:55:39.368753",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 495,
+      "session_id": "2_39_130_31_2019-03-25 16:04:31.425780",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 496,
+      "session_id": "2_39_79_380_2019-03-25 16:13:57.531660",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 497,
+      "session_id": "2_39_123_23_2019-03-25 16:34:42.215325",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 498,
+      "session_id": "2_39_79_377_2019-03-25 16:41:48.247681",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 499,
+      "session_id": "2_39_128_18_2019-03-25 16:55:09.897259",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 500,
+      "session_id": "2_39_78_365_2019-03-25 17:02:52.763424",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 501,
+      "session_id": "2_39_90_440_2019-03-25 17:14:55.794016",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 502,
+      "session_id": "2_39_79_376_2019-03-25 17:44:35.983902",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 503,
+      "session_id": "2_39_79_382_2019-03-25 18:55:20.937171",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 504,
+      "session_id": "2_39_89_25_2019-03-25 20:43:29.809030",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 505,
+      "session_id": "2_39_95_27_2019-03-25 23:05:16.906056",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 506,
+      "session_id": "2_39_125_21_2019-03-25 23:34:54.066577",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 507,
+      "session_id": "2_39_124_22_2019-03-26 00:24:00.610965",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 508,
+      "session_id": "2_39_139_28_2019-03-26 01:08:29.843823",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 509,
+      "session_id": "2_39_130_31_2019-03-26 01:13:43.769911",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 510,
+      "session_id": "2_39_129_17_2019-03-26 01:24:01.712535",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 511,
+      "session_id": "2_39_78_366_2019-03-26 01:49:36.283589",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 512,
+      "session_id": "2_39_139_28_2019-03-26 04:23:49.458088",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 513,
+      "session_id": "2_39_131_30_2019-03-26 04:24:15.421862",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 514,
+      "session_id": "2_39_79_379_2019-03-26 13:45:56.588934",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 515,
+      "session_id": "2_39_78_366_2019-03-26 14:19:25.443330",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 516,
+      "session_id": "2_39_79_378_2019-03-26 14:48:28.136390",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 517,
+      "session_id": "2_39_79_377_2019-03-26 15:02:28.740811",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 518,
+      "session_id": "2_39_123_23_2019-03-26 15:05:23.182949",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 519,
+      "session_id": "2_39_79_380_2019-03-26 15:14:30.892381",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 520,
+      "session_id": "2_39_79_382_2019-03-26 15:17:48.448118",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 521,
+      "session_id": "2_39_78_365_2019-03-26 15:38:57.891369",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 522,
+      "session_id": "2_39_78_367_2019-03-26 15:43:50.295480",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 523,
+      "session_id": "2_39_95_27_2019-03-26 15:44:19.259061",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 524,
+      "session_id": "2_39_124_558_2019-03-26 15:50:56.235090",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 525,
+      "session_id": "2_39_139_28_2019-03-26 15:51:48.542593",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 526,
+      "session_id": "2_39_131_30_2019-03-26 15:53:21.199517",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 527,
+      "session_id": "2_39_79_376_2019-03-26 15:56:56.242458",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 528,
+      "session_id": "2_39_89_439_2019-03-26 16:04:03.008220",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 529,
+      "session_id": "2_39_129_17_2019-03-26 16:04:30.975643",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 530,
+      "session_id": "2_39_78_360_2019-03-26 16:13:21.843466",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 531,
+      "session_id": "2_39_78_361_2019-03-26 16:14:17.497417",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 532,
+      "session_id": "2_39_91_437_2019-03-26 16:29:55.195487",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 533,
+      "session_id": "2_39_126_560_2019-03-26 16:51:17.494188",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 534,
+      "session_id": "2_39_78_364_2019-03-26 17:02:11.187655",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 535,
+      "session_id": "2_39_79_378_2019-03-26 17:09:44.736334",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 536,
+      "session_id": "2_39_89_25_2019-03-26 17:37:44.911334",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 537,
+      "session_id": "2_39_92_442_2019-03-26 17:44:38.179143",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 538,
+      "session_id": "2_39_90_26_2019-03-26 18:13:03.539771",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 539,
+      "session_id": "2_39_78_363_2019-03-26 18:39:10.084897",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 540,
+      "session_id": "2_39_125_21_2019-03-26 18:40:39.418160",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 541,
+      "session_id": "2_39_90_440_2019-03-26 18:49:45.855218",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 542,
+      "session_id": "2_39_92_436_2019-03-26 19:10:19.150667",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 543,
+      "session_id": "2_39_83_386_2019-03-26 19:36:52.208693",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 544,
+      "session_id": "2_39_139_28_2019-03-26 20:21:37.490629",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 545,
+      "session_id": "2_39_124_22_2019-03-26 20:55:16.837410",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 546,
+      "session_id": "2_39_79_383_2019-03-26 22:44:26.624602",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 547,
+      "session_id": "2_39_124_22_2019-03-26 23:23:07.518690",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 548,
+      "session_id": "2_39_123_23_2019-03-27 00:23:07.097088",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 549,
+      "session_id": "2_39_131_30_2019-03-27 01:52:40.249312",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 550,
+      "session_id": "2_39_125_21_2019-03-27 02:48:07.505714",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 551,
+      "session_id": "2_39_139_28_2019-03-27 03:21:33.288978",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 552,
+      "session_id": "2_39_129_17_2019-03-27 03:33:56.516136",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 553,
+      "session_id": "2_39_89_25_2019-03-27 04:13:42.585275",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 554,
+      "session_id": "2_39_131_30_2019-03-27 04:32:08.516904",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 555,
+      "session_id": "2_39_127_19_2019-03-27 04:41:51.111565",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 556,
+      "session_id": "2_39_89_25_2019-03-27 13:49:31.104484",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 557,
+      "session_id": "2_39_78_366_2019-03-27 14:12:46.716694",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 558,
+      "session_id": "2_39_79_379_2019-03-27 14:57:34.822199",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 559,
+      "session_id": "2_39_131_30_2019-03-27 15:11:03.662694",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 560,
+      "session_id": "2_39_139_28_2019-03-27 15:24:48.052153",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 561,
+      "session_id": "2_39_78_365_2019-03-27 15:28:41.604183",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 562,
+      "session_id": "2_39_123_23_2019-03-27 15:28:41.862495",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 563,
+      "session_id": "2_39_95_27_2019-03-27 15:43:39.651827",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 564,
+      "session_id": "2_39_79_377_2019-03-27 15:49:16.548002",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 565,
+      "session_id": "2_39_91_437_2019-03-27 15:59:06.813684",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 566,
+      "session_id": "2_39_79_380_2019-03-27 16:01:31.522597",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 567,
+      "session_id": "2_39_92_442_2019-03-27 16:03:32.861137",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 568,
+      "session_id": "2_39_79_382_2019-03-27 16:08:42.027877",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 569,
+      "session_id": "2_39_89_439_2019-03-27 16:10:42.113099",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 570,
+      "session_id": "2_39_79_381_2019-03-27 16:42:41.090144",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 571,
+      "session_id": "2_39_130_31_2019-03-27 17:01:29.226654",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 572,
+      "session_id": "2_39_124_22_2019-03-27 17:13:40.972079",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 573,
+      "session_id": "2_39_79_383_2019-03-27 17:16:34.439419",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 574,
+      "session_id": "2_39_78_363_2019-03-27 17:41:33.278495",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 575,
+      "session_id": "2_39_78_361_2019-03-27 17:49:38.872220",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 576,
+      "session_id": "2_39_78_367_2019-03-27 18:05:20.653676",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 577,
+      "session_id": "2_39_79_378_2019-03-27 18:08:14.929312",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 578,
+      "session_id": "2_39_88_24_2019-03-27 18:22:29.815601",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 579,
+      "session_id": "2_39_129_17_2019-03-27 19:24:45.519026",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 580,
+      "session_id": "2_39_78_360_2019-03-27 19:29:16.067960",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 581,
+      "session_id": "2_39_89_25_2019-03-27 19:48:11.053963",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 582,
+      "session_id": "2_39_78_364_2019-03-27 20:09:49.371724",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 583,
+      "session_id": "2_39_90_26_2019-03-27 20:16:16.552400",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 584,
+      "session_id": "2_39_123_23_2019-03-27 20:17:21.177134",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 585,
+      "session_id": "2_39_126_20_2019-03-27 20:22:12.292548",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 586,
+      "session_id": "2_39_95_444_2019-03-27 20:27:36.156972",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 587,
+      "session_id": "2_39_88_24_2019-03-27 22:00:36.862803",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 588,
+      "session_id": "2_39_125_21_2019-03-27 23:35:13.466643",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 589,
+      "session_id": "2_39_126_20_2019-03-27 23:40:44.250780",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 590,
+      "session_id": "2_39_91_437_2019-03-28 00:03:13.834791",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 591,
+      "session_id": "2_39_139_28_2019-03-28 00:53:18.664017",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 592,
+      "session_id": "2_39_138_29_2019-03-28 00:55:32.658845",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 593,
+      "session_id": "2_39_125_21_2019-03-28 01:31:48.533142",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 594,
+      "session_id": "2_39_131_30_2019-03-28 01:57:48.044767",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 595,
+      "session_id": "2_39_79_377_2019-03-28 02:55:10.744634",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 596,
+      "session_id": "2_39_139_28_2019-03-28 03:34:01.331077",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 597,
+      "session_id": "2_39_139_28_2019-03-28 05:47:09.192906",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 598,
+      "session_id": "2_39_89_25_2019-03-28 13:27:51.595130",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 599,
+      "session_id": "2_39_88_24_2019-03-28 13:39:52.911892",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 600,
+      "session_id": "2_39_78_366_2019-03-28 14:13:51.828402",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 601,
+      "session_id": "2_39_78_361_2019-03-28 14:47:35.850883",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 602,
+      "session_id": "2_39_79_379_2019-03-28 14:54:17.167186",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 603,
+      "session_id": "2_39_78_365_2019-03-28 14:56:26.770405",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 604,
+      "session_id": "2_39_90_26_2019-03-28 15:01:44.259049",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 605,
+      "session_id": "2_39_79_380_2019-03-28 15:33:16.407867",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 606,
+      "session_id": "2_39_91_437_2019-03-28 15:41:15.064461",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 607,
+      "session_id": "2_39_92_442_2019-03-28 15:45:04.980477",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 608,
+      "session_id": "2_39_131_30_2019-03-28 15:48:10.111496",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 609,
+      "session_id": "2_39_79_381_2019-03-28 15:49:00.437700",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 610,
+      "session_id": "2_39_78_360_2019-03-28 16:01:04.773168",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 611,
+      "session_id": "2_39_79_382_2019-03-28 16:01:31.903518",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 612,
+      "session_id": "2_39_78_367_2019-03-28 16:02:00.538978",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 613,
+      "session_id": "2_39_89_25_2019-03-28 16:03:13.962419",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 614,
+      "session_id": "2_39_123_557_2019-03-28 16:09:57.003048",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 615,
+      "session_id": "2_39_129_17_2019-03-28 16:20:32.874574",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 616,
+      "session_id": "2_39_83_386_2019-03-28 16:32:22.502452",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 617,
+      "session_id": "2_39_127_19_2019-03-28 16:44:12.065295",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 618,
+      "session_id": "2_39_95_27_2019-03-28 17:00:38.539436",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 619,
+      "session_id": "2_39_123_23_2019-03-28 17:17:39.765788",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 620,
+      "session_id": "2_39_79_377_2019-03-28 17:45:53.777875",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 621,
+      "session_id": "2_39_79_378_2019-03-28 17:52:48.080244",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 622,
+      "session_id": "2_39_79_376_2019-03-28 17:58:25.125372",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 623,
+      "session_id": "2_39_79_383_2019-03-28 18:05:29.949489",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 624,
+      "session_id": "2_39_129_17_2019-03-28 19:20:02.488536",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 625,
+      "session_id": "2_39_78_364_2019-03-28 19:32:27.826864",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 626,
+      "session_id": "2_39_124_22_2019-03-28 19:36:40.433929",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 627,
+      "session_id": "2_39_92_436_2019-03-28 19:43:03.848809",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 628,
+      "session_id": "2_39_78_363_2019-03-28 20:40:39.439405",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 629,
+      "session_id": "2_39_91_441_2019-03-28 20:45:42.930497",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 630,
+      "session_id": "2_39_88_438_2019-03-28 20:58:23.864088",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 631,
+      "session_id": "2_39_78_361_2019-03-28 20:59:27.614248",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 632,
+      "session_id": "2_39_95_444_2019-03-28 21:15:05.659316",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 633,
+      "session_id": "2_39_78_361_2019-03-28 21:24:30.152095",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 634,
+      "session_id": "2_39_130_31_2019-03-28 23:36:33.259325",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 635,
+      "session_id": "2_39_79_377_2019-03-28 23:44:57.290195",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 636,
+      "session_id": "2_39_124_22_2019-03-29 00:17:34.437344",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 637,
+      "session_id": "2_39_139_28_2019-03-29 01:28:41.779204",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 638,
+      "session_id": "2_39_123_23_2019-03-29 02:39:36.360277",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 639,
+      "session_id": "2_39_89_25_2019-03-29 13:34:00.027531",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 640,
+      "session_id": "2_39_88_24_2019-03-29 13:41:31.037770",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 641,
+      "session_id": "2_39_90_26_2019-03-29 14:58:03.335682",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 642,
+      "session_id": "2_39_139_28_2019-03-29 15:26:25.309466",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 643,
+      "session_id": "2_39_79_380_2019-03-29 15:26:29.796244",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 644,
+      "session_id": "2_39_95_27_2019-03-29 15:31:50.751725",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 645,
+      "session_id": "2_39_131_30_2019-03-29 15:43:22.522886",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 646,
+      "session_id": "2_39_125_21_2019-03-29 15:46:01.047987",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 647,
+      "session_id": "2_39_79_378_2019-03-29 15:50:26.559643",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 648,
+      "session_id": "2_39_91_437_2019-03-29 16:00:02.031826",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 649,
+      "session_id": "2_39_95_27_2019-03-29 16:17:21.278960",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 650,
+      "session_id": "2_39_89_25_2019-03-29 16:22:11.590535",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 651,
+      "session_id": "2_39_91_441_2019-03-29 16:29:41.687433",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 652,
+      "session_id": "2_39_79_377_2019-03-29 16:34:48.580420",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 653,
+      "session_id": "2_39_139_567_2019-03-29 16:48:43.958086",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 654,
+      "session_id": "2_39_78_366_2019-03-29 16:53:04.695616",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 655,
+      "session_id": "2_39_90_26_2019-03-29 17:04:21.873946",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 656,
+      "session_id": "2_39_79_379_2019-03-29 17:16:09.490684",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 657,
+      "session_id": "2_39_124_22_2019-03-29 17:33:11.539499",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 658,
+      "session_id": "2_39_79_381_2019-03-29 18:02:10.966435",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 659,
+      "session_id": "2_39_78_365_2019-03-29 18:12:19.029652",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 660,
+      "session_id": "2_39_79_376_2019-03-29 19:26:09.029606",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 661,
+      "session_id": "2_39_88_24_2019-03-29 19:30:59.668510",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 662,
+      "session_id": "2_39_129_17_2019-03-29 20:30:27.462699",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 663,
+      "session_id": "2_39_125_21_2019-03-29 20:34:44.612436",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 664,
+      "session_id": "2_39_78_361_2019-03-29 20:39:28.908647",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 665,
+      "session_id": "2_39_123_23_2019-03-29 20:42:42.535267",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 666,
+      "session_id": "2_39_92_442_2019-03-29 20:53:57.717762",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 667,
+      "session_id": "2_39_79_383_2019-03-29 22:01:48.035346",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 668,
+      "session_id": "2_39_92_436_2019-03-29 22:37:22.214247",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 669,
+      "session_id": "2_39_78_361_2019-03-30 00:12:53.539748",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 670,
+      "session_id": "2_39_131_30_2019-03-30 00:14:53.111617",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 671,
+      "session_id": "2_39_127_19_2019-03-30 00:23:39.965740",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 672,
+      "session_id": "2_39_78_365_2019-03-30 00:51:08.016175",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 673,
+      "session_id": "2_39_139_28_2019-03-30 04:05:59.166110",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 674,
+      "session_id": "2_39_129_17_2019-03-30 04:46:00.032233",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 675,
+      "session_id": "2_39_139_28_2019-03-30 15:04:48.327204",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 676,
+      "session_id": "2_39_79_379_2019-03-30 15:52:03.067628",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 677,
+      "session_id": "2_39_127_19_2019-03-30 16:30:26.032390",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 678,
+      "session_id": "2_39_124_22_2019-03-30 17:20:54.512632",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 679,
+      "session_id": "2_39_89_25_2019-03-30 17:34:21.919166",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 680,
+      "session_id": "2_39_125_21_2019-03-30 17:51:20.201213",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 681,
+      "session_id": "2_39_95_27_2019-03-30 19:57:38.670354",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 682,
+      "session_id": "2_39_131_30_2019-03-30 20:16:33.162954",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 683,
+      "session_id": "2_39_125_21_2019-03-30 22:54:58.118978",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 684,
+      "session_id": "2_39_79_378_2019-03-31 00:00:46.128972",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 685,
+      "session_id": "2_39_83_386_2019-03-31 00:58:02.118477",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 686,
+      "session_id": "2_39_79_383_2019-03-31 02:54:47.288598",
+      "reason": "outside_arrival_date"
+    },
+    {
+      "raw_index": 687,
+      "session_id": "2_39_123_23_2019-03-31 07:36:48.299563",
+      "reason": "outside_arrival_date"
+    }
+  ]
+}

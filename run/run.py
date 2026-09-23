@@ -10,6 +10,7 @@ import os
 from pathlib import Path
 import subprocess
 import sys
+from datetime import datetime
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -18,14 +19,19 @@ ECLOUD_SECRET_KEY = "1d257e702c564b51b1cb09b4f507eb8e"
 
 
 def main():
+    os.chdir(ROOT)
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--instance-list", default="data/acn_competition_0930_v2/instances.json")
     parser.add_argument("--qaia-config", default="tuning/acn_train_v1/best_qaia.json")
-    parser.add_argument("--out-dir", default="results/2019-03-11", help="results directory; must not exist yet")
+    parser.add_argument("--out-dir", default="results/capacity_bound_"+datetime.now().strftime("%Y%m%d_%H%M%S"),
+                        help="New result directory; a timestamp is used by default")
     parser.add_argument("--limit", type=int, default=1200)
     parser.add_argument("--seeds", type=int, nargs="+", default=[0, 1, 2])
     parser.add_argument("--cim-call-seconds", type=int, default=300)
     parser.add_argument("--all-instances", action="store_true", help="Run all 12 instead of the first six")
+    parser.add_argument("--dates", nargs="+", default=["2019-03-11", "2019-03-12"])
+    parser.add_argument("--capacity-bound", choices=["0", "1"], default="1")
+    parser.add_argument("--bound-lp-seconds", type=float, default=2.0)
     args = parser.parse_args()
 
     if Path(args.out_dir).exists():
@@ -39,6 +45,8 @@ def main():
         BPC_RMP_MIP_SECONDS="0.5",
         BPC_RMP_MIP_FRACTION="0.1",
         BPC_PRIMAL_COMPLETION="0",
+        BPC_CAPACITY_BOUND=args.capacity_bound,
+        BPC_BOUND_LP_SECONDS=str(args.bound_lp_seconds),
         CIM_DEVICE_ID="WuYue-QPU-Qboson-1000",
         CIM_MAX_BITS="1000",
         CIM_PRECISION="8",
@@ -50,10 +58,12 @@ def main():
 
     instances = json.loads((ROOT / args.instance_list).read_text(encoding="utf-8-sig"))["instances"]
     if not args.all_instances:
-        # Fixed before viewing outcomes: 03-11 and 03-12, three sizes on each date.
         instances = [p for p in instances if Path(p.replace("\\", "/")).name.startswith(
-            ("2019-03-11_"))]
-            # ("2019-03-11_", "2019-03-12_"))]
+            tuple(day+"_" for day in args.dates))]
+    # Manifests created on another computer may contain obsolete absolute paths.
+    manifest_dir = (ROOT / args.instance_list).parent
+    instances = [str((manifest_dir / Path(p.replace("\\", "/")).name).resolve())
+                 if not Path(p).is_file() else p for p in instances]
     if not instances:
         parser.error("no instances selected from the manifest")
 

@@ -198,6 +198,9 @@ def main():
     recorder = bp = None
     record["offline_tuning"] = frozen_metadata
     record["tuning_seconds_in_bp"] = 0.0
+    record["capacity_bound_config"] = dict(
+        enabled=os.getenv("BPC_CAPACITY_BOUND", "1") == "1",
+        lp_seconds=float(os.getenv("BPC_BOUND_LP_SECONDS", "2")))
     record["primal_completion_config"] = dict(
         enabled=os.getenv("BPC_PRIMAL_COMPLETION", "0") == "1",
         attempts=int(os.getenv("BPC_PRIMAL_ATTEMPTS", "20")),
