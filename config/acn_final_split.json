@@ -1,0 +1,13 @@
+{
+  "site": "caltech",
+  "timezone": "America/Los_Angeles",
+  "train": ["2019-03-04", "2019-03-05", "2019-03-06", "2019-03-07", "2019-03-08"],
+  "validation": ["2019-03-11", "2019-03-12", "2019-03-13", "2019-03-14", "2019-03-15"],
+  "test": ["2019-03-18", "2019-03-19", "2019-03-20", "2019-03-21", "2019-03-22", "2019-03-25", "2019-03-26", "2019-03-27", "2019-03-28", "2019-03-29"],
+  "external_test": ["2019-04-08", "2019-04-09", "2019-04-10", "2019-04-11", "2019-04-12"],
+  "sizes": [16, 24, 32, 40, 48],
+  "vehicles_per_charger": [4, 8],
+  "slot_minutes": 15,
+  "power_kw": 7,
+  "note": "Calendar-based proposal; verify availability/eligible counts before freezing. Never select dates by solver outcomes."
+}

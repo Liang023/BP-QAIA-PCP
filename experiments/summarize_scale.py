@@ -33,6 +33,8 @@ def collect(folder):
         for entry, record in records:
             method = entry.get("policy") or entry["method"]
             stats = record.get("statistics") or {}
+            metrics = (stats.get("root_diagnostics") or {}).get("heuristic_metrics") or {}
+            cim = metrics.get("cim") or {}
             feasible = bool(record.get("validation_passed") and record.get("has_feasible_solution"))
             objective = record.get("objective") if feasible else None
             row = dict(batch=folder.name, instance=name, budget=manifest["limit"], method=method,
@@ -51,6 +53,11 @@ def collect(folder):
                 root_lp=(stats.get("root_diagnostics") or {}).get("lp_objective"),
                 root_cg_iterations=(stats.get("root_diagnostics") or {}).get("cg_iterations"),
                 restricted_mip_seconds=stats.get("restricted_mip_seconds"),
+                heuristic_provider=record.get("heuristic_provider"),
+                cim_requests=cim.get("requests"), cim_completed=cim.get("completed"),
+                cim_timeouts=cim.get("timeouts"), cim_size_skips=cim.get("size_skips"),
+                cim_seconds=cim.get("seconds"),
+                tuning_config_sha256=(record.get("offline_tuning") or {}).get("sha256"),
                 source_sha256=record.get("source_sha256"), error=record.get("error"))
             runs.append(row)
             groups.setdefault(method, []).append(row)

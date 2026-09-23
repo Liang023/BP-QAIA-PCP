@@ -42,3 +42,4 @@ ehthumbs.db
 Thumbs.db
 *.log
 results/stage2_legacy/
+results/cim_tasks/

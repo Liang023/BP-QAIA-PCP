@@ -1,0 +1,41 @@
+{
+  "schema_version": "qaia-frozen-v1",
+  "env": {
+    "QAIA_N_ITER": "200",
+    "QAIA_MAX_COLUMNS": "3",
+    "QAIA_PROVIDER": "qaia",
+    "QAIA_XI": "auto",
+    "QAIA_DT": "1.0",
+    "QAIA_EXACT_MODE": "on_qaia_failure",
+    "QAIA_COLUMN_POLICY": "combined",
+    "QAIA_BATCH_SIZE": "10",
+    "QAIA_MAX_STREAK": "3"
+  },
+  "tuning_seconds": 9.197698500000115,
+  "training_instances": [
+    {
+      "path": "D:\\pythonProject\\BP_QAIA_PCP\\data\\ev_instances_v1\\v1_N6_C2_s0.json",
+      "sha256": "76f8d021bb1ecbd9ca7445173f02473726ef2089d6c1ac984b99653219723ff4",
+      "date": null
+    }
+  ],
+  "training_limit": 10.0,
+  "training_seeds": [
+    0
+  ],
+  "sampler_seed": 2026,
+  "protocol": {
+    "EXACT_POOL_SEARCH_MODE": "0",
+    "BPC_COMPLETION_ROWS": "vehicle",
+    "BPC_RMP_MIP": "1",
+    "BPC_RMP_MIP_SECONDS": "2",
+    "BPC_RMP_MIP_FRACTION": "0.1",
+    "BPC_RMP_MIP_EVERY": "20",
+    "BPC_PRIMAL_COMPLETION": "1",
+    "BPC_PRIMAL_SECONDS": "2",
+    "BPC_PRIMAL_ATTEMPTS": "20"
+  },
+  "best_trial": 0,
+  "best_tuning_loss": 0.3,
+  "loss_definition": "missing_count + sum(feasible_objective/horizon)/(run_count+1)"
+}

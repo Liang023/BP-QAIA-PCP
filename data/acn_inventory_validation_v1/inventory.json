@@ -1,0 +1,157 @@
+[
+  {
+    "date": "2019-03-11",
+    "eligible": 37,
+    "status": "converted",
+    "reason": null,
+    "counts": {
+      "outside_arrival_date": 649,
+      "pilot_excluded_long_stay": 1,
+      "model_excluded_insufficient_discrete_window": 1,
+      "selected": 37
+    },
+    "sizes": [
+      {
+        "n": 16,
+        "vertices": 372,
+        "cim_1000_raw_size_fits": true
+      },
+      {
+        "n": 24,
+        "vertices": 521,
+        "cim_1000_raw_size_fits": true
+      },
+      {
+        "n": 32,
+        "vertices": 586,
+        "cim_1000_raw_size_fits": true
+      }
+    ]
+  },
+  {
+    "date": "2019-03-12",
+    "eligible": 41,
+    "status": "converted",
+    "reason": null,
+    "counts": {
+      "outside_arrival_date": 644,
+      "model_excluded_insufficient_discrete_window": 3,
+      "selected": 41
+    },
+    "sizes": [
+      {
+        "n": 16,
+        "vertices": 405,
+        "cim_1000_raw_size_fits": true
+      },
+      {
+        "n": 24,
+        "vertices": 603,
+        "cim_1000_raw_size_fits": true
+      },
+      {
+        "n": 32,
+        "vertices": 743,
+        "cim_1000_raw_size_fits": true
+      },
+      {
+        "n": 40,
+        "vertices": 826,
+        "cim_1000_raw_size_fits": true
+      }
+    ]
+  },
+  {
+    "date": "2019-03-13",
+    "eligible": 43,
+    "status": "converted",
+    "reason": null,
+    "counts": {
+      "outside_arrival_date": 645,
+      "selected": 43
+    },
+    "sizes": [
+      {
+        "n": 16,
+        "vertices": 371,
+        "cim_1000_raw_size_fits": true
+      },
+      {
+        "n": 24,
+        "vertices": 613,
+        "cim_1000_raw_size_fits": true
+      },
+      {
+        "n": 32,
+        "vertices": 714,
+        "cim_1000_raw_size_fits": true
+      },
+      {
+        "n": 40,
+        "vertices": 785,
+        "cim_1000_raw_size_fits": true
+      }
+    ]
+  },
+  {
+    "date": "2019-03-14",
+    "eligible": 42,
+    "status": "converted",
+    "reason": null,
+    "counts": {
+      "outside_arrival_date": 642,
+      "model_excluded_insufficient_discrete_window": 4,
+      "selected": 42
+    },
+    "sizes": [
+      {
+        "n": 16,
+        "vertices": 446,
+        "cim_1000_raw_size_fits": true
+      },
+      {
+        "n": 24,
+        "vertices": 624,
+        "cim_1000_raw_size_fits": true
+      },
+      {
+        "n": 32,
+        "vertices": 757,
+        "cim_1000_raw_size_fits": true
+      },
+      {
+        "n": 40,
+        "vertices": 834,
+        "cim_1000_raw_size_fits": true
+      }
+    ]
+  },
+  {
+    "date": "2019-03-15",
+    "eligible": 36,
+    "status": "converted",
+    "reason": null,
+    "counts": {
+      "outside_arrival_date": 650,
+      "model_excluded_insufficient_discrete_window": 2,
+      "selected": 36
+    },
+    "sizes": [
+      {
+        "n": 16,
+        "vertices": 388,
+        "cim_1000_raw_size_fits": true
+      },
+      {
+        "n": 24,
+        "vertices": 535,
+        "cim_1000_raw_size_fits": true
+      },
+      {
+        "n": 32,
+        "vertices": 825,
+        "cim_1000_raw_size_fits": true
+      }
+    ]
+  }
+]

@@ -41,6 +41,8 @@ def main():
     p.add_argument("--out-dir", required=True)
     p.add_argument("--limit", type=float, default=30)
     p.add_argument("--variant-file", help="JSON list of {name, env} variants")
+    p.add_argument("--qaia-config", help="Append a qaia_tuned variant from frozen Optuna JSON")
+    p.add_argument("--include-cim", action="store_true", help="Append a real CIM variant")
     p.add_argument("--seeds", type=int, nargs="+", default=[0, 1, 2, 3, 4])
     args = p.parse_args()
     if not args.seeds or min(args.seeds) < 0 or len(set(args.seeds)) != len(args.seeds):
@@ -54,10 +56,18 @@ def main():
     if not 1 <= exact_repeats <= len(args.seeds):
         p.error("exact-repeats must be between 1 and the number of seeds")
     managed = {"QAIA_EXACT_MODE", "QAIA_PROVIDER", "QAIA_MAX_STREAK", "QAIA_N_ITER",
-               "QAIA_BATCH_SIZE", "QAIA_MAX_COLUMNS", "QAIA_DT", "QAIA_COLUMN_POLICY"}
+               "QAIA_BATCH_SIZE", "QAIA_MAX_COLUMNS", "QAIA_DT", "QAIA_XI", "QAIA_COLUMN_POLICY"}
     variants = json.loads((ROOT / "config/anytime.json").read_text(encoding="utf-8"))
     if args.variant_file:
         variants = json.loads(Path(args.variant_file).read_text(encoding="utf-8-sig"))
+    frozen_metadata = None
+    if args.qaia_config:
+        from config.qaia_runtime import load_frozen
+        frozen_env, frozen_metadata = load_frozen(args.qaia_config)
+        variants.append(dict(name="qaia_tuned", env=frozen_env))
+    if args.include_cim:
+        variants.append(dict(name="cim", env=dict(QAIA_PROVIDER="cim",
+            QAIA_EXACT_MODE="on_qaia_failure", QAIA_COLUMN_POLICY="combined")))
     if not isinstance(variants, list) or not variants:
         p.error("variant-file must contain a nonempty list")
     names = set()
@@ -85,7 +95,7 @@ def main():
     fingerprints = set()
     plan = [("compact", None, 0, "compact", {})]
     for repeat, seed in enumerate(args.seeds):
-        pair = [("qaia_root", item["name"], seed, f"{item['name']}_s{seed}", item["env"])
+        pair = [(item["env"].get("QAIA_PROVIDER", "qaia")+"_root", item["name"], seed, f"{item['name']}_s{seed}", item["env"])
                 for item in variants]
         if repeat < exact_repeats:
             primal_seed = seed if os.getenv("BPC_PRIMAL_COMPLETION", "0") == "1" else 0
@@ -95,6 +105,10 @@ def main():
         plan.extend(pair)
     (out / "manifest.json").write_text(json.dumps(dict(
         variants=variants, seeds=args.seeds, limit=args.limit, exact_repeats=exact_repeats,
+        offline_tuning=frozen_metadata,
+        cim_environment={key: os.getenv(key) for key in (
+            "CIM_DEVICE_ID", "CIM_MAX_BITS", "CIM_PRECISION", "CIM_MAX_CALLS",
+            "CIM_CALL_SECONDS", "CIM_CACHE_DIR")},
         completion_rows=completion_rows(),
         primal_completion_environment={key: os.getenv(key, default) for key, default in (
             ("BPC_PRIMAL_COMPLETION", "0"), ("BPC_PRIMAL_ATTEMPTS", "20"),
@@ -118,6 +132,8 @@ def main():
             command = [sys.executable, str(ROOT / "experiments/run_instance.py"),
                        "--instance", str(path), "--method", method,
                        "--seed", str(seed), "--limit", str(args.limit), "--out", str(dest)]
+            if policy == "qaia_tuned" and args.qaia_config:
+                command.extend(["--qaia-config", str(Path(args.qaia_config).resolve())])
             start = time.perf_counter()
             record = {}
             with dest.with_suffix(".process.log").open("x", encoding="utf-8") as log:
@@ -160,7 +176,7 @@ def main():
                     check = "objective_mismatch"
                 else:
                     check = "matched_reference"
-            entry = dict(method=method, policy=policy if method == "qaia_root" else None,
+            entry = dict(method=method, policy=policy,
                          seed=seed, result=dest.name, status=record.get("status", "error"),
                          check=check, objective=record.get("objective"),
                          feasible_makespan=record.get("schedule_makespan"),

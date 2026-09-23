@@ -158,12 +158,23 @@ def clean(value):
 def main():
     p = argparse.ArgumentParser()
     p.add_argument("--instance", required=True)
-    p.add_argument("--method", choices=["compact", "exact", "qaia_root"], required=True)
+    p.add_argument("--method", choices=["compact", "exact", "qaia_root", "greedy_root", "cim_root"], required=True)
+    p.add_argument("--qaia-config", help="Frozen offline Optuna JSON; no tuning during BP")
     p.add_argument("--seed", type=int, default=42)
     p.add_argument("--limit", type=float, default=120)
     p.add_argument("--out", required=True)
     p.add_argument("--checkpoints", type=float, nargs="*", default=[10, 30, 60, 120, 300])
     args = p.parse_args()
+    from config.qaia_runtime import load_frozen
+    frozen_metadata = None
+    if args.qaia_config:
+        if args.method != "qaia_root":
+            p.error("--qaia-config is only for qaia_root")
+        frozen_env, frozen_metadata = load_frozen(args.qaia_config)
+        os.environ.update(frozen_env)
+    if args.method in {"greedy_root", "cim_root"}:
+        os.environ["QAIA_PROVIDER"] = args.method.removesuffix("_root")
+    hybrid = args.method not in {"compact", "exact"}
     if not math.isfinite(args.limit) or args.limit <= 0:
         p.error("limit must be positive and finite")
     if any(not math.isfinite(t) or t < 0 for t in args.checkpoints):
@@ -185,6 +196,8 @@ def main():
                   timing_scope="after_input_and_imports_before_graph_and_model",
                   verbose=os.getenv("BPC_VERBOSE", "0") == "1")
     recorder = bp = None
+    record["offline_tuning"] = frozen_metadata
+    record["tuning_seconds_in_bp"] = 0.0
     record["primal_completion_config"] = dict(
         enabled=os.getenv("BPC_PRIMAL_COMPLETION", "0") == "1",
         attempts=int(os.getenv("BPC_PRIMAL_ATTEMPTS", "20")),
@@ -198,6 +211,12 @@ def main():
                 record["instance_sha256"] = hashlib.sha256(raw).hexdigest()
                 data = json.loads(raw)
                 check_input(data)
+                if frozen_metadata:
+                    training = frozen_metadata["training_instances"]
+                    record["overlaps_tuning_instance"] = any(
+                        row["sha256"] == record["instance_sha256"] for row in training)
+                    day = data.get("metadata", {}).get("local_arrival_date")
+                    record["overlaps_tuning_date"] = bool(day and any(row.get("date") == day for row in training))
                 record.update(vehicles=len(data["vehicles"]),
                     vertices=sum(len(v["candidates"]) for v in data["vehicles"]),
                     schema_version=data.get("schema_version", "legacy"),
@@ -217,7 +236,10 @@ def main():
                 from config.qaia_runtime import pricing_options
                 record["qaia_config"] = (dict(scope="root", **pricing_options(),
                     column_policy=os.getenv("QAIA_COLUMN_POLICY", "combined"))
-                    if args.method == "qaia_root" else None)
+                    if hybrid else None)
+                if hybrid and record["qaia_config"]["heuristic_provider"] == "cim":
+                    from cg.pricing.cim_backend import cim_options
+                    record["cim_config"] = cim_options()
                 record["exact_pricing_config"] = (dict(
                     pool_search_mode=int(os.getenv("EXACT_POOL_SEARCH_MODE", "2")),
                     pool_solutions=10, mip_gap=0.0, mip_gap_abs=0.0)
@@ -232,7 +254,9 @@ def main():
                 if args.method != "compact":
                     from ev.ev_to_pcp import ev_json_to_instance
                     from bpc.branch_and_price import BranchAndPrice
-                if args.method == "qaia_root" and record["qaia_config"]["heuristic_provider"] == "qaia":
+                if hybrid:
+                    record["heuristic_provider"] = record["qaia_config"]["heuristic_provider"]
+                if hybrid and record["qaia_config"]["heuristic_provider"] == "qaia":
                     import qaia  # dependency preparation is outside the algorithm budget
                 budget_start = time.perf_counter()
                 deadline = budget_start+args.limit
@@ -248,7 +272,7 @@ def main():
                     record["graph_seconds"] = time.perf_counter()-t0
                     remaining_seconds(deadline, "After graph construction")
                     bp = BranchAndPrice(inst.graph, inst.charger_num,
-                        time_limit=args.limit, use_qaia=args.method == "qaia_root", qaia_seed=args.seed)
+                        time_limit=args.limit, use_qaia=hybrid, qaia_seed=args.seed)
                     result = bp.solve(start_time=budget_start, deadline=deadline, recorder=recorder)
                     record.update(status=result["status"], objective=result["objective_value"],
                         statistics=result["statistics"], error=result.get("error"),

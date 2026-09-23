@@ -82,9 +82,13 @@ class QAIAPricingSolver:
 
         self.auxiliary_graph = auxiliary_graph
         self.pricing_problem = pricing_problem
-        if provider not in {"qaia", "greedy"}:
+        if provider not in {"qaia", "greedy", "cim"}:
             raise ValueError("Unknown heuristic provider")
         self.provider = provider
+        self.cim = None
+        if provider == "cim":
+            from cg.pricing.cim_backend import CIMBackend
+            self.cim = CIMBackend()
         self.profile = dict(build_seconds=0.0, search_seconds=0.0,
                             repair_seconds=0.0, raw_samples=0,
                             improving_unique=0, pool_duplicates=0,
@@ -129,6 +133,9 @@ class QAIAPricingSolver:
                 rng = np.random.default_rng(seed)
                 samples = rng.integers(0, 2, size=(len(vertex_ids), self.batch_size), dtype=np.int8)
                 samples[:, 0] = 0  # First start is deterministic weight-ordered greedy.
+            elif self.provider == "cim":
+                samples = self.cim.sample(vertex_ids, weights, adjacency, forbidden,
+                                          self.penalty_margin, time_end)
             else:
                 raw = self._run_qaia(j_mat, h_vec)
                 if hasattr(raw, "detach"):
@@ -361,7 +368,8 @@ class QAIAPricingSolver:
             value=0.0,
             associated_pricing_problem=self.pricing_problem,
             is_artificial=False,
-            creator=f"QAIA-{self.algorithm}" if self.provider == "qaia" else "Greedy-multistart",
+            creator=({"qaia": f"QAIA-{self.algorithm}", "greedy": "Greedy-multistart",
+                      "cim": "CIM-Kaiwu"}[self.provider]),
         )
 
 
@@ -506,6 +514,7 @@ class QAIAExactPricingSolver:
 
     def get_metrics(self):
         return dict(provider=self.qaia_solver.provider,
+                    cim=self.qaia_solver.cim.metrics if self.qaia_solver.cim else None,
                     heuristic_calls=self.qaia_calls, hit_calls=self.hit_calls,
                     exact_calls=self.exact_calls, exact_skips=self.exact_skips,
                     heuristic_seconds=self.qaia_solve_time,
@@ -568,5 +577,4 @@ class QAIAExactPricingSolver:
 
     def get_solution(self):
         return self.exact_solver.get_solution()
-
 

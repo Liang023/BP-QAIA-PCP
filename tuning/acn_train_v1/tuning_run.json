@@ -1,0 +1,32 @@
+{
+  "completed": true,
+  "tuning_seconds": 33381.8944553,
+  "training_instances": [
+    {
+      "path": "D:\\pythonProject\\BP_QAIA_PCP\\data\\acn_scale_v4_grid\\2019-03-04_N16_C4.json",
+      "sha256": "6b798b3bc4384d2a9c44f681593e6be3560f07458777acfd24d4f34b061d356e",
+      "date": "2019-03-04"
+    },
+    {
+      "path": "D:\\pythonProject\\BP_QAIA_PCP\\data\\acn_scale_v4_grid\\2019-03-06_N24_C6.json",
+      "sha256": "a1070c2a0ac69030e597988e7277bf1f67e6b25d79c0752e49a7147267042646",
+      "date": "2019-03-06"
+    },
+    {
+      "path": "D:\\pythonProject\\BP_QAIA_PCP\\data\\acn_scale_v4_grid\\2019-03-08_N24_C6.json",
+      "sha256": "64c15875553d3448aa2c65396059384a02d758e663e4aeb91b4dc8fd7f474c47",
+      "date": "2019-03-08"
+    }
+  ],
+  "protocol": {
+    "EXACT_POOL_SEARCH_MODE": "0",
+    "BPC_COMPLETION_ROWS": "vehicle",
+    "BPC_RMP_MIP": null,
+    "BPC_RMP_MIP_SECONDS": null,
+    "BPC_RMP_MIP_FRACTION": null,
+    "BPC_RMP_MIP_EVERY": null,
+    "BPC_PRIMAL_COMPLETION": null,
+    "BPC_PRIMAL_SECONDS": null,
+    "BPC_PRIMAL_ATTEMPTS": null
+  }
+}

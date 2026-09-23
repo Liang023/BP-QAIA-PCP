@@ -1,0 +1,8 @@
+# Python 3.10; install the separately distributed eCloud Kaiwu SDK yourself.
+numpy>=1.24,<3
+scipy>=1.10
+gurobipy>=10
+mindquantum==0.11.0
+optuna>=4,<5
+pytest>=8,<10
+tzdata

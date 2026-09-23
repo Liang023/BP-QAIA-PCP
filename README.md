@@ -1,47 +1,14 @@
-# Partition Coloring Problem (Branch-and-Price)
+# BP–QAIA–CIM 分支定价实验代码
 
-本项目实现了分区着色问题（PCP）的分支定价（Branch-and-Price）求解框架，包含主问题（RMP）、定价子问题、列生成流程与分支规则。
+本版支持 Compact MILP、Exact BP、Greedy/QAIA/CIM 混合定价、根节点互补列和限时可行解轨迹。
 
-## 特性
-- 主问题：Gurobi 建模，支持导出 LP 供调试
-- 定价：精确定价求解器（最大权稳定集），支持解池与 reduced cost 调试断言（设置环境变量 `BPC_DEBUG=1`）
-- 列生成：按对偶信息迭代生成负 reduced cost 列
-- 分支：支持强制顶点、禁止顶点、同色/异色等分支规则
+完整安装、离线 Optuna 调参、CIM 配置、Windows PowerShell 命令、数据日期划分和实验步骤，请阅读 [README_FINAL.md](README_FINAL.md)。验证记录见 [VALIDATION.md](VALIDATION.md)。
 
-## 环境要求
-- Python 3.8+
-- Gurobi 10.x（已配置 license）
+调参是独立阶段，不计入后续正式 BP 求解时间。CIM 在线调用和等待计入 BP 时间预算。CIM 接口按用户提供的移动云版 QBendersOCT.py 适配，真机验收需在该 SDK 环境执行。
 
-## 依赖安装
-- 使用 pip（需先配置好 Gurobi 许可）：
-```bash
-pip install gurobipy
-```
-- 或使用 conda：
-```bash
-conda install -c gurobi gurobi
+```powershell
+python -m pip install -r requirements-final.txt
+python -m pytest -q
 ```
 
-## 数据
-- 测试数据位于 `data/Table2_random_instances/*.pcp`
-- `test/pcp_reader.py` 提供 `.pcp` 读取与图构建
-
-## 运行
-- 直接运行测试脚本：
-```bash
-python -m test.test_bp
-```
-- VS Code 调试（`.vscode/launch.json` 示例）：
-  - Working directory: 项目根
-  - 环境变量：`PYTHONPATH=${workspaceFolder}`；调试断言可加 `BPC_DEBUG=1`
-
-## 关键模块
-- `cg/master/master_problem.py`：主问题建模与求解
-- `cg/pricing/exact_pricing_solver.py`：精确定价求解器
-- `cg/column_generation.py`：列生成主循环
-- `bpc/branching/*`：分支决策实现
-- `model/a_graph.py`：辅助图数据结构与操作
-
-
-## 许可证
-见 `LICENSE`（MIT）。
+基于仓库提交 `231fe9c9c744d679ded0c6d121d79e2b4a032ad0`。许可证见 LICENSE；qaia 中保留上游文件的授权说明。

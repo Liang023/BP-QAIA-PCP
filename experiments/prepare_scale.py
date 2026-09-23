@@ -21,6 +21,8 @@ def main():
     p.add_argument("--data-seeds", type=int, nargs="+", default=[10])
     p.add_argument("--raw", default="data/raw/acn/caltech_sessions.json")
     p.add_argument("--max-vertices", type=int, default=3000)
+    p.add_argument("--slot-minutes", type=int, default=15)
+    p.add_argument("--power-kw", default="7")
     p.add_argument("--out-dir", required=True)
     args = p.parse_args()
     if args.family == "acn" and not args.dates:
@@ -42,6 +44,7 @@ def main():
                     subprocess.run([sys.executable, str(ROOT / "ev/acn_to_ev.py"),
                         "--raw", str(ROOT / args.raw), "--date", sample,
                         "--max-sessions", str(n), "--chargers", str(chargers),
+                        "--slot-minutes", str(args.slot_minutes), "--power-kw", args.power_kw,
                         "--max-vertices", str(args.max_vertices), "--out", str(path)],
                         cwd=ROOT, check=True)
                     data = json.loads(path.read_text(encoding="utf-8"))
