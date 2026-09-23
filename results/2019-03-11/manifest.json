@@ -1,0 +1,92 @@
+{
+  "variants": [
+    {
+      "name": "cim",
+      "env": {
+        "QAIA_PROVIDER": "cim",
+        "QAIA_EXACT_MODE": "on_qaia_failure",
+        "QAIA_COLUMN_POLICY": "combined"
+      }
+    },
+    {
+      "name": "qaia_tuned",
+      "env": {
+        "QAIA_PROVIDER": "qaia",
+        "QAIA_DT": "1.12041419333642",
+        "QAIA_BATCH_SIZE": "20",
+        "QAIA_COLUMN_POLICY": "combined",
+        "QAIA_MAX_STREAK": "3",
+        "QAIA_XI": "auto",
+        "QAIA_EXACT_MODE": "on_qaia_failure",
+        "QAIA_MAX_COLUMNS": "3",
+        "QAIA_N_ITER": "200"
+      }
+    }
+  ],
+  "seeds": [
+    0,
+    1,
+    2
+  ],
+  "limit": 1200.0,
+  "exact_repeats": 3,
+  "offline_tuning": {
+    "path": "D:\\pythonProject\\BP_QAIA_PCP\\tuning\\acn_train_v1\\best_qaia.json",
+    "sha256": "6154abdfa6b91c1947cb9391b1dc68e6b28f10b043df5e76705b7d6d865f7f12",
+    "tuning_seconds": 33381.8944553,
+    "training_protocol": {
+      "EXACT_POOL_SEARCH_MODE": "0",
+      "BPC_COMPLETION_ROWS": "vehicle",
+      "BPC_RMP_MIP": null,
+      "BPC_RMP_MIP_SECONDS": null,
+      "BPC_RMP_MIP_FRACTION": null,
+      "BPC_RMP_MIP_EVERY": null,
+      "BPC_PRIMAL_COMPLETION": null,
+      "BPC_PRIMAL_SECONDS": null,
+      "BPC_PRIMAL_ATTEMPTS": null
+    },
+    "training_instances": [
+      {
+        "path": "D:\\pythonProject\\BP_QAIA_PCP\\data\\acn_scale_v4_grid\\2019-03-04_N16_C4.json",
+        "sha256": "6b798b3bc4384d2a9c44f681593e6be3560f07458777acfd24d4f34b061d356e",
+        "date": "2019-03-04"
+      },
+      {
+        "path": "D:\\pythonProject\\BP_QAIA_PCP\\data\\acn_scale_v4_grid\\2019-03-06_N24_C6.json",
+        "sha256": "a1070c2a0ac69030e597988e7277bf1f67e6b25d79c0752e49a7147267042646",
+        "date": "2019-03-06"
+      },
+      {
+        "path": "D:\\pythonProject\\BP_QAIA_PCP\\data\\acn_scale_v4_grid\\2019-03-08_N24_C6.json",
+        "sha256": "64c15875553d3448aa2c65396059384a02d758e663e4aeb91b4dc8fd7f474c47",
+        "date": "2019-03-08"
+      }
+    ]
+  },
+  "cim_environment": {
+    "CIM_DEVICE_ID": "WuYue-QPU-Qboson-1000",
+    "CIM_MAX_BITS": "1000",
+    "CIM_PRECISION": "8",
+    "CIM_MAX_CALLS": "1",
+    "CIM_CALL_SECONDS": "300",
+    "CIM_CACHE_DIR": null
+  },
+  "completion_rows": "vehicle",
+  "primal_completion_environment": {
+    "BPC_PRIMAL_COMPLETION": "0",
+    "BPC_PRIMAL_ATTEMPTS": "20",
+    "BPC_PRIMAL_SECONDS": "2"
+  },
+  "exact_pool_search_mode": "0",
+  "restricted_mip_environment": {
+    "BPC_RMP_MIP": "1",
+    "BPC_RMP_MIP_EVERY": "20",
+    "BPC_RMP_MIP_SECONDS": "0.5",
+    "BPC_RMP_MIP_FRACTION": "0.1"
+  },
+  "instances": [
+    "D:\\pythonProject\\BP_QAIA_PCP\\data\\acn_competition_0930_v2\\2019-03-11_N8_C2.json",
+    "D:\\pythonProject\\BP_QAIA_PCP\\data\\acn_competition_0930_v2\\2019-03-11_N12_C3.json",
+    "D:\\pythonProject\\BP_QAIA_PCP\\data\\acn_competition_0930_v2\\2019-03-11_N16_C4.json"
+  ]
+}

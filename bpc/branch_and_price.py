@@ -163,12 +163,12 @@ class BranchAndPrice:
             self.optimal = False
             status, error = "time_limit", str(exc)
             self._restore_active_node()
-            self.global_lower_bound = self.problem_lower_bound
+            self.update_global_lower_bound()
         except Exception as exc:
             self.optimal = False
             status, error = "error", repr(exc)
             self._restore_active_node()
-            self.global_lower_bound = self.problem_lower_bound
+            self.update_global_lower_bound()
         self.total_solve_time = time.perf_counter()-start_time
         return dict(status=status, termination_reason=status, error=error,
                     objective_value=self.best_objective if self.best_solution is not None else None,
@@ -385,8 +385,13 @@ class BranchAndPrice:
             self.global_lower_bound = self.best_objective
         else:
             self.optimal = False
-            # Conservative analytic bound; never use incomplete RMP objectives.
-            self.global_lower_bound = self.problem_lower_bound
+            # Queue entries hold certified LP bounds, or their parent's certified
+            # bound if processing/branching was interrupted. The objective of an
+            # incomplete restricted master is never used as a lower bound.
+            self.global_lower_bound = min(
+                (max(self.problem_lower_bound, node.objective_value)
+                 for node in self.node_queue),
+                default=self.problem_lower_bound)
 
     def is_infeasible_solution(self, current_node: BPCNode) -> bool:
         """
