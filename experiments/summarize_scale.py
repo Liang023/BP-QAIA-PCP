@@ -37,12 +37,19 @@ def collect(folder):
             cim = metrics.get("cim") or {}
             feasible = bool(record.get("validation_passed") and record.get("has_feasible_solution"))
             objective = record.get("objective") if feasible else None
+            lower_bound = stats.get("global_lower_bound")
+            bp_gap_percent = (100 * (objective - lower_bound) / max(abs(objective), 1e-6)
+                if objective is not None and lower_bound is not None else None)
+            reference_gap_percent = (100 * (objective - reference) / max(abs(objective), 1e-6)
+                if objective is not None and reference is not None else None)
             row = dict(batch=folder.name, instance=name, budget=manifest["limit"], method=method,
                 completion_rows=formulation,
                 result=entry["result"], seed=entry["seed"], status=record["status"],
                 feasible=int(feasible), objective=objective, reference_optimum=reference,
                 deviation_percent=(100 * (objective-reference)/reference
                     if objective is not None and reference is not None and reference > 0 else None),
+                bp_lower_bound=lower_bound, bp_gap_percent=bp_gap_percent,
+                reference_gap_percent=reference_gap_percent,
                 first_feasible_seconds=record.get("time_to_first_feasible"),
                 best_found_seconds=record.get("best_found_seconds"), wall_seconds=record.get("wall_seconds"),
                 graph_seconds=record.get("graph_seconds"),
@@ -76,6 +83,10 @@ def collect(folder):
                 optimal=sum(r["status"] == "optimal" and r["feasible"] for r in group),
                 median_all=median(r["objective"] for r in feasible) if len(feasible) == len(group) else None,
                 median_conditional=median(r["objective"] for r in feasible) if feasible else None,
+                median_bp_gap_percent=(median(r["bp_gap_percent"] for r in feasible)
+                    if feasible and all(r["bp_gap_percent"] is not None for r in feasible) else None),
+                median_reference_gap_percent=(median(r["reference_gap_percent"] for r in feasible)
+                    if feasible and all(r["reference_gap_percent"] is not None for r in feasible) else None),
                 median_first_feasible_conditional=median(r["first_feasible_seconds"] for r in feasible)
                     if feasible else None, reference_optimum=reference)
             summaries.append(row)

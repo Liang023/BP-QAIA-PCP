@@ -1,0 +1,127 @@
+{
+  "design": {
+    "family": "acn",
+    "sizes": [
+      8,
+      12,
+      16
+    ],
+    "ratios": [
+      4
+    ],
+    "dates": [
+      "2019-03-11",
+      "2019-03-12",
+      "2019-03-13",
+      "2019-03-14"
+    ],
+    "data_seeds": [
+      10
+    ],
+    "raw": "data/raw/acn/caltech_march_holdout.json",
+    "max_vertices": 3000,
+    "slot_minutes": 15,
+    "power_kw": "7",
+    "out_dir": "data/acn_competition_0930_v2"
+  },
+  "instances": [
+    "D:\\pythonProject\\BP_QAIA_PCP\\data\\acn_competition_0930_v2\\2019-03-11_N8_C2.json",
+    "D:\\pythonProject\\BP_QAIA_PCP\\data\\acn_competition_0930_v2\\2019-03-11_N12_C3.json",
+    "D:\\pythonProject\\BP_QAIA_PCP\\data\\acn_competition_0930_v2\\2019-03-11_N16_C4.json",
+    "D:\\pythonProject\\BP_QAIA_PCP\\data\\acn_competition_0930_v2\\2019-03-12_N8_C2.json",
+    "D:\\pythonProject\\BP_QAIA_PCP\\data\\acn_competition_0930_v2\\2019-03-12_N12_C3.json",
+    "D:\\pythonProject\\BP_QAIA_PCP\\data\\acn_competition_0930_v2\\2019-03-12_N16_C4.json",
+    "D:\\pythonProject\\BP_QAIA_PCP\\data\\acn_competition_0930_v2\\2019-03-13_N8_C2.json",
+    "D:\\pythonProject\\BP_QAIA_PCP\\data\\acn_competition_0930_v2\\2019-03-13_N12_C3.json",
+    "D:\\pythonProject\\BP_QAIA_PCP\\data\\acn_competition_0930_v2\\2019-03-13_N16_C4.json",
+    "D:\\pythonProject\\BP_QAIA_PCP\\data\\acn_competition_0930_v2\\2019-03-14_N8_C2.json",
+    "D:\\pythonProject\\BP_QAIA_PCP\\data\\acn_competition_0930_v2\\2019-03-14_N12_C3.json",
+    "D:\\pythonProject\\BP_QAIA_PCP\\data\\acn_competition_0930_v2\\2019-03-14_N16_C4.json"
+  ],
+  "dimensions": [
+    {
+      "name": "2019-03-11_N8_C2",
+      "vehicles": 8,
+      "chargers": 2,
+      "vertices": 199,
+      "instance_sha256": "4d08558a16c091a0293b1e46a353b42575cff426742fb07cde30fea55fcc7de0"
+    },
+    {
+      "name": "2019-03-11_N12_C3",
+      "vehicles": 12,
+      "chargers": 3,
+      "vertices": 281,
+      "instance_sha256": "15b815984a9755447eefa304278f4413ca9c12ed10474e2e3139f41eabbfc6a7"
+    },
+    {
+      "name": "2019-03-11_N16_C4",
+      "vehicles": 16,
+      "chargers": 4,
+      "vertices": 372,
+      "instance_sha256": "363c307f6278e93bffb67d0978ce7c21b24fc28d86bbd93f3d328d2bd50a6337"
+    },
+    {
+      "name": "2019-03-12_N8_C2",
+      "vehicles": 8,
+      "chargers": 2,
+      "vertices": 181,
+      "instance_sha256": "2c9f23f3f56c3623b8300aad3e686825d8688a5b2eddc15b19f527e82390ad40"
+    },
+    {
+      "name": "2019-03-12_N12_C3",
+      "vehicles": 12,
+      "chargers": 3,
+      "vertices": 305,
+      "instance_sha256": "8f0319088900e185c68cb65648de9357e4a12cdc16e6b2b06a00863649ddcbaa"
+    },
+    {
+      "name": "2019-03-12_N16_C4",
+      "vehicles": 16,
+      "chargers": 4,
+      "vertices": 405,
+      "instance_sha256": "b2de5e5fad4f86601b597a6ce947581ba5543a0cc7fc8f7fe85453760232e31c"
+    },
+    {
+      "name": "2019-03-13_N8_C2",
+      "vehicles": 8,
+      "chargers": 2,
+      "vertices": 174,
+      "instance_sha256": "e972b3af5a879823332e545dd6688f8a7672cdadbbcbaf1620662bf078d51649"
+    },
+    {
+      "name": "2019-03-13_N12_C3",
+      "vehicles": 12,
+      "chargers": 3,
+      "vertices": 250,
+      "instance_sha256": "3919505008573ebdb3df81b7ac9729a79ab2523af66cc64bea86e165a8e1b453"
+    },
+    {
+      "name": "2019-03-13_N16_C4",
+      "vehicles": 16,
+      "chargers": 4,
+      "vertices": 371,
+      "instance_sha256": "f1318c6b107c5403090db73cc3da9e5c5eb664f18e00211cb391edbf07b37c47"
+    },
+    {
+      "name": "2019-03-14_N8_C2",
+      "vehicles": 8,
+      "chargers": 2,
+      "vertices": 244,
+      "instance_sha256": "313fce345ad0117c11be91ffd662d188e96a592f9ac1c24adecbcb33f5a49835"
+    },
+    {
+      "name": "2019-03-14_N12_C3",
+      "vehicles": 12,
+      "chargers": 3,
+      "vertices": 328,
+      "instance_sha256": "7d8d22be9a96efd28fb1ec6332d8837f4224e21b16b503202b69669d17a9a2ee"
+    },
+    {
+      "name": "2019-03-14_N16_C4",
+      "vehicles": 16,
+      "chargers": 4,
+      "vertices": 446,
+      "instance_sha256": "ea2ef7d27b640d20e125b99e3bf50d716848d4911436beeb7fbf412435b08b8e"
+    }
+  ]
+}
