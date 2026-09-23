@@ -44,6 +44,9 @@ def collect(folder):
             reference_gap_percent = (100 * (objective - reference) / max(abs(objective), 1e-6)
                 if objective is not None and reference is not None else None)
             row = dict(batch=folder.name, instance=name, budget=manifest["limit"], method=method,
+                timing_basis=record.get("timing_basis", "wall"),
+                solve_seconds=record.get("solve_seconds", record.get("wall_seconds")),
+                cloud_excluded_seconds=record.get("cloud_excluded_seconds", 0.0),
                 completion_rows=formulation,
                 result=entry["result"], seed=entry["seed"], status=record["status"],
                 feasible=int(feasible), objective=objective, reference_optimum=reference,
@@ -73,6 +76,7 @@ def collect(folder):
                 cim_requests=cim.get("requests"), cim_completed=cim.get("completed"),
                 cim_timeouts=cim.get("timeouts"), cim_size_skips=cim.get("size_skips"),
                 cim_seconds=cim.get("seconds"),
+                cim_local_seconds=cim.get("local_seconds"),
                 tuning_config_sha256=(record.get("offline_tuning") or {}).get("sha256"),
                 source_sha256=record.get("source_sha256"), error=record.get("error"))
             runs.append(row)
@@ -82,11 +86,15 @@ def collect(folder):
                     completion_rows=formulation,
                     method=method, result=entry["result"], seed=entry["seed"],
                     seconds=event["elapsed_seconds"], objective=event["objective"], source=event["source"]))
+                trajectories[-1].update(timing_basis=record.get("timing_basis", "wall"),
+                    wall_seconds=event.get("wall_elapsed_seconds", event["elapsed_seconds"]),
+                    cloud_excluded_seconds=event.get("cloud_excluded_seconds", 0.0))
         per_method = {}
         for method, group in groups.items():
             feasible = [r for r in group if r["feasible"]]
             errors = sum(r["status"] in ("error", "external_timeout") for r in group)
             row = dict(batch=folder.name, instance=name, budget=manifest["limit"], method=method,
+                timing_basis=manifest.get("timing_basis", "wall"),
                 completion_rows=formulation,
                 runs=len(group), feasible=len(feasible), feasible_rate=len(feasible)/len(group), errors=errors,
                 optimal=sum(r["status"] == "optimal" and r["feasible"] for r in group),
@@ -107,6 +115,7 @@ def collect(folder):
             comparable = (not row["errors"] and not exact["errors"]
                           and row["median_all"] is not None and exact["median_all"] is not None)
             comparisons.append(dict(batch=folder.name, instance=name, budget=manifest["limit"], method=method,
+                timing_basis=manifest.get("timing_basis", "wall"),
                 completion_rows=formulation,
                 feasible_rate=row["feasible_rate"], exact_feasible_rate=exact["feasible_rate"],
                 errors=row["errors"] + exact["errors"],

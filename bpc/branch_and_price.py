@@ -26,7 +26,7 @@ from cg.deadline import remaining_seconds
 from cg.makespan_bounds import capacity_bound
 from validation.ev_solution import validate_schedule
 import builtins
-import time
+from cg import budget_clock
 
 def print(*args, **kwargs):
     # 仅覆盖本模块中的print，不改全局builtins.print。
@@ -120,7 +120,7 @@ class BranchAndPrice:
 
     def solve(self, *, start_time=None, deadline=None, recorder=None) -> Dict[str, Any]:
         """Global budget starts before graph conversion in run_instance."""
-        start_time = time.perf_counter() if start_time is None else float(start_time)
+        start_time = budget_clock.now() if start_time is None else float(start_time)
         time_end = start_time + self.time_limit if deadline is None else float(deadline)
         if not (math.isfinite(start_time) and math.isfinite(time_end) and time_end > start_time):
             raise ValueError("invalid BP deadline")
@@ -141,11 +141,11 @@ class BranchAndPrice:
                 if self.capacity_bound_info["lp_status"] == "capacity_infeasible":
                     raise CapacityInfeasible()
             remaining_seconds(time_end, "Before root construction")
-            started = time.perf_counter()
+            started = budget_clock.now()
             try:
                 root = self.generate_root_node()
             finally:
-                self.root_initialization_seconds = time.perf_counter() - started
+                self.root_initialization_seconds = budget_clock.now() - started
             self.add_node(root)
             remaining_seconds(time_end, "After root construction")
             # Register existing greedy columns if they already form a full schedule.
@@ -172,11 +172,11 @@ class BranchAndPrice:
                     self.update_best_solution(self.current_node.objective_value,
                         self.current_node.solution, source="bp_integer")
                     continue
-                started = time.perf_counter()
+                started = budget_clock.now()
                 try:
                     self.branch_node(self.current_node)
                 finally:
-                    self.total_branch_time += time.perf_counter()-started
+                    self.total_branch_time += budget_clock.now()-started
             remaining_seconds(time_end, "Before declaring optimal")
             self.update_global_lower_bound()
             status = "optimal" if self.optimal else "no_solution"
@@ -204,7 +204,7 @@ class BranchAndPrice:
             status, error = "error", repr(exc)
             self._restore_active_node()
             self.update_global_lower_bound()
-        self.total_solve_time = time.perf_counter()-start_time
+        self.total_solve_time = budget_clock.now()-start_time
         return dict(status=status, termination_reason=status, error=error,
                     objective_value=self.best_objective if self.best_solution is not None else None,
                     solution=self.best_solution, statistics=self.get_statistics(),
@@ -275,7 +275,7 @@ class BranchAndPrice:
     def process_node(self, current_node: BPCNode, time_end: float) -> bool:
         remaining_seconds(time_end, "Before node construction")
         master_problem = pricing_solver = column_generation = None
-        setup_start = time.perf_counter()
+        setup_start = budget_clock.now()
         setup_recorded = False
         completed = False
         try:
@@ -305,7 +305,7 @@ class BranchAndPrice:
                     current_node, solution, objective, "rmp_integer", iteration),
                 after_master=lambda master, iteration, end: self._maybe_restricted_mip(
                     current_node, master, iteration, end))
-            self.total_node_setup_time += time.perf_counter() - setup_start
+            self.total_node_setup_time += budget_clock.now() - setup_start
             setup_recorded = True
             remaining_seconds(time_end, "After pricing construction")
             # Assignment occurs only after a fully certified CG return.
@@ -319,7 +319,7 @@ class BranchAndPrice:
             return True
         finally:
             if not setup_recorded:
-                self.total_node_setup_time += time.perf_counter() - setup_start
+                self.total_node_setup_time += budget_clock.now() - setup_start
             if column_generation is not None:
                 self.total_master_time += column_generation.masterSolveTime
                 self.total_pricing_time += column_generation.pricingSolveTime
@@ -360,7 +360,7 @@ class BranchAndPrice:
     def _complete_root(self, node, master, deadline):
         if not self.primal_enabled:
             return
-        started = time.perf_counter()
+        started = budget_clock.now()
         self.primal_metrics["calls"] += 1
         try:
             added, schedules, attempts = complete_root_pool(
@@ -383,7 +383,7 @@ class BranchAndPrice:
             if added:
                 self._last_mip_iteration = None
         finally:
-            self.primal_metrics["seconds"] += time.perf_counter()-started
+            self.primal_metrics["seconds"] += budget_clock.now()-started
 
     def _maybe_restricted_mip(self, node, master, iteration, deadline, force=False):
         # Same policy for Exact, QAIA and greedy; root-only first implementation.
@@ -395,18 +395,18 @@ class BranchAndPrice:
             return
         cap = (self.recorder.deadline-self.recorder.start_time)*self.rmp_mip_fraction
         seconds = min(self.rmp_mip_slice, cap-self.rmp_mip_seconds,
-                      deadline-time.perf_counter())
+                      deadline-budget_clock.now())
         if seconds <= 1e-3:
             return
         self._last_mip_iteration = iteration
         self.rmp_mip_calls += 1
-        started = time.perf_counter()
+        started = budget_clock.now()
         try:
             solve_restricted_mip(master, deadline, seconds,
                 lambda solution, objective: self._consider_candidate(
                     node, solution, objective, "restricted_mip", iteration))
         finally:
-            self.rmp_mip_seconds += time.perf_counter()-started
+            self.rmp_mip_seconds += budget_clock.now()-started
 
     def is_prunable_node(self, current_node: BPCNode) -> bool:
         if not math.isfinite(self.best_objective):
@@ -693,7 +693,7 @@ class BranchAndPrice:
     def update_best_solution(self, objective_value, solution, *, a_graph=None,
                              source="bp_integer", node_id=None, cg_iteration=None):
         """Only validated physical schedules update UB; LP bounds are untouched."""
-        if self.deadline is not None and time.perf_counter() > self.deadline:
+        if self.deadline is not None and budget_clock.now() > self.deadline:
             return False
         graph = a_graph if a_graph is not None else self.current_node.a_graph
         checked = validate_schedule(solution, graph, self.graph, self.charger_num, objective_value)

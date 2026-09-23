@@ -4,6 +4,7 @@ import inspect
 import os
 from pathlib import Path
 import sys
+import time
 
 import numpy as np
 
@@ -47,7 +48,16 @@ def solve_request(request, directory, kw):
         device_id=options["device_id"])
     optimizer = kw.cim.PrecisionReducer(base, options["precision"],
                                        target_bits=options["max_bits"])
-    raw = optimizer.solve(submitted)
+    # Measure precisely the blocking SDK call. Model construction and decoding
+    # remain part of the BP budget. The SDK handles its own task cache.
+    started = time.perf_counter()
+    try:
+        raw = optimizer.solve(submitted)
+    finally:
+        (directory / "cloud_timing.json").write_text(json.dumps(dict(
+            cloud_call_seconds=time.perf_counter() - started,
+            scope="optimizer.solve: upload, queue, cloud compute and response")),
+            encoding="utf-8")
     if raw is None:
         raise RuntimeError("CIM returned no samples")
     spins = np.atleast_2d(np.asarray(raw))

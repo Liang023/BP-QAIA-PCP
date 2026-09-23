@@ -14,12 +14,13 @@ import traceback
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 from config.model_formulation import completion_rows
+from cg import budget_clock
 
 
 def compact(data, limit, *, deadline=None, recorder=None):
     import gurobipy as gp
     from cg.deadline import remaining_seconds
-    start = time.perf_counter()
+    start = budget_clock.now()
     deadline = start+limit if deadline is None else deadline
     model = None
     callback_errors = []
@@ -71,7 +72,7 @@ def compact(data, limit, *, deadline=None, recorder=None):
         def callback(m, where):
             if where != gp.GRB.Callback.MIPSOL or recorder is None:
                 return
-            if time.perf_counter() > deadline:
+            if budget_clock.now() > deadline:
                 m.terminate()
                 return
             try:
@@ -89,7 +90,7 @@ def compact(data, limit, *, deadline=None, recorder=None):
         schedule = unpack([v.X for v in variables]) if model.SolCount else []
         if schedule and recorder is not None:
             recorder.record(schedule, max(c["end"] for row in schedule for c in row), "compact_final")
-        finished = time.perf_counter()
+        finished = budget_clock.now()
         status = ("optimal" if model.Status == gp.GRB.OPTIMAL and finished <= deadline
                   else "infeasible_proven" if model.Status == gp.GRB.INFEASIBLE and finished <= deadline
                   else "time_limit" if finished >= deadline or model.Status == gp.GRB.TIME_LIMIT
@@ -194,6 +195,7 @@ def main():
                   instance=str(instance_path), python=sys.version,
                   platform=platform.platform(), threads=1, gurobi_seed=0,
                   timing_scope="after_input_and_imports_before_graph_and_model",
+                  timing_basis="bp_active_excluding_cloud_call",
                   verbose=os.getenv("BPC_VERBOSE", "0") == "1")
     recorder = bp = None
     record["offline_tuning"] = frozen_metadata
@@ -261,18 +263,21 @@ def main():
                     record["heuristic_provider"] = record["qaia_config"]["heuristic_provider"]
                 if hybrid and record["qaia_config"]["heuristic_provider"] == "qaia":
                     import qaia  # dependency preparation is outside the algorithm budget
-                budget_start = time.perf_counter()
+                budget_clock.reset()
+                wall_start = time.perf_counter()
+                budget_start = budget_clock.now()
                 deadline = budget_start+args.limit
                 recorder = IncumbentRecorder(budget_start, deadline,
                     validator=lambda schedule, value: validate_json_schedule(data, schedule, value),
-                    path=trace, metadata=dict(instance_sha256=record["instance_sha256"],
+                    path=trace, wall_start_time=wall_start,
+                    metadata=dict(timing_basis=record["timing_basis"], instance_sha256=record["instance_sha256"],
                         method=args.method, seed=args.seed, source_sha256=record["source_sha256"]))
                 if args.method == "compact":
                     record.update(compact(data, args.limit, deadline=deadline, recorder=recorder))
                 else:
-                    t0 = time.perf_counter()
+                    t0 = budget_clock.now()
                     inst = ev_json_to_instance(data, deadline=deadline)
-                    record["graph_seconds"] = time.perf_counter()-t0
+                    record["graph_seconds"] = budget_clock.now()-t0
                     remaining_seconds(deadline, "After graph construction")
                     bp = BranchAndPrice(inst.graph, inst.charger_num,
                         time_limit=args.limit, use_qaia=hybrid, qaia_seed=args.seed)
@@ -290,8 +295,10 @@ def main():
                 traceback.print_exc()
             finally:
                 if budget_start is not None:
-                    record["wall_seconds"] = time.perf_counter()-budget_start
-                    record["budget_overrun_seconds"] = max(0.0, record["wall_seconds"]-args.limit)
+                    record["solve_seconds"] = budget_clock.now()-budget_start
+                    record["wall_seconds"] = time.perf_counter()-wall_start
+                    record["cloud_excluded_seconds"] = budget_clock.excluded_seconds()
+                    record["budget_overrun_seconds"] = max(0.0, record["solve_seconds"]-args.limit)
                 if recorder is not None:
                     record.update(recorder.fields())
                     history = recorder.history

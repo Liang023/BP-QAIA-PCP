@@ -2,17 +2,19 @@
 import copy
 import json
 import math
+from cg import budget_clock
 import time
 from pathlib import Path
 
 
 class IncumbentRecorder:
     def __init__(self, start_time, deadline, validator=None, path=None, metadata=None,
-                 clock=time.perf_counter):
+                 clock=budget_clock.now, wall_start_time=None):
         if not (math.isfinite(start_time) and math.isfinite(deadline)
                 and deadline > start_time):
             raise ValueError("invalid global time budget")
         self.start_time, self.deadline = start_time, deadline
+        self.wall_start_time = time.perf_counter() if wall_start_time is None else wall_start_time
         self.validator, self.clock = validator, clock
         self.history = []
         self.path = Path(path) if path else None
@@ -38,6 +40,8 @@ class IncumbentRecorder:
         if now > self.deadline:
             return False
         event = dict(event="incumbent", elapsed_seconds=max(0.0, now-self.start_time),
+                     wall_elapsed_seconds=time.perf_counter()-self.wall_start_time,
+                     cloud_excluded_seconds=budget_clock.excluded_seconds(),
                      objective=float(objective), source=source, node_id=node_id,
                      cg_iteration=cg_iteration, validation_passed=True, schedule=payload)
         # Flush each complete event; a killed process can leave a partial final line.

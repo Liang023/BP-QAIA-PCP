@@ -54,6 +54,7 @@ def compare(folder, requested):
         reference = next((record["objective"] for _, record in groups["compact"]
                           if record["status"] == "optimal" and record.get("validation_passed")), None)
         common = dict(batch=folder.name, instance=name, budget=limit,
+                      timing_basis=manifest.get("timing_basis", "wall"),
                       completion_rows=manifest.get("completion_rows", "vertex"))
         for t in checkpoints:
             for method, group in groups.items():
@@ -69,8 +70,10 @@ def compare(folder, requested):
                     continue
                 by_seed = {entry["seed"]: record for entry, record in group}
                 outcomes = []
-                for repeat in range(repeats):
-                    seed = seeds[repeat]
+                for index, seed in enumerate(seeds):
+                    # Exact is deterministic in the final configuration. When
+                    # run once, compare every heuristic seed with that baseline.
+                    repeat = index if index < repeats else 0
                     value = best_at(by_seed[seed], t)
                     baseline = best_at(exact[repeat], t)
                     outcome = ("both_missing" if value is None and baseline is None else
@@ -80,6 +83,7 @@ def compare(folder, requested):
                                "exact" if value > baseline else "tie")
                     row = dict(**common, checkpoint=t, method=method, seed=seed,
                         exact_repeat=repeat, method_objective=value, exact_objective=baseline,
+                        exact_reference_reused=len(seeds) > repeats,
                         delta_vs_exact=value - baseline
                             if value is not None and baseline is not None else None,
                         outcome=outcome)

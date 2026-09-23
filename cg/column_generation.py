@@ -3,7 +3,7 @@ from cg.pricing.pricing_problem import PricingProblem
 from cg.pricing.exact_pricing_solver import ExactPricingSolver
 from cg.column_pool import ColumnPool
 
-import time
+from cg import budget_clock
 
 from typing import List, Dict
 from cg.column_independent_set import ColumnIndependentSet
@@ -57,7 +57,7 @@ class ColumnGeneration:
         self.new_columns = list(self.column_pool.columns)
 
         while True:
-            if time.perf_counter() >= time_end:
+            if budget_clock.now() >= time_end:
                 raise TimeoutError(
                     "列生成在精确定价完成之前达到时间限制"
                 )
@@ -74,7 +74,7 @@ class ColumnGeneration:
             if self.after_master is not None:
                 self.after_master(self.master, self.iteration, time_end)
 
-            if time.perf_counter() >= time_end:
+            if budget_clock.now() >= time_end:
                 raise TimeoutError("Budget exhausted after RMP; node is not certified")
 
             # 第二步：必须运行定价，不能在定价之前提前终止
@@ -120,7 +120,7 @@ class ColumnGeneration:
         return self.solution, self.masterObjective
             
     def invokeMaster(self, new_columns: List[ColumnIndependentSet], time_end: float):
-        start = time.perf_counter()
+        start = budget_clock.now()
         try:
             for column in new_columns:
                 self.master.add_column_to_rmp(column)
@@ -128,12 +128,12 @@ class ColumnGeneration:
             self.masterObjective = obj_val
             self.dual = duals
         finally:
-            self.masterSolveTime += time.perf_counter() - start
+            self.masterSolveTime += budget_clock.now() - start
 
     def invokePricing(self, time_end: float, dual: Dict):
-        start = time.perf_counter()
+        start = budget_clock.now()
         try:
             self.pricing_problem.update_pricing_problem(dual)
             return self.pricing_solver.generate_columns(time_end)
         finally:
-            self.pricingSolveTime += time.perf_counter() - start
+            self.pricingSolveTime += budget_clock.now() - start

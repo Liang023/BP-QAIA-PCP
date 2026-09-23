@@ -1,6 +1,6 @@
 """Root-only LP-guided schedule completion; never supplies a lower bound."""
 import random
-import time
+from cg import budget_clock
 
 from cg.column_independent_set import ColumnIndependentSet
 
@@ -24,7 +24,7 @@ def complete_root_pool(graph, charger_num, lp_solution, pool, pricing_problem,
     added, schedules = [], []
     completed_attempts = 0
     for attempt in range(attempts):
-        if time.perf_counter() >= deadline:
+        if budget_clock.now() >= deadline:
             break
         # Cycle through no fixing and progressively larger partial LP solutions.
         keep = attempt % max(1, charger_num)
@@ -43,7 +43,7 @@ def complete_root_pool(graph, charger_num, lp_solution, pool, pricing_problem,
         # Restrictive vehicles first; random perturbation supplies alternative orders.
         remaining.sort(key=lambda p: len(p.vertex_list)*(0.5+rng.random()))
         for partition in remaining:
-            if time.perf_counter() >= deadline:
+            if budget_clock.now() >= deadline:
                 break
             options = []
             for vertex in partition.vertex_list:

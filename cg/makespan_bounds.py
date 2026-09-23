@@ -4,13 +4,13 @@ Only LP infeasibility raises the horizon bound. LP feasible solutions are not
 treated as integer schedules and no compact-MILP reference value is used.
 """
 from bisect import bisect_left
-import time
+from cg import budget_clock
 
 import gurobipy as gp
 
 
 def capacity_bound(graph, chargers, deadline, lp_seconds=2.0):
-    started = time.perf_counter()
+    started = budget_clock.now()
     groups = [list(p.vertex_list) for p in graph.partitions]
     vertices = [v for group in groups for v in group]
     endings = sorted({v.end_time for v in vertices})
@@ -24,14 +24,14 @@ def capacity_bound(graph, chargers, deadline, lp_seconds=2.0):
         return dict(earliest_completion=earliest, workload_lower_bound=workload,
                     lower_bound=workload, lp_calls=0, lp_seconds=0.0,
                     lp_status="capacity_infeasible", infeasible_horizons=[],
-                    seconds=time.perf_counter()-started)
+                    seconds=budget_clock.now()-started)
     report = dict(earliest_completion=earliest, workload_lower_bound=endings[lo],
                   lower_bound=endings[lo], lp_calls=0, lp_seconds=0.0,
                   lp_status="disabled", infeasible_horizons=[], seconds=0.0)
-    if lp_seconds <= 0 or time.perf_counter() >= deadline:
-        report["seconds"] = time.perf_counter()-started
+    if lp_seconds <= 0 or budget_clock.now() >= deadline:
+        report["seconds"] = budget_clock.now()-started
         return report
-    lp_start = time.perf_counter()
+    lp_start = budget_clock.now()
     lp_end = min(deadline, lp_start+lp_seconds)
     model = gp.Model("capacity_horizon_relaxation")
     try:
@@ -47,7 +47,7 @@ def capacity_bound(graph, chargers, deadline, lp_seconds=2.0):
             offset += len(group)
         # Occupancy only increases at candidate starts; these rows cover all times.
         for slot in sorted({v.start_time for v in vertices}):
-            if time.perf_counter() >= lp_end:
+            if budget_clock.now() >= lp_end:
                 report["lp_status"] = "time_limit"
                 return report
             model.addConstr(gp.quicksum(x[j] for j, v in enumerate(vertices)
@@ -55,7 +55,7 @@ def capacity_bound(graph, chargers, deadline, lp_seconds=2.0):
         hi = len(endings)-1
         report["lp_status"] = "complete"
         while lo < hi:
-            remaining = lp_end-time.perf_counter()
+            remaining = lp_end-budget_clock.now()
             if remaining <= 0:
                 report["lp_status"] = "time_limit"
                 break
@@ -63,7 +63,7 @@ def capacity_bound(graph, chargers, deadline, lp_seconds=2.0):
             horizon = endings[mid]
             for j, v in enumerate(vertices):
                 x[j].UB = float(v.end_time <= horizon)
-            remaining = lp_end-time.perf_counter()
+            remaining = lp_end-budget_clock.now()
             if remaining <= 0:
                 report["lp_status"] = "time_limit"
                 break
@@ -71,7 +71,7 @@ def capacity_bound(graph, chargers, deadline, lp_seconds=2.0):
             model.optimize()
             report["lp_calls"] += 1
             # Do not use a certificate obtained beyond the global BP deadline.
-            if time.perf_counter() > deadline:
+            if budget_clock.now() > deadline:
                 report["lp_status"] = "time_limit"
                 break
             if model.Status == gp.GRB.INFEASIBLE:
@@ -88,5 +88,5 @@ def capacity_bound(graph, chargers, deadline, lp_seconds=2.0):
         return report
     finally:
         model.dispose()
-        report["lp_seconds"] = time.perf_counter()-lp_start
-        report["seconds"] = time.perf_counter()-started
+        report["lp_seconds"] = budget_clock.now()-lp_start
+        report["seconds"] = budget_clock.now()-started

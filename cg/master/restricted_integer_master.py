@@ -1,11 +1,11 @@
 """A primal heuristic on current real columns. It never certifies a BP bound."""
-import time
+from cg import budget_clock
 import gurobipy as gp
 from cg.deadline import remaining_seconds
 
 
 def solve_restricted_mip(master, deadline, seconds, on_candidate):
-    started = time.perf_counter()
+    started = budget_clock.now()
     if seconds <= 0:
         return 0.0
     local_deadline = min(deadline, started + seconds)
@@ -34,7 +34,7 @@ def solve_restricted_mip(master, deadline, seconds, on_candidate):
         def callback(m, where):
             if where != gp.GRB.Callback.MIPSOL:
                 return
-            if time.perf_counter() > deadline:
+            if budget_clock.now() > deadline:
                 m.terminate()
                 return
             try:
@@ -50,13 +50,13 @@ def solve_restricted_mip(master, deadline, seconds, on_candidate):
         if errors:
             raise errors[0]
         # A local heuristic timeout may still leave enough *global* time to validate.
-        if model.SolCount and time.perf_counter() <= deadline:
+        if model.SolCount and budget_clock.now() <= deadline:
             on_candidate({c: float(v.X) for c, v in real if v.X > 1e-6}, float(model.ObjVal))
     except TimeoutError:
         # Exhausting this small local heuristic budget is not a global BP failure.
-        if time.perf_counter() >= deadline:
+        if budget_clock.now() >= deadline:
             raise
     finally:
         if model is not None:
             model.dispose()
-    return time.perf_counter() - started
+    return budget_clock.now() - started

@@ -1,0 +1,127 @@
+{
+  "design": {
+    "family": "acn",
+    "sizes": [
+      8,
+      12,
+      16,
+      20
+    ],
+    "ratios": [
+      4
+    ],
+    "dates": [
+      "2019-03-11",
+      "2019-03-12",
+      "2019-03-13"
+    ],
+    "data_seeds": [
+      10
+    ],
+    "raw": "data/raw/acn/caltech_march_holdout.json",
+    "max_vertices": 999,
+    "slot_minutes": 15,
+    "power_kw": "7",
+    "out_dir": "data/acn_scale_final_v3"
+  },
+  "instances": [
+    "data/acn_scale_final_v3/2019-03-11_N8_C2.json",
+    "data/acn_scale_final_v3/2019-03-11_N12_C3.json",
+    "data/acn_scale_final_v3/2019-03-11_N16_C4.json",
+    "data/acn_scale_final_v3/2019-03-11_N20_C5.json",
+    "data/acn_scale_final_v3/2019-03-12_N8_C2.json",
+    "data/acn_scale_final_v3/2019-03-12_N12_C3.json",
+    "data/acn_scale_final_v3/2019-03-12_N16_C4.json",
+    "data/acn_scale_final_v3/2019-03-12_N20_C5.json",
+    "data/acn_scale_final_v3/2019-03-13_N8_C2.json",
+    "data/acn_scale_final_v3/2019-03-13_N12_C3.json",
+    "data/acn_scale_final_v3/2019-03-13_N16_C4.json",
+    "data/acn_scale_final_v3/2019-03-13_N20_C5.json"
+  ],
+  "dimensions": [
+    {
+      "name": "2019-03-11_N8_C2",
+      "vehicles": 8,
+      "chargers": 2,
+      "vertices": 199,
+      "instance_sha256": "848e34ad533cdb2798e159ddc117e3aaa2af6680377b62c97839819312895311"
+    },
+    {
+      "name": "2019-03-11_N12_C3",
+      "vehicles": 12,
+      "chargers": 3,
+      "vertices": 281,
+      "instance_sha256": "e59235eda1d0e7bae21a8ff6a6fba73b096c916aa1f3e025479b1269d5cafa51"
+    },
+    {
+      "name": "2019-03-11_N16_C4",
+      "vehicles": 16,
+      "chargers": 4,
+      "vertices": 372,
+      "instance_sha256": "8cf6a0b8c236ea49b834957b703e6b3038b81cdb2f29d7d29467c153d8b33e57"
+    },
+    {
+      "name": "2019-03-11_N20_C5",
+      "vehicles": 20,
+      "chargers": 5,
+      "vertices": 470,
+      "instance_sha256": "7eeba06db4442cebc34fcf2476488b06a043c7e76fe6deca6eaea5762e689f04"
+    },
+    {
+      "name": "2019-03-12_N8_C2",
+      "vehicles": 8,
+      "chargers": 2,
+      "vertices": 181,
+      "instance_sha256": "82e599edcb9e9607c713ea26f5226bff31c0274968ff28852c9d7794602a1135"
+    },
+    {
+      "name": "2019-03-12_N12_C3",
+      "vehicles": 12,
+      "chargers": 3,
+      "vertices": 305,
+      "instance_sha256": "1e20d6cda3ce651326e864f1e42513ddc671a60704bd730a1fd34addb8dcabf4"
+    },
+    {
+      "name": "2019-03-12_N16_C4",
+      "vehicles": 16,
+      "chargers": 4,
+      "vertices": 405,
+      "instance_sha256": "37e29e2fdc2859fb8060bf2c995e3e7874678c6d91e50c62b80767ff3dc15561"
+    },
+    {
+      "name": "2019-03-12_N20_C5",
+      "vehicles": 20,
+      "chargers": 5,
+      "vertices": 489,
+      "instance_sha256": "30fcd2b96d6f803d9efbd83886ccdfea76744d9dfcc682ad0ed36899e16e8d2c"
+    },
+    {
+      "name": "2019-03-13_N8_C2",
+      "vehicles": 8,
+      "chargers": 2,
+      "vertices": 174,
+      "instance_sha256": "11ce3112de2b72785c1f748fd13188ec605ba5cbf4dec95650622d44c84601f7"
+    },
+    {
+      "name": "2019-03-13_N12_C3",
+      "vehicles": 12,
+      "chargers": 3,
+      "vertices": 250,
+      "instance_sha256": "d639d46ec464cc5edea2245b2d9cbefdeebdcd085bb3874c97f9e149a7963be8"
+    },
+    {
+      "name": "2019-03-13_N16_C4",
+      "vehicles": 16,
+      "chargers": 4,
+      "vertices": 371,
+      "instance_sha256": "ab9ce327a575a99a0414bc78ee1b5ebb2569b96181a2436112757479ea9c675f"
+    },
+    {
+      "name": "2019-03-13_N20_C5",
+      "vehicles": 20,
+      "chargers": 5,
+      "vertices": 475,
+      "instance_sha256": "bed811f365be7ce4d6fc648847fa7ba19559f522a0257f2a416ea2519ae78490"
+    }
+  ]
+}

@@ -12,7 +12,7 @@
 
 from __future__ import annotations
 
-import time
+from cg import budget_clock
 from typing import Dict, Iterable, List, Optional, Sequence, Set, Tuple
 
 import gurobipy as grb
@@ -117,17 +117,17 @@ class QAIAPricingSolver:
 
     def generate_columns(self, time_end: float, *, exclude_signatures=None):
         remaining_seconds(time_end, "Before heuristic")
-        started = time.perf_counter()
+        started = budget_clock.now()
         self.calls += 1
         excluded = set(exclude_signatures or ())
         try:
-            t0 = time.perf_counter()
+            t0 = budget_clock.now()
             vertex_ids, weights, adjacency, forbidden, j_mat, h_vec = self._build_ising_model()
-            self.profile["build_seconds"] += time.perf_counter() - t0
+            self.profile["build_seconds"] += budget_clock.now() - t0
             if not vertex_ids:
                 return []
             remaining_seconds(time_end, "After Ising construction")
-            t0 = time.perf_counter()
+            t0 = budget_clock.now()
             if self.provider == "greedy":
                 seed = None if self.random_seed is None else self.random_seed + self.calls - 1
                 rng = np.random.default_rng(seed)
@@ -148,9 +148,9 @@ class QAIAPricingSolver:
                 valid = np.isfinite(state).all(axis=0)
                 self.profile["nonfinite_samples"] += int((~valid).sum())
                 samples = self._decode_state(state[:, valid], len(vertex_ids))
-            self.profile["search_seconds"] += time.perf_counter() - t0
+            self.profile["search_seconds"] += budget_clock.now() - t0
             remaining_seconds(time_end, "After heuristic search")
-            t0 = time.perf_counter()
+            t0 = budget_clock.now()
             self.profile["raw_samples"] += samples.shape[1]
             candidates = {}
             for sample in samples.T:
@@ -169,10 +169,10 @@ class QAIAPricingSolver:
                             key=lambda item: (-item[1], item[0]))[:self.max_columns]
             columns = [self._make_column(s) for s, _ in ranked]
             self.profile["returned_columns"] += len(columns)
-            self.profile["repair_seconds"] += time.perf_counter() - t0
+            self.profile["repair_seconds"] += budget_clock.now() - t0
             return columns
         finally:
-            self.solve_time += time.perf_counter() - started
+            self.solve_time += budget_clock.now() - started
 
     def _build_ising_model(
         self,
@@ -470,13 +470,13 @@ class QAIAExactPricingSolver:
         forced_exact = (self.exact_mode == "on_qaia_failure"
                         and self.heuristic_streak >= self.max_heuristic_streak)
         if not forced_exact:
-            start = time.perf_counter()
+            start = budget_clock.now()
             self.qaia_calls += 1  # Legacy name: counts the selected heuristic provider.
             try:
                 qaia_columns = self.qaia_solver.generate_columns(
                     time_end, exclude_signatures=self._existing_signatures())
             finally:
-                self.qaia_solve_time += time.perf_counter() - start
+                self.qaia_solve_time += budget_clock.now() - start
             remaining_seconds(time_end, "After heuristic")
             qaia_columns = self._deduplicate(qaia_columns, exclude_existing=True)
             if qaia_columns:
@@ -491,12 +491,12 @@ class QAIAExactPricingSolver:
             variable.Start = grb.GRB.UNDEFINED
         if qaia_columns:
             self._set_exact_mip_start(qaia_columns)
-        start = time.perf_counter()
+        start = budget_clock.now()
         self.exact_calls += 1
         try:
             exact_columns = self.exact_solver.generate_columns(time_end)
         finally:
-            self.exact_solve_time += time.perf_counter() - start
+            self.exact_solve_time += budget_clock.now() - start
         selected = (exact_columns if self.column_policy == "warm_start_only"
                     else [*qaia_columns, *exact_columns])
         combined = self._deduplicate(selected, exclude_existing=True)

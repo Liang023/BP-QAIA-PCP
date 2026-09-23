@@ -105,10 +105,11 @@ def main():
         plan.extend(pair)
     (out / "manifest.json").write_text(json.dumps(dict(
         variants=variants, seeds=args.seeds, limit=args.limit, exact_repeats=exact_repeats,
+        timing_basis="bp_active_excluding_cloud_call",
         offline_tuning=frozen_metadata,
         cim_environment={key: os.getenv(key) for key in (
             "CIM_DEVICE_ID", "CIM_MAX_BITS", "CIM_PRECISION", "CIM_MAX_CALLS",
-            "CIM_CALL_SECONDS", "CIM_CACHE_DIR")},
+            "CIM_CACHE_DIR")},
         completion_rows=completion_rows(),
         capacity_bound_environment={key: os.getenv(key, default) for key, default in (
             ("BPC_CAPACITY_BOUND", "1"), ("BPC_BOUND_LP_SECONDS", "2"))},
@@ -138,10 +139,13 @@ def main():
                 command.extend(["--qaia-config", str(Path(args.qaia_config).resolve())])
             start = time.perf_counter()
             record = {}
+            print(path.stem, label, "running (CIM waits for cloud return)" if method == "cim_root"
+                  else "running", flush=True)
             with dest.with_suffix(".process.log").open("x", encoding="utf-8") as log:
                 try:
                     proc = subprocess.run(command, cwd=ROOT, env=env, stdout=log,
-                                          stderr=subprocess.STDOUT, timeout=args.limit+60)
+                                          stderr=subprocess.STDOUT,
+                                          timeout=None if method == "cim_root" else args.limit+60)
                     record = json.loads(dest.read_text(encoding="utf-8")) if dest.exists() else {}
                     if proc.returncode != 0 or not record:
                         record = recovered_record(dest, data, input_sha, args.limit, method, seed,
@@ -190,6 +194,9 @@ def main():
                          budget_snapshots=record.get("budget_snapshots"),
                          trajectory_file=record.get("trajectory_file"),
                          wall_seconds=record.get("wall_seconds"),
+                         solve_seconds=record.get("solve_seconds"),
+                         cloud_excluded_seconds=record.get("cloud_excluded_seconds"),
+                         timing_basis=record.get("timing_basis"),
                          process_seconds=time.perf_counter()-start)
             runs.append(entry)
             print(path.stem, label, entry["status"], check, flush=True)
@@ -210,7 +217,7 @@ def main():
                 matched_reference_count=len(good),
                 statuses={s: sum(r["status"] == s for r in group)
                           for s in sorted({r["status"] for r in group})},
-                median_seconds=statistics.median(r["wall_seconds"] for r in group)
+                median_seconds=statistics.median(r["solve_seconds"] for r in group)
                     if group and all(r["status"] == "optimal" and r["validation_passed"]
                         and r["check"] not in {"objective_mismatch", "input_changed", "invalid_schedule"}
                         for r in group) else None,
@@ -225,6 +232,7 @@ def main():
                 median_root_pricing_seconds=statistics.median(root_times)
                     if len(root_times) == len(group) and group else None)
         report.append(dict(schema_version="anytime-summary-v2", instance=str(path),
+                           timing_basis="bp_active_excluding_cloud_call",
                            limit=args.limit, completion_rows=completion_rows(), groups=groups))
         (out / "diagnostic_summary.json").write_text(json.dumps(report, indent=2), encoding="utf-8")
     print("Collection finished. Compare feasible_rate and objectives first; timeouts are retained.")

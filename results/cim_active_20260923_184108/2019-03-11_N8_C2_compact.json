@@ -1,0 +1,488 @@
+{
+  "method": "compact",
+  "seed": 0,
+  "limit": 600.0,
+  "completion_rows": "vehicle",
+  "instance": "D:\\pythonProject\\BP_QAIA_PCP\\data\\acn_scale_final_v3\\2019-03-11_N8_C2.json",
+  "python": "3.10.18 | packaged by Anaconda, Inc. | (main, Jun  5 2025, 13:08:55) [MSC v.1929 64 bit (AMD64)]",
+  "platform": "Windows-10-10.0.26200-SP0",
+  "threads": 1,
+  "gurobi_seed": 0,
+  "timing_scope": "after_input_and_imports_before_graph_and_model",
+  "timing_basis": "bp_active_excluding_cloud_call",
+  "verbose": false,
+  "offline_tuning": null,
+  "tuning_seconds_in_bp": 0.0,
+  "capacity_bound_config": {
+    "enabled": true,
+    "lp_seconds": 2.0
+  },
+  "primal_completion_config": {
+    "enabled": false,
+    "attempts": 20,
+    "seconds": 2.0
+  },
+  "instance_sha256": "848e34ad533cdb2798e159ddc117e3aaa2af6680377b62c97839819312895311",
+  "vehicles": 8,
+  "vertices": 199,
+  "schema_version": "acn-derived-v1",
+  "data_metadata": {
+    "raw_sha256": "b03d3ddc109c5e53327d835c77e20f5710976a4a97a60d75b3b60f1934de7de9",
+    "converter_sha256": "3877628d4f5200e7d2536e93e534489cf29f00999e2f181f76587b790456061e",
+    "raw_filename": "caltech_march_holdout.json",
+    "site_id": "0002",
+    "timezone": "America/Los_Angeles",
+    "local_arrival_date": "2019-03-11",
+    "origin_utc": "2019-03-11T07:00:00+00:00",
+    "slot_minutes": 15,
+    "power_kw": "7",
+    "energy_basis": "observed_kWhDelivered",
+    "charger_basis": "assumed_homogeneous_pool",
+    "selection": "first_n_by_connection_time_then_session_id",
+    "max_sessions": 8,
+    "max_vertices": 999,
+    "max_stay_hours": 48
+  },
+  "git_sha": "8d353cb2e0ada608b599813ec4a69382951e2b2a",
+  "source_sha256": "368ba55f3207fb114457881ca4a31587fe1f1603cec146453844dccfb30ae709",
+  "qaia_config": null,
+  "exact_pricing_config": null,
+  "restricted_mip_config": {
+    "enabled": true,
+    "scope": "root",
+    "every": 20,
+    "seconds": 0.5,
+    "fraction": 0.1
+  },
+  "gurobi": [
+    12,
+    0,
+    3
+  ],
+  "status": "optimal",
+  "objective": 66.0,
+  "lower_bound": 66.0,
+  "schedule": [
+    [
+      {
+        "vehicle_id": 0,
+        "candidate_id": 0,
+        "start": 26,
+        "end": 29
+      },
+      {
+        "vehicle_id": 2,
+        "candidate_id": 0,
+        "start": 33,
+        "end": 53
+      },
+      {
+        "vehicle_id": 7,
+        "candidate_id": 17,
+        "start": 53,
+        "end": 58
+      },
+      {
+        "vehicle_id": 3,
+        "candidate_id": 23,
+        "start": 58,
+        "end": 66
+      }
+    ],
+    [
+      {
+        "vehicle_id": 1,
+        "candidate_id": 0,
+        "start": 33,
+        "end": 37
+      },
+      {
+        "vehicle_id": 6,
+        "candidate_id": 2,
+        "start": 37,
+        "end": 51
+      },
+      {
+        "vehicle_id": 5,
+        "candidate_id": 16,
+        "start": 51,
+        "end": 55
+      },
+      {
+        "vehicle_id": 4,
+        "candidate_id": 21,
+        "start": 56,
+        "end": 66
+      }
+    ]
+  ],
+  "compact_formulation": "integer_slot_occupancy_vehicle_v2",
+  "compact_variables": 399,
+  "compact_constraints": 307,
+  "solve_seconds": 0.05112189999999828,
+  "wall_seconds": 0.05112390000067535,
+  "cloud_excluded_seconds": 0.0,
+  "budget_overrun_seconds": 0.0,
+  "has_feasible_solution": true,
+  "best_objective": 66.0,
+  "time_to_first_feasible": 0.010438100001920247,
+  "best_found_seconds": 0.044684299999062205,
+  "incumbent_history": [
+    {
+      "event": "incumbent",
+      "elapsed_seconds": 0.010438100001920247,
+      "wall_elapsed_seconds": 0.010440300000482239,
+      "cloud_excluded_seconds": 0.0,
+      "objective": 78.0,
+      "source": "compact_mipsol",
+      "node_id": null,
+      "cg_iteration": null,
+      "validation_passed": true,
+      "schedule": [
+        [
+          {
+            "vehicle_id": 0,
+            "candidate_id": 1,
+            "start": 27,
+            "end": 30
+          },
+          {
+            "vehicle_id": 2,
+            "candidate_id": 2,
+            "start": 35,
+            "end": 55
+          },
+          {
+            "vehicle_id": 6,
+            "candidate_id": 21,
+            "start": 56,
+            "end": 70
+          },
+          {
+            "vehicle_id": 5,
+            "candidate_id": 39,
+            "start": 74,
+            "end": 78
+          }
+        ],
+        [
+          {
+            "vehicle_id": 7,
+            "candidate_id": 1,
+            "start": 37,
+            "end": 42
+          },
+          {
+            "vehicle_id": 1,
+            "candidate_id": 12,
+            "start": 45,
+            "end": 49
+          },
+          {
+            "vehicle_id": 4,
+            "candidate_id": 16,
+            "start": 51,
+            "end": 61
+          },
+          {
+            "vehicle_id": 3,
+            "candidate_id": 28,
+            "start": 63,
+            "end": 71
+          }
+        ]
+      ]
+    },
+    {
+      "event": "incumbent",
+      "elapsed_seconds": 0.03127619999941089,
+      "wall_elapsed_seconds": 0.03127890000178013,
+      "cloud_excluded_seconds": 0.0,
+      "objective": 70.0,
+      "source": "compact_mipsol",
+      "node_id": null,
+      "cg_iteration": null,
+      "validation_passed": true,
+      "schedule": [
+        [
+          {
+            "vehicle_id": 0,
+            "candidate_id": 0,
+            "start": 26,
+            "end": 29
+          },
+          {
+            "vehicle_id": 1,
+            "candidate_id": 0,
+            "start": 33,
+            "end": 37
+          },
+          {
+            "vehicle_id": 4,
+            "candidate_id": 2,
+            "start": 37,
+            "end": 47
+          },
+          {
+            "vehicle_id": 3,
+            "candidate_id": 13,
+            "start": 48,
+            "end": 56
+          },
+          {
+            "vehicle_id": 6,
+            "candidate_id": 21,
+            "start": 56,
+            "end": 70
+          }
+        ],
+        [
+          {
+            "vehicle_id": 7,
+            "candidate_id": 1,
+            "start": 37,
+            "end": 42
+          },
+          {
+            "vehicle_id": 2,
+            "candidate_id": 12,
+            "start": 45,
+            "end": 65
+          },
+          {
+            "vehicle_id": 5,
+            "candidate_id": 31,
+            "start": 66,
+            "end": 70
+          }
+        ]
+      ]
+    },
+    {
+      "event": "incumbent",
+      "elapsed_seconds": 0.03313930000149412,
+      "wall_elapsed_seconds": 0.03314150000005611,
+      "cloud_excluded_seconds": 0.0,
+      "objective": 68.0,
+      "source": "compact_mipsol",
+      "node_id": null,
+      "cg_iteration": null,
+      "validation_passed": true,
+      "schedule": [
+        [
+          {
+            "vehicle_id": 0,
+            "candidate_id": 0,
+            "start": 26,
+            "end": 29
+          },
+          {
+            "vehicle_id": 1,
+            "candidate_id": 0,
+            "start": 33,
+            "end": 37
+          },
+          {
+            "vehicle_id": 5,
+            "candidate_id": 2,
+            "start": 37,
+            "end": 41
+          },
+          {
+            "vehicle_id": 4,
+            "candidate_id": 8,
+            "start": 43,
+            "end": 53
+          },
+          {
+            "vehicle_id": 7,
+            "candidate_id": 17,
+            "start": 53,
+            "end": 58
+          },
+          {
+            "vehicle_id": 3,
+            "candidate_id": 23,
+            "start": 58,
+            "end": 66
+          }
+        ],
+        [
+          {
+            "vehicle_id": 2,
+            "candidate_id": 0,
+            "start": 33,
+            "end": 53
+          },
+          {
+            "vehicle_id": 6,
+            "candidate_id": 19,
+            "start": 54,
+            "end": 68
+          }
+        ]
+      ]
+    },
+    {
+      "event": "incumbent",
+      "elapsed_seconds": 0.034241900000779424,
+      "wall_elapsed_seconds": 0.034243900001456495,
+      "cloud_excluded_seconds": 0.0,
+      "objective": 67.0,
+      "source": "compact_mipsol",
+      "node_id": null,
+      "cg_iteration": null,
+      "validation_passed": true,
+      "schedule": [
+        [
+          {
+            "vehicle_id": 0,
+            "candidate_id": 0,
+            "start": 26,
+            "end": 29
+          },
+          {
+            "vehicle_id": 6,
+            "candidate_id": 0,
+            "start": 35,
+            "end": 49
+          },
+          {
+            "vehicle_id": 3,
+            "candidate_id": 14,
+            "start": 49,
+            "end": 57
+          },
+          {
+            "vehicle_id": 7,
+            "candidate_id": 21,
+            "start": 57,
+            "end": 62
+          },
+          {
+            "vehicle_id": 5,
+            "candidate_id": 27,
+            "start": 62,
+            "end": 66
+          }
+        ],
+        [
+          {
+            "vehicle_id": 2,
+            "candidate_id": 0,
+            "start": 33,
+            "end": 53
+          },
+          {
+            "vehicle_id": 1,
+            "candidate_id": 20,
+            "start": 53,
+            "end": 57
+          },
+          {
+            "vehicle_id": 4,
+            "candidate_id": 22,
+            "start": 57,
+            "end": 67
+          }
+        ]
+      ]
+    },
+    {
+      "event": "incumbent",
+      "elapsed_seconds": 0.044684299999062205,
+      "wall_elapsed_seconds": 0.044686799999908544,
+      "cloud_excluded_seconds": 0.0,
+      "objective": 66.0,
+      "source": "compact_mipsol",
+      "node_id": null,
+      "cg_iteration": null,
+      "validation_passed": true,
+      "schedule": [
+        [
+          {
+            "vehicle_id": 0,
+            "candidate_id": 0,
+            "start": 26,
+            "end": 29
+          },
+          {
+            "vehicle_id": 2,
+            "candidate_id": 0,
+            "start": 33,
+            "end": 53
+          },
+          {
+            "vehicle_id": 7,
+            "candidate_id": 17,
+            "start": 53,
+            "end": 58
+          },
+          {
+            "vehicle_id": 3,
+            "candidate_id": 23,
+            "start": 58,
+            "end": 66
+          }
+        ],
+        [
+          {
+            "vehicle_id": 1,
+            "candidate_id": 0,
+            "start": 33,
+            "end": 37
+          },
+          {
+            "vehicle_id": 6,
+            "candidate_id": 2,
+            "start": 37,
+            "end": 51
+          },
+          {
+            "vehicle_id": 5,
+            "candidate_id": 16,
+            "start": 51,
+            "end": 55
+          },
+          {
+            "vehicle_id": 4,
+            "candidate_id": 21,
+            "start": 56,
+            "end": 66
+          }
+        ]
+      ]
+    }
+  ],
+  "trajectory_file": "D:\\pythonProject\\BP_QAIA_PCP\\results\\cim_active_20260923_184108\\2019-03-11_N8_C2_compact.incumbents.jsonl",
+  "schedule_makespan": 66.0,
+  "validation_passed": true,
+  "budget_snapshots": [
+    {
+      "seconds": 10.0,
+      "objective": 66.0
+    },
+    {
+      "seconds": 30.0,
+      "objective": 66.0
+    },
+    {
+      "seconds": 60.0,
+      "objective": 66.0
+    },
+    {
+      "seconds": 120.0,
+      "objective": 66.0
+    },
+    {
+      "seconds": 300.0,
+      "objective": 66.0
+    },
+    {
+      "seconds": 600.0,
+      "objective": 66.0
+    }
+  ],
+  "termination_reason": "optimal",
+  "workflow_seconds": 0.14174840000123368
+}

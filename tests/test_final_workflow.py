@@ -10,6 +10,7 @@ from config.qaia_runtime import load_frozen, pricing_options
 from experiments.tune_qaia import quality_score
 from cg.pricing.cim_backend import CIMBackend
 from cg.pricing.cim_worker import check_interface, solve_request
+from cg import budget_clock
 
 
 def test_frozen_xi_reaches_solver_options(tmp_path, monkeypatch):
@@ -30,17 +31,23 @@ def test_tuning_loss_prioritizes_feasibility_without_fake_objective():
     assert missing["objective"] is None
 
 
-def test_cim_timeout_size_and_call_cap(tmp_path, monkeypatch):
+def test_cim_unlimited_wait_size_and_call_cap(tmp_path, monkeypatch):
     monkeypatch.setenv("CIM_CACHE_DIR", str(tmp_path))
     monkeypatch.setenv("ECLOUD_ACCESS_KEY", "test-key")
     monkeypatch.setenv("ECLOUD_SECRET_KEY", "test-secret")
     backend = CIMBackend()
-    def timeout(*args, **kwargs):
-        raise subprocess.TimeoutExpired("mock", 0.01)
-    monkeypatch.setattr(subprocess, "run", timeout)
-    sample = backend.sample([0], {0: 2}, {0: set()}, set(), 1, time.perf_counter()+5)
-    assert sample.shape == (1, 0)
-    assert backend.metrics["timeouts"] == 1 and backend.disabled
+    backend.options["max_calls"] = 1
+    def worker(command, **kwargs):
+        assert "timeout" not in kwargs
+        from pathlib import Path
+        np.save(command[-1], np.array([[1]], dtype=np.int8))
+        (Path(command[-1]).parent / "cloud_timing.json").write_text(
+            json.dumps(dict(cloud_call_seconds=0)))
+        return SimpleNamespace(returncode=0)
+    monkeypatch.setattr(subprocess, "run", worker)
+    sample = backend.sample([0], {0: 2}, {0: set()}, set(), 1, budget_clock.now()+5)
+    assert sample.shape == (1, 1)
+    assert backend.metrics["timeouts"] == 0 and backend.metrics["completed"] == 1
     backend.sample([0], {0: 2}, {0: set()}, set(), 1, time.perf_counter()+5)
     assert backend.metrics["requests"] == 1
     # No credentials in the on-disk request.
@@ -55,7 +62,10 @@ def test_cim_success_decoding_and_repair(monkeypatch, tmp_path):
     monkeypatch.setenv("ECLOUD_ACCESS_KEY", "test-key")
     monkeypatch.setenv("ECLOUD_SECRET_KEY", "test-secret")
     def fake_worker(command, **kwargs):
+        from pathlib import Path
         np.save(command[-1], np.array([[1, 0], [1, 1]], dtype=np.int8))
+        (Path(command[-1]).parent / "cloud_timing.json").write_text(
+            json.dumps(dict(cloud_call_seconds=0)))
         return SimpleNamespace(returncode=0)
     monkeypatch.setattr(subprocess, "run", fake_worker)
     backend = CIMBackend()
