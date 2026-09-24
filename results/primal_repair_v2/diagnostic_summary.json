@@ -1,7 +1,7 @@
 [
   {
     "schema_version": "anytime-summary-v2",
-    "instance": "D:\\pythonProject\\BP_QAIA_PCP\\data\\acn_scale_final_v3\\2019-03-11_N16_C4.json",
+    "instance": "D:\\pythonProject\\BP_QAIA_PCP\\data\\acn_scale_final_v3\\2019-03-11_N8_C2.json",
     "timing_basis": "bp_active_excluding_cloud_call",
     "limit": 600.0,
     "completion_rows": "vehicle",
@@ -13,100 +13,101 @@
         "statuses": {
           "optimal": 1
         },
-        "median_seconds": 0.784976099996129,
+        "median_seconds": 0.05418350000400096,
         "feasible_count": 1,
         "feasible_rate": 1.0,
         "all_feasible_makespans": [
-          62.0
+          66.0
         ],
         "first_feasible_seconds": [
-          0.0845264999952633
+          0.012108599999919534
         ],
-        "median_feasible_makespan": 62.0,
-        "median_all_runs_makespan": 62.0,
+        "median_feasible_makespan": 66.0,
+        "median_all_runs_makespan": 66.0,
         "root_certified": 0,
         "median_root_pricing_seconds": null
       },
       "exact": {
         "attempted": 3,
-        "optimal_count": 0,
-        "matched_reference_count": 0,
+        "optimal_count": 3,
+        "matched_reference_count": 3,
         "statuses": {
-          "time_limit": 3
+          "optimal": 3
         },
-        "median_seconds": null,
+        "median_seconds": 0.3127721000055317,
         "feasible_count": 3,
         "feasible_rate": 1.0,
         "all_feasible_makespans": [
-          64.0,
-          65.0,
-          67.0
+          66.0,
+          66.0,
+          66.0
         ],
         "first_feasible_seconds": [
-          4.021826999989571,
-          4.54104670000379,
-          1.1813643000059528
+          0.17638250000891276,
+          0.18388760001107585,
+          0.1713554000016302
         ],
-        "median_feasible_makespan": 65.0,
-        "median_all_runs_makespan": 65.0,
+        "median_feasible_makespan": 66.0,
+        "median_all_runs_makespan": 66.0,
         "root_certified": 3,
-        "median_root_pricing_seconds": 3.2329398000001675
+        "median_root_pricing_seconds": 0.16549080002005212
       },
       "cim": {
         "attempted": 3,
-        "optimal_count": 0,
-        "matched_reference_count": 0,
+        "optimal_count": 2,
+        "matched_reference_count": 2,
         "statuses": {
-          "time_limit": 3
+          "optimal": 2,
+          "time_limit": 1
         },
         "median_seconds": null,
         "feasible_count": 3,
         "feasible_rate": 1.0,
         "all_feasible_makespans": [
           66.0,
-          65.0,
-          67.0
+          67.0,
+          66.0
         ],
         "first_feasible_seconds": [
-          21.01622320000024,
-          32.520755499994266,
-          25.010129800008144
+          1.587218100001337,
+          1.5419936000107555,
+          1.5186042999994243
         ],
         "median_feasible_makespan": 66.0,
         "median_all_runs_makespan": 66.0,
         "root_certified": 3,
-        "median_root_pricing_seconds": 24.390739200011012
+        "median_root_pricing_seconds": 1.4147906000143848
       },
       "qaia_tuned": {
         "attempted": 3,
-        "optimal_count": 0,
-        "matched_reference_count": 0,
+        "optimal_count": 3,
+        "matched_reference_count": 3,
         "statuses": {
-          "time_limit": 3
+          "optimal": 3
         },
-        "median_seconds": null,
+        "median_seconds": 0.6031317000015406,
         "feasible_count": 3,
         "feasible_rate": 1.0,
         "all_feasible_makespans": [
           66.0,
           66.0,
-          63.0
+          66.0
         ],
         "first_feasible_seconds": [
-          8.437822299994878,
-          9.030109799990896,
-          7.912110600009328
+          0.3102638999989722,
+          0.2804881000047317,
+          0.2750873000040883
         ],
         "median_feasible_makespan": 66.0,
         "median_all_runs_makespan": 66.0,
         "root_certified": 3,
-        "median_root_pricing_seconds": 6.992048100000829
+        "median_root_pricing_seconds": 0.4102131000254303
       }
     }
   },
   {
     "schema_version": "anytime-summary-v2",
-    "instance": "D:\\pythonProject\\BP_QAIA_PCP\\data\\acn_scale_final_v3\\2019-03-12_N20_C5.json",
+    "instance": "D:\\pythonProject\\BP_QAIA_PCP\\data\\acn_scale_final_v3\\2019-03-11_N12_C3.json",
     "timing_basis": "bp_active_excluding_cloud_call",
     "limit": 600.0,
     "completion_rows": "vehicle",
@@ -118,17 +119,17 @@
         "statuses": {
           "optimal": 1
         },
-        "median_seconds": 0.07316780000110157,
+        "median_seconds": 0.065219199997955,
         "feasible_count": 1,
         "feasible_rate": 1.0,
         "all_feasible_makespans": [
-          62.0
+          61.0
         ],
         "first_feasible_seconds": [
-          0.02935520000755787
+          0.014106400005402975
         ],
-        "median_feasible_makespan": 62.0,
-        "median_all_runs_makespan": 62.0,
+        "median_feasible_makespan": 61.0,
+        "median_all_runs_makespan": 61.0,
         "root_certified": 0,
         "median_root_pricing_seconds": null
       },
@@ -143,19 +144,19 @@
         "feasible_count": 3,
         "feasible_rate": 1.0,
         "all_feasible_makespans": [
-          64.0,
           63.0,
-          64.0
+          62.0,
+          63.0
         ],
         "first_feasible_seconds": [
-          1.4370634999941103,
-          1.5302423000102863,
-          1.51848389999941
+          0.5138238000072306,
+          0.5209192000038456,
+          0.5200344000040786
         ],
-        "median_feasible_makespan": 64.0,
-        "median_all_runs_makespan": 64.0,
+        "median_feasible_makespan": 63.0,
+        "median_all_runs_makespan": 63.0,
         "root_certified": 3,
-        "median_root_pricing_seconds": 1.0406092000193894
+        "median_root_pricing_seconds": 0.32186220001312904
       },
       "cim": {
         "attempted": 3,
@@ -168,19 +169,19 @@
         "feasible_count": 3,
         "feasible_rate": 1.0,
         "all_feasible_makespans": [
-          64.0,
-          68.0,
-          64.0
+          63.0,
+          62.0,
+          62.0
         ],
         "first_feasible_seconds": [
-          17.04283530000248,
-          35.89042329999211,
-          27.458780399989337
+          2.5564305000007153,
+          3.4588651999947615,
+          2.5721074999892153
         ],
-        "median_feasible_makespan": 64.0,
-        "median_all_runs_makespan": 64.0,
+        "median_feasible_makespan": 62.0,
+        "median_all_runs_makespan": 62.0,
         "root_certified": 3,
-        "median_root_pricing_seconds": 27.00147649999417
+        "median_root_pricing_seconds": 2.864167899955646
       },
       "qaia_tuned": {
         "attempted": 3,
@@ -193,19 +194,19 @@
         "feasible_count": 3,
         "feasible_rate": 1.0,
         "all_feasible_makespans": [
-          64.0,
-          67.0,
-          64.0
+          62.0,
+          63.0,
+          63.0
         ],
         "first_feasible_seconds": [
-          2.5633020999957807,
-          8.188365399997565,
-          11.837716299996828
+          0.8904193999915151,
+          0.913237399989157,
+          0.9079917000053683
         ],
-        "median_feasible_makespan": 64.0,
-        "median_all_runs_makespan": 64.0,
+        "median_feasible_makespan": 63.0,
+        "median_all_runs_makespan": 63.0,
         "root_certified": 3,
-        "median_root_pricing_seconds": 6.308044999954291
+        "median_root_pricing_seconds": 0.6828334000019822
       }
     }
   }

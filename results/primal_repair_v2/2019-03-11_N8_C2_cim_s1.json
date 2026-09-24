@@ -1,0 +1,590 @@
+{
+  "method": "cim_root",
+  "seed": 1,
+  "limit": 600.0,
+  "completion_rows": "vehicle",
+  "instance": "D:\\pythonProject\\BP_QAIA_PCP\\data\\acn_scale_final_v3\\2019-03-11_N8_C2.json",
+  "python": "3.10.18 | packaged by Anaconda, Inc. | (main, Jun  5 2025, 13:08:55) [MSC v.1929 64 bit (AMD64)]",
+  "platform": "Windows-10-10.0.26200-SP0",
+  "threads": 1,
+  "gurobi_seed": 0,
+  "timing_scope": "after_input_and_imports_before_graph_and_model",
+  "timing_basis": "bp_active_excluding_cloud_call",
+  "verbose": false,
+  "offline_tuning": null,
+  "tuning_seconds_in_bp": 0.0,
+  "capacity_bound_config": {
+    "enabled": true,
+    "lp_seconds": 2.0
+  },
+  "primal_completion_config": {
+    "enabled": true,
+    "attempts": 20,
+    "seconds": 2.0
+  },
+  "instance_sha256": "848e34ad533cdb2798e159ddc117e3aaa2af6680377b62c97839819312895311",
+  "vehicles": 8,
+  "vertices": 199,
+  "schema_version": "acn-derived-v1",
+  "data_metadata": {
+    "raw_sha256": "b03d3ddc109c5e53327d835c77e20f5710976a4a97a60d75b3b60f1934de7de9",
+    "converter_sha256": "3877628d4f5200e7d2536e93e534489cf29f00999e2f181f76587b790456061e",
+    "raw_filename": "caltech_march_holdout.json",
+    "site_id": "0002",
+    "timezone": "America/Los_Angeles",
+    "local_arrival_date": "2019-03-11",
+    "origin_utc": "2019-03-11T07:00:00+00:00",
+    "slot_minutes": 15,
+    "power_kw": "7",
+    "energy_basis": "observed_kWhDelivered",
+    "charger_basis": "assumed_homogeneous_pool",
+    "selection": "first_n_by_connection_time_then_session_id",
+    "max_sessions": 8,
+    "max_vertices": 999,
+    "max_stay_hours": 48
+  },
+  "git_sha": "6a2989c39e31e5fe6c5b0e12cb9b5974d4ec50d1",
+  "source_sha256": "587277127b51c0c9713ae76bd41fb2ed402da7e26632d2d86154415186d0d83a",
+  "qaia_config": {
+    "scope": "root",
+    "exact_mode": "on_qaia_failure",
+    "heuristic_provider": "cim",
+    "max_heuristic_streak": 3,
+    "qaia_algorithm": "BSB",
+    "qaia_backend": "cpu-float32",
+    "qaia_n_iter": 200,
+    "qaia_batch_size": 10,
+    "qaia_max_columns": 10,
+    "qaia_penalty_margin": 1.0,
+    "normalize_ising": true,
+    "qaia_algorithm_kwargs": {
+      "dt": 1.0
+    },
+    "column_policy": "combined"
+  },
+  "cim_config": {
+    "device_id": "WuYue-QPU-Qboson-1000",
+    "max_bits": 1000,
+    "precision": 8,
+    "max_calls": 1,
+    "cache_dir": "results/cim_tasks"
+  },
+  "exact_pricing_config": {
+    "pool_search_mode": 0,
+    "pool_solutions": 10,
+    "mip_gap": 0.0,
+    "mip_gap_abs": 0.0
+  },
+  "restricted_mip_config": {
+    "enabled": true,
+    "scope": "root",
+    "every": 20,
+    "seconds": 0.5,
+    "fraction": 0.1
+  },
+  "gurobi": [
+    12,
+    0,
+    3
+  ],
+  "heuristic_provider": "cim",
+  "graph_seconds": 0.01408399999490939,
+  "status": "time_limit",
+  "objective": 67.0,
+  "statistics": {
+    "nodes_processed": 7062,
+    "nodes_created": 7787,
+    "nodes_pruned": 3186,
+    "nodes_remaining": 708,
+    "best_objective": 67.0,
+    "global_lower_bound": 66,
+    "gap": 0.014925373134328358,
+    "total_solve_time": 599.9936416000128,
+    "problem_lower_bound": 66,
+    "capacity_bound": {
+      "earliest_completion": 53,
+      "workload_lower_bound": 66,
+      "lower_bound": 66,
+      "lp_calls": 4,
+      "lp_seconds": 0.007417500004521571,
+      "lp_status": "complete",
+      "infeasible_horizons": [],
+      "seconds": 0.007493799988878891
+    },
+    "proof_source": null,
+    "column_num": 32167,
+    "master_seconds": 24.301328101879335,
+    "node_setup_seconds": 179.65708879991143,
+    "root_initialization_seconds": 0.007738199987215921,
+    "pricing_seconds": 205.80738409979676,
+    "branch_seconds": 171.01563249998435,
+    "restricted_mip_seconds": 0.007312600006116554,
+    "restricted_mip_calls": 1,
+    "primal_completion": {
+      "calls": 1,
+      "attempts": 20,
+      "columns_added": 37,
+      "complete_schedules": 20,
+      "improvements": 3,
+      "seconds": 0.03408689999196213,
+      "seeded_from_incumbent": 0
+    },
+    "incumbent_input_column_creators": [
+      "Exact Pricing Solver",
+      "Exact Pricing Solver"
+    ],
+    "root_diagnostics": {
+      "cg_certified": true,
+      "cg_iterations": 9,
+      "lp_objective": 66.0,
+      "integer_solution": false,
+      "columns_in_pool": 64,
+      "master_seconds": 0.008203399978810921,
+      "pricing_seconds": 1.4147906000143848,
+      "heuristic_metrics": {
+        "provider": "cim",
+        "cim": {
+          "requests": 1,
+          "completed": 1,
+          "timeouts": 0,
+          "size_skips": 0,
+          "capped_skips": 8,
+          "seconds": 364.2921294999978,
+          "cloud_excluded_seconds": 363.23803139998927,
+          "local_seconds": 1.0540981000085594,
+          "tasks": [
+            {
+              "task": "bp55fcff0c1f3241e89b4c",
+              "directory": "D:\\pythonProject\\BP_QAIA_PCP\\results\\cim_tasks\\bp55fcff0c1f3241e89b4c",
+              "status": "completed",
+              "seconds": 364.2921294999978,
+              "cloud_excluded_seconds": 363.23803139998927,
+              "local_seconds": 1.0540981000085594
+            }
+          ]
+        },
+        "heuristic_calls": 9,
+        "heuristic_failures": 0,
+        "hit_calls": 1,
+        "exact_calls": 8,
+        "exact_skips": 1,
+        "heuristic_seconds": 1.2317551999876741,
+        "exact_seconds": 0.1801055000105407,
+        "build_seconds": 0.16873350001696963,
+        "search_seconds": 1.0596252000395907,
+        "repair_seconds": 0.0009606000676285475,
+        "raw_samples": 10,
+        "improving_unique": 5,
+        "pool_duplicates": 0,
+        "returned_columns": 5,
+        "nonfinite_samples": 0
+      }
+    }
+  },
+  "error": "Exact pricing reached TimeLimit; node is not certified",
+  "validated_schedule": {
+    "schedule": [
+      [
+        {
+          "vehicle_id": 2,
+          "candidate_id": 1,
+          "vertex_id": 31,
+          "start": 34,
+          "end": 54
+        },
+        {
+          "vehicle_id": 3,
+          "candidate_id": 19,
+          "vertex_id": 65,
+          "start": 54,
+          "end": 62
+        },
+        {
+          "vehicle_id": 7,
+          "candidate_id": 26,
+          "vertex_id": 193,
+          "start": 62,
+          "end": 67
+        }
+      ],
+      [
+        {
+          "vehicle_id": 0,
+          "candidate_id": 0,
+          "vertex_id": 0,
+          "start": 26,
+          "end": 29
+        },
+        {
+          "vehicle_id": 6,
+          "candidate_id": 0,
+          "vertex_id": 145,
+          "start": 35,
+          "end": 49
+        },
+        {
+          "vehicle_id": 5,
+          "candidate_id": 14,
+          "vertex_id": 119,
+          "start": 49,
+          "end": 53
+        },
+        {
+          "vehicle_id": 1,
+          "candidate_id": 20,
+          "vertex_id": 22,
+          "start": 53,
+          "end": 57
+        },
+        {
+          "vehicle_id": 4,
+          "candidate_id": 22,
+          "vertex_id": 102,
+          "start": 57,
+          "end": 67
+        }
+      ]
+    ],
+    "makespan": 67.0
+  },
+  "schedule_makespan": 67.0,
+  "total_pricing_time": 205.80738409979676,
+  "total_qaia_time": 1.2317551999876741,
+  "total_hybrid_exact_time": 0.1801055000105407,
+  "total_qaia_calls": 9,
+  "total_hybrid_exact_calls": 8,
+  "qaia_nodes": 1,
+  "exact_only_nodes": 7061,
+  "solve_seconds": 599.9938691000134,
+  "wall_seconds": 963.2319015999965,
+  "cloud_excluded_seconds": 363.23803139998927,
+  "budget_overrun_seconds": 0.0,
+  "has_feasible_solution": true,
+  "best_objective": 67.0,
+  "time_to_first_feasible": 1.5419936000107555,
+  "best_found_seconds": 52.49714150001819,
+  "incumbent_history": [
+    {
+      "event": "incumbent",
+      "elapsed_seconds": 1.5419936000107555,
+      "wall_elapsed_seconds": 364.78002659999765,
+      "cloud_excluded_seconds": 363.23803139998927,
+      "objective": 74.0,
+      "source": "primal_completion",
+      "node_id": 1,
+      "cg_iteration": null,
+      "validation_passed": true,
+      "schedule": [
+        [
+          {
+            "vehicle_id": 0,
+            "candidate_id": 1,
+            "vertex_id": 1,
+            "start": 27,
+            "end": 30
+          },
+          {
+            "vehicle_id": 1,
+            "candidate_id": 0,
+            "vertex_id": 2,
+            "start": 33,
+            "end": 37
+          },
+          {
+            "vehicle_id": 3,
+            "candidate_id": 2,
+            "vertex_id": 48,
+            "start": 37,
+            "end": 45
+          },
+          {
+            "vehicle_id": 4,
+            "candidate_id": 10,
+            "vertex_id": 90,
+            "start": 45,
+            "end": 55
+          },
+          {
+            "vehicle_id": 6,
+            "candidate_id": 21,
+            "vertex_id": 166,
+            "start": 56,
+            "end": 70
+          },
+          {
+            "vehicle_id": 5,
+            "candidate_id": 35,
+            "vertex_id": 140,
+            "start": 70,
+            "end": 74
+          }
+        ],
+        [
+          {
+            "vehicle_id": 2,
+            "candidate_id": 0,
+            "vertex_id": 30,
+            "start": 33,
+            "end": 53
+          },
+          {
+            "vehicle_id": 7,
+            "candidate_id": 18,
+            "vertex_id": 185,
+            "start": 54,
+            "end": 59
+          }
+        ]
+      ]
+    },
+    {
+      "event": "incumbent",
+      "elapsed_seconds": 1.5451750000211177,
+      "wall_elapsed_seconds": 364.7832080999942,
+      "cloud_excluded_seconds": 363.23803139998927,
+      "objective": 72.0,
+      "source": "primal_completion",
+      "node_id": 1,
+      "cg_iteration": null,
+      "validation_passed": true,
+      "schedule": [
+        [
+          {
+            "vehicle_id": 0,
+            "candidate_id": 1,
+            "vertex_id": 1,
+            "start": 27,
+            "end": 30
+          },
+          {
+            "vehicle_id": 2,
+            "candidate_id": 0,
+            "vertex_id": 30,
+            "start": 33,
+            "end": 53
+          },
+          {
+            "vehicle_id": 5,
+            "candidate_id": 18,
+            "vertex_id": 123,
+            "start": 53,
+            "end": 57
+          },
+          {
+            "vehicle_id": 4,
+            "candidate_id": 22,
+            "vertex_id": 102,
+            "start": 57,
+            "end": 67
+          },
+          {
+            "vehicle_id": 7,
+            "candidate_id": 31,
+            "vertex_id": 198,
+            "start": 67,
+            "end": 72
+          }
+        ],
+        [
+          {
+            "vehicle_id": 6,
+            "candidate_id": 1,
+            "vertex_id": 146,
+            "start": 36,
+            "end": 50
+          },
+          {
+            "vehicle_id": 1,
+            "candidate_id": 19,
+            "vertex_id": 21,
+            "start": 52,
+            "end": 56
+          },
+          {
+            "vehicle_id": 3,
+            "candidate_id": 23,
+            "vertex_id": 69,
+            "start": 58,
+            "end": 66
+          }
+        ]
+      ]
+    },
+    {
+      "event": "incumbent",
+      "elapsed_seconds": 1.5491972000163514,
+      "wall_elapsed_seconds": 364.78723029998946,
+      "cloud_excluded_seconds": 363.23803139998927,
+      "objective": 68.0,
+      "source": "primal_completion",
+      "node_id": 1,
+      "cg_iteration": null,
+      "validation_passed": true,
+      "schedule": [
+        [
+          {
+            "vehicle_id": 2,
+            "candidate_id": 0,
+            "vertex_id": 30,
+            "start": 33,
+            "end": 53
+          },
+          {
+            "vehicle_id": 7,
+            "candidate_id": 19,
+            "vertex_id": 186,
+            "start": 55,
+            "end": 60
+          },
+          {
+            "vehicle_id": 3,
+            "candidate_id": 25,
+            "vertex_id": 71,
+            "start": 60,
+            "end": 68
+          }
+        ],
+        [
+          {
+            "vehicle_id": 0,
+            "candidate_id": 1,
+            "vertex_id": 1,
+            "start": 27,
+            "end": 30
+          },
+          {
+            "vehicle_id": 1,
+            "candidate_id": 0,
+            "vertex_id": 2,
+            "start": 33,
+            "end": 37
+          },
+          {
+            "vehicle_id": 6,
+            "candidate_id": 2,
+            "vertex_id": 147,
+            "start": 37,
+            "end": 51
+          },
+          {
+            "vehicle_id": 4,
+            "candidate_id": 17,
+            "vertex_id": 97,
+            "start": 52,
+            "end": 62
+          },
+          {
+            "vehicle_id": 5,
+            "candidate_id": 29,
+            "vertex_id": 134,
+            "start": 64,
+            "end": 68
+          }
+        ]
+      ]
+    },
+    {
+      "event": "incumbent",
+      "elapsed_seconds": 52.49714150001819,
+      "wall_elapsed_seconds": 415.7351747999928,
+      "cloud_excluded_seconds": 363.23803139998927,
+      "objective": 67.0,
+      "source": "rmp_integer",
+      "node_id": 778,
+      "cg_iteration": 15,
+      "validation_passed": true,
+      "schedule": [
+        [
+          {
+            "vehicle_id": 2,
+            "candidate_id": 1,
+            "vertex_id": 31,
+            "start": 34,
+            "end": 54
+          },
+          {
+            "vehicle_id": 3,
+            "candidate_id": 19,
+            "vertex_id": 65,
+            "start": 54,
+            "end": 62
+          },
+          {
+            "vehicle_id": 7,
+            "candidate_id": 26,
+            "vertex_id": 193,
+            "start": 62,
+            "end": 67
+          }
+        ],
+        [
+          {
+            "vehicle_id": 0,
+            "candidate_id": 0,
+            "vertex_id": 0,
+            "start": 26,
+            "end": 29
+          },
+          {
+            "vehicle_id": 6,
+            "candidate_id": 0,
+            "vertex_id": 145,
+            "start": 35,
+            "end": 49
+          },
+          {
+            "vehicle_id": 5,
+            "candidate_id": 14,
+            "vertex_id": 119,
+            "start": 49,
+            "end": 53
+          },
+          {
+            "vehicle_id": 1,
+            "candidate_id": 20,
+            "vertex_id": 22,
+            "start": 53,
+            "end": 57
+          },
+          {
+            "vehicle_id": 4,
+            "candidate_id": 22,
+            "vertex_id": 102,
+            "start": 57,
+            "end": 67
+          }
+        ]
+      ]
+    }
+  ],
+  "trajectory_file": "D:\\pythonProject\\BP_QAIA_PCP\\results\\primal_repair_v2\\2019-03-11_N8_C2_cim_s1.incumbents.jsonl",
+  "validation_passed": true,
+  "budget_snapshots": [
+    {
+      "seconds": 10.0,
+      "objective": 68.0
+    },
+    {
+      "seconds": 30.0,
+      "objective": 68.0
+    },
+    {
+      "seconds": 60.0,
+      "objective": 67.0
+    },
+    {
+      "seconds": 120.0,
+      "objective": 67.0
+    },
+    {
+      "seconds": 300.0,
+      "objective": 67.0
+    },
+    {
+      "seconds": 600.0,
+      "objective": 67.0
+    }
+  ],
+  "termination_reason": "time_limit",
+  "workflow_seconds": 963.5954342999903
+}
