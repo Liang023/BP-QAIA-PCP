@@ -108,7 +108,8 @@ class BranchAndPrice:
         self.primal_attempts = int(os.getenv("BPC_PRIMAL_ATTEMPTS", "20"))
         self.primal_slice = float(os.getenv("BPC_PRIMAL_SECONDS", "2"))
         self.primal_metrics = dict(calls=0, attempts=0, columns_added=0,
-                                  complete_schedules=0, improvements=0, seconds=0.0)
+                                  complete_schedules=0, improvements=0, seconds=0.0,
+                                  seeded_from_incumbent=0)
         self.incumbent_input_creators = []
         self.rmp_mip_enabled = os.getenv("BPC_RMP_MIP", "1") == "1"
         self.rmp_mip_every = int(os.getenv("BPC_RMP_MIP_EVERY", "20"))
@@ -362,11 +363,13 @@ class BranchAndPrice:
             return
         started = budget_clock.now()
         self.primal_metrics["calls"] += 1
+        self.primal_metrics["seeded_from_incumbent"] += int(self.best_solution is not None)
         try:
             added, schedules, attempts = complete_root_pool(
                 self.graph, self.charger_num, node.solution, node.column_pool,
                 master.pricing_problem, min(deadline, started+self.primal_slice),
-                self.primal_attempts, self.qaia_seed)
+                self.primal_attempts, self.qaia_seed,
+                incumbent=self.best_solution, upper_bound=self.best_objective)
             for column in added:
                 node.column_pool.addColumn(column)
                 master.add_column_to_rmp(column)

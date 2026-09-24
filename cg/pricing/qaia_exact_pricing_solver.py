@@ -463,6 +463,7 @@ class QAIAExactPricingSolver:
         self.exact_solve_time = 0.0
         self.qaia_calls = 0
         self.exact_calls = 0
+        self.heuristic_failures = 0
 
     def generate_columns(self, time_end: float):
         remaining_seconds(time_end, "Before hybrid pricing")
@@ -475,6 +476,13 @@ class QAIAExactPricingSolver:
             try:
                 qaia_columns = self.qaia_solver.generate_columns(
                     time_end, exclude_signatures=self._existing_signatures())
+            except (RuntimeError, ValueError):
+                if self.qaia_solver.provider != "cim":
+                    raise
+                # A failed cloud task is not a pricing certificate. Keep the
+                # failure in CIM metrics and let Exact search for valid columns.
+                self.heuristic_failures += 1
+                qaia_columns = []
             finally:
                 self.qaia_solve_time += budget_clock.now() - start
             remaining_seconds(time_end, "After heuristic")
@@ -515,7 +523,8 @@ class QAIAExactPricingSolver:
     def get_metrics(self):
         return dict(provider=self.qaia_solver.provider,
                     cim=self.qaia_solver.cim.metrics if self.qaia_solver.cim else None,
-                    heuristic_calls=self.qaia_calls, hit_calls=self.hit_calls,
+                    heuristic_calls=self.qaia_calls, heuristic_failures=self.heuristic_failures,
+                    hit_calls=self.hit_calls,
                     exact_calls=self.exact_calls, exact_skips=self.exact_skips,
                     heuristic_seconds=self.qaia_solve_time,
                     exact_seconds=self.exact_solve_time,
@@ -577,4 +586,3 @@ class QAIAExactPricingSolver:
 
     def get_solution(self):
         return self.exact_solver.get_solution()
-

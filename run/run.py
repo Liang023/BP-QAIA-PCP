@@ -29,6 +29,8 @@ def main():
                         help="BP seconds excluding blocking CIM cloud calls")
     parser.add_argument("--seeds", type=int, nargs="+", default=[0, 1, 2])
     parser.add_argument("--exact-repeats", type=int, default=1)
+    parser.add_argument("--primal-completion", choices=["0", "1"], default="1",
+                        help="Enable the same root repair for Exact, QAIA and CIM")
     parser.add_argument("--all-instances", action="store_true", help="Ignore a --dates filter")
     parser.add_argument("--dates", nargs="+", help="Optional date subset; default is all 12 instances")
     parser.add_argument("--capacity-bound", choices=["0", "1"], default="1")
@@ -45,7 +47,9 @@ def main():
         BPC_RMP_MIP_EVERY="20",
         BPC_RMP_MIP_SECONDS="0.5",
         BPC_RMP_MIP_FRACTION="0.1",
-        BPC_PRIMAL_COMPLETION="0",
+        BPC_PRIMAL_COMPLETION=args.primal_completion,
+        BPC_PRIMAL_ATTEMPTS="20",
+        BPC_PRIMAL_SECONDS="2",
         BPC_CAPACITY_BOUND=args.capacity_bound,
         BPC_BOUND_LP_SECONDS=str(args.bound_lp_seconds),
         CIM_DEVICE_ID="WuYue-QPU-Qboson-1000",
