@@ -149,7 +149,7 @@ def main():
         for combined, rows in zip(tables, collect(Path(folder))):
             combined.extend(rows)
     out = Path(args.out_dir)
-    out.mkdir(parents=True, exist_ok=False)
+    out.mkdir(parents=True, exist_ok=True)
     for name, rows in zip(("runs", "trajectories", "summary", "comparisons"), tables):
         write_csv(out / f"{name}.csv", rows)
     print(f"Reports: {out}; runs: {len(tables[0])}")

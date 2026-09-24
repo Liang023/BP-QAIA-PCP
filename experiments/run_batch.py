@@ -90,7 +90,18 @@ def main():
     if not all(x.is_file() for x in paths) or len({x.stem for x in paths}) != len(paths):
         p.error("instances must exist and have distinct filenames")
     out = Path(args.out_dir).resolve()
-    out.mkdir(parents=True, exist_ok=False)
+    out.mkdir(parents=True, exist_ok=True)
+    previous = json.loads((out / "manifest.json").read_text(encoding="utf-8")) if (out / "manifest.json").exists() else None
+    if previous:
+        if (previous["variants"] != variants or previous["seeds"] != args.seeds
+                or previous["limit"] != args.limit or previous["exact_repeats"] != exact_repeats
+                or previous.get("completion_rows") != completion_rows()):
+            p.error("Existing batch settings differ; use the same configuration or another out-dir")
+        old_names = {Path(x.replace("\\", "/")).stem for x in previous["instances"]}
+        paths = [*[(ROOT / x).resolve() for x in previous["instances"]
+                   if Path(x.replace("\\", "/")).stem not in {p.stem for p in paths}], *paths]
+        if not all(path.is_file() for path in paths):
+            p.error("Previously selected instance is missing; include its original file when resuming")
     report = []
     fingerprints = set()
     plan = [("compact", None, 0, "compact", {})]
@@ -104,7 +115,7 @@ def main():
         if repeat % 2:
             pair.reverse()
         plan.extend(pair)
-    (out / "manifest.json").write_text(json.dumps(dict(
+    new_manifest = dict(
         variants=variants, seeds=args.seeds, limit=args.limit, exact_repeats=exact_repeats,
         timing_basis="bp_active_excluding_cloud_call",
         offline_tuning=frozen_metadata,
@@ -119,15 +130,36 @@ def main():
         restricted_mip_environment={key: os.getenv(key, default) for key, default in (
             ("BPC_RMP_MIP", "1"), ("BPC_RMP_MIP_EVERY", "20"),
             ("BPC_RMP_MIP_SECONDS", "0.5"), ("BPC_RMP_MIP_FRACTION", "0.1"))},
-        instances=[str(x) for x in paths]), indent=2), encoding="utf-8")
+        instances=[str(x) for x in paths])
+    if previous:
+        for key in ("offline_tuning", "cim_environment", "capacity_bound_environment",
+                    "primal_completion_environment", "restricted_mip_environment",
+                    "exact_pool_search_mode"):
+            if previous.get(key) != new_manifest.get(key):
+                p.error(f"Existing batch uses different {key}; use another out-dir")
+    (out / "manifest.json").write_text(json.dumps(new_manifest, indent=2), encoding="utf-8")
     for path in paths:
         reference = None
+        diagnostic = out / f"{path.stem}_diagnostic.json"
+        old_entries = {entry["result"]: entry for entry in json.loads(
+            diagnostic.read_text(encoding="utf-8"))} if diagnostic.exists() else {}
         runs = []
         raw = path.read_bytes()
         input_sha = hashlib.sha256(raw).hexdigest()
         data = json.loads(raw)
         for method, policy, seed, label, overrides in plan:
             dest = out / f"{path.stem}_{label}.json"
+            if dest.exists():
+                existing = json.loads(dest.read_text(encoding="utf-8"))
+                if existing.get("instance_sha256") != input_sha:
+                    raise ValueError(f"Input changed for {dest}; use a new result directory")
+                if dest.name not in old_entries:
+                    raise ValueError(f"Missing diagnostic entry for {dest}; use another out-dir")
+                runs.append(old_entries[dest.name])
+                print(path.stem, label, "already completed", flush=True)
+                if method == "compact" and existing.get("status") == "optimal" and existing.get("validation_passed"):
+                    reference = existing
+                continue
             env = {k: v for k, v in os.environ.items() if k not in managed}
             env.update(BPC_VERBOSE="0", BPC_DUMP_LP="0", QAIA_COLUMN_POLICY="combined")
             env.update(overrides)
@@ -140,7 +172,7 @@ def main():
             record = {}
             print(path.stem, label, "running (CIM waits for cloud return)" if method == "cim_root"
                   else "running", flush=True)
-            with dest.with_suffix(".process.log").open("x", encoding="utf-8") as log:
+            with dest.with_suffix(".process.log").open("w", encoding="utf-8") as log:
                 try:
                     proc = subprocess.run(command, cwd=ROOT, env=env, stdout=log,
                                           stderr=subprocess.STDOUT,
@@ -239,4 +271,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-

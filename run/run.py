@@ -10,7 +10,6 @@ import os
 from pathlib import Path
 import subprocess
 import sys
-from datetime import datetime
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -21,13 +20,13 @@ ECLOUD_SECRET_KEY = "1d257e702c564b51b1cb09b4f507eb8e"
 def main():
     os.chdir(ROOT)
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--instance-list", default="data/acn_scale_final_v3/instances_primal_v3.json")
+    parser.add_argument("--instance-list", default="data/instances/instances.json")
     parser.add_argument("--qaia-config", default="config/qaia_candidates_v3.json")
-    parser.add_argument("--out-dir", default="results/primal_v3_"+datetime.now().strftime("%Y%m%d_%H%M%S"),
-                        help="New result directory; a timestamp is used by default")
-    parser.add_argument("--limit", type=int, default=600,
+    parser.add_argument("--out-dir", default="results/result_c5",
+                        help="Persistent result directory; completed runs are skipped")
+    parser.add_argument("--limit", type=int, default=1800,
                         help="BP seconds excluding blocking CIM cloud calls")
-    parser.add_argument("--seeds", type=int, nargs="+", default=[0, 1, 2])
+    parser.add_argument("--seeds", type=int, nargs="+", default=[0, 1, 2, 3, 4], help="Random seeds for each instance")
     parser.add_argument("--exact-repeats", type=int, default=None,
                         help="Default: one Exact repeat per seed")
     parser.add_argument("--primal-completion", choices=["0", "1"], default="1",
@@ -47,8 +46,6 @@ def main():
 
     if args.exact_repeats is None:
         args.exact_repeats = len(args.seeds)
-    if Path(args.out_dir).exists():
-        parser.error("out-dir already exists; the batch runner cannot resume or overwrite runs")
     env = os.environ.copy()
     env.update(
         EXACT_POOL_SEARCH_MODE="0",
@@ -72,7 +69,7 @@ def main():
         CIM_DEVICE_ID="WuYue-QPU-Qboson-1000",
         CIM_MAX_BITS="1000",
         CIM_PRECISION="8",
-        CIM_MAX_CALLS="1",
+        CIM_MAX_CALLS="3",
         ECLOUD_ACCESS_KEY=ECLOUD_ACCESS_KEY,
         ECLOUD_SECRET_KEY=ECLOUD_SECRET_KEY,
     )
@@ -89,8 +86,8 @@ def main():
         parser.error("no instances selected from the manifest")
 
     out = Path(args.out_dir)
-    summary = out.with_name(out.name + "_summary")
-    anytime = out.with_name(out.name + "_anytime")
+    summary = out / "summary"
+    anytime = out / "anytime"
     commands = [
         [sys.executable, "-m", "experiments.run_batch",
          *(arg for path in instances for arg in ("--instance", path)),
@@ -125,5 +122,4 @@ def main():
 
 if __name__ == "__main__":
     main()
-
 

@@ -116,7 +116,7 @@ def main():
         for combined, rows in zip(tables, compare(Path(folder), args.checkpoints)):
             combined.extend(rows)
     out = Path(args.out_dir)
-    out.mkdir(parents=True, exist_ok=False)
+    out.mkdir(parents=True, exist_ok=True)
     for filename, rows in zip(("checkpoints.csv", "paired.csv", "paired_summary.csv"), tables):
         write_csv(out / filename, rows)
     print(f"Wrote {out}; paired records: {len(tables[1])}")
@@ -124,3 +124,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+

@@ -1,0 +1,16 @@
+﻿{
+    "instances":  [
+                      "data/acn_fixed_c6_v1/2019-03-12_N10_C5.json",
+                      "data/acn_fixed_c6_v1/2019-03-12_N20_C5.json",
+                      "data/acn_fixed_c6_v1/2019-03-12_N30_C5.json",
+                      "data/acn_fixed_c6_v1/2019-03-12_N40_C5.json",
+                      "data/acn_fixed_c6_v1/2019-03-18_N10_C5.json",
+                      "data/acn_fixed_c6_v1/2019-03-18_N20_C5.json",
+                      "data/acn_fixed_c6_v1/2019-03-18_N30_C5.json",
+                      "data/acn_fixed_c6_v1/2019-03-18_N40_C5.json",
+                      "data/acn_fixed_c6_v1/2019-03-20_N10_C5.json",
+                      "data/acn_fixed_c6_v1/2019-03-20_N20_C5.json",
+                      "data/acn_fixed_c6_v1/2019-03-20_N30_C5.json",
+                      "data/acn_fixed_c6_v1/2019-03-20_N40_C5.json"
+                  ]
+}
