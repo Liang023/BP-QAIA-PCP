@@ -4,7 +4,8 @@
     "env": {
       "QAIA_PROVIDER": "cim",
       "QAIA_EXACT_MODE": "on_qaia_failure",
-      "QAIA_COLUMN_POLICY": "combined"
+      "QAIA_COLUMN_POLICY": "combined",
+      "QAIA_MAX_COLUMNS": "10"
     }
   }
 ]

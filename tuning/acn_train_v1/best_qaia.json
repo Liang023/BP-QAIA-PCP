@@ -3,12 +3,12 @@
   "env": {
     "QAIA_PROVIDER": "qaia",
     "QAIA_DT": "1.12041419333642",
-    "QAIA_BATCH_SIZE": "20",
+    "QAIA_BATCH_SIZE": "50",
     "QAIA_COLUMN_POLICY": "combined",
     "QAIA_MAX_STREAK": "3",
     "QAIA_XI": "auto",
     "QAIA_EXACT_MODE": "on_qaia_failure",
-    "QAIA_MAX_COLUMNS": "3",
+    "QAIA_MAX_COLUMNS": "10",
     "QAIA_N_ITER": "200"
   },
   "tuning_seconds": 33381.8944553,
