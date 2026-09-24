@@ -18,6 +18,7 @@ def load_frozen(path):
         raise ValueError("Expected a frozen QAIA configuration")
     return env, dict(path=str(Path(path).resolve()), sha256=hashlib.sha256(raw).hexdigest(),
                     tuning_seconds=data.get("tuning_seconds"),
+                    experiment_note=data.get("experiment_note"),
                     training_protocol=data.get("protocol"),
                     training_instances=data.get("training_instances", []))
 
@@ -56,3 +57,4 @@ def pricing_options():
         qaia_penalty_margin=1.0, normalize_ising=True,
         qaia_algorithm_kwargs=kwargs,
     )
+

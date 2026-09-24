@@ -203,10 +203,8 @@ def main():
     record["capacity_bound_config"] = dict(
         enabled=os.getenv("BPC_CAPACITY_BOUND", "1") == "1",
         lp_seconds=float(os.getenv("BPC_BOUND_LP_SECONDS", "2")))
-    record["primal_completion_config"] = dict(
-        enabled=os.getenv("BPC_PRIMAL_COMPLETION", "0") == "1",
-        attempts=int(os.getenv("BPC_PRIMAL_ATTEMPTS", "20")),
-        seconds=float(os.getenv("BPC_PRIMAL_SECONDS", "2")))
+    from config.primal_runtime import primal_options
+    record["primal_completion_config"], record["primal_neighborhood_config"] = primal_options()
     workflow_start = time.perf_counter()
     budget_start = None
     with log.open("x", encoding="utf-8") as f:
@@ -327,3 +325,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+

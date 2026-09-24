@@ -1,6 +1,6 @@
-"""Run the frozen Exact / QAIA / CIM comparison and export its reports.
+"""Run the Exact / QAIA / CIM comparison with bounded incumbent repair.
 
-From the repository root: python -m run.run --out-dir results/final_active_600_v3
+From the repository root: python -m run.run --out-dir results/primal_v3_selected
 """
 
 import argparse
@@ -21,22 +21,32 @@ ECLOUD_SECRET_KEY = "1d257e702c564b51b1cb09b4f507eb8e"
 def main():
     os.chdir(ROOT)
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--instance-list", default="data/acn_scale_final_v3/instances.json")
-    parser.add_argument("--qaia-config", default="tuning/acn_train_v1/best_qaia.json")
-    parser.add_argument("--out-dir", default="results/cim_active_"+datetime.now().strftime("%Y%m%d_%H%M%S"),
+    parser.add_argument("--instance-list", default="data/acn_scale_final_v3/instances_primal_v3.json")
+    parser.add_argument("--qaia-config", default="config/qaia_candidates_v3.json")
+    parser.add_argument("--out-dir", default="results/primal_v3_"+datetime.now().strftime("%Y%m%d_%H%M%S"),
                         help="New result directory; a timestamp is used by default")
     parser.add_argument("--limit", type=int, default=600,
                         help="BP seconds excluding blocking CIM cloud calls")
     parser.add_argument("--seeds", type=int, nargs="+", default=[0, 1, 2])
-    parser.add_argument("--exact-repeats", type=int, default=1)
+    parser.add_argument("--exact-repeats", type=int, default=None,
+                        help="Default: one Exact repeat per seed")
     parser.add_argument("--primal-completion", choices=["0", "1"], default="1",
                         help="Enable the same root repair for Exact, QAIA and CIM")
+    parser.add_argument("--primal-injection", choices=["best", "all"], default="best")
+    parser.add_argument("--neighborhood", choices=["0", "1"], default="1")
+    parser.add_argument("--neighborhood-seconds", type=float, default=2.0)
+    parser.add_argument("--neighborhood-vehicles", type=int, default=4)
+    parser.add_argument("--neighborhood-interval", type=float, default=30.0)
+    parser.add_argument("--neighborhood-fraction", type=float, default=0.05)
+    parser.add_argument("--variant-file", default="config/cim_only.json")
     parser.add_argument("--all-instances", action="store_true", help="Ignore a --dates filter")
-    parser.add_argument("--dates", nargs="+", help="Optional date subset; default is all 12 instances")
+    parser.add_argument("--dates", nargs="+", help="Optional date subset of the selected manifest")
     parser.add_argument("--capacity-bound", choices=["0", "1"], default="1")
     parser.add_argument("--bound-lp-seconds", type=float, default=2.0)
     args = parser.parse_args()
 
+    if args.exact_repeats is None:
+        args.exact_repeats = len(args.seeds)
     if Path(args.out_dir).exists():
         parser.error("out-dir already exists; the batch runner cannot resume or overwrite runs")
     env = os.environ.copy()
@@ -50,6 +60,13 @@ def main():
         BPC_PRIMAL_COMPLETION=args.primal_completion,
         BPC_PRIMAL_ATTEMPTS="20",
         BPC_PRIMAL_SECONDS="2",
+        BPC_PRIMAL_INJECTION=args.primal_injection,
+        BPC_NEIGHBORHOOD=args.neighborhood,
+        BPC_NEIGHBORHOOD_SECONDS=str(args.neighborhood_seconds),
+        BPC_NEIGHBORHOOD_VEHICLES=str(args.neighborhood_vehicles),
+        BPC_NEIGHBORHOOD_INTERVAL=str(args.neighborhood_interval),
+        BPC_NEIGHBORHOOD_COOLDOWN="10",
+        BPC_NEIGHBORHOOD_FRACTION=str(args.neighborhood_fraction),
         BPC_CAPACITY_BOUND=args.capacity_bound,
         BPC_BOUND_LP_SECONDS=str(args.bound_lp_seconds),
         CIM_DEVICE_ID="WuYue-QPU-Qboson-1000",
@@ -77,7 +94,7 @@ def main():
     commands = [
         [sys.executable, "-m", "experiments.run_batch",
          *(arg for path in instances for arg in ("--instance", path)),
-         "--variant-file", "config/cim_only.json",
+         "--variant-file", args.variant_file,
          "--qaia-config", args.qaia_config,
          "--seeds", *map(str, args.seeds),
          "--exact-repeats", str(args.exact_repeats),
@@ -91,7 +108,8 @@ def main():
     ]
     print(json.dumps(dict(bp_limit_seconds=args.limit,
         timing_basis="bp_active_excluding_cloud_call", cim_wait_timeout=None, instances=instances,
-        seeds=args.seeds, results=str(out), summary=str(summary), anytime=str(anytime)),
+        seeds=args.seeds, exact_repeats=args.exact_repeats,
+        neighborhood=args.neighborhood, primal_injection=args.primal_injection, results=str(out), summary=str(summary), anytime=str(anytime)),
         ensure_ascii=False, indent=2), flush=True)
     for command in commands:
         subprocess.run(command, cwd=ROOT, env=env, check=True)
@@ -107,4 +125,5 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 

@@ -8,7 +8,7 @@ from cg.column_independent_set import ColumnIndependentSet
 
 def complete_root_pool(graph, charger_num, lp_solution, pool, pricing_problem,
                        deadline, attempts=20, seed=0, incumbent=None,
-                       upper_bound=float("inf")):
+                       upper_bound=float("inf"), injection="best"):
     """Destroy part of a schedule and refill missing vehicles.
 
     Only complete schedules add columns. These columns improve the primal side
@@ -85,4 +85,12 @@ def complete_root_pool(graph, charger_num, lp_solution, pool, pricing_problem,
                 added.append(column)
             columns.append(known[key])
         schedules.append({c: 1.0 for c in columns})
+    if injection == "best" and schedules:
+        # Preserve candidate generation, but only inject the best complete
+        # schedule. Other completed attempts must not inflate every child pool.
+        best = min(schedules, key=lambda sol: max(
+            v.end_time for c in sol for v in c.vertex_list))
+        selected = {id(c) for c in best}
+        added = [c for c in added if id(c) in selected]
     return added, schedules, completed_attempts
+

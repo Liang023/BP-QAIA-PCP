@@ -36,6 +36,8 @@ def collect(folder):
             metrics = (stats.get("root_diagnostics") or {}).get("heuristic_metrics") or {}
             cim = metrics.get("cim") or {}
             bound = stats.get("capacity_bound") or {}
+            primal = stats.get("primal_completion") or {}
+            neighborhood = stats.get("primal_neighborhood") or {}
             feasible = bool(record.get("validation_passed") and record.get("has_feasible_solution"))
             objective = record.get("objective") if feasible else None
             lower_bound = stats.get("global_lower_bound")
@@ -61,6 +63,17 @@ def collect(folder):
                 capacity_bound_lp_status=bound.get("lp_status"),
                 proof_source=stats.get("proof_source"),
                 heuristic_returned_columns=metrics.get("returned_columns"),
+                heuristic_raw_samples=metrics.get("raw_samples"),
+                heuristic_improving_unique=metrics.get("improving_unique"),
+                heuristic_pool_duplicates=metrics.get("pool_duplicates"),
+                root_repair_columns=primal.get("columns_added"),
+                root_repair_generated_columns=primal.get("columns_generated"),
+                root_repair_improvements=primal.get("improvements"),
+                neighborhood_calls=neighborhood.get("calls"),
+                neighborhood_candidates=neighborhood.get("candidates"),
+                neighborhood_improvements=neighborhood.get("improvements"),
+                neighborhood_seconds=neighborhood.get("seconds"),
+                neighborhood_max_variables=neighborhood.get("max_variables"),
                 reference_gap_percent=reference_gap_percent,
                 first_feasible_seconds=record.get("time_to_first_feasible"),
                 best_found_seconds=record.get("best_found_seconds"), wall_seconds=record.get("wall_seconds"),
@@ -77,6 +90,9 @@ def collect(folder):
                 cim_timeouts=cim.get("timeouts"), cim_size_skips=cim.get("size_skips"),
                 cim_seconds=cim.get("seconds"),
                 cim_local_seconds=cim.get("local_seconds"),
+                qaia_batch_size=(record.get("qaia_config") or {}).get("qaia_batch_size"),
+                heuristic_max_columns=(record.get("qaia_config") or {}).get("qaia_max_columns"),
+                qaia_configuration_note=(record.get("offline_tuning") or {}).get("experiment_note"),
                 tuning_config_sha256=(record.get("offline_tuning") or {}).get("sha256"),
                 source_sha256=record.get("source_sha256"), error=record.get("error"))
             runs.append(row)
@@ -141,3 +157,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+

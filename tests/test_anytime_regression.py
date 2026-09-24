@@ -78,6 +78,9 @@ def test_bp_retains_rmp_incumbent_when_pricing_times_out(monkeypatch):
     inst = ev_json_to_instance(toy_data())
     monkeypatch.setenv("BPC_RMP_MIP", "0")
     bp = BranchAndPrice(inst.graph, inst.charger_num, time_limit=5, use_qaia=False)
+    # Isolate timeout recovery from the newer capacity-bound early exit.
+    monkeypatch.setenv("BPC_CAPACITY_BOUND", "0")
+    bp.problem_lower_bound = 0
     original = bp.update_best_solution
     def ignore_initial(*args, **kwargs):
         if kwargs.get("source") == "initial":
@@ -171,7 +174,10 @@ def test_physical_objective_and_canonical_columns_agree():
     bp.best_objective = 3  # incoming column-model objective 5 is worse, physical objective 1 is better
     solution = {ColumnIndependentSet([v], "test", False, "test", 0): 1.0
                 for v in inst.graph.vertices}
-    assert bp.update_best_solution(5, solution, a_graph=root.a_graph)
+    from bpc.branch_and_price import BoundClosed
+    with pytest.raises(BoundClosed):
+        bp.update_best_solution(5, solution, a_graph=root.a_graph)
     assert bp.best_objective == 1
     assert len(bp.best_solution) == 1
     assert validate_schedule(bp.best_solution, root.a_graph, inst.graph, 2, 1)["makespan"] == 1
+

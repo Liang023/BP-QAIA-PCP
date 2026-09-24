@@ -110,43 +110,32 @@ class BranchCreator:
         """
         best_fractionality = 0.0
         checked_pair = None
-
-        active_vertices = list(
-            self.a_graph.vertices_map.values()
-        )
-
-        for index, vertex_v in enumerate(active_vertices):
-            partition_ids_v = self._get_partition_ids(vertex_v)
-
-            for vertex_u in active_vertices[index + 1:]:
-                partition_ids_u = self._get_partition_ids(vertex_u)
-
-                # 包含相同原始分区的两个活动顶点不能再做同色分支
-                if partition_ids_v.intersection(partition_ids_u):
+        active_vertices = list(self.a_graph.vertices_map.values())
+        originals = [frozenset(v.id for v in self.a_graph.get_original_vertices(a))
+                     for a in active_vertices]
+        partitions = [self._get_partition_ids(v) for v in active_vertices]
+        pair_values = {}
+        # Each column is expanded once. Accumulation preserves solution order,
+        # and the final scan preserves the original branch tie-breaking order.
+        for column, value in self.solution.items():
+            if value == 0:
+                continue
+            members = {v.id for a in column.vertex_list
+                       for v in self.a_graph.get_original_vertices(a)}
+            present = [i for i, required in enumerate(originals) if required <= members]
+            for offset, i in enumerate(present):
+                for j in present[offset+1:]:
+                    if partitions[i].isdisjoint(partitions[j]):
+                        pair_values[i, j] = pair_values.get((i, j), 0.0) + value
+        for i, vertex_v in enumerate(active_vertices):
+            for j in range(i+1, len(active_vertices)):
+                if not partitions[i].isdisjoint(partitions[j]):
                     continue
-
-                gamma = 0.0
-
-                for column, column_value in self.solution.items():
-                    contains_v = self._column_contains_vertex(
-                        column,
-                        vertex_v
-                    )
-                    contains_u = self._column_contains_vertex(
-                        column,
-                        vertex_u
-                    )
-
-                    if contains_v and contains_u:
-                        gamma += column_value
-
-                fractionality = abs(
-                    gamma - round(gamma)
-                )
-
+                gamma = pair_values.get((i, j), 0.0)
+                fractionality = abs(gamma - round(gamma))
                 if fractionality > best_fractionality + 1e-8:
                     best_fractionality = fractionality
-                    checked_pair = (vertex_v, vertex_u)
+                    checked_pair = (vertex_v, active_vertices[j])
 
         if checked_pair is None:
             return False

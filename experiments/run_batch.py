@@ -15,6 +15,7 @@ sys.path.insert(0, str(ROOT))
 from cg.anytime import recover_history
 from validation.ev_solution import validate_json_schedule
 from config.model_formulation import completion_rows
+from config.primal_runtime import primal_environment
 
 
 def recovered_record(dest, data, input_sha, budget, method, seed, status, error=None):
@@ -57,9 +58,8 @@ def main():
         p.error("exact-repeats must be between 1 and the number of seeds")
     managed = {"QAIA_EXACT_MODE", "QAIA_PROVIDER", "QAIA_MAX_STREAK", "QAIA_N_ITER",
                "QAIA_BATCH_SIZE", "QAIA_MAX_COLUMNS", "QAIA_DT", "QAIA_XI", "QAIA_COLUMN_POLICY"}
-    variants = json.loads((ROOT / "config/anytime.json").read_text(encoding="utf-8"))
-    if args.variant_file:
-        variants = json.loads(Path(args.variant_file).read_text(encoding="utf-8-sig"))
+    variant_path = Path(args.variant_file) if args.variant_file else ROOT / "config/anytime.json"
+    variants = json.loads(variant_path.read_text(encoding="utf-8-sig"))
     frozen_metadata = None
     if args.qaia_config:
         from config.qaia_runtime import load_frozen
@@ -98,7 +98,8 @@ def main():
         pair = [(item["env"].get("QAIA_PROVIDER", "qaia")+"_root", item["name"], seed, f"{item['name']}_s{seed}", item["env"])
                 for item in variants]
         if repeat < exact_repeats:
-            primal_seed = seed if os.getenv("BPC_PRIMAL_COMPLETION", "0") == "1" else 0
+            primal_seed = seed if (os.getenv("BPC_PRIMAL_COMPLETION", "0") == "1"
+                                   or os.getenv("BPC_NEIGHBORHOOD", "0") == "1") else 0
             pair.append(("exact", None, primal_seed, f"exact_r{repeat}", {}))
         if repeat % 2:
             pair.reverse()
@@ -113,9 +114,7 @@ def main():
         completion_rows=completion_rows(),
         capacity_bound_environment={key: os.getenv(key, default) for key, default in (
             ("BPC_CAPACITY_BOUND", "1"), ("BPC_BOUND_LP_SECONDS", "2"))},
-        primal_completion_environment={key: os.getenv(key, default) for key, default in (
-            ("BPC_PRIMAL_COMPLETION", "0"), ("BPC_PRIMAL_ATTEMPTS", "20"),
-            ("BPC_PRIMAL_SECONDS", "2"))},
+        primal_completion_environment=primal_environment(),
         exact_pool_search_mode=os.getenv("EXACT_POOL_SEARCH_MODE", "2"),
         restricted_mip_environment={key: os.getenv(key, default) for key, default in (
             ("BPC_RMP_MIP", "1"), ("BPC_RMP_MIP_EVERY", "20"),
@@ -240,3 +239,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+

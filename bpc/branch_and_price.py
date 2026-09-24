@@ -17,6 +17,8 @@ from cg.column_independent_set import ColumnIndependentSet
 from model.graph import Graph
 from cg.column_pool import ColumnPool
 from cg.primal_completion import complete_root_pool
+from cg.primal_neighborhood import improve_incumbent
+from config.primal_runtime import primal_options
 import math
 import gurobipy
 import os
@@ -104,10 +106,17 @@ class BranchAndPrice:
         self.deadline = None
         self.rmp_mip_seconds = 0.0
         self.rmp_mip_calls = 0
-        self.primal_enabled = os.getenv("BPC_PRIMAL_COMPLETION", "0") == "1"
-        self.primal_attempts = int(os.getenv("BPC_PRIMAL_ATTEMPTS", "20"))
-        self.primal_slice = float(os.getenv("BPC_PRIMAL_SECONDS", "2"))
-        self.primal_metrics = dict(calls=0, attempts=0, columns_added=0,
+        root_options, self.neighborhood_options = primal_options()
+        self.primal_enabled = root_options["enabled"]
+        self.primal_attempts = root_options["attempts"]
+        self.primal_slice = root_options["seconds"]
+        self.primal_injection = root_options["injection"]
+        self.neighborhood_metrics = dict(calls=0, candidates=0, improvements=0,
+                                         seconds=0.0, last_status=None, max_variables=0)
+        self._last_neighborhood_time = float("-inf")
+        self._last_neighborhood_objective = float("inf")
+        self._original_a_graph = None
+        self.primal_metrics = dict(calls=0, attempts=0, columns_added=0, columns_generated=0,
                                   complete_schedules=0, improvements=0, seconds=0.0,
                                   seeded_from_incumbent=0)
         self.incumbent_input_creators = []
@@ -147,6 +156,7 @@ class BranchAndPrice:
                 root = self.generate_root_node()
             finally:
                 self.root_initialization_seconds = budget_clock.now() - started
+            self._original_a_graph = root.a_graph
             self.add_node(root)
             remaining_seconds(time_end, "After root construction")
             # Register existing greedy columns if they already form a full schedule.
@@ -163,6 +173,7 @@ class BranchAndPrice:
                     continue
                 self.process_node(self.current_node, time_end)
                 remaining_seconds(time_end, "After node certification")
+                self._maybe_neighborhood(time_end)
                 if self.is_prunable_node(self.current_node):
                     continue
                 if self.is_infeasible_solution(self.current_node):
@@ -369,7 +380,12 @@ class BranchAndPrice:
                 self.graph, self.charger_num, node.solution, node.column_pool,
                 master.pricing_problem, min(deadline, started+self.primal_slice),
                 self.primal_attempts, self.qaia_seed,
-                incumbent=self.best_solution, upper_bound=self.best_objective)
+                incumbent=self.best_solution, upper_bound=self.best_objective,
+                injection=self.primal_injection)
+            signature = lambda c: tuple(sorted(v.id for v in c.vertex_list))
+            known = {signature(c) for c in node.column_pool.columns if not c.is_artificial_column}
+            generated = {signature(c) for solution in schedules for c in solution} - known
+            self.primal_metrics["columns_generated"] += len(generated)
             for column in added:
                 node.column_pool.addColumn(column)
                 master.add_column_to_rmp(column)
@@ -380,13 +396,54 @@ class BranchAndPrice:
                 remaining_seconds(deadline, "Primal completion validation")
                 objective = max(v.end_time for c in solution for v in c.vertex_list)
                 before = self.best_objective
-                self._consider_candidate(node, solution, objective, "primal_completion")
-                self.primal_metrics["improvements"] += int(self.best_objective < before)
+                try:
+                    self._consider_candidate(node, solution, objective, "primal_completion")
+                finally:
+                    self.primal_metrics["improvements"] += int(self.best_objective < before)
             # New columns warrant another MIP even at the same CG iteration.
             if added:
                 self._last_mip_iteration = None
         finally:
             self.primal_metrics["seconds"] += budget_clock.now()-started
+
+    def _maybe_neighborhood(self, deadline):
+        options = self.neighborhood_options
+        if not options["enabled"] or self.best_solution is None:
+            return
+        now = budget_clock.now()
+        elapsed = now - self._last_neighborhood_time
+        improved = self.best_objective < self._last_neighborhood_objective - 1e-6
+        if elapsed < options["cooldown"] or (not improved and elapsed < options["interval"]):
+            return
+        cap = (self.recorder.deadline-self.recorder.start_time) * options["fraction"]
+        seconds = min(options["seconds"], cap-self.neighborhood_metrics["seconds"], deadline-now)
+        if seconds <= 1e-3:
+            return
+        self.neighborhood_metrics["calls"] += 1
+        before = self.best_objective
+        self._last_neighborhood_objective = before
+        # Canonical incumbent vertices belong to the ORIGINAL graph. Do not
+        # inject this global heuristic's columns into a constrained branch node.
+        def accept(solution, objective):
+            self.neighborhood_metrics["candidates"] += 1
+            self.update_best_solution(objective, solution, a_graph=self._original_a_graph,
+                                      source="primal_neighborhood")
+        result = {}
+        try:
+            improve_incumbent(
+                self.graph, self.charger_num, self.best_solution, before, deadline,
+                seconds, options["vehicles"],
+                self.qaia_seed * 100003 + self.neighborhood_metrics["calls"] - 1, accept,
+                statistics=result)
+        finally:
+            self.neighborhood_metrics["last_status"] = (
+                "global_bound_closed" if self.best_objective <= self.problem_lower_bound+1e-7
+                else result.get("status"))
+            self.neighborhood_metrics["max_variables"] = max(
+                self.neighborhood_metrics["max_variables"], result.get("variables", 0))
+            self._last_neighborhood_time = budget_clock.now()
+            self.neighborhood_metrics["seconds"] += self._last_neighborhood_time-now
+            self.neighborhood_metrics["improvements"] += int(self.best_objective < before-1e-6)
 
     def _maybe_restricted_mip(self, node, master, iteration, deadline, force=False):
         # Same policy for Exact, QAIA and greedy; root-only first implementation.
@@ -759,6 +816,8 @@ class BranchAndPrice:
             "restricted_mip_seconds": self.rmp_mip_seconds,
             "restricted_mip_calls": self.rmp_mip_calls,
             "primal_completion": dict(self.primal_metrics),
+            "primal_neighborhood": dict(self.neighborhood_metrics),
             "incumbent_input_column_creators": self.incumbent_input_creators,
             "root_diagnostics": self.root_diagnostics
         }
+
