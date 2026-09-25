@@ -26,7 +26,7 @@ def main():
                         help="Persistent result directory; completed runs are skipped")
     parser.add_argument("--limit", type=int, default=1800,
                         help="BP seconds excluding blocking CIM cloud calls")
-    parser.add_argument("--seeds", type=int, nargs="+", default=[0, 1, 2, 3, 4], help="Random seeds for each instance")
+    parser.add_argument("--seeds", type=int, nargs="+", default=[0, 1, 2], help="Random seeds for each instance")
     parser.add_argument("--exact-repeats", type=int, default=None,
                         help="Default: one Exact repeat per seed")
     parser.add_argument("--primal-completion", choices=["0", "1"], default="1",

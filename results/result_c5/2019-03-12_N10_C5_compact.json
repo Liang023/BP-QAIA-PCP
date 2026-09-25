@@ -1,7 +1,7 @@
 {
   "method": "compact",
   "seed": 0,
-  "limit": 600.0,
+  "limit": 1800.0,
   "completion_rows": "vehicle",
   "instance": "D:\\pythonProject\\BP_QAIA_PCP\\data\\instances\\2019-03-12_N10_C5.json",
   "python": "3.10.18 | packaged by Anaconda, Inc. | (main, Jun  5 2025, 13:08:55) [MSC v.1929 64 bit (AMD64)]",
@@ -52,8 +52,8 @@
     "max_vertices": 3000,
     "max_stay_hours": 48
   },
-  "git_sha": "413cf894c103c89b421239ad1eb0cb249b8e16cd",
-  "source_sha256": "2548ee5a278ddb1c9a85464950cfecdae34a0f0d9ac075d245b5d65ec458d36c",
+  "git_sha": "3df4f6d6aa2e9f4dc4213e1a0d063dbb9f7fb395",
+  "source_sha256": "b8ccf1155c8a7e7c00b817d2b3c644b60a1086e2a716e1432d447681946fc2a8",
   "qaia_config": null,
   "exact_pricing_config": null,
   "restricted_mip_config": {
@@ -146,19 +146,19 @@
   "compact_formulation": "integer_slot_occupancy_vehicle_v2",
   "compact_variables": 1181,
   "compact_constraints": 521,
-  "solve_seconds": 0.07150410000758711,
-  "wall_seconds": 0.07150639999599662,
+  "solve_seconds": 0.073781399987638,
+  "wall_seconds": 0.07378310000058264,
   "cloud_excluded_seconds": 0.0,
   "budget_overrun_seconds": 0.0,
   "has_feasible_solution": true,
   "best_objective": 62.0,
-  "time_to_first_feasible": 0.0177038999972865,
-  "best_found_seconds": 0.06642350000038277,
+  "time_to_first_feasible": 0.02295429998775944,
+  "best_found_seconds": 0.07060289999935776,
   "incumbent_history": [
     {
       "event": "incumbent",
-      "elapsed_seconds": 0.0177038999972865,
-      "wall_elapsed_seconds": 0.01770599999872502,
+      "elapsed_seconds": 0.02295429998775944,
+      "wall_elapsed_seconds": 0.022956700006034225,
       "cloud_excluded_seconds": 0.0,
       "objective": 69.0,
       "source": "compact_mipsol",
@@ -240,8 +240,8 @@
     },
     {
       "event": "incumbent",
-      "elapsed_seconds": 0.06642350000038277,
-      "wall_elapsed_seconds": 0.06642709999869112,
+      "elapsed_seconds": 0.07060289999935776,
+      "wall_elapsed_seconds": 0.07060530000308063,
       "cloud_excluded_seconds": 0.0,
       "objective": 62.0,
       "source": "compact_mipsol",
@@ -347,10 +347,10 @@
       "objective": 62.0
     },
     {
-      "seconds": 600.0,
+      "seconds": 1800.0,
       "objective": 62.0
     }
   ],
   "termination_reason": "optimal",
-  "workflow_seconds": 0.1449131999979727
+  "workflow_seconds": 0.19156170000496786
 }

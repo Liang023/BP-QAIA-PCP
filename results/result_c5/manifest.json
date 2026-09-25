@@ -27,12 +27,10 @@
   "seeds": [
     0,
     1,
-    2,
-    3,
-    4
+    2
   ],
-  "limit": 600.0,
-  "exact_repeats": 5,
+  "limit": 1800.0,
+  "exact_repeats": 3,
   "timing_basis": "bp_active_excluding_cloud_call",
   "offline_tuning": {
     "path": "D:\\pythonProject\\BP_QAIA_PCP\\config\\qaia_candidates_v3.json",

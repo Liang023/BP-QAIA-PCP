@@ -1,7 +1,7 @@
 {
   "method": "exact",
   "seed": 0,
-  "limit": 600.0,
+  "limit": 1800.0,
   "completion_rows": "vehicle",
   "instance": "D:\\pythonProject\\BP_QAIA_PCP\\data\\instances\\2019-03-12_N10_C5.json",
   "python": "3.10.18 | packaged by Anaconda, Inc. | (main, Jun  5 2025, 13:08:55) [MSC v.1929 64 bit (AMD64)]",
@@ -52,8 +52,8 @@
     "max_vertices": 3000,
     "max_stay_hours": 48
   },
-  "git_sha": "413cf894c103c89b421239ad1eb0cb249b8e16cd",
-  "source_sha256": "2548ee5a278ddb1c9a85464950cfecdae34a0f0d9ac075d245b5d65ec458d36c",
+  "git_sha": "3df4f6d6aa2e9f4dc4213e1a0d063dbb9f7fb395",
+  "source_sha256": "b8ccf1155c8a7e7c00b817d2b3c644b60a1086e2a716e1432d447681946fc2a8",
   "qaia_config": null,
   "exact_pricing_config": {
     "pool_search_mode": 0,
@@ -73,7 +73,7 @@
     0,
     3
   ],
-  "graph_seconds": 0.01653690000239294,
+  "graph_seconds": 0.016755000004195608,
   "status": "optimal",
   "objective": 62.0,
   "statistics": {
@@ -84,24 +84,24 @@
     "best_objective": 62.0,
     "global_lower_bound": 62.0,
     "gap": 0.0,
-    "total_solve_time": 0.34027239998977166,
+    "total_solve_time": 0.3422350000037113,
     "problem_lower_bound": 62.0,
     "capacity_bound": {
       "earliest_completion": 62,
       "workload_lower_bound": 62,
       "lower_bound": 62,
       "lp_calls": 5,
-      "lp_seconds": 0.008087700000032783,
+      "lp_seconds": 0.007666000004974194,
       "lp_status": "complete",
       "infeasible_horizons": [],
-      "seconds": 0.008181299999705516
+      "seconds": 0.00775989999237936
     },
     "proof_source": "validated_incumbent_matches_global_bound",
     "column_num": 55,
-    "master_seconds": 0.002078399993479252,
-    "node_setup_seconds": 0.08670960000017658,
-    "root_initialization_seconds": 0.009802200002013706,
-    "pricing_seconds": 0.1856759000074817,
+    "master_seconds": 0.0021320000087143853,
+    "node_setup_seconds": 0.08467419999942649,
+    "root_initialization_seconds": 0.00949550000950694,
+    "pricing_seconds": 0.19665329999406822,
     "branch_seconds": 0.0,
     "restricted_mip_seconds": 0.0,
     "restricted_mip_calls": 0,
@@ -112,7 +112,7 @@
       "columns_generated": 35,
       "complete_schedules": 20,
       "improvements": 1,
-      "seconds": 0.027920299995457754,
+      "seconds": 0.02127340000879485,
       "seeded_from_incumbent": 0
     },
     "primal_neighborhood": {
@@ -136,8 +136,8 @@
       "lp_objective": 62.0,
       "integer_solution": false,
       "columns_in_pool": 16,
-      "master_seconds": 0.002078399993479252,
-      "pricing_seconds": 0.1856759000074817,
+      "master_seconds": 0.0021320000087143853,
+      "pricing_seconds": 0.19665329999406822,
       "heuristic_metrics": null
     }
   },
@@ -228,26 +228,21 @@
     "makespan": 62.0
   },
   "schedule_makespan": 62.0,
-  "total_pricing_time": 0.1856759000074817,
-  "total_qaia_time": 0.0,
-  "total_hybrid_exact_time": 0.0,
-  "total_qaia_calls": 0,
-  "total_hybrid_exact_calls": 0,
-  "qaia_nodes": 0,
+  "total_pricing_time": 0.19665329999406822,
   "exact_only_nodes": 1,
-  "solve_seconds": 0.34037890000035986,
-  "wall_seconds": 0.3403814000048442,
+  "solve_seconds": 0.3423367000068538,
+  "wall_seconds": 0.3423378000006778,
   "cloud_excluded_seconds": 0.0,
   "budget_overrun_seconds": 0.0,
   "has_feasible_solution": true,
   "best_objective": 62.0,
-  "time_to_first_feasible": 0.3278864999883808,
-  "best_found_seconds": 0.3278864999883808,
+  "time_to_first_feasible": 0.3380766000045696,
+  "best_found_seconds": 0.3380766000045696,
   "incumbent_history": [
     {
       "event": "incumbent",
-      "elapsed_seconds": 0.3278864999883808,
-      "wall_elapsed_seconds": 0.32788860000437126,
+      "elapsed_seconds": 0.3380766000045696,
+      "wall_elapsed_seconds": 0.33807909999450203,
       "cloud_excluded_seconds": 0.0,
       "objective": 62.0,
       "source": "primal_completion",
@@ -362,10 +357,10 @@
       "objective": 62.0
     },
     {
-      "seconds": 600.0,
+      "seconds": 1800.0,
       "objective": 62.0
     }
   ],
   "termination_reason": "optimal",
-  "workflow_seconds": 0.7077547000080813
+  "workflow_seconds": 0.709477499985951
 }

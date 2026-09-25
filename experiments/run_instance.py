@@ -283,9 +283,17 @@ def main():
                     record.update(status=result["status"], objective=result["objective_value"],
                         statistics=result["statistics"], error=result.get("error"),
                         validated_schedule=bp.best_schedule, schedule_makespan=bp.best_schedule_makespan)
-                    for key in ("total_pricing_time", "total_qaia_time", "total_hybrid_exact_time",
-                                "total_qaia_calls", "total_hybrid_exact_calls", "qaia_nodes", "exact_only_nodes"):
-                        record[key] = getattr(bp, key)
+                    record["total_pricing_time"] = bp.total_pricing_time
+                    if hybrid:
+                        record["total_hybrid_exact_time"] = bp.total_hybrid_exact_time
+                        record["total_hybrid_exact_calls"] = bp.total_hybrid_exact_calls
+                        record["exact_only_nodes"] = bp.exact_only_nodes
+                        provider = record["heuristic_provider"]
+                        record[f"total_{provider}_time"] = bp.total_qaia_time
+                        record[f"total_{provider}_calls"] = bp.total_qaia_calls
+                        record[f"{provider}_nodes"] = bp.qaia_nodes
+                    else:
+                        record["exact_only_nodes"] = bp.exact_only_nodes
             except TimeoutError as exc:
                 record.update(status="time_limit", error=str(exc))
             except Exception as exc:
@@ -325,4 +333,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-

@@ -1,7 +1,7 @@
 {
   "method": "qaia_root",
   "seed": 1,
-  "limit": 600.0,
+  "limit": 1800.0,
   "completion_rows": "vehicle",
   "instance": "D:\\pythonProject\\BP_QAIA_PCP\\data\\instances\\2019-03-12_N10_C5.json",
   "python": "3.10.18 | packaged by Anaconda, Inc. | (main, Jun  5 2025, 13:08:55) [MSC v.1929 64 bit (AMD64)]",
@@ -87,8 +87,8 @@
     "max_vertices": 3000,
     "max_stay_hours": 48
   },
-  "git_sha": "413cf894c103c89b421239ad1eb0cb249b8e16cd",
-  "source_sha256": "2548ee5a278ddb1c9a85464950cfecdae34a0f0d9ac075d245b5d65ec458d36c",
+  "git_sha": "3df4f6d6aa2e9f4dc4213e1a0d063dbb9f7fb395",
+  "source_sha256": "b8ccf1155c8a7e7c00b817d2b3c644b60a1086e2a716e1432d447681946fc2a8",
   "qaia_config": {
     "scope": "root",
     "exact_mode": "on_qaia_failure",
@@ -125,7 +125,7 @@
     3
   ],
   "heuristic_provider": "qaia",
-  "graph_seconds": 0.0570268000010401,
+  "graph_seconds": 0.05655979999573901,
   "status": "optimal",
   "objective": 62.0,
   "statistics": {
@@ -136,24 +136,24 @@
     "best_objective": 62.0,
     "global_lower_bound": 62.0,
     "gap": 0.0,
-    "total_solve_time": 1.076329400006216,
+    "total_solve_time": 1.2080881000001682,
     "problem_lower_bound": 62.0,
     "capacity_bound": {
       "earliest_completion": 62,
       "workload_lower_bound": 62,
       "lower_bound": 62,
       "lp_calls": 5,
-      "lp_seconds": 0.008517100010067225,
+      "lp_seconds": 0.00855470000533387,
       "lp_status": "complete",
       "infeasible_horizons": [],
-      "seconds": 0.008631999997305684
+      "seconds": 0.008655500001623295
     },
     "proof_source": "validated_incumbent_matches_global_bound",
     "column_num": 58,
-    "master_seconds": 0.011910699991858564,
-    "node_setup_seconds": 0.09059759999217931,
-    "root_initialization_seconds": 0.009987899989937432,
-    "pricing_seconds": 0.8497210999921663,
+    "master_seconds": 0.013366500017582439,
+    "node_setup_seconds": 0.08779469999717548,
+    "root_initialization_seconds": 0.010062100001960061,
+    "pricing_seconds": 0.9575665000156732,
     "branch_seconds": 0.0,
     "restricted_mip_seconds": 0.0,
     "restricted_mip_calls": 0,
@@ -164,7 +164,7 @@
       "columns_generated": 36,
       "complete_schedules": 20,
       "improvements": 1,
-      "seconds": 0.04192970000440255,
+      "seconds": 0.06678069999907166,
       "seeded_from_incumbent": 0
     },
     "primal_neighborhood": {
@@ -188,8 +188,8 @@
       "lp_objective": 62.0,
       "integer_solution": false,
       "columns_in_pool": 19,
-      "master_seconds": 0.011910699991858564,
-      "pricing_seconds": 0.8497210999921663,
+      "master_seconds": 0.013366500017582439,
+      "pricing_seconds": 0.9575665000156732,
       "heuristic_metrics": {
         "provider": "qaia",
         "cim": null,
@@ -198,11 +198,11 @@
         "hit_calls": 3,
         "exact_calls": 2,
         "exact_skips": 3,
-        "heuristic_seconds": 0.7932909999944968,
-        "exact_seconds": 0.05338259998825379,
-        "build_seconds": 0.14774339998257346,
-        "search_seconds": 0.6159074999886798,
-        "repair_seconds": 0.028646499995375052,
+        "heuristic_seconds": 0.8942617999855429,
+        "exact_seconds": 0.05952599999727681,
+        "build_seconds": 0.1402741999918362,
+        "search_seconds": 0.7283842000178993,
+        "repair_seconds": 0.024542999992263503,
         "raw_samples": 200,
         "improving_unique": 4,
         "pool_duplicates": 0,
@@ -298,26 +298,26 @@
     "makespan": 62.0
   },
   "schedule_makespan": 62.0,
-  "total_pricing_time": 0.8497210999921663,
-  "total_qaia_time": 0.7932909999944968,
-  "total_hybrid_exact_time": 0.05338259998825379,
-  "total_qaia_calls": 4,
+  "total_pricing_time": 0.9575665000156732,
+  "total_hybrid_exact_time": 0.05952599999727681,
   "total_hybrid_exact_calls": 2,
-  "qaia_nodes": 1,
   "exact_only_nodes": 0,
-  "solve_seconds": 1.0765518999978667,
-  "wall_seconds": 1.0765533999947365,
+  "total_qaia_time": 0.8942617999855429,
+  "total_qaia_calls": 4,
+  "qaia_nodes": 1,
+  "solve_seconds": 1.2083263999957126,
+  "wall_seconds": 1.2083282000094187,
   "cloud_excluded_seconds": 0.0,
   "budget_overrun_seconds": 0.0,
   "has_feasible_solution": true,
   "best_objective": 62.0,
-  "time_to_first_feasible": 1.0698474000091664,
-  "best_found_seconds": 1.0698474000091664,
+  "time_to_first_feasible": 1.2000083000020823,
+  "best_found_seconds": 1.2000083000020823,
   "incumbent_history": [
     {
       "event": "incumbent",
-      "elapsed_seconds": 1.0698474000091664,
-      "wall_elapsed_seconds": 1.0698501000006218,
+      "elapsed_seconds": 1.2000083000020823,
+      "wall_elapsed_seconds": 1.200012900008005,
       "cloud_excluded_seconds": 0.0,
       "objective": 62.0,
       "source": "primal_completion",
@@ -432,10 +432,10 @@
       "objective": 62.0
     },
     {
-      "seconds": 600.0,
+      "seconds": 1800.0,
       "objective": 62.0
     }
   ],
   "termination_reason": "optimal",
-  "workflow_seconds": 3.6388732999912463
+  "workflow_seconds": 3.834824799996568
 }
