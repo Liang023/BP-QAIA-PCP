@@ -22,7 +22,7 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--instance-list", default="data/instances/instances.json")
     parser.add_argument("--qaia-config", default="config/qaia_candidates_v3.json")
-    parser.add_argument("--out-dir", default="results/result_c5",
+    parser.add_argument("--out-dir", default="results/result_c5_v1",
                         help="Persistent result directory; completed runs are skipped")
     parser.add_argument("--limit", type=int, default=1800,
                         help="BP seconds excluding blocking CIM cloud calls")

@@ -85,6 +85,7 @@ class BranchAndPrice:
         self.nodes_processed: int = 0
         self.nodes_created: int = 0
         self.nodes_pruned: int = 0
+        self.phase_one_pruned: int = 0
         self.total_solve_time: float = 0.0
         
         # 定价阶段统计
@@ -171,15 +172,16 @@ class BranchAndPrice:
                 self.nodes_processed += 1
                 if self.is_prunable_node(self.current_node):
                     continue
-                self.process_node(self.current_node, time_end)
+                if not self.process_node(self.current_node, time_end):
+                    self.nodes_pruned += 1
+                    self.phase_one_pruned += 1
+                    continue
                 remaining_seconds(time_end, "After node certification")
                 self._maybe_neighborhood(time_end)
                 if self.is_prunable_node(self.current_node):
                     continue
                 if self.is_infeasible_solution(self.current_node):
-                    # A finite artificial penalty is NOT a general infeasibility proof.
-                    # Preserve incumbents, stop conservatively instead of false optimal.
-                    raise RuntimeError("Artificial columns remain after CG; Phase-I proof required")
+                    raise RuntimeError("Artificial column survived certified Phase-I/II")
                 if self.is_integer_solution(self.current_node.solution):
                     self.update_best_solution(self.current_node.objective_value,
                         self.current_node.solution, source="bp_integer")
@@ -191,9 +193,13 @@ class BranchAndPrice:
                     self.total_branch_time += budget_clock.now()-started
             remaining_seconds(time_end, "Before declaring optimal")
             self.update_global_lower_bound()
-            status = "optimal" if self.optimal else "no_solution"
+            status = ("optimal" if self.optimal else
+                      "infeasible_proven" if not self.node_queue and self.best_solution is None
+                      and self.phase_one_pruned else "no_solution")
             if self.optimal:
                 self.proof_source = "branch_tree_exhausted"
+            elif status == "infeasible_proven":
+                self.proof_source = "phase_one_branch_tree_exhausted"
         except BoundClosed:
             self.optimal = True
             self.proof_source = "validated_incumbent_matches_global_bound"
@@ -287,6 +293,7 @@ class BranchAndPrice:
     def process_node(self, current_node: BPCNode, time_end: float) -> bool:
         remaining_seconds(time_end, "Before node construction")
         master_problem = pricing_solver = column_generation = None
+        generations = []
         setup_start = budget_clock.now()
         setup_recorded = False
         completed = False
@@ -317,11 +324,36 @@ class BranchAndPrice:
                     current_node, solution, objective, "rmp_integer", iteration),
                 after_master=lambda master, iteration, end: self._maybe_restricted_mip(
                     current_node, master, iteration, end))
+            generations.append(column_generation)
             self.total_node_setup_time += budget_clock.now() - setup_start
             setup_recorded = True
             remaining_seconds(time_end, "After pricing construction")
             # Assignment occurs only after a fully certified CG return.
             current_node.solution, current_node.objective_value = column_generation.solve(time_end)
+            if self.is_infeasible_solution(current_node):
+                # A finite penalty is not an infeasibility certificate. Re-price
+                # with the actual Phase-I objective before closing this node.
+                master_problem.set_phase_one()
+                phase_one = ColumnGeneration(master_problem, pricing_problem, pricing_solver,
+                    current_node.column_pool, self.best_objective, self.global_lower_bound)
+                generations.append(phase_one)
+                _, artificial_usage = phase_one.solve(time_end, initial_columns=False)
+                if artificial_usage > 1e-6:
+                    # Phase-I pricing was certified: no all-real LP cover exists.
+                    return False
+                master_problem.set_phase_two()
+                phase_two = ColumnGeneration(master_problem, pricing_problem, pricing_solver,
+                    current_node.column_pool, self.best_objective, self.global_lower_bound,
+                    on_candidate=lambda solution, objective, iteration: self._consider_candidate(
+                        current_node, solution, objective, "rmp_integer", iteration),
+                    after_master=lambda master, iteration, end: self._maybe_restricted_mip(
+                        current_node, master, iteration, end))
+                generations.append(phase_two)
+                current_node.solution, current_node.objective_value = phase_two.solve(
+                    time_end, initial_columns=False)
+                if self.is_infeasible_solution(current_node):
+                    raise RuntimeError("Phase-II retained an artificial column")
+                column_generation = phase_two
             completed = True
             # Also use the final root column pool, even if iteration is not a multiple.
             if current_node.parent is None:
@@ -332,9 +364,9 @@ class BranchAndPrice:
         finally:
             if not setup_recorded:
                 self.total_node_setup_time += budget_clock.now() - setup_start
-            if column_generation is not None:
-                self.total_master_time += column_generation.masterSolveTime
-                self.total_pricing_time += column_generation.pricingSolveTime
+            if generations:
+                self.total_master_time += sum(cg.masterSolveTime for cg in generations)
+                self.total_pricing_time += sum(cg.pricingSolveTime for cg in generations)
                 if current_node.parent is None:
                     self.root_diagnostics = dict(
                         cg_certified=completed,
@@ -798,6 +830,7 @@ class BranchAndPrice:
             "nodes_processed": self.nodes_processed,
             "nodes_created": self.nodes_created,
             "nodes_pruned": self.nodes_pruned,
+            "phase_one_pruned": self.phase_one_pruned,
             "nodes_remaining": self.queue_size(),
             "best_objective": self.best_objective,
             "global_lower_bound": self.global_lower_bound,
@@ -820,4 +853,3 @@ class BranchAndPrice:
             "incumbent_input_column_creators": self.incumbent_input_creators,
             "root_diagnostics": self.root_diagnostics
         }
-

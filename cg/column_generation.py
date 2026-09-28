@@ -47,14 +47,14 @@ class ColumnGeneration:
         self.on_candidate = on_candidate
         self.after_master = after_master
 
-    def solve(self, time_end: float):
+    def solve(self, time_end: float, *, initial_columns=True):
         """
         执行列生成。
 
         只有在精确定价达到最优，并且确认不存在改进列时，
         才能结束当前节点的列生成。
         """
-        self.new_columns = list(self.column_pool.columns)
+        self.new_columns = list(self.column_pool.columns) if initial_columns else []
 
         while True:
             if budget_clock.now() >= time_end:

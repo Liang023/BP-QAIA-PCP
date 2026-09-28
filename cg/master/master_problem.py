@@ -205,6 +205,24 @@ class MasterProblem:
             status_name = self._rmp.status
             raise RuntimeError(f"Master problem solve failed with status {status_name}")
 
+    def set_phase_one(self):
+        """Minimize artificial usage while real columns have zero cost."""
+        self.T.Obj = 0.0
+        for columns in self.varMap.values():
+            for column, variable in columns.items():
+                variable.Obj = 1.0 if column.is_artificial_column else 0.0
+
+    def set_phase_two(self):
+        """Fix artificial usage at zero and restore the makespan objective."""
+        self.T.Obj = 1.0
+        for columns in self.varMap.values():
+            for column, variable in columns.items():
+                if column.is_artificial_column:
+                    variable.UB = 0.0
+                    variable.Obj = 0.0
+                else:
+                    variable.Obj = 0.0
+
     def _get_dual_variables(self):
         """提取对偶变量值到统一结构 self.dual。
         

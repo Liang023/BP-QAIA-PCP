@@ -175,8 +175,7 @@ def main():
             with dest.with_suffix(".process.log").open("w", encoding="utf-8") as log:
                 try:
                     proc = subprocess.run(command, cwd=ROOT, env=env, stdout=log,
-                                          stderr=subprocess.STDOUT,
-                                          timeout=None if method == "cim_root" else args.limit+60)
+                                          stderr=subprocess.STDOUT)
                     record = json.loads(dest.read_text(encoding="utf-8")) if dest.exists() else {}
                     if proc.returncode != 0 or not record:
                         record = recovered_record(dest, data, input_sha, args.limit, method, seed,

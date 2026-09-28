@@ -1,0 +1,356 @@
+{
+  "method": "compact",
+  "seed": 0,
+  "limit": 1800.0,
+  "completion_rows": "vehicle",
+  "instance": "D:\\pythonProject\\BP_QAIA_PCP\\data\\instances\\2019-03-20_N10_C5.json",
+  "python": "3.10.18 | packaged by Anaconda, Inc. | (main, Jun  5 2025, 13:08:55) [MSC v.1929 64 bit (AMD64)]",
+  "platform": "Windows-10-10.0.26200-SP0",
+  "threads": 1,
+  "gurobi_seed": 0,
+  "timing_scope": "after_input_and_imports_before_graph_and_model",
+  "timing_basis": "bp_active_excluding_cloud_call",
+  "verbose": false,
+  "offline_tuning": null,
+  "tuning_seconds_in_bp": 0.0,
+  "capacity_bound_config": {
+    "enabled": true,
+    "lp_seconds": 2.0
+  },
+  "primal_completion_config": {
+    "enabled": true,
+    "attempts": 20,
+    "seconds": 2.0,
+    "injection": "best"
+  },
+  "primal_neighborhood_config": {
+    "enabled": true,
+    "seconds": 2.0,
+    "interval": 30.0,
+    "cooldown": 10.0,
+    "fraction": 0.05,
+    "vehicles": 4
+  },
+  "instance_sha256": "0187219cc16dbc5a196a76c8a4afffae2e8b54a73a02549bebe6b7227aff3812",
+  "vehicles": 10,
+  "vertices": 222,
+  "schema_version": "acn-derived-v1",
+  "data_metadata": {
+    "raw_sha256": "9c34297e9f6d04dd8c86f1dcb2d8176bc2204b1f7e872e2289136bf5530cb25c",
+    "converter_sha256": "4fdd2f29edf2625ac20395f35633c11b51efa0b7f01beeee2bd8e5007a48384a",
+    "raw_filename": "caltech_march_holdout.json",
+    "site_id": "0002",
+    "timezone": "America/Los_Angeles",
+    "local_arrival_date": "2019-03-20",
+    "origin_utc": "2019-03-20T07:00:00+00:00",
+    "slot_minutes": 15,
+    "power_kw": "7",
+    "energy_basis": "observed_kWhDelivered",
+    "charger_basis": "assumed_homogeneous_pool",
+    "selection": "first_n_by_connection_time_then_session_id",
+    "max_sessions": 10,
+    "max_vertices": 3000,
+    "max_stay_hours": 48
+  },
+  "git_sha": "201497bc039aec152d40bb70391c7087880a4e88",
+  "source_sha256": "3c2a2c771bb50230bbfa43137ccc29f52e4558fb3b602921067ec9ef0b470e90",
+  "qaia_config": null,
+  "exact_pricing_config": null,
+  "restricted_mip_config": {
+    "enabled": true,
+    "scope": "root",
+    "every": 20,
+    "seconds": 0.5,
+    "fraction": 0.1
+  },
+  "gurobi": [
+    12,
+    0,
+    3
+  ],
+  "status": "optimal",
+  "objective": 47.0,
+  "lower_bound": 47.0,
+  "schedule": [
+    [
+      {
+        "vehicle_id": 0,
+        "candidate_id": 0,
+        "start": 25,
+        "end": 28
+      },
+      {
+        "vehicle_id": 2,
+        "candidate_id": 0,
+        "start": 28,
+        "end": 31
+      },
+      {
+        "vehicle_id": 4,
+        "candidate_id": 0,
+        "start": 33,
+        "end": 34
+      },
+      {
+        "vehicle_id": 7,
+        "candidate_id": 0,
+        "start": 35,
+        "end": 47
+      }
+    ],
+    [
+      {
+        "vehicle_id": 1,
+        "candidate_id": 0,
+        "start": 28,
+        "end": 37
+      },
+      {
+        "vehicle_id": 3,
+        "candidate_id": 4,
+        "start": 37,
+        "end": 46
+      }
+    ],
+    [
+      {
+        "vehicle_id": 9,
+        "candidate_id": 0,
+        "start": 36,
+        "end": 40
+      },
+      {
+        "vehicle_id": 6,
+        "candidate_id": 9,
+        "start": 43,
+        "end": 47
+      }
+    ],
+    [
+      {
+        "vehicle_id": 5,
+        "candidate_id": 0,
+        "start": 33,
+        "end": 37
+      }
+    ],
+    [
+      {
+        "vehicle_id": 8,
+        "candidate_id": 0,
+        "start": 35,
+        "end": 39
+      }
+    ]
+  ],
+  "compact_formulation": "integer_slot_occupancy_vehicle_v2",
+  "compact_variables": 1111,
+  "compact_constraints": 527,
+  "solve_seconds": 0.05355239997152239,
+  "wall_seconds": 0.05355419998522848,
+  "cloud_excluded_seconds": 0.0,
+  "budget_overrun_seconds": 0.0,
+  "has_feasible_solution": true,
+  "best_objective": 47.0,
+  "time_to_first_feasible": 0.023644500004593283,
+  "best_found_seconds": 0.04999229998793453,
+  "incumbent_history": [
+    {
+      "event": "incumbent",
+      "elapsed_seconds": 0.023644500004593283,
+      "wall_elapsed_seconds": 0.023647200025152415,
+      "cloud_excluded_seconds": 0.0,
+      "objective": 83.0,
+      "source": "compact_mipsol",
+      "node_id": null,
+      "cg_iteration": null,
+      "validation_passed": true,
+      "schedule": [
+        [
+          {
+            "vehicle_id": 6,
+            "candidate_id": 3,
+            "start": 37,
+            "end": 41
+          }
+        ],
+        [
+          {
+            "vehicle_id": 5,
+            "candidate_id": 4,
+            "start": 37,
+            "end": 41
+          }
+        ],
+        [
+          {
+            "vehicle_id": 9,
+            "candidate_id": 8,
+            "start": 44,
+            "end": 48
+          },
+          {
+            "vehicle_id": 8,
+            "candidate_id": 26,
+            "start": 61,
+            "end": 65
+          },
+          {
+            "vehicle_id": 4,
+            "candidate_id": 37,
+            "start": 70,
+            "end": 71
+          }
+        ],
+        [
+          {
+            "vehicle_id": 2,
+            "candidate_id": 1,
+            "start": 29,
+            "end": 32
+          },
+          {
+            "vehicle_id": 3,
+            "candidate_id": 10,
+            "start": 43,
+            "end": 52
+          },
+          {
+            "vehicle_id": 7,
+            "candidate_id": 24,
+            "start": 59,
+            "end": 71
+          },
+          {
+            "vehicle_id": 1,
+            "candidate_id": 46,
+            "start": 74,
+            "end": 83
+          }
+        ],
+        [
+          {
+            "vehicle_id": 0,
+            "candidate_id": 1,
+            "start": 26,
+            "end": 29
+          }
+        ]
+      ]
+    },
+    {
+      "event": "incumbent",
+      "elapsed_seconds": 0.04999229998793453,
+      "wall_elapsed_seconds": 0.049994600005447865,
+      "cloud_excluded_seconds": 0.0,
+      "objective": 47.0,
+      "source": "compact_mipsol",
+      "node_id": null,
+      "cg_iteration": null,
+      "validation_passed": true,
+      "schedule": [
+        [
+          {
+            "vehicle_id": 0,
+            "candidate_id": 0,
+            "start": 25,
+            "end": 28
+          },
+          {
+            "vehicle_id": 2,
+            "candidate_id": 0,
+            "start": 28,
+            "end": 31
+          },
+          {
+            "vehicle_id": 4,
+            "candidate_id": 0,
+            "start": 33,
+            "end": 34
+          },
+          {
+            "vehicle_id": 7,
+            "candidate_id": 0,
+            "start": 35,
+            "end": 47
+          }
+        ],
+        [
+          {
+            "vehicle_id": 1,
+            "candidate_id": 0,
+            "start": 28,
+            "end": 37
+          },
+          {
+            "vehicle_id": 3,
+            "candidate_id": 4,
+            "start": 37,
+            "end": 46
+          }
+        ],
+        [
+          {
+            "vehicle_id": 9,
+            "candidate_id": 0,
+            "start": 36,
+            "end": 40
+          },
+          {
+            "vehicle_id": 6,
+            "candidate_id": 9,
+            "start": 43,
+            "end": 47
+          }
+        ],
+        [
+          {
+            "vehicle_id": 5,
+            "candidate_id": 0,
+            "start": 33,
+            "end": 37
+          }
+        ],
+        [
+          {
+            "vehicle_id": 8,
+            "candidate_id": 0,
+            "start": 35,
+            "end": 39
+          }
+        ]
+      ]
+    }
+  ],
+  "trajectory_file": "D:\\pythonProject\\BP_QAIA_PCP\\results\\result_c5_v1\\2019-03-20_N10_C5_compact.incumbents.jsonl",
+  "schedule_makespan": 47.0,
+  "validation_passed": true,
+  "budget_snapshots": [
+    {
+      "seconds": 10.0,
+      "objective": 47.0
+    },
+    {
+      "seconds": 30.0,
+      "objective": 47.0
+    },
+    {
+      "seconds": 60.0,
+      "objective": 47.0
+    },
+    {
+      "seconds": 120.0,
+      "objective": 47.0
+    },
+    {
+      "seconds": 300.0,
+      "objective": 47.0
+    },
+    {
+      "seconds": 1800.0,
+      "objective": 47.0
+    }
+  ],
+  "termination_reason": "optimal",
+  "workflow_seconds": 0.1371553000062704
+}

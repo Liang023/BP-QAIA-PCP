@@ -1,0 +1,542 @@
+{
+  "method": "cim_root",
+  "seed": 2,
+  "limit": 1800.0,
+  "completion_rows": "vehicle",
+  "instance": "D:\\pythonProject\\BP_QAIA_PCP\\data\\instances\\2019-03-18_N10_C5.json",
+  "python": "3.10.18 | packaged by Anaconda, Inc. | (main, Jun  5 2025, 13:08:55) [MSC v.1929 64 bit (AMD64)]",
+  "platform": "Windows-10-10.0.26200-SP0",
+  "threads": 1,
+  "gurobi_seed": 0,
+  "timing_scope": "after_input_and_imports_before_graph_and_model",
+  "timing_basis": "bp_active_excluding_cloud_call",
+  "verbose": false,
+  "offline_tuning": null,
+  "tuning_seconds_in_bp": 0.0,
+  "capacity_bound_config": {
+    "enabled": true,
+    "lp_seconds": 2.0
+  },
+  "primal_completion_config": {
+    "enabled": true,
+    "attempts": 20,
+    "seconds": 2.0,
+    "injection": "best"
+  },
+  "primal_neighborhood_config": {
+    "enabled": true,
+    "seconds": 2.0,
+    "interval": 30.0,
+    "cooldown": 10.0,
+    "fraction": 0.05,
+    "vehicles": 4
+  },
+  "instance_sha256": "605d55405af6968a461f6aabe2a02ad7ef4f7f9f8fdc0faf02f6b79341fb30b1",
+  "vehicles": 10,
+  "vertices": 243,
+  "schema_version": "acn-derived-v1",
+  "data_metadata": {
+    "raw_sha256": "9c34297e9f6d04dd8c86f1dcb2d8176bc2204b1f7e872e2289136bf5530cb25c",
+    "converter_sha256": "4fdd2f29edf2625ac20395f35633c11b51efa0b7f01beeee2bd8e5007a48384a",
+    "raw_filename": "caltech_march_holdout.json",
+    "site_id": "0002",
+    "timezone": "America/Los_Angeles",
+    "local_arrival_date": "2019-03-18",
+    "origin_utc": "2019-03-18T07:00:00+00:00",
+    "slot_minutes": 15,
+    "power_kw": "7",
+    "energy_basis": "observed_kWhDelivered",
+    "charger_basis": "assumed_homogeneous_pool",
+    "selection": "first_n_by_connection_time_then_session_id",
+    "max_sessions": 10,
+    "max_vertices": 3000,
+    "max_stay_hours": 48
+  },
+  "git_sha": "201497bc039aec152d40bb70391c7087880a4e88",
+  "source_sha256": "3c2a2c771bb50230bbfa43137ccc29f52e4558fb3b602921067ec9ef0b470e90",
+  "qaia_config": {
+    "scope": "root",
+    "exact_mode": "on_qaia_failure",
+    "heuristic_provider": "cim",
+    "max_heuristic_streak": 3,
+    "qaia_algorithm": "BSB",
+    "qaia_backend": "cpu-float32",
+    "qaia_n_iter": 200,
+    "qaia_batch_size": 10,
+    "qaia_max_columns": 10,
+    "qaia_penalty_margin": 1.0,
+    "normalize_ising": true,
+    "qaia_algorithm_kwargs": {
+      "dt": 1.0
+    },
+    "column_policy": "combined"
+  },
+  "cim_config": {
+    "device_id": "WuYue-QPU-Qboson-1000",
+    "max_bits": 1000,
+    "precision": 8,
+    "max_calls": 3,
+    "cache_dir": "results/cim_tasks"
+  },
+  "exact_pricing_config": {
+    "pool_search_mode": 0,
+    "pool_solutions": 10,
+    "mip_gap": 0.0,
+    "mip_gap_abs": 0.0
+  },
+  "restricted_mip_config": {
+    "enabled": true,
+    "scope": "root",
+    "every": 20,
+    "seconds": 0.5,
+    "fraction": 0.1
+  },
+  "gurobi": [
+    12,
+    0,
+    3
+  ],
+  "heuristic_provider": "cim",
+  "graph_seconds": 0.01852630003122613,
+  "status": "optimal",
+  "objective": 50.0,
+  "statistics": {
+    "nodes_processed": 1,
+    "nodes_created": 1,
+    "nodes_pruned": 0,
+    "phase_one_pruned": 0,
+    "nodes_remaining": 0,
+    "best_objective": 50.0,
+    "global_lower_bound": 50.0,
+    "gap": 0.0,
+    "total_solve_time": 5.526920300035272,
+    "problem_lower_bound": 50.0,
+    "capacity_bound": {
+      "earliest_completion": 50,
+      "workload_lower_bound": 50,
+      "lower_bound": 50,
+      "lp_calls": 6,
+      "lp_seconds": 0.008535299974028021,
+      "lp_status": "complete",
+      "infeasible_horizons": [],
+      "seconds": 0.008630800002720207
+    },
+    "proof_source": "validated_incumbent_matches_global_bound",
+    "column_num": 75,
+    "master_seconds": 0.0054438000661320984,
+    "node_setup_seconds": 0.09921580000082031,
+    "root_initialization_seconds": 0.011367099999915808,
+    "pricing_seconds": 5.343135100090876,
+    "branch_seconds": 0.0,
+    "restricted_mip_seconds": 0.0,
+    "restricted_mip_calls": 0,
+    "primal_completion": {
+      "calls": 1,
+      "attempts": 20,
+      "columns_added": 4,
+      "columns_generated": 39,
+      "complete_schedules": 20,
+      "improvements": 2,
+      "seconds": 0.036240599991288036,
+      "seeded_from_incumbent": 0
+    },
+    "primal_neighborhood": {
+      "calls": 0,
+      "candidates": 0,
+      "improvements": 0,
+      "seconds": 0.0,
+      "last_status": null,
+      "max_variables": 0
+    },
+    "incumbent_input_column_creators": [
+      "primal_repair",
+      "primal_repair",
+      "greedy_initialization",
+      "primal_repair",
+      "primal_repair"
+    ],
+    "root_diagnostics": {
+      "cg_certified": true,
+      "cg_iterations": 5,
+      "lp_objective": 50.0,
+      "integer_solution": false,
+      "columns_in_pool": 30,
+      "master_seconds": 0.0054438000661320984,
+      "pricing_seconds": 5.343135100090876,
+      "heuristic_metrics": {
+        "provider": "cim",
+        "cim": {
+          "requests": 3,
+          "completed": 0,
+          "timeouts": 0,
+          "size_skips": 0,
+          "capped_skips": 2,
+          "seconds": 9.077974899904802,
+          "cloud_excluded_seconds": 4.217214299947955,
+          "local_seconds": 4.860760599956848,
+          "tasks": [
+            {
+              "task": "bp1b9e26b84d4443cdb68e",
+              "directory": "D:\\pythonProject\\BP_QAIA_PCP\\results\\cim_tasks\\bp1b9e26b84d4443cdb68e",
+              "status": "error",
+              "seconds": 3.0258625999558717,
+              "cloud_excluded_seconds": 1.4729214999824762,
+              "local_seconds": 1.5529410999733955
+            },
+            {
+              "task": "bp577d8f2789c342e0b9c6",
+              "directory": "D:\\pythonProject\\BP_QAIA_PCP\\results\\cim_tasks\\bp577d8f2789c342e0b9c6",
+              "status": "error",
+              "seconds": 2.984190299990587,
+              "cloud_excluded_seconds": 1.3446604000055231,
+              "local_seconds": 1.6395298999850638
+            },
+            {
+              "task": "bp0210898216584e1b816b",
+              "directory": "D:\\pythonProject\\BP_QAIA_PCP\\results\\cim_tasks\\bp0210898216584e1b816b",
+              "status": "error",
+              "seconds": 3.067921999958344,
+              "cloud_excluded_seconds": 1.3996323999599554,
+              "local_seconds": 1.6682895999983884
+            }
+          ]
+        },
+        "heuristic_calls": 5,
+        "heuristic_failures": 3,
+        "hit_calls": 0,
+        "exact_calls": 5,
+        "exact_skips": 0,
+        "heuristic_seconds": 5.021135400107596,
+        "exact_seconds": 0.31973850005306304,
+        "build_seconds": 0.11951360001694411,
+        "search_seconds": 1.4599994756281376e-05,
+        "repair_seconds": 2.9500050004571676e-05,
+        "raw_samples": 0,
+        "improving_unique": 0,
+        "pool_duplicates": 0,
+        "returned_columns": 0,
+        "nonfinite_samples": 0
+      }
+    }
+  },
+  "error": null,
+  "validated_schedule": {
+    "schedule": [
+      [
+        {
+          "vehicle_id": 5,
+          "candidate_id": 0,
+          "vertex_id": 111,
+          "start": 32,
+          "end": 35
+        },
+        {
+          "vehicle_id": 8,
+          "candidate_id": 0,
+          "vertex_id": 191,
+          "start": 35,
+          "end": 38
+        },
+        {
+          "vehicle_id": 2,
+          "candidate_id": 9,
+          "vertex_id": 12,
+          "start": 38,
+          "end": 48
+        }
+      ],
+      [
+        {
+          "vehicle_id": 1,
+          "candidate_id": 0,
+          "vertex_id": 1,
+          "start": 25,
+          "end": 28
+        },
+        {
+          "vehicle_id": 4,
+          "candidate_id": 0,
+          "vertex_id": 86,
+          "start": 32,
+          "end": 50
+        }
+      ],
+      [
+        {
+          "vehicle_id": 6,
+          "candidate_id": 0,
+          "vertex_id": 132,
+          "start": 33,
+          "end": 35
+        },
+        {
+          "vehicle_id": 9,
+          "candidate_id": 0,
+          "vertex_id": 216,
+          "start": 35,
+          "end": 43
+        }
+      ],
+      [
+        {
+          "vehicle_id": 7,
+          "candidate_id": 1,
+          "vertex_id": 175,
+          "start": 35,
+          "end": 45
+        }
+      ],
+      [
+        {
+          "vehicle_id": 0,
+          "candidate_id": 0,
+          "vertex_id": 0,
+          "start": 21,
+          "end": 22
+        },
+        {
+          "vehicle_id": 3,
+          "candidate_id": 1,
+          "vertex_id": 53,
+          "start": 32,
+          "end": 48
+        }
+      ]
+    ],
+    "makespan": 50.0
+  },
+  "schedule_makespan": 50.0,
+  "total_pricing_time": 5.343135100090876,
+  "total_hybrid_exact_time": 0.31973850005306304,
+  "total_hybrid_exact_calls": 5,
+  "exact_only_nodes": 0,
+  "total_cim_time": 5.021135400107596,
+  "total_cim_calls": 5,
+  "cim_nodes": 1,
+  "solve_seconds": 5.527084700064734,
+  "wall_seconds": 9.744300200021826,
+  "cloud_excluded_seconds": 4.217214299947955,
+  "budget_overrun_seconds": 0.0,
+  "has_feasible_solution": true,
+  "best_objective": 50.0,
+  "time_to_first_feasible": 5.506465900049079,
+  "best_found_seconds": 5.522957200068049,
+  "incumbent_history": [
+    {
+      "event": "incumbent",
+      "elapsed_seconds": 5.506465900049079,
+      "wall_elapsed_seconds": 9.723682300013024,
+      "cloud_excluded_seconds": 4.217214299947955,
+      "objective": 55.0,
+      "source": "primal_completion",
+      "node_id": 1,
+      "cg_iteration": null,
+      "validation_passed": true,
+      "schedule": [
+        [
+          {
+            "vehicle_id": 4,
+            "candidate_id": 0,
+            "vertex_id": 86,
+            "start": 32,
+            "end": 50
+          }
+        ],
+        [
+          {
+            "vehicle_id": 0,
+            "candidate_id": 0,
+            "vertex_id": 0,
+            "start": 21,
+            "end": 22
+          },
+          {
+            "vehicle_id": 1,
+            "candidate_id": 0,
+            "vertex_id": 1,
+            "start": 25,
+            "end": 28
+          },
+          {
+            "vehicle_id": 2,
+            "candidate_id": 0,
+            "vertex_id": 3,
+            "start": 29,
+            "end": 39
+          },
+          {
+            "vehicle_id": 3,
+            "candidate_id": 8,
+            "vertex_id": 60,
+            "start": 39,
+            "end": 55
+          }
+        ],
+        [
+          {
+            "vehicle_id": 6,
+            "candidate_id": 0,
+            "vertex_id": 132,
+            "start": 33,
+            "end": 35
+          },
+          {
+            "vehicle_id": 9,
+            "candidate_id": 0,
+            "vertex_id": 216,
+            "start": 35,
+            "end": 43
+          }
+        ],
+        [
+          {
+            "vehicle_id": 5,
+            "candidate_id": 0,
+            "vertex_id": 111,
+            "start": 32,
+            "end": 35
+          },
+          {
+            "vehicle_id": 8,
+            "candidate_id": 0,
+            "vertex_id": 191,
+            "start": 35,
+            "end": 38
+          }
+        ],
+        [
+          {
+            "vehicle_id": 7,
+            "candidate_id": 1,
+            "vertex_id": 175,
+            "start": 35,
+            "end": 45
+          }
+        ]
+      ]
+    },
+    {
+      "event": "incumbent",
+      "elapsed_seconds": 5.522957200068049,
+      "wall_elapsed_seconds": 9.740173200028948,
+      "cloud_excluded_seconds": 4.217214299947955,
+      "objective": 50.0,
+      "source": "primal_completion",
+      "node_id": 1,
+      "cg_iteration": null,
+      "validation_passed": true,
+      "schedule": [
+        [
+          {
+            "vehicle_id": 5,
+            "candidate_id": 0,
+            "vertex_id": 111,
+            "start": 32,
+            "end": 35
+          },
+          {
+            "vehicle_id": 8,
+            "candidate_id": 0,
+            "vertex_id": 191,
+            "start": 35,
+            "end": 38
+          },
+          {
+            "vehicle_id": 2,
+            "candidate_id": 9,
+            "vertex_id": 12,
+            "start": 38,
+            "end": 48
+          }
+        ],
+        [
+          {
+            "vehicle_id": 1,
+            "candidate_id": 0,
+            "vertex_id": 1,
+            "start": 25,
+            "end": 28
+          },
+          {
+            "vehicle_id": 4,
+            "candidate_id": 0,
+            "vertex_id": 86,
+            "start": 32,
+            "end": 50
+          }
+        ],
+        [
+          {
+            "vehicle_id": 6,
+            "candidate_id": 0,
+            "vertex_id": 132,
+            "start": 33,
+            "end": 35
+          },
+          {
+            "vehicle_id": 9,
+            "candidate_id": 0,
+            "vertex_id": 216,
+            "start": 35,
+            "end": 43
+          }
+        ],
+        [
+          {
+            "vehicle_id": 7,
+            "candidate_id": 1,
+            "vertex_id": 175,
+            "start": 35,
+            "end": 45
+          }
+        ],
+        [
+          {
+            "vehicle_id": 0,
+            "candidate_id": 0,
+            "vertex_id": 0,
+            "start": 21,
+            "end": 22
+          },
+          {
+            "vehicle_id": 3,
+            "candidate_id": 1,
+            "vertex_id": 53,
+            "start": 32,
+            "end": 48
+          }
+        ]
+      ]
+    }
+  ],
+  "trajectory_file": "D:\\pythonProject\\BP_QAIA_PCP\\results\\result_c5_v1\\2019-03-18_N10_C5_cim_s2.incumbents.jsonl",
+  "validation_passed": true,
+  "budget_snapshots": [
+    {
+      "seconds": 10.0,
+      "objective": 50.0
+    },
+    {
+      "seconds": 30.0,
+      "objective": 50.0
+    },
+    {
+      "seconds": 60.0,
+      "objective": 50.0
+    },
+    {
+      "seconds": 120.0,
+      "objective": 50.0
+    },
+    {
+      "seconds": 300.0,
+      "objective": 50.0
+    },
+    {
+      "seconds": 1800.0,
+      "objective": 50.0
+    }
+  ],
+  "termination_reason": "optimal",
+  "workflow_seconds": 10.115401199960615
+}
