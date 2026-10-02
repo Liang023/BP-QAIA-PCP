@@ -45,10 +45,23 @@ def collect(folder):
                 if objective is not None and lower_bound is not None else None)
             reference_gap_percent = (100 * (objective - reference) / max(abs(objective), 1e-6)
                 if objective is not None and reference is not None else None)
+            requests = cim.get("requests")
+            completed = cim.get("completed")
+            hits = metrics.get("hit_calls")
+            calls = metrics.get("heuristic_calls")
+            returned = metrics.get("returned_columns")
+            raw_samples = metrics.get("raw_samples")
+            cloud_seconds = record.get("cloud_excluded_seconds")
+            wall_seconds = record.get("wall_seconds")
+            time_to_reference = (next((event["elapsed_seconds"]
+                for event in record.get("incumbent_history", [])
+                if event["objective"] <= reference + 1e-6), None)
+                if feasible and reference is not None else None)
             row = dict(batch=folder.name, instance=name, budget=manifest["limit"], method=method,
                 timing_basis=record.get("timing_basis", "wall"),
                 solve_seconds=record.get("solve_seconds", record.get("wall_seconds")),
-                cloud_excluded_seconds=record.get("cloud_excluded_seconds", 0.0),
+                cloud_excluded_seconds=cloud_seconds,
+                cloud_call_scope="upload_queue_compute_response" if cim else None,
                 completion_rows=formulation,
                 result=entry["result"], seed=entry["seed"], status=record["status"],
                 feasible=int(feasible), objective=objective, reference_optimum=reference,
@@ -66,6 +79,15 @@ def collect(folder):
                 heuristic_raw_samples=metrics.get("raw_samples"),
                 heuristic_improving_unique=metrics.get("improving_unique"),
                 heuristic_pool_duplicates=metrics.get("pool_duplicates"),
+                heuristic_calls=calls, heuristic_hit_calls=hits,
+                heuristic_hit_rate=hits/calls if calls else None,
+                heuristic_exact_skips=metrics.get("exact_skips"),
+                heuristic_failures=metrics.get("heuristic_failures"),
+                heuristic_nonfinite_samples=metrics.get("nonfinite_samples"),
+                heuristic_columns_per_raw_sample=(returned/raw_samples if raw_samples else None),
+                heuristic_seconds=metrics.get("heuristic_seconds"),
+                exact_pricing_calls=metrics.get("exact_calls"),
+                exact_pricing_seconds=metrics.get("exact_seconds"),
                 root_repair_columns=primal.get("columns_added"),
                 root_repair_generated_columns=primal.get("columns_generated"),
                 root_repair_improvements=primal.get("improvements"),
@@ -76,7 +98,9 @@ def collect(folder):
                 neighborhood_max_variables=neighborhood.get("max_variables"),
                 reference_gap_percent=reference_gap_percent,
                 first_feasible_seconds=record.get("time_to_first_feasible"),
-                best_found_seconds=record.get("best_found_seconds"), wall_seconds=record.get("wall_seconds"),
+                time_to_reference_seconds=time_to_reference,
+                best_found_seconds=record.get("best_found_seconds"), wall_seconds=wall_seconds,
+                budget_overrun_seconds=record.get("budget_overrun_seconds"),
                 graph_seconds=record.get("graph_seconds"),
                 root_initialization_seconds=stats.get("root_initialization_seconds"),
                 node_setup_seconds=stats.get("node_setup_seconds"), branch_seconds=stats.get("branch_seconds"),
@@ -87,9 +111,16 @@ def collect(folder):
                 restricted_mip_seconds=stats.get("restricted_mip_seconds"),
                 heuristic_provider=record.get("heuristic_provider"),
                 cim_requests=cim.get("requests"), cim_completed=cim.get("completed"),
+                cim_failed_requests=(requests-completed if requests is not None and completed is not None else None),
+                cim_completion_rate=completed/requests if requests else None,
+                cim_columns_per_completed_request=(returned/completed if completed else None),
                 cim_timeouts=cim.get("timeouts"), cim_size_skips=cim.get("size_skips"),
+                cim_capped_skips=cim.get("capped_skips"),
                 cim_seconds=cim.get("seconds"),
+                cim_cloud_call_seconds=cim.get("cloud_excluded_seconds"),
                 cim_local_seconds=cim.get("local_seconds"),
+                wall_to_active_ratio=(wall_seconds/record["solve_seconds"]
+                    if cim and wall_seconds is not None and record.get("solve_seconds", 0) > 0 else None),
                 qaia_batch_size=(record.get("qaia_config") or {}).get("qaia_batch_size"),
                 heuristic_max_columns=(record.get("qaia_config") or {}).get("qaia_max_columns"),
                 qaia_configuration_note=(record.get("offline_tuning") or {}).get("experiment_note"),
@@ -121,7 +152,15 @@ def collect(folder):
                 median_reference_gap_percent=(median(r["reference_gap_percent"] for r in feasible)
                     if feasible and all(r["reference_gap_percent"] is not None for r in feasible) else None),
                 median_first_feasible_conditional=median(r["first_feasible_seconds"] for r in feasible)
-                    if feasible else None, reference_optimum=reference)
+                    if feasible else None,
+                reference_hits=sum(r["time_to_reference_seconds"] is not None for r in group),
+                reference_hit_rate=sum(r["time_to_reference_seconds"] is not None for r in group)/len(group)
+                    if reference is not None else None,
+                median_time_to_reference_conditional=median(
+                    r["time_to_reference_seconds"] for r in group
+                    if r["time_to_reference_seconds"] is not None)
+                    if any(r["time_to_reference_seconds"] is not None for r in group) else None,
+                reference_optimum=reference)
             summaries.append(row)
             per_method[method] = row
         exact = per_method["exact"]
@@ -157,4 +196,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-

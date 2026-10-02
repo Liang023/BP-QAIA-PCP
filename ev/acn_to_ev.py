@@ -1,6 +1,6 @@
 """ACN sessions -> small, offline, homogeneous-charger PCP instances."""
 import argparse
-from collections import Counter, defaultdict
+from collections import defaultdict
 from datetime import date, datetime, time, timezone
 from decimal import Decimal, ROUND_CEILING
 from email.utils import parsedate_to_datetime
@@ -48,8 +48,7 @@ def main():
     power = positive_decimal(args.power_kw)
     day = date.fromisoformat(args.date)
     raw_path, out = Path(args.raw), Path(args.out)
-    audit_path = out.with_suffix(".audit.json")
-    if out.exists() or audit_path.exists():
+    if out.exists():
         raise FileExistsError("Use a new output path; never overwrite an experiment")
     raw = raw_path.read_bytes()
     payload = json.loads(raw)
@@ -75,31 +74,22 @@ def main():
     zone = ZoneInfo(zone_name)
     origin = datetime.combine(day, time.min, tzinfo=zone).astimezone(timezone.utc)
     step = args.slot_minutes * 60
-    audit, groups = [], defaultdict(list)
+    groups = defaultdict(list)
 
-    def note(index, row, reason):
-        audit.append(dict(raw_index=index, session_id=row.get("sessionID"), reason=reason))
-
-    for index, row in enumerate(records):
+    for row in records:
         sid = row.get("sessionID")
-        if not isinstance(sid, str) or not sid.strip():
-            note(index, row, "invalid_missing_session_id")
-        else:
-            groups[sid].append((index, row))
+        if isinstance(sid, str) and sid.strip():
+            groups[sid].append(row)
 
     usable = []
     essential = ("siteID", "stationID", "timezone", "connectionTime",
                  "disconnectTime", "kWhDelivered")
     for sid, group in sorted(groups.items()):
         signatures = {json.dumps({k: r.get(k) for k in essential}, sort_keys=True)
-                      for _, r in group}
+                      for r in group}
         if len(signatures) != 1:
-            for index, row in group:
-                note(index, row, "invalid_conflicting_duplicate")
             continue
-        index, row = group[0]
-        for duplicate_index, duplicate in group[1:]:
-            note(duplicate_index, duplicate, "duplicate_same_model_fields")
+        row = group[0]
         try:
             if str(row.get("siteID")) != site_id or row.get("timezone") != zone_name:
                 raise ValueError("missing_site_or_timezone")
@@ -110,45 +100,40 @@ def main():
                 raise ValueError("invalid_delivered_energy")
             if departure <= connection:
                 raise ValueError("nonpositive_stay")
-        except (ValueError, TypeError, ArithmeticError, OverflowError) as exc:
-            note(index, row, "invalid_fields:" + str(exc))
+        except (ValueError, TypeError, ArithmeticError, OverflowError):
             continue
         if energy == 0:
-            note(index, row, "excluded_zero_delivered_energy")
             continue
         if connection.astimezone(zone).date() != day:
-            note(index, row, "outside_arrival_date")
             continue
         if (departure - connection).total_seconds() > args.max_stay_hours * 3600:
-            note(index, row, "pilot_excluded_long_stay")
             continue
         arrival_slot = math.ceil((connection-origin).total_seconds() / step)
         departure_slot = math.floor((departure-origin).total_seconds() / step)
         duration = int((energy * 3600 / (power * step)).to_integral_value(
             rounding=ROUND_CEILING))
         if arrival_slot + duration > departure_slot:
-            note(index, row, "model_excluded_insufficient_discrete_window")
             continue
         vehicle = dict(session_id=sid, station_id=row.get("stationID"),
                        connection_utc=connection.isoformat(),
                        disconnect_utc=departure.isoformat(), energy_kwh=str(energy),
                        arrival=arrival_slot, departure=departure_slot, duration=duration)
-        usable.append((connection, sid, index, row, vehicle))
+        usable.append((connection, sid, vehicle))
     usable.sort(key=lambda item: (item[0], item[1]))
     selected = usable[:args.max_sessions]
-    for _, _, index, row, _ in usable[args.max_sessions:]:
-        note(index, row, "pilot_not_selected_first_n")
     vehicles = []
-    for vehicle_id, (_, _, index, row, vehicle) in enumerate(selected):
+    for vehicle_id, (_, _, vehicle) in enumerate(selected):
         vehicle["id"] = vehicle_id
         vehicle["candidates"] = [dict(candidate_id=j, start=s, end=s+vehicle["duration"])
             for j, s in enumerate(range(vehicle["arrival"],
                                         vehicle["departure"]-vehicle["duration"]+1))]
         vehicles.append(vehicle)
-        note(index, row, "selected")
     count = sum(len(v["candidates"]) for v in vehicles)
-    blocked = ("no_eligible_sessions" if not vehicles else
-               "candidate_limit_exceeded" if count > args.max_vertices else None)
+    if not vehicles:
+        raise ValueError(f"no_eligible_sessions; eligible={len(usable)}")
+    if count > args.max_vertices:
+        raise ValueError(f"candidate_limit_exceeded; eligible={len(usable)}, "
+                         f"selected={len(vehicles)}, vertices={count}")
     metadata = dict(raw_sha256=hashlib.sha256(raw).hexdigest(),
                     converter_sha256=hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
                     raw_filename=raw_path.name, site_id=site_id,
@@ -160,22 +145,13 @@ def main():
                     max_sessions=args.max_sessions, max_vertices=args.max_vertices,
                     max_stay_hours=args.max_stay_hours)
     out.parent.mkdir(parents=True, exist_ok=True)
-    report = dict(status="blocked" if blocked else "converted", reason=blocked,
-                  metadata=metadata, raw_records=len(records),
-                  eligible_sessions=len(usable), selected_sessions=len(vehicles),
-                  vertices=count, counts=dict(Counter(x["reason"] for x in audit)),
-                  records=sorted(audit, key=lambda x: x["raw_index"]))
-    with audit_path.open("x", encoding="utf-8") as f:
-        json.dump(report, f, ensure_ascii=False, indent=2, allow_nan=False)
-    if blocked:
-        raise ValueError(f"{blocked}; inspect {audit_path}; do not sample candidate intervals")
     instance = dict(schema_version="acn-derived-v1", name=out.stem,
                     time_unit="slot", time_horizon=max(v["departure"] for v in vehicles),
                     num_vehicles=len(vehicles), num_chargers=args.chargers,
                     metadata=metadata, vehicles=vehicles)
     with out.open("x", encoding="utf-8") as f:
         json.dump(instance, f, ensure_ascii=False, indent=2, allow_nan=False)
-    print(f"{out}: {len(vehicles)} sessions, {count} vertices; audit: {audit_path}")
+    print(f"{out}: {len(vehicles)} sessions, {count} vertices")
 
 
 if __name__ == "__main__":
