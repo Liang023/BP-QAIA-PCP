@@ -2,7 +2,6 @@ from cg.pricing.pricing_problem import PricingProblem
 from cg.column_pool import ColumnPool
 import gurobipy as grb
 from cg.column_independent_set import ColumnIndependentSet
-import time
 from model.a_graph import AuxiliaryGraph
 from model.graph import Graph
 import os
@@ -65,7 +64,6 @@ class MasterProblem:
         # 创建 makespan 变量 T，目标系数为 1（min T）
         self.T = self._rmp.addVar(lb=0.0, obj=1.0, vtype=grb.GRB.CONTINUOUS, name="T")
         self._build_constraints()
-        # self._add_feasible_initial_columns(self.column_pool)
         self._rmp.Params.Threads = 1
         self._rmp.Params.Seed = 0
 
@@ -91,8 +89,7 @@ class MasterProblem:
                     c.addTerms(-original.end_time, self.vehicle_makespan_constraints[partition_id])
 
         # 充电桩数量约束：每个列变量在该约束中的系数为 1
-        if self.charger_capacity_constraint is not None:
-            c.addTerms(1.0, self.charger_capacity_constraint)
+        c.addTerms(1.0, self.charger_capacity_constraint)
 
         # 列变量目标系数为 0（目标由 T 承担）
         var = self._rmp.addVar(
@@ -129,7 +126,7 @@ class MasterProblem:
         # 构建每个顶点的 makespan 约束：T - sum_{col: v in col} t_v * x_col >= 0
         # 初始时只有 T >= 0，后续加列时通过 Column 机制添加 -t_v * x_col
         for vertex in self.graph.vertices:
-            if hasattr(vertex, 'end_time') and vertex.end_time > 0:
+            if vertex.end_time > 0:
                 name = f"makespan_vertex_{vertex.id}"
                 # 约束：1*T + (-t_v)*x_col + ... >= 0
                 # 初始：1*T >= 0，后续通过 Column 添加 (-t_v)*x_col 项
@@ -153,9 +150,6 @@ class MasterProblem:
 
     def solveMaster(self, time_end: int):
         """求解主问题并返回（解、对偶、目标值）。"""
-        # 设置求解器参数
-        self._rmp.Params.DualReductions = 0  # 禁用对偶约减
-
         # 提高求解精度
         self._rmp.Params.OptimalityTol = 1e-9
         self._rmp.Params.FeasibilityTol = 1e-9
@@ -163,8 +157,6 @@ class MasterProblem:
 
         # 强制使用数值稳定的求解方法
         self._rmp.Params.Method = 1  # 强制使用对偶单纯形法（更稳定）
-        # # 或者
-        # self.model.Params.Method = 2  # 内点法（更适合病态问题）
 
         self._rmp.update()
 
@@ -219,9 +211,7 @@ class MasterProblem:
             for column, variable in columns.items():
                 if column.is_artificial_column:
                     variable.UB = 0.0
-                    variable.Obj = 0.0
-                else:
-                    variable.Obj = 0.0
+                variable.Obj = 0.0
 
     def _get_dual_variables(self):
         """提取对偶变量值到统一结构 self.dual。
@@ -249,9 +239,7 @@ class MasterProblem:
                 + vehicle_duals.get(vertex.associated_partition.id, 0.0))
 
         # 充电桩数量约束对偶
-        charger_dual = 0.0
-        if self.charger_capacity_constraint is not None:
-            charger_dual = self.charger_capacity_constraint.Pi
+        charger_dual = self.charger_capacity_constraint.Pi
         
         self.dual = {
             'partition': partition_duals,

@@ -1,0 +1,74 @@
+{
+  "schema_version": 1,
+  "created_utc": "2026-10-02T15:20:56.360122+00:00",
+  "requested_count": 6,
+  "collected_count": 0,
+  "root_only": true,
+  "provider": "greedy",
+  "cloud_requests": 0,
+  "task_limit_reached": false,
+  "wall_seconds": 0.47754970000096364,
+  "instances": [
+    {
+      "instance": "D:\\pythonProject\\BP_QAIA_PCP\\data\\instances\\2019-03-12_N10_C5.json",
+      "seed": 0,
+      "limit_seconds": 60.0,
+      "snapshots_before": 0,
+      "instance_sha256": "87619d6e1bf85273b043f798f179d6a1de5a02e59df3737a65453fc7eec58453",
+      "status": "error",
+      "error": "GurobiError(10009, \"User name mismatch (licensed to 'hp', current user is 'codexsandboxoffline')\")",
+      "snapshots_after": 0
+    },
+    {
+      "instance": "D:\\pythonProject\\BP_QAIA_PCP\\data\\instances\\2019-03-12_N20_C5.json",
+      "seed": 0,
+      "limit_seconds": 60.0,
+      "snapshots_before": 0,
+      "instance_sha256": "a9f56df0b4b0347c786f2013f6b3561cbf04ea7b9e432b5d354d1d738d5aaf42",
+      "status": "error",
+      "error": "GurobiError(10009, \"User name mismatch (licensed to 'hp', current user is 'codexsandboxoffline')\")",
+      "snapshots_after": 0
+    },
+    {
+      "instance": "D:\\pythonProject\\BP_QAIA_PCP\\data\\instances\\2019-03-18_N10_C5.json",
+      "seed": 0,
+      "limit_seconds": 60.0,
+      "snapshots_before": 0,
+      "instance_sha256": "605d55405af6968a461f6aabe2a02ad7ef4f7f9f8fdc0faf02f6b79341fb30b1",
+      "status": "error",
+      "error": "GurobiError(10009, \"User name mismatch (licensed to 'hp', current user is 'codexsandboxoffline')\")",
+      "snapshots_after": 0
+    },
+    {
+      "instance": "D:\\pythonProject\\BP_QAIA_PCP\\data\\instances\\2019-03-18_N20_C5.json",
+      "seed": 0,
+      "limit_seconds": 60.0,
+      "snapshots_before": 0,
+      "instance_sha256": "cc8e8ad912a8a9dd342dfb3eb6cf6040ff4a35d5a79404156c9de6061f774ef0",
+      "status": "error",
+      "error": "GurobiError(10009, \"User name mismatch (licensed to 'hp', current user is 'codexsandboxoffline')\")",
+      "snapshots_after": 0
+    },
+    {
+      "instance": "D:\\pythonProject\\BP_QAIA_PCP\\data\\instances\\2019-03-20_N10_C5.json",
+      "seed": 0,
+      "limit_seconds": 60.0,
+      "snapshots_before": 0,
+      "instance_sha256": "0187219cc16dbc5a196a76c8a4afffae2e8b54a73a02549bebe6b7227aff3812",
+      "status": "error",
+      "error": "GurobiError(10009, \"User name mismatch (licensed to 'hp', current user is 'codexsandboxoffline')\")",
+      "snapshots_after": 0
+    },
+    {
+      "instance": "D:\\pythonProject\\BP_QAIA_PCP\\data\\instances\\2019-03-20_N20_C5.json",
+      "seed": 0,
+      "limit_seconds": 60.0,
+      "snapshots_before": 0,
+      "instance_sha256": "3256f8f56028db04104f2606a7150fc99a69395f60ceb6454a2603b64fe49cb2",
+      "status": "error",
+      "error": "GurobiError(10009, \"User name mismatch (licensed to 'hp', current user is 'codexsandboxoffline')\")",
+      "snapshots_after": 0
+    }
+  ],
+  "tasks": []
+}

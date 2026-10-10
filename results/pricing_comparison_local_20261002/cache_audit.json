@@ -1,0 +1,67 @@
+{
+  "cache_dir": "D:\\pythonProject\\BP_QAIA_PCP\\results\\cim_tasks",
+  "cache_env_override_present": false,
+  "counts": {
+    "request.json": 286,
+    "samples.npy": 183,
+    "cloud_timing.json": 285,
+    "status.json": 286,
+    "sdk_metadata.json": 183
+  },
+  "status_counts": {
+    "error": 102,
+    "completed": 183
+  },
+  "invalid_status_files": [
+    {
+      "path": "D:\\pythonProject\\BP_QAIA_PCP\\results\\cim_tasks\\bpe34d7a9e9948416fa3c0\\status.json",
+      "error": "JSONDecodeError",
+      "size_bytes": 0
+    }
+  ],
+  "request_keys": [
+    "edges",
+    "forbidden",
+    "ids",
+    "options",
+    "penalty",
+    "task",
+    "weights"
+  ],
+  "request_vertex_count_range": [
+    222,
+    830
+  ],
+  "sample_binary_validation": "183 existing samples.npy files checked: all 2D binary,3-10 sample columns each",
+  "reusable": [
+    "ordered vertex ids",
+    "pricing weights",
+    "auxiliary conflict edges",
+    "self-forbidden ids",
+    "QUBO penalty",
+    "device/precision configuration",
+    "decoded raw binary sample batches",
+    "cloud call duration",
+    "request status and SDK version"
+  ],
+  "missing_for_complete_historical_replay": [
+    "raw/effective master dual values and charger reduced-cost constant",
+    "Phase I/II",
+    "original graph/partitions/vertices and merged representative mapping",
+    "existing column pool",
+    "explicit branch context",
+    "run seed/source version and semantic task hash",
+    "actual pre-quantization and device input matrices"
+  ],
+  "complete_historical_replay": false,
+  "cache_policy": "Exact sampler-encoding match can bind historical samples to a new complete snapshot; cached reuse is labelled non-independent and cannot recover missing historical context.",
+  "sdk_audit": {
+    "kaiwu_version": "1.3.1",
+    "python_executable": "E:/Miniconda/envs/py3.10/python.exe",
+    "precision_reducer": "compiled extension;offline OptimizerBase proxy verified actual integer matrix capture and one solve invocation",
+    "http_auto_retry_default": false,
+    "submission_guard": "Replay explicitly disables retry config and rejects any second base.solve or _create_task call",
+    "new_cloud_requests_during_audit": 0
+  },
+  "protected_results": "results/result_c5_v1 was read only"
+}

@@ -74,15 +74,6 @@ class AuxiliaryGraph:
                     self.auxiliary_edges.append(Edge(vertex_i, vertex_j))
                     existing.add(key)
     
-    def get_auxiliary_edges(self) -> List[Edge]:
-        """
-        获取辅助边列表
-        
-        Returns:
-            辅助边列表
-        """
-        return self.auxiliary_edges
-    
     def update_weightf(self, dual: Dict):
         """
         更新顶点权重
@@ -102,7 +93,7 @@ class AuxiliaryGraph:
         for vertex in self.graph.vertices:
             pi = partition_duals.get(vertex.associated_partition.id, 0.0)
             mu = makespan_duals.get(vertex.id, 0.0)
-            t_v = getattr(vertex, 'end_time', 0.0)
+            t_v = vertex.end_time
             self.weight_v[vertex.id] = pi - mu * t_v
             
         # 更新合并顶点的权重
@@ -172,7 +163,6 @@ class AuxiliaryGraph:
                 e for e in self.auxiliary_edges 
                 if e.source != vertex and e.target != vertex
             ]
-            # print(len(self.vertices_map), sorted(self.vertices_map.keys()))
 
     def get_original_vertices(self, vertex: Vertex):
         """
@@ -318,7 +308,7 @@ class AuxiliaryGraph:
 
         copied_graph = AuxiliaryGraph(
             graph=self.graph,
-            vertices_map=self.vertices_map.copy(),
+            vertices_map=self.vertices_map,
             auxiliary_edges=copied_edges,
             merged_vertices_map=copied_merged_vertices_map
         )

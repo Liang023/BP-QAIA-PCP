@@ -31,7 +31,8 @@ class CIMBackend:
                             capped_skips=0, seconds=0.0, cloud_excluded_seconds=0.0,
                             local_seconds=0.0, tasks=[])
 
-    def sample(self, ids, weights, adjacency, forbidden, margin, deadline):
+    def sample(self, ids, weights, adjacency, forbidden, margin, deadline, *,
+               wall_timeout=None, request_context=None):
         empty = np.empty((len(ids), 0), dtype=np.int8)
         if len(ids)+1 > self.options["max_bits"]:
             self.metrics["size_skips"] += 1
@@ -49,7 +50,7 @@ class CIMBackend:
         request.write_text(json.dumps(dict(ids=ids, weights=[weights[v] for v in ids],
             edges=[(u, v) for u in ids for v in sorted(adjacency[u]) if u < v],
             forbidden=sorted(forbidden), penalty=max(1.0, max(weights.values()))+margin,
-            task=task, options=self.options)), encoding="utf-8")
+            task=task, options=self.options, replay_context=request_context)), encoding="utf-8")
         event = dict(task=task, directory=str(directory), status="requested")
         self.metrics["tasks"].append(event)
         self.metrics["requests"] += 1
@@ -57,8 +58,11 @@ class CIMBackend:
         cloud_seconds = 0.0
         try:
             with (directory/"worker.log").open("w", encoding="utf-8") as log:
+                worker_options = dict(stdout=log, stderr=subprocess.STDOUT)
+                if wall_timeout is not None:
+                    worker_options["timeout"] = wall_timeout
                 proc = subprocess.run([sys.executable, "-m", "cg.pricing.cim_worker",
-                    str(request), str(result)], stdout=log, stderr=subprocess.STDOUT)
+                    str(request), str(result)], **worker_options)
             timing_path = directory / "cloud_timing.json"
             if timing_path.exists():
                 cloud_seconds = json.loads(timing_path.read_text(encoding="utf-8"))["cloud_call_seconds"]
@@ -74,6 +78,10 @@ class CIMBackend:
             event["status"] = "completed"
             self.metrics["completed"] += 1
             return samples
+        except subprocess.TimeoutExpired as exc:
+            event["status"] = "time_limit_completion_unknown"
+            self.metrics["timeouts"] += 1
+            raise TimeoutError("CIM replay wall timeout; submitted task may still complete; no retry") from exc
         except Exception:
             event["status"] = "error"
             raise

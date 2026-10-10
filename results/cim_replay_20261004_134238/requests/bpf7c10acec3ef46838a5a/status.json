@@ -1,0 +1,8 @@
+{
+  "task": "bpf7c10acec3ef46838a5a",
+  "directory": "D:\\pythonProject\\BP_QAIA_PCP\\results\\cim_replay_20261004_134238\\requests\\bpf7c10acec3ef46838a5a",
+  "status": "error",
+  "seconds": 23.744081699999697,
+  "cloud_excluded_seconds": 8.123815900000409,
+  "local_seconds": 15.620265799999288
+}

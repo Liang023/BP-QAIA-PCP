@@ -1,7 +1,7 @@
 """
 将 EV 算例 JSON 转换为 PCP 图 / Instance。
 
-约定的 EV JSON 结构（与 generate_ev_instances.py 一致）：
+约定的 EV JSON 结构：
 {
   "time_horizon": 24,
   "duration": 2,
@@ -52,9 +52,6 @@ def ev_json_to_instance(ev_data: Dict[str, Any], deadline=None) -> Instance:
     vertices: List[Vertex] = []
     partitions: List[Partition] = []
 
-    # 记录 (vehicle_id, candidate_id) -> 顶点对象
-    vtx_by_pair: Dict[tuple[int, int], Vertex] = {}
-
     # 1) 为每辆车创建顶点和分区
     for veh in vehicles:
         if deadline is not None:
@@ -69,7 +66,6 @@ def ev_json_to_instance(ev_data: Dict[str, Any], deadline=None) -> Instance:
             vertex.candidate_id = cand["candidate_id"]
             vertices.append(vertex)
             cand_vertices.append(vertex)
-            vtx_by_pair[(v_id, cand["candidate_id"])] = vertex
         part = Partition(id=v_id, vertex_list=cand_vertices)
         partitions.append(part)
         # 更新每个顶点的分区引用
@@ -78,38 +74,19 @@ def ev_json_to_instance(ev_data: Dict[str, Any], deadline=None) -> Instance:
 
     # 2) 仅根据“时间重叠”创建边（与充电桩无关）
     #    即：任何两个时间段只要在时间轴上有交集，就在它们之间连一条边。
-    items: List[dict] = []
-    for veh in vehicles:
-        if deadline is not None:
-            remaining_seconds(deadline, "EV candidate construction")
-        v_id = veh["id"]
-        for cand in veh["candidates"]:
-            cid = cand["candidate_id"]
-            items.append(
-                {
-                    "vehicle_id": v_id,
-                    "candidate_id": cid,
-                    "start": cand["start"],
-                    "end": cand["end"],
-                }
-            )
-
     edges: List[Edge] = []
-    n = len(items)
-    for i in range(n):
+    n = len(vertices)
+    for i, vtx_a in enumerate(vertices):
         if deadline is not None:
             remaining_seconds(deadline, "EV conflict graph")
-        a = items[i]
-        s_a, e_a = a["start"], a["end"]
-        vtx_a = vtx_by_pair[(a["vehicle_id"], a["candidate_id"])]
+        s_a, e_a = vtx_a.start_time, vtx_a.end_time
         for j in range(i + 1, n):
             if deadline is not None and j % 256 == 0:
                 remaining_seconds(deadline, "EV conflict graph")
-            b = items[j]
-            s_b, e_b = b["start"], b["end"]
+            vtx_b = vertices[j]
+            s_b, e_b = vtx_b.start_time, vtx_b.end_time
             # 时间重叠条件（半开区间 [start, end)）
             if s_a < e_b and s_b < e_a:
-                vtx_b = vtx_by_pair[(b["vehicle_id"], b["candidate_id"])]
                 edges.append(Edge(source=vtx_a, target=vtx_b))
 
     graph = Graph(edges=edges, vertices=vertices, partitions=partitions)

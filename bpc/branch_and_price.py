@@ -140,6 +140,7 @@ class BranchAndPrice:
         if abs(self.recorder.deadline-time_end) > 1e-6:
             raise ValueError("recorder and BP must share a deadline")
         status, error = "no_solution", None
+        snapshot_root_complete = False
         try:
             if os.getenv("BPC_CAPACITY_BOUND", "1") == "1":
                 lp_seconds = float(os.getenv("BPC_BOUND_LP_SECONDS", "2"))
@@ -176,6 +177,14 @@ class BranchAndPrice:
                     self.nodes_pruned += 1
                     self.phase_one_pruned += 1
                     continue
+                if (os.getenv("PRICING_SNAPSHOT_DIR")
+                        and os.getenv("PRICING_SNAPSHOT_ROOT_ONLY", "0") == "1"
+                        and self.current_node.parent is None):
+                    # Collection has finished this root even if fewer distinct
+                    # tasks were available. Do not branch just to fill a quota.
+                    status, error = "snapshot_root_complete", None
+                    snapshot_root_complete = True
+                    break
                 remaining_seconds(time_end, "After node certification")
                 self._maybe_neighborhood(time_end)
                 if self.is_prunable_node(self.current_node):
@@ -191,15 +200,16 @@ class BranchAndPrice:
                     self.branch_node(self.current_node)
                 finally:
                     self.total_branch_time += budget_clock.now()-started
-            remaining_seconds(time_end, "Before declaring optimal")
-            self.update_global_lower_bound()
-            status = ("optimal" if self.optimal else
-                      "infeasible_proven" if not self.node_queue and self.best_solution is None
-                      and self.phase_one_pruned else "no_solution")
-            if self.optimal:
-                self.proof_source = "branch_tree_exhausted"
-            elif status == "infeasible_proven":
-                self.proof_source = "phase_one_branch_tree_exhausted"
+            if not snapshot_root_complete:
+                remaining_seconds(time_end, "Before declaring optimal")
+                self.update_global_lower_bound()
+                status = ("optimal" if self.optimal else
+                          "infeasible_proven" if not self.node_queue and self.best_solution is None
+                          and self.phase_one_pruned else "no_solution")
+                if self.optimal:
+                    self.proof_source = "branch_tree_exhausted"
+                elif status == "infeasible_proven":
+                    self.proof_source = "phase_one_branch_tree_exhausted"
         except BoundClosed:
             self.optimal = True
             self.proof_source = "validated_incumbent_matches_global_bound"
@@ -300,6 +310,15 @@ class BranchAndPrice:
         try:
             pricing_problem = PricingProblem(
                 auxiliary_graph=current_node.a_graph, name="main_pricing", dual={})
+            if os.getenv("PRICING_SNAPSHOT_DIR"):
+                ancestor, depth = current_node.parent, 0
+                while ancestor is not None:
+                    depth += 1
+                    ancestor = ancestor.parent
+                pricing_problem.snapshot_context = dict(
+                    node_id=current_node.nodeid, depth=depth,
+                    is_root=current_node.parent is None,
+                    source_instance=os.getenv("PRICING_SNAPSHOT_SOURCE_INSTANCE"))
             master_problem = MasterProblem(
                 graph=self.graph, charger_num=self.charger_num,
                 pricing_problem=pricing_problem, column_pool=current_node.column_pool,

@@ -1,6 +1,5 @@
 from typing import Dict
 from model.a_graph import AuxiliaryGraph
-from bpc.branching.branching_decision import BranchingDecision
 
 
 """
@@ -19,11 +18,7 @@ class PricingProblem:
         self.dual = dual
         self.auxiliary_graph.update_weightf(self.dual)
 
-    def branchingDecisionPerformed(self,branchingDecision:BranchingDecision):
-        pass
-
     def __str__(self):
         return f"PricingProblem(name={self.name})"
 
-    def __repr__(self):
-        return f"PricingProblem(name={self.name})"
+    __repr__ = __str__

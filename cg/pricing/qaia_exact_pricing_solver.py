@@ -130,9 +130,7 @@ class QAIAPricingSolver:
             t0 = budget_clock.now()
             if self.provider == "greedy":
                 seed = None if self.random_seed is None else self.random_seed + self.calls - 1
-                rng = np.random.default_rng(seed)
-                samples = rng.integers(0, 2, size=(len(vertex_ids), self.batch_size), dtype=np.int8)
-                samples[:, 0] = 0  # First start is deterministic weight-ordered greedy.
+                samples = self._random_samples(len(vertex_ids), self.batch_size, seed)
             elif self.provider == "cim":
                 samples = self.cim.sample(vertex_ids, weights, adjacency, forbidden,
                                           self.penalty_margin, time_end)
@@ -289,10 +287,24 @@ class QAIAPricingSolver:
             backend=self.backend,
             **self.algorithm_kwargs,
         )
-
+        if getattr(self, "record_replay_input", False) and self.backend.startswith("cpu"):
+            actual_j = solver.J.toarray() if hasattr(solver.J, "toarray") else np.asarray(solver.J)
+            actual_h = np.asarray(solver.h).reshape(-1)
+            self.last_qaia_input = dict(J=actual_j.tolist(), h=actual_h.tolist(),
+                J_dtype=str(actual_j.dtype), h_dtype=str(actual_h.dtype),
+                backend_label=self.backend, resolved_xi=float(solver.xi) if hasattr(solver, "xi") else None,
+                dt=float(solver.dt) if hasattr(solver, "dt") else None)
         solver.update()
         return solver.x
     
+    @staticmethod
+    def _random_samples(number_of_vertices: int, batch_size: int, seed=None) -> np.ndarray:
+        """Existing greedy-provider starts, shared by pricing ablations."""
+        rng = np.random.default_rng(seed)
+        samples = rng.integers(0, 2, size=(number_of_vertices, batch_size), dtype=np.int8)
+        samples[:, 0] = 0  # One deterministic weight-ordered greedy start.
+        return samples
+
     @staticmethod
     def _decode_state(raw_state, number_of_vertices: int) -> np.ndarray:
         """将 NumPy/Torch QAIA 状态转换为 {0,1} 样本矩阵。"""

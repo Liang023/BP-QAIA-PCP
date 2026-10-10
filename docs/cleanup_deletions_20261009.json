@@ -1,0 +1,682 @@
+[
+  {
+    "path": "results/result_c5/2019-03-12_N20_C5_exact_r2.process.log",
+    "reason": "Empty generated solver log; no result or diagnostic content",
+    "bytes": 0
+  },
+  {
+    "path": "results/result_c5/2019-03-12_N20_C5_qaia_tuned_s2.process.log",
+    "reason": "Empty generated solver log; no result or diagnostic content",
+    "bytes": 0
+  },
+  {
+    "path": "results/result_c5/2019-03-12_N30_C5_qaia_tuned_s0.process.log",
+    "reason": "Empty generated solver log; no result or diagnostic content",
+    "bytes": 0
+  },
+  {
+    "path": "results/result_c5/2019-03-12_N30_C5_qaia_tuned_s2.process.log",
+    "reason": "Empty generated solver log; no result or diagnostic content",
+    "bytes": 0
+  },
+  {
+    "path": "results/result_c5/2019-03-12_N40_C5_exact_r2.process.log",
+    "reason": "Empty generated solver log; no result or diagnostic content",
+    "bytes": 0
+  },
+  {
+    "path": "__pycache__/Config.cpython-310.pyc",
+    "reason": "Orphan bytecode: Config.py no longer exists",
+    "bytes": 447
+  },
+  {
+    "path": "results/result_c5/2019-03-12_N10_C5_cim_s1.log",
+    "reason": "Duplicate solver license header only; identical representative kept at results/result_c5/2019-03-12_N10_C5_cim_s0.log",
+    "bytes": 93
+  },
+  {
+    "path": "results/result_c5/2019-03-12_N10_C5_cim_s2.log",
+    "reason": "Duplicate solver license header only; identical representative kept at results/result_c5/2019-03-12_N10_C5_cim_s0.log",
+    "bytes": 93
+  },
+  {
+    "path": "results/result_c5/2019-03-12_N10_C5_compact.log",
+    "reason": "Duplicate solver license header only; identical representative kept at results/result_c5/2019-03-12_N10_C5_cim_s0.log",
+    "bytes": 93
+  },
+  {
+    "path": "results/result_c5/2019-03-12_N10_C5_exact_r0.log",
+    "reason": "Duplicate solver license header only; identical representative kept at results/result_c5/2019-03-12_N10_C5_cim_s0.log",
+    "bytes": 93
+  },
+  {
+    "path": "results/result_c5/2019-03-12_N10_C5_exact_r1.log",
+    "reason": "Duplicate solver license header only; identical representative kept at results/result_c5/2019-03-12_N10_C5_cim_s0.log",
+    "bytes": 93
+  },
+  {
+    "path": "results/result_c5/2019-03-12_N10_C5_exact_r2.log",
+    "reason": "Duplicate solver license header only; identical representative kept at results/result_c5/2019-03-12_N10_C5_cim_s0.log",
+    "bytes": 93
+  },
+  {
+    "path": "results/result_c5/2019-03-12_N10_C5_qaia_tuned_s0.log",
+    "reason": "Duplicate solver license header only; identical representative kept at results/result_c5/2019-03-12_N10_C5_cim_s0.log",
+    "bytes": 93
+  },
+  {
+    "path": "results/result_c5/2019-03-12_N10_C5_qaia_tuned_s1.log",
+    "reason": "Duplicate solver license header only; identical representative kept at results/result_c5/2019-03-12_N10_C5_cim_s0.log",
+    "bytes": 93
+  },
+  {
+    "path": "results/result_c5/2019-03-12_N10_C5_qaia_tuned_s2.log",
+    "reason": "Duplicate solver license header only; identical representative kept at results/result_c5/2019-03-12_N10_C5_cim_s0.log",
+    "bytes": 93
+  },
+  {
+    "path": "results/result_c5/2019-03-12_N20_C5_compact.log",
+    "reason": "Duplicate solver license header only; identical representative kept at results/result_c5/2019-03-12_N10_C5_cim_s0.log",
+    "bytes": 93
+  },
+  {
+    "path": "results/result_c5/2019-03-12_N30_C5_compact.log",
+    "reason": "Duplicate solver license header only; identical representative kept at results/result_c5/2019-03-12_N10_C5_cim_s0.log",
+    "bytes": 93
+  },
+  {
+    "path": "results/result_c5/2019-03-12_N40_C5_compact.log",
+    "reason": "Duplicate solver license header only; identical representative kept at results/result_c5/2019-03-12_N10_C5_cim_s0.log",
+    "bytes": 93
+  },
+  {
+    "path": "results/result_c5/2019-03-12_N40_C5_exact_r2.log",
+    "reason": "Duplicate solver license header only; identical representative kept at results/result_c5/2019-03-12_N10_C5_cim_s0.log",
+    "bytes": 93
+  },
+  {
+    "path": "results/result_c5_v1/2019-03-12_N10_C5_cim_s1.log",
+    "reason": "Duplicate solver license header only; identical representative kept at results/result_c5_v1/2019-03-12_N10_C5_cim_s0.log",
+    "bytes": 93
+  },
+  {
+    "path": "results/result_c5_v1/2019-03-12_N10_C5_cim_s2.log",
+    "reason": "Duplicate solver license header only; identical representative kept at results/result_c5_v1/2019-03-12_N10_C5_cim_s0.log",
+    "bytes": 93
+  },
+  {
+    "path": "results/result_c5_v1/2019-03-12_N10_C5_compact.log",
+    "reason": "Duplicate solver license header only; identical representative kept at results/result_c5_v1/2019-03-12_N10_C5_cim_s0.log",
+    "bytes": 93
+  },
+  {
+    "path": "results/result_c5_v1/2019-03-12_N10_C5_exact_r0.log",
+    "reason": "Duplicate solver license header only; identical representative kept at results/result_c5_v1/2019-03-12_N10_C5_cim_s0.log",
+    "bytes": 93
+  },
+  {
+    "path": "results/result_c5_v1/2019-03-12_N10_C5_exact_r1.log",
+    "reason": "Duplicate solver license header only; identical representative kept at results/result_c5_v1/2019-03-12_N10_C5_cim_s0.log",
+    "bytes": 93
+  },
+  {
+    "path": "results/result_c5_v1/2019-03-12_N10_C5_exact_r2.log",
+    "reason": "Duplicate solver license header only; identical representative kept at results/result_c5_v1/2019-03-12_N10_C5_cim_s0.log",
+    "bytes": 93
+  },
+  {
+    "path": "results/result_c5_v1/2019-03-12_N10_C5_qaia_tuned_s0.log",
+    "reason": "Duplicate solver license header only; identical representative kept at results/result_c5_v1/2019-03-12_N10_C5_cim_s0.log",
+    "bytes": 93
+  },
+  {
+    "path": "results/result_c5_v1/2019-03-12_N10_C5_qaia_tuned_s1.log",
+    "reason": "Duplicate solver license header only; identical representative kept at results/result_c5_v1/2019-03-12_N10_C5_cim_s0.log",
+    "bytes": 93
+  },
+  {
+    "path": "results/result_c5_v1/2019-03-12_N10_C5_qaia_tuned_s2.log",
+    "reason": "Duplicate solver license header only; identical representative kept at results/result_c5_v1/2019-03-12_N10_C5_cim_s0.log",
+    "bytes": 93
+  },
+  {
+    "path": "results/result_c5_v1/2019-03-12_N20_C5_compact.log",
+    "reason": "Duplicate solver license header only; identical representative kept at results/result_c5_v1/2019-03-12_N10_C5_cim_s0.log",
+    "bytes": 93
+  },
+  {
+    "path": "results/result_c5_v1/2019-03-12_N30_C5_compact.log",
+    "reason": "Duplicate solver license header only; identical representative kept at results/result_c5_v1/2019-03-12_N10_C5_cim_s0.log",
+    "bytes": 93
+  },
+  {
+    "path": "results/result_c5_v1/2019-03-12_N40_C5_compact.log",
+    "reason": "Duplicate solver license header only; identical representative kept at results/result_c5_v1/2019-03-12_N10_C5_cim_s0.log",
+    "bytes": 93
+  },
+  {
+    "path": "results/result_c5_v1/2019-03-13_N20_C5_compact.log",
+    "reason": "Duplicate solver license header only; identical representative kept at results/result_c5_v1/2019-03-12_N10_C5_cim_s0.log",
+    "bytes": 93
+  },
+  {
+    "path": "results/result_c5_v1/2019-03-13_N30_C5_compact.log",
+    "reason": "Duplicate solver license header only; identical representative kept at results/result_c5_v1/2019-03-12_N10_C5_cim_s0.log",
+    "bytes": 93
+  },
+  {
+    "path": "results/result_c5_v1/2019-03-14_N20_C5_compact.log",
+    "reason": "Duplicate solver license header only; identical representative kept at results/result_c5_v1/2019-03-12_N10_C5_cim_s0.log",
+    "bytes": 93
+  },
+  {
+    "path": "results/result_c5_v1/2019-03-14_N30_C5_compact.log",
+    "reason": "Duplicate solver license header only; identical representative kept at results/result_c5_v1/2019-03-12_N10_C5_cim_s0.log",
+    "bytes": 93
+  },
+  {
+    "path": "results/result_c5_v1/2019-03-18_N10_C5_cim_s0.log",
+    "reason": "Duplicate solver license header only; identical representative kept at results/result_c5_v1/2019-03-12_N10_C5_cim_s0.log",
+    "bytes": 93
+  },
+  {
+    "path": "results/result_c5_v1/2019-03-18_N10_C5_cim_s1.log",
+    "reason": "Duplicate solver license header only; identical representative kept at results/result_c5_v1/2019-03-12_N10_C5_cim_s0.log",
+    "bytes": 93
+  },
+  {
+    "path": "results/result_c5_v1/2019-03-18_N10_C5_cim_s2.log",
+    "reason": "Duplicate solver license header only; identical representative kept at results/result_c5_v1/2019-03-12_N10_C5_cim_s0.log",
+    "bytes": 93
+  },
+  {
+    "path": "results/result_c5_v1/2019-03-18_N10_C5_compact.log",
+    "reason": "Duplicate solver license header only; identical representative kept at results/result_c5_v1/2019-03-12_N10_C5_cim_s0.log",
+    "bytes": 93
+  },
+  {
+    "path": "results/result_c5_v1/2019-03-18_N10_C5_exact_r0.log",
+    "reason": "Duplicate solver license header only; identical representative kept at results/result_c5_v1/2019-03-12_N10_C5_cim_s0.log",
+    "bytes": 93
+  },
+  {
+    "path": "results/result_c5_v1/2019-03-18_N10_C5_exact_r1.log",
+    "reason": "Duplicate solver license header only; identical representative kept at results/result_c5_v1/2019-03-12_N10_C5_cim_s0.log",
+    "bytes": 93
+  },
+  {
+    "path": "results/result_c5_v1/2019-03-18_N10_C5_exact_r2.log",
+    "reason": "Duplicate solver license header only; identical representative kept at results/result_c5_v1/2019-03-12_N10_C5_cim_s0.log",
+    "bytes": 93
+  },
+  {
+    "path": "results/result_c5_v1/2019-03-18_N10_C5_qaia_tuned_s0.log",
+    "reason": "Duplicate solver license header only; identical representative kept at results/result_c5_v1/2019-03-12_N10_C5_cim_s0.log",
+    "bytes": 93
+  },
+  {
+    "path": "results/result_c5_v1/2019-03-18_N10_C5_qaia_tuned_s1.log",
+    "reason": "Duplicate solver license header only; identical representative kept at results/result_c5_v1/2019-03-12_N10_C5_cim_s0.log",
+    "bytes": 93
+  },
+  {
+    "path": "results/result_c5_v1/2019-03-18_N10_C5_qaia_tuned_s2.log",
+    "reason": "Duplicate solver license header only; identical representative kept at results/result_c5_v1/2019-03-12_N10_C5_cim_s0.log",
+    "bytes": 93
+  },
+  {
+    "path": "results/result_c5_v1/2019-03-18_N20_C5_compact.log",
+    "reason": "Duplicate solver license header only; identical representative kept at results/result_c5_v1/2019-03-12_N10_C5_cim_s0.log",
+    "bytes": 93
+  },
+  {
+    "path": "results/result_c5_v1/2019-03-18_N30_C5_compact.log",
+    "reason": "Duplicate solver license header only; identical representative kept at results/result_c5_v1/2019-03-12_N10_C5_cim_s0.log",
+    "bytes": 93
+  },
+  {
+    "path": "results/result_c5_v1/2019-03-18_N40_C5_cim_s0.log",
+    "reason": "Duplicate solver license header only; identical representative kept at results/result_c5_v1/2019-03-12_N10_C5_cim_s0.log",
+    "bytes": 93
+  },
+  {
+    "path": "results/result_c5_v1/2019-03-18_N40_C5_compact.log",
+    "reason": "Duplicate solver license header only; identical representative kept at results/result_c5_v1/2019-03-12_N10_C5_cim_s0.log",
+    "bytes": 93
+  },
+  {
+    "path": "results/result_c5_v1/2019-03-18_N40_C5_exact_r0.log",
+    "reason": "Duplicate solver license header only; identical representative kept at results/result_c5_v1/2019-03-12_N10_C5_cim_s0.log",
+    "bytes": 93
+  },
+  {
+    "path": "results/result_c5_v1/2019-03-19_N20_C5_cim_s0.log",
+    "reason": "Duplicate solver license header only; identical representative kept at results/result_c5_v1/2019-03-12_N10_C5_cim_s0.log",
+    "bytes": 93
+  },
+  {
+    "path": "results/result_c5_v1/2019-03-19_N20_C5_cim_s1.log",
+    "reason": "Duplicate solver license header only; identical representative kept at results/result_c5_v1/2019-03-12_N10_C5_cim_s0.log",
+    "bytes": 93
+  },
+  {
+    "path": "results/result_c5_v1/2019-03-19_N20_C5_cim_s2.log",
+    "reason": "Duplicate solver license header only; identical representative kept at results/result_c5_v1/2019-03-12_N10_C5_cim_s0.log",
+    "bytes": 93
+  },
+  {
+    "path": "results/result_c5_v1/2019-03-19_N20_C5_compact.log",
+    "reason": "Duplicate solver license header only; identical representative kept at results/result_c5_v1/2019-03-12_N10_C5_cim_s0.log",
+    "bytes": 93
+  },
+  {
+    "path": "results/result_c5_v1/2019-03-19_N20_C5_exact_r0.log",
+    "reason": "Duplicate solver license header only; identical representative kept at results/result_c5_v1/2019-03-12_N10_C5_cim_s0.log",
+    "bytes": 93
+  },
+  {
+    "path": "results/result_c5_v1/2019-03-19_N20_C5_exact_r2.log",
+    "reason": "Duplicate solver license header only; identical representative kept at results/result_c5_v1/2019-03-12_N10_C5_cim_s0.log",
+    "bytes": 93
+  },
+  {
+    "path": "results/result_c5_v1/2019-03-19_N20_C5_qaia_tuned_s0.log",
+    "reason": "Duplicate solver license header only; identical representative kept at results/result_c5_v1/2019-03-12_N10_C5_cim_s0.log",
+    "bytes": 93
+  },
+  {
+    "path": "results/result_c5_v1/2019-03-19_N20_C5_qaia_tuned_s1.log",
+    "reason": "Duplicate solver license header only; identical representative kept at results/result_c5_v1/2019-03-12_N10_C5_cim_s0.log",
+    "bytes": 93
+  },
+  {
+    "path": "results/result_c5_v1/2019-03-19_N20_C5_qaia_tuned_s2.log",
+    "reason": "Duplicate solver license header only; identical representative kept at results/result_c5_v1/2019-03-12_N10_C5_cim_s0.log",
+    "bytes": 93
+  },
+  {
+    "path": "results/result_c5_v1/2019-03-19_N30_C5_compact.log",
+    "reason": "Duplicate solver license header only; identical representative kept at results/result_c5_v1/2019-03-12_N10_C5_cim_s0.log",
+    "bytes": 93
+  },
+  {
+    "path": "results/result_c5_v1/2019-03-20_N10_C5_cim_s0.log",
+    "reason": "Duplicate solver license header only; identical representative kept at results/result_c5_v1/2019-03-12_N10_C5_cim_s0.log",
+    "bytes": 93
+  },
+  {
+    "path": "results/result_c5_v1/2019-03-20_N10_C5_cim_s1.log",
+    "reason": "Duplicate solver license header only; identical representative kept at results/result_c5_v1/2019-03-12_N10_C5_cim_s0.log",
+    "bytes": 93
+  },
+  {
+    "path": "results/result_c5_v1/2019-03-20_N10_C5_cim_s2.log",
+    "reason": "Duplicate solver license header only; identical representative kept at results/result_c5_v1/2019-03-12_N10_C5_cim_s0.log",
+    "bytes": 93
+  },
+  {
+    "path": "results/result_c5_v1/2019-03-20_N10_C5_compact.log",
+    "reason": "Duplicate solver license header only; identical representative kept at results/result_c5_v1/2019-03-12_N10_C5_cim_s0.log",
+    "bytes": 93
+  },
+  {
+    "path": "results/result_c5_v1/2019-03-20_N10_C5_exact_r0.log",
+    "reason": "Duplicate solver license header only; identical representative kept at results/result_c5_v1/2019-03-12_N10_C5_cim_s0.log",
+    "bytes": 93
+  },
+  {
+    "path": "results/result_c5_v1/2019-03-20_N10_C5_exact_r1.log",
+    "reason": "Duplicate solver license header only; identical representative kept at results/result_c5_v1/2019-03-12_N10_C5_cim_s0.log",
+    "bytes": 93
+  },
+  {
+    "path": "results/result_c5_v1/2019-03-20_N10_C5_exact_r2.log",
+    "reason": "Duplicate solver license header only; identical representative kept at results/result_c5_v1/2019-03-12_N10_C5_cim_s0.log",
+    "bytes": 93
+  },
+  {
+    "path": "results/result_c5_v1/2019-03-20_N10_C5_qaia_tuned_s0.log",
+    "reason": "Duplicate solver license header only; identical representative kept at results/result_c5_v1/2019-03-12_N10_C5_cim_s0.log",
+    "bytes": 93
+  },
+  {
+    "path": "results/result_c5_v1/2019-03-20_N10_C5_qaia_tuned_s1.log",
+    "reason": "Duplicate solver license header only; identical representative kept at results/result_c5_v1/2019-03-12_N10_C5_cim_s0.log",
+    "bytes": 93
+  },
+  {
+    "path": "results/result_c5_v1/2019-03-20_N10_C5_qaia_tuned_s2.log",
+    "reason": "Duplicate solver license header only; identical representative kept at results/result_c5_v1/2019-03-12_N10_C5_cim_s0.log",
+    "bytes": 93
+  },
+  {
+    "path": "results/result_c5_v1/2019-03-20_N20_C5_compact.log",
+    "reason": "Duplicate solver license header only; identical representative kept at results/result_c5_v1/2019-03-12_N10_C5_cim_s0.log",
+    "bytes": 93
+  },
+  {
+    "path": "results/result_c5_v1/2019-03-20_N30_C5_compact.log",
+    "reason": "Duplicate solver license header only; identical representative kept at results/result_c5_v1/2019-03-12_N10_C5_cim_s0.log",
+    "bytes": 93
+  },
+  {
+    "path": "results/result_c5_v1/2019-03-20_N40_C5_cim_s0.log",
+    "reason": "Duplicate solver license header only; identical representative kept at results/result_c5_v1/2019-03-12_N10_C5_cim_s0.log",
+    "bytes": 93
+  },
+  {
+    "path": "results/result_c5_v1/2019-03-20_N40_C5_cim_s1.log",
+    "reason": "Duplicate solver license header only; identical representative kept at results/result_c5_v1/2019-03-12_N10_C5_cim_s0.log",
+    "bytes": 93
+  },
+  {
+    "path": "results/result_c5_v1/2019-03-20_N40_C5_cim_s2.log",
+    "reason": "Duplicate solver license header only; identical representative kept at results/result_c5_v1/2019-03-12_N10_C5_cim_s0.log",
+    "bytes": 93
+  },
+  {
+    "path": "results/result_c5_v1/2019-03-20_N40_C5_compact.log",
+    "reason": "Duplicate solver license header only; identical representative kept at results/result_c5_v1/2019-03-12_N10_C5_cim_s0.log",
+    "bytes": 93
+  },
+  {
+    "path": "results/result_c5_v1/2019-03-20_N40_C5_exact_r0.log",
+    "reason": "Duplicate solver license header only; identical representative kept at results/result_c5_v1/2019-03-12_N10_C5_cim_s0.log",
+    "bytes": 93
+  },
+  {
+    "path": "results/result_c5_v1/2019-03-20_N40_C5_exact_r1.log",
+    "reason": "Duplicate solver license header only; identical representative kept at results/result_c5_v1/2019-03-12_N10_C5_cim_s0.log",
+    "bytes": 93
+  },
+  {
+    "path": "results/result_c5_v1/2019-03-20_N40_C5_exact_r2.log",
+    "reason": "Duplicate solver license header only; identical representative kept at results/result_c5_v1/2019-03-12_N10_C5_cim_s0.log",
+    "bytes": 93
+  },
+  {
+    "path": "results/result_c5_v1/2019-03-20_N40_C5_qaia_tuned_s0.log",
+    "reason": "Duplicate solver license header only; identical representative kept at results/result_c5_v1/2019-03-12_N10_C5_cim_s0.log",
+    "bytes": 93
+  },
+  {
+    "path": "results/result_c5_v1/2019-03-20_N40_C5_qaia_tuned_s1.log",
+    "reason": "Duplicate solver license header only; identical representative kept at results/result_c5_v1/2019-03-12_N10_C5_cim_s0.log",
+    "bytes": 93
+  },
+  {
+    "path": "results/result_c5_v1/2019-03-20_N40_C5_qaia_tuned_s2.log",
+    "reason": "Duplicate solver license header only; identical representative kept at results/result_c5_v1/2019-03-12_N10_C5_cim_s0.log",
+    "bytes": 93
+  },
+  {
+    "path": "results/result_c5_v1/2019-03-21_N20_C5_compact.log",
+    "reason": "Duplicate solver license header only; identical representative kept at results/result_c5_v1/2019-03-12_N10_C5_cim_s0.log",
+    "bytes": 93
+  },
+  {
+    "path": "results/result_c5_v1/2019-03-21_N30_C5_cim_s0.log",
+    "reason": "Duplicate solver license header only; identical representative kept at results/result_c5_v1/2019-03-12_N10_C5_cim_s0.log",
+    "bytes": 93
+  },
+  {
+    "path": "results/result_c5_v1/2019-03-21_N30_C5_cim_s1.log",
+    "reason": "Duplicate solver license header only; identical representative kept at results/result_c5_v1/2019-03-12_N10_C5_cim_s0.log",
+    "bytes": 93
+  },
+  {
+    "path": "results/result_c5_v1/2019-03-21_N30_C5_cim_s2.log",
+    "reason": "Duplicate solver license header only; identical representative kept at results/result_c5_v1/2019-03-12_N10_C5_cim_s0.log",
+    "bytes": 93
+  },
+  {
+    "path": "results/result_c5_v1/2019-03-21_N30_C5_compact.log",
+    "reason": "Duplicate solver license header only; identical representative kept at results/result_c5_v1/2019-03-12_N10_C5_cim_s0.log",
+    "bytes": 93
+  },
+  {
+    "path": "results/result_c5_v1/2019-03-21_N30_C5_exact_r0.log",
+    "reason": "Duplicate solver license header only; identical representative kept at results/result_c5_v1/2019-03-12_N10_C5_cim_s0.log",
+    "bytes": 93
+  },
+  {
+    "path": "results/result_c5_v1/2019-03-21_N30_C5_exact_r1.log",
+    "reason": "Duplicate solver license header only; identical representative kept at results/result_c5_v1/2019-03-12_N10_C5_cim_s0.log",
+    "bytes": 93
+  },
+  {
+    "path": "results/result_c5_v1/2019-03-21_N30_C5_exact_r2.log",
+    "reason": "Duplicate solver license header only; identical representative kept at results/result_c5_v1/2019-03-12_N10_C5_cim_s0.log",
+    "bytes": 93
+  },
+  {
+    "path": "results/result_c5_v1/2019-03-21_N30_C5_qaia_tuned_s0.log",
+    "reason": "Duplicate solver license header only; identical representative kept at results/result_c5_v1/2019-03-12_N10_C5_cim_s0.log",
+    "bytes": 93
+  },
+  {
+    "path": "results/result_c5_v1/2019-03-21_N30_C5_qaia_tuned_s1.log",
+    "reason": "Duplicate solver license header only; identical representative kept at results/result_c5_v1/2019-03-12_N10_C5_cim_s0.log",
+    "bytes": 93
+  },
+  {
+    "path": "results/result_c5_v1/2019-03-21_N30_C5_qaia_tuned_s2.log",
+    "reason": "Duplicate solver license header only; identical representative kept at results/result_c5_v1/2019-03-12_N10_C5_cim_s0.log",
+    "bytes": 93
+  },
+  {
+    "path": "results/result_c5_v1/2019-03-26_N20_C5_compact.log",
+    "reason": "Duplicate solver license header only; identical representative kept at results/result_c5_v1/2019-03-12_N10_C5_cim_s0.log",
+    "bytes": 93
+  },
+  {
+    "path": "results/result_c5_v1/2019-03-26_N30_C5_compact.log",
+    "reason": "Duplicate solver license header only; identical representative kept at results/result_c5_v1/2019-03-12_N10_C5_cim_s0.log",
+    "bytes": 93
+  },
+  {
+    "path": "results/result_c5_v1/2019-03-27_N20_C5_cim_s0.log",
+    "reason": "Duplicate solver license header only; identical representative kept at results/result_c5_v1/2019-03-12_N10_C5_cim_s0.log",
+    "bytes": 93
+  },
+  {
+    "path": "results/result_c5_v1/2019-03-27_N20_C5_cim_s1.log",
+    "reason": "Duplicate solver license header only; identical representative kept at results/result_c5_v1/2019-03-12_N10_C5_cim_s0.log",
+    "bytes": 93
+  },
+  {
+    "path": "results/result_c5_v1/2019-03-27_N20_C5_cim_s2.log",
+    "reason": "Duplicate solver license header only; identical representative kept at results/result_c5_v1/2019-03-12_N10_C5_cim_s0.log",
+    "bytes": 93
+  },
+  {
+    "path": "results/result_c5_v1/2019-03-27_N20_C5_compact.log",
+    "reason": "Duplicate solver license header only; identical representative kept at results/result_c5_v1/2019-03-12_N10_C5_cim_s0.log",
+    "bytes": 93
+  },
+  {
+    "path": "results/result_c5_v1/2019-03-27_N20_C5_exact_r0.log",
+    "reason": "Duplicate solver license header only; identical representative kept at results/result_c5_v1/2019-03-12_N10_C5_cim_s0.log",
+    "bytes": 93
+  },
+  {
+    "path": "results/result_c5_v1/2019-03-27_N20_C5_exact_r1.log",
+    "reason": "Duplicate solver license header only; identical representative kept at results/result_c5_v1/2019-03-12_N10_C5_cim_s0.log",
+    "bytes": 93
+  },
+  {
+    "path": "results/result_c5_v1/2019-03-27_N20_C5_exact_r2.log",
+    "reason": "Duplicate solver license header only; identical representative kept at results/result_c5_v1/2019-03-12_N10_C5_cim_s0.log",
+    "bytes": 93
+  },
+  {
+    "path": "results/result_c5_v1/2019-03-27_N20_C5_qaia_tuned_s0.log",
+    "reason": "Duplicate solver license header only; identical representative kept at results/result_c5_v1/2019-03-12_N10_C5_cim_s0.log",
+    "bytes": 93
+  },
+  {
+    "path": "results/result_c5_v1/2019-03-27_N20_C5_qaia_tuned_s1.log",
+    "reason": "Duplicate solver license header only; identical representative kept at results/result_c5_v1/2019-03-12_N10_C5_cim_s0.log",
+    "bytes": 93
+  },
+  {
+    "path": "results/result_c5_v1/2019-03-27_N20_C5_qaia_tuned_s2.log",
+    "reason": "Duplicate solver license header only; identical representative kept at results/result_c5_v1/2019-03-12_N10_C5_cim_s0.log",
+    "bytes": 93
+  },
+  {
+    "path": "results/result_c5_v1/2019-03-27_N30_C5_cim_s0.log",
+    "reason": "Duplicate solver license header only; identical representative kept at results/result_c5_v1/2019-03-12_N10_C5_cim_s0.log",
+    "bytes": 93
+  },
+  {
+    "path": "results/result_c5_v1/2019-03-27_N30_C5_cim_s1.log",
+    "reason": "Duplicate solver license header only; identical representative kept at results/result_c5_v1/2019-03-12_N10_C5_cim_s0.log",
+    "bytes": 93
+  },
+  {
+    "path": "results/result_c5_v1/2019-03-27_N30_C5_compact.log",
+    "reason": "Duplicate solver license header only; identical representative kept at results/result_c5_v1/2019-03-12_N10_C5_cim_s0.log",
+    "bytes": 93
+  },
+  {
+    "path": "results/result_c5_v1/2019-03-27_N30_C5_exact_r0.log",
+    "reason": "Duplicate solver license header only; identical representative kept at results/result_c5_v1/2019-03-12_N10_C5_cim_s0.log",
+    "bytes": 93
+  },
+  {
+    "path": "results/result_c5_v1/2019-03-27_N30_C5_exact_r1.log",
+    "reason": "Duplicate solver license header only; identical representative kept at results/result_c5_v1/2019-03-12_N10_C5_cim_s0.log",
+    "bytes": 93
+  },
+  {
+    "path": "results/result_c5_v1/2019-03-27_N30_C5_exact_r2.log",
+    "reason": "Duplicate solver license header only; identical representative kept at results/result_c5_v1/2019-03-12_N10_C5_cim_s0.log",
+    "bytes": 93
+  },
+  {
+    "path": "results/result_c5_v1/2019-03-27_N30_C5_qaia_tuned_s0.log",
+    "reason": "Duplicate solver license header only; identical representative kept at results/result_c5_v1/2019-03-12_N10_C5_cim_s0.log",
+    "bytes": 93
+  },
+  {
+    "path": "results/result_c5_v1/2019-03-27_N30_C5_qaia_tuned_s1.log",
+    "reason": "Duplicate solver license header only; identical representative kept at results/result_c5_v1/2019-03-12_N10_C5_cim_s0.log",
+    "bytes": 93
+  },
+  {
+    "path": "results/result_c5_v1/2019-03-27_N30_C5_qaia_tuned_s2.log",
+    "reason": "Duplicate solver license header only; identical representative kept at results/result_c5_v1/2019-03-12_N10_C5_cim_s0.log",
+    "bytes": 93
+  },
+  {
+    "path": "results/result_c5_v1/2019-03-28_N20_C5_cim_s0.log",
+    "reason": "Duplicate solver license header only; identical representative kept at results/result_c5_v1/2019-03-12_N10_C5_cim_s0.log",
+    "bytes": 93
+  },
+  {
+    "path": "results/result_c5_v1/2019-03-28_N20_C5_cim_s1.log",
+    "reason": "Duplicate solver license header only; identical representative kept at results/result_c5_v1/2019-03-12_N10_C5_cim_s0.log",
+    "bytes": 93
+  },
+  {
+    "path": "results/result_c5_v1/2019-03-28_N20_C5_cim_s2.log",
+    "reason": "Duplicate solver license header only; identical representative kept at results/result_c5_v1/2019-03-12_N10_C5_cim_s0.log",
+    "bytes": 93
+  },
+  {
+    "path": "results/result_c5_v1/2019-03-28_N20_C5_compact.log",
+    "reason": "Duplicate solver license header only; identical representative kept at results/result_c5_v1/2019-03-12_N10_C5_cim_s0.log",
+    "bytes": 93
+  },
+  {
+    "path": "results/result_c5_v1/2019-03-28_N20_C5_exact_r0.log",
+    "reason": "Duplicate solver license header only; identical representative kept at results/result_c5_v1/2019-03-12_N10_C5_cim_s0.log",
+    "bytes": 93
+  },
+  {
+    "path": "results/result_c5_v1/2019-03-28_N20_C5_exact_r1.log",
+    "reason": "Duplicate solver license header only; identical representative kept at results/result_c5_v1/2019-03-12_N10_C5_cim_s0.log",
+    "bytes": 93
+  },
+  {
+    "path": "results/result_c5_v1/2019-03-28_N20_C5_exact_r2.log",
+    "reason": "Duplicate solver license header only; identical representative kept at results/result_c5_v1/2019-03-12_N10_C5_cim_s0.log",
+    "bytes": 93
+  },
+  {
+    "path": "results/result_c5_v1/2019-03-28_N20_C5_qaia_tuned_s0.log",
+    "reason": "Duplicate solver license header only; identical representative kept at results/result_c5_v1/2019-03-12_N10_C5_cim_s0.log",
+    "bytes": 93
+  },
+  {
+    "path": "results/result_c5_v1/2019-03-28_N20_C5_qaia_tuned_s1.log",
+    "reason": "Duplicate solver license header only; identical representative kept at results/result_c5_v1/2019-03-12_N10_C5_cim_s0.log",
+    "bytes": 93
+  },
+  {
+    "path": "results/result_c5_v1/2019-03-28_N20_C5_qaia_tuned_s2.log",
+    "reason": "Duplicate solver license header only; identical representative kept at results/result_c5_v1/2019-03-12_N10_C5_cim_s0.log",
+    "bytes": 93
+  },
+  {
+    "path": "results/result_c5_v1/2019-03-28_N30_C5_compact.log",
+    "reason": "Duplicate solver license header only; identical representative kept at results/result_c5_v1/2019-03-12_N10_C5_cim_s0.log",
+    "bytes": 93
+  },
+  {
+    "path": "results/result_c5_v1/2019-03-29_N20_C5_compact.log",
+    "reason": "Duplicate solver license header only; identical representative kept at results/result_c5_v1/2019-03-12_N10_C5_cim_s0.log",
+    "bytes": 93
+  },
+  {
+    "path": "results/result_c5_v1/2019-03-29_N30_C5_cim_s0.log",
+    "reason": "Duplicate solver license header only; identical representative kept at results/result_c5_v1/2019-03-12_N10_C5_cim_s0.log",
+    "bytes": 93
+  },
+  {
+    "path": "results/result_c5_v1/2019-03-29_N30_C5_cim_s1.log",
+    "reason": "Duplicate solver license header only; identical representative kept at results/result_c5_v1/2019-03-12_N10_C5_cim_s0.log",
+    "bytes": 93
+  },
+  {
+    "path": "results/result_c5_v1/2019-03-29_N30_C5_cim_s2.log",
+    "reason": "Duplicate solver license header only; identical representative kept at results/result_c5_v1/2019-03-12_N10_C5_cim_s0.log",
+    "bytes": 93
+  },
+  {
+    "path": "results/result_c5_v1/2019-03-29_N30_C5_compact.log",
+    "reason": "Duplicate solver license header only; identical representative kept at results/result_c5_v1/2019-03-12_N10_C5_cim_s0.log",
+    "bytes": 93
+  },
+  {
+    "path": "results/result_c5_v1/2019-03-29_N30_C5_exact_r0.log",
+    "reason": "Duplicate solver license header only; identical representative kept at results/result_c5_v1/2019-03-12_N10_C5_cim_s0.log",
+    "bytes": 93
+  },
+  {
+    "path": "results/result_c5_v1/2019-03-29_N30_C5_exact_r1.log",
+    "reason": "Duplicate solver license header only; identical representative kept at results/result_c5_v1/2019-03-12_N10_C5_cim_s0.log",
+    "bytes": 93
+  },
+  {
+    "path": "results/result_c5_v1/2019-03-29_N30_C5_exact_r2.log",
+    "reason": "Duplicate solver license header only; identical representative kept at results/result_c5_v1/2019-03-12_N10_C5_cim_s0.log",
+    "bytes": 93
+  },
+  {
+    "path": "results/result_c5_v1/2019-03-29_N30_C5_qaia_tuned_s0.log",
+    "reason": "Duplicate solver license header only; identical representative kept at results/result_c5_v1/2019-03-12_N10_C5_cim_s0.log",
+    "bytes": 93
+  },
+  {
+    "path": "results/result_c5_v1/2019-03-29_N30_C5_qaia_tuned_s1.log",
+    "reason": "Duplicate solver license header only; identical representative kept at results/result_c5_v1/2019-03-12_N10_C5_cim_s0.log",
+    "bytes": 93
+  },
+  {
+    "path": "results/result_c5_v1/2019-03-29_N30_C5_qaia_tuned_s2.log",
+    "reason": "Duplicate solver license header only; identical representative kept at results/result_c5_v1/2019-03-12_N10_C5_cim_s0.log",
+    "bytes": 93
+  }
+]

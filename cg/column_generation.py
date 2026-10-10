@@ -46,6 +46,12 @@ class ColumnGeneration:
         self.new_columns = []
         self.on_candidate = on_candidate
         self.after_master = after_master
+        # Snapshot collection is opt-in; the disabled path does not build an
+        # encoding, read model rows, write files, or alter pricing behavior.
+        self.snapshot_collector = None
+        if os.getenv("PRICING_SNAPSHOT_DIR"):
+            from cg.pricing.pricing_snapshot import SnapshotCollector
+            self.snapshot_collector = SnapshotCollector.from_environment()
 
     def solve(self, time_end: float, *, initial_columns=True):
         """
@@ -134,6 +140,13 @@ class ColumnGeneration:
         start = budget_clock.now()
         try:
             self.pricing_problem.update_pricing_problem(dual)
+            if self.snapshot_collector is not None:
+                context = dict(getattr(self.pricing_problem, "snapshot_context", {}))
+                context["cg_iteration"] = self.iteration
+                heuristic = getattr(self.pricing_solver, "qaia_solver", None)
+                self.snapshot_collector.capture(
+                    self.pricing_problem, self.column_pool, heuristic,
+                    self.master, context)
             return self.pricing_solver.generate_columns(time_end)
         finally:
             self.pricingSolveTime += budget_clock.now() - start

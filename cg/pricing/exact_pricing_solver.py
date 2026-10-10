@@ -4,7 +4,6 @@ from bpc.branching.branching_decision import BranchingDecision
 import gurobipy as grb
 from typing import Dict
 from model.a_graph import AuxiliaryGraph
-import time
 import os
 from cg.deadline import remaining_seconds
 class ExactPricingSolver:

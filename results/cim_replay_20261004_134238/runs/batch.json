@@ -1,0 +1,76 @@
+{
+  "schema_version": 1,
+  "batch_id": "runs_20261004T054246026825",
+  "tasks": [
+    {
+      "task_hash": "359e14b4e5af48459c57ed99850305d2b28969aba4c161dcc34140ec337a451b",
+      "snapshot_path": "D:\\pythonProject\\BP_QAIA_PCP\\results\\pricing_comparison_local_20261002\\snapshots_user\\snapshot_359e14b4e5af48459c57ed99850305d2b28969aba4c161dcc34140ec337a451b.json",
+      "file_sha256": "3857a56de3b47bca16d1e1a3b258073f48129c77d38d8020e81f7206727ee597",
+      "phase": "II_penalized_initial",
+      "context": null
+    },
+    {
+      "task_hash": "46fb675dd929895c9491d69bdcf2179accf816cd09dab2f08bc54490ca244405",
+      "snapshot_path": "D:\\pythonProject\\BP_QAIA_PCP\\results\\pricing_comparison_local_20261002\\snapshots_user\\snapshot_46fb675dd929895c9491d69bdcf2179accf816cd09dab2f08bc54490ca244405.json",
+      "file_sha256": "1064c412163fdfa822250dbcdc810c0797fc59218790a634d0e88880146181f8",
+      "phase": "II_penalized_initial",
+      "context": null
+    },
+    {
+      "task_hash": "6cf29f03caa6816afc64a2d32d7f8081ebbd3e6ffa5e2a2fb9385b8526d6b90d",
+      "snapshot_path": "D:\\pythonProject\\BP_QAIA_PCP\\results\\pricing_comparison_local_20261002\\snapshots_user\\snapshot_6cf29f03caa6816afc64a2d32d7f8081ebbd3e6ffa5e2a2fb9385b8526d6b90d.json",
+      "file_sha256": "f7383f7ad28b63a3a31de603cd65fb4268dd2e2981202bc6e2ad173062ddc595",
+      "phase": "II_penalized_initial",
+      "context": null
+    },
+    {
+      "task_hash": "6ef2752507c92dd3625a90bf2ea958d57bc5bed9c91f7e361b8bfcecf8429c32",
+      "snapshot_path": "D:\\pythonProject\\BP_QAIA_PCP\\results\\pricing_comparison_local_20261002\\snapshots_user\\snapshot_6ef2752507c92dd3625a90bf2ea958d57bc5bed9c91f7e361b8bfcecf8429c32.json",
+      "file_sha256": "0e677b91a580af6b76ee6b130c7bf37d8004ab007977cae3213a8952c603ab5e",
+      "phase": "II_penalized_initial",
+      "context": null
+    },
+    {
+      "task_hash": "e55794791e8640bef7732a4f89cd9ad1486c1ea3277629dbca83e058acf7885b",
+      "snapshot_path": "D:\\pythonProject\\BP_QAIA_PCP\\results\\pricing_comparison_local_20261002\\snapshots_user\\snapshot_e55794791e8640bef7732a4f89cd9ad1486c1ea3277629dbca83e058acf7885b.json",
+      "file_sha256": "9c5fd93b944dd0d30a63a4cf8a876c4358cb36b7586fbaeb0366ff17dc18beee",
+      "phase": "II_penalized_initial",
+      "context": null
+    },
+    {
+      "task_hash": "ef9d7223a69b0f26f0bfcc6ebde6ef71cdb0853bbce13a5dad3cdc39533c4fb8",
+      "snapshot_path": "D:\\pythonProject\\BP_QAIA_PCP\\results\\pricing_comparison_local_20261002\\snapshots_user\\snapshot_ef9d7223a69b0f26f0bfcc6ebde6ef71cdb0853bbce13a5dad3cdc39533c4fb8.json",
+      "file_sha256": "11dacb02f68991d9fe200169df2e0a9b3639936fe0d4c8f898ee15b77ecb62c4",
+      "phase": "II_penalized_initial",
+      "context": null
+    }
+  ],
+  "methods": [
+    "cim"
+  ],
+  "repeats": 3,
+  "base_seed": 0,
+  "expected_new_cim_requests_maximum": 18,
+  "automatic_retries": 0,
+  "seed_rule": "base_seed + repeat_index (same seed across methods and tasks)",
+  "arguments": {
+    "command": "replay",
+    "snapshots": null,
+    "task_manifest": "D:\\pythonProject\\BP_QAIA_PCP\\results\\pricing_comparison_local_20261002\\classical_verified\\fixed_tasks.json",
+    "out_dir": "D:\\pythonProject\\BP_QAIA_PCP\\results\\cim_replay_20261004_134238\\runs",
+    "methods": [
+      "cim"
+    ],
+    "repeats": 3,
+    "sample_limit": 10,
+    "max_columns": 3,
+    "seed": 0,
+    "n_iter": 200,
+    "time_limit": 600.0,
+    "task_limit": 6,
+    "require_tasks": 6,
+    "cim_mode": "new",
+    "allow_new_cim": true,
+    "cache_dir": "D:\\pythonProject\\BP_QAIA_PCP\\results\\cim_replay_20261004_134238\\requests"
+  }
+}
